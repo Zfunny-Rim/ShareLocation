@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>
-	Shin!! Hello world!  222
+	Shin!! Hello world!
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
