@@ -65,6 +65,22 @@
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
+<<<<<<< HEAD
+<!-- 	admin -->
+		<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/admin-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>*.ad</url-pattern>
+=======
 <!-- memeber -->	
 	<servlet>
 		<servlet-name>member</servlet-name>
@@ -94,6 +110,7 @@
 	<servlet-mapping>
 		<servlet-name>mall</servlet-name>
 		<url-pattern>*.mall</url-pattern>
+>>>>>>> refs/heads/ShareLocation_JH
 	</servlet-mapping>
 	
 </web-app>
