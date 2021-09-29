@@ -20,6 +20,7 @@ public class spaceListCmd {
 	public ModelAndView doAction(ModelAndView mav) {
 		
 		
+		mav.setViewName(getPage);
 		return mav;
 	}
 	
