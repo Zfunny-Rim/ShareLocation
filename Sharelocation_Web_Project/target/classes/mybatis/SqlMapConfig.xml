@@ -3,9 +3,11 @@
 			"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
+		<typeAlias alias="MyMember" type="member.model.Member"/>
+		<typeAlias alias="MyMall" type="mall.model.Mall"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/member.xml"/>
+		<mapper resource="mybatis/mall.xml"/>
 	</mappers>
 </configuration>
