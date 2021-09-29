@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <header class='mb-3'>
 	<nav class="navbar navbar-expand navbar-light bg-dark" id="navbar">
 		<div class="logo-image" style="width: 200px; margin-right: 50px;">

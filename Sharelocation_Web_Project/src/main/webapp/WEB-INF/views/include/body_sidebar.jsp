@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <div id="sidebar">
 	<div class="sidebar-wrapper">
 		<div class="sidebar-header">
@@ -75,7 +77,7 @@
 						<i class="bi bi-chat-right-text-fill"></i> <span>Q&A</span>
 				</a></li>
 				<li class="sidebar-title"></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="main.ho" class='sidebar-link'>
 						<i class="bi bi-cart"></i> <span>호스트 되기</span>
 				</a></li>
 			</ul>
