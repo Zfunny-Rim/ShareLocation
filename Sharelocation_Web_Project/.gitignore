@@ -9,6 +9,7 @@
 *.log
 *.MF
 *.properties
+*.springBean
 
 # BlueJ files
 *.ctxt
