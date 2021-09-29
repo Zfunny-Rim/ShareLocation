@@ -5,7 +5,8 @@ UserMain.jsp
 
 
 <center>
-	<table border="1" action="/insert.user">
+<form action="register.mem" method="post">
+	<table border="1">
 
 		<tr>
 			<td>아이디: <input type="text" name="id">
@@ -36,28 +37,26 @@ UserMain.jsp
 			<td>생일: <input name="birth" type="date">
 			</td>
 		</tr>
-		<tr>
-			<td>휴대전화: <input name="genter" type="text">
-			</td>
-		</tr>
+	
 		<tr>
 			<td>성별: <input name="gender" type="radio" value="남">남 <input
 				name="gender" type="radio" value="여">여
 			</td>
 		</tr>
 		<tr>
-			<td>성별: <input name="type" type="text">
+			<td>종류: <input name="type" type="text">
 			</td>
 		</tr>
 		<tr>
-			<td>성별: <input name="joindate" type="date">
+			<td>가입날자: <input name="joindate" type="date">
 			</td>
 		</tr>
 		<tr>
-		<td>
+		<td align="center">
 		<input type="submit" value="전송">
 		</td>
 		</tr>
 		
 	</table>
+</form>
 </center>
