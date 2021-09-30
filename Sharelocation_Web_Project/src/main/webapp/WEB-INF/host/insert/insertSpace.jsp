@@ -9,7 +9,7 @@
     <title>IPS partagé</title>
     <%@ include file="/WEB-INF/views/include/head_css.jsp" %>
     <%-- ******* CUSTOM CSS Link HERE ******* --%>
-    
+    <link rel="stylesheet" href="./resources/assets/vendors/choices.js/choices.min.css">
     <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 
@@ -40,7 +40,7 @@
                         </div>
                         
                     	<div class="row justify-content-md-center">
-							<div class="col-md-8 col-12">
+							<div class="col-md-9 col-12">
 	                            <div class="card">
 	                                <div class="card-header">
 	                                    <h4 class="card-title">공간정보 입력</h4>
@@ -54,63 +54,144 @@
 	                                                        <label>공간 이름</label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-	                                                        <input type="text" id="first-name" class="form-control" name="name" placeholder="First Name">
+	                                                        <input type="text" id="first-name" class="form-control" name="name">
 	                                                    </div>
-	                                                    <% String[][] spaceTypeArr = {{"파티룸", "스터디룸", "강의실", "카페", "공유주방", "회의실"},
+	                                                    <% String[][] spaceTypeArr = {{"파티룸", "스터디룸", "게임룸", "카페", "공유주방", "회의실"},
 	                                                    							{"연습실", "보컬연습실", "악기연습실", "녹음실", "운동시설"},
-	                                                    							{"촬영스튜디오", "라이브방송", "공연장", "갤러리", "스몰웨딩"}}; %>
-	                                                    <div class="col-md-4">
-	                                                        <label>공간 종류</label>
-	                                                    </div>
-	                                                    <div class="col-md-8 form-group">
-	                                                    	<input type="radio" class="btn-check" name="type" id="partyRoom" autocomplete="off" value="파티룸">
-	                                                    	<label class="btn btn-outline-primary" for="partyRoom">파티룸</label>
-	                                                    	
-	                                                    	<input type="radio" class="btn-check" name="type" id="studyRoom" autocomplete="off" value="스터디룸">
-	                                                    	<label class="btn btn-outline-primary" for="studyRoom">스터디룸</label>
-	                                                    	
-	                                                    	<input type="radio" class="btn-check" name="type" id="lectureRoom" autocomplete="off" value="강의실">
-	                                                    	<label class="btn btn-outline-primary" for="lectureRoom">강의실</label>
+	                                                    							{"촬영스튜디오", "라이브방송", "공연장", "갤러리", "스몰웨딩"},
+	                                                    							{"공유오피스", "독립오피스", "강의실", "세미나실", "컨퍼런스"}}; %>
+	                                                    <c:forEach var="spaceTypeArr1" items="<%=spaceTypeArr%>" varStatus="vs">
+	                                                    	<div class="col-md-4">
+	                                                        	<label>
+	                                                        		<c:if test="${vs.count eq 1 }">
+	                                                        			공간 종류
+	                                                        		</c:if>
+	                                                        	</label>
+	                                                   		</div>
+	                                                   		<div class="col-md-8 form-group">
+		                                                   		<c:forEach var="spaceTypeStr" items="${spaceTypeArr1 }">
+		                                                   			<input type="radio" class="btn-check" name="type" 
+		                                                   					id="${spaceTypeStr }" autocomplete="off" value="${spaceTypeStr }">
+	                                                    			<label class="btn btn-outline-primary" for="${spaceTypeStr }">${spaceTypeStr }</label>
+		                                                   		</c:forEach>
+	                                                   		</div>
+	                                                    </c:forEach>
 
-	                                                    	<input type="radio" class="btn-check" name="type" id="caffe" autocomplete="off" value="카페">
-	                                                    	<label class="btn btn-outline-primary" for="caffe">카페</label>
-	                                                    </div>
 	                                                    <div class="col-md-4">
-	                                                        <label></label>
+	                                                        <label>공간 한줄소개</label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-	                                                    	<input type="radio" class="btn-check" name="type" id="partyRoom" autocomplete="off" value="파티룸">
-	                                                    	<label class="btn btn-outline-primary" for="partyRoom">파티룸</label>
-	                                                    	
-	                                                    	<input type="radio" class="btn-check" name="type" id="studyRoom" autocomplete="off" value="스터디룸">
-	                                                    	<label class="btn btn-outline-primary" for="studyRoom">스터디룸</label>
-	                                                    	
-	                                                    	<input type="radio" class="btn-check" name="type" id="lectureRoom" autocomplete="off" value="강의실">
-	                                                    	<label class="btn btn-outline-primary" for="lectureRoom">강의실</label>
-
-	                                                    	<input type="radio" class="btn-check" name="type" id="caffe" autocomplete="off" value="카페">
-	                                                    	<label class="btn btn-outline-primary" for="caffe">카페</label>
+	                                                        <input type="text" id="contents_sim" class="form-control" name="contents-sim">
 	                                                    </div>
 	                                                    <div class="col-md-4">
-	                                                        <label>Mobile</label>
+	                                                        <label>공간 소개</label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-	                                                        <input type="number" id="contact-info" class="form-control" name="contact" placeholder="Mobile">
+	                                                        <textarea class="form-control" rows="3" name="contents_com"
+	                                                        	style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;"></textarea>
 	                                                    </div>
 	                                                    <div class="col-md-4">
-	                                                        <label>Password</label>
+	                                                        <label>공간 태그</label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-	                                                        <input type="password" id="password" class="form-control" name="password" placeholder="Password">
+															<input class="form-control"	id="choices-text-remove-button" type="text"	value="" placeholder="Enter something"/>
+														</div>
+														<div class="col-md-4">
+															<label>시설 안내</label>
+														</div>
+														<div class="col-md-8 form-group">
+															<div class="input-group mb-2">
+			                                                    <input type="text" class="form-control" placeholder="">
+			                                                    <button class="btn btn-primary" type="button" id="button-addon1">추가</button>
+			                                                </div>
+															<fieldset class="form-group">
+																<select class="form-select" id="basicSelect" multiple>
+																	<option>IT</option>
+																	<option>Blade Runner</option>
+																	<option>Thor Ragnarok</option>
+																</select>
+															</fieldset>
+		                                                    <div class="col-sm-12 d-flex justify-content-end">
+			                                                    <button class="btn btn-sm btn-danger" type="button" id="button-addon1">선택삭제</button>
+	                                                    	</div>
+														</div>
+														<div class="col-md-4">
+	                                                        <label>사용 시 주의사항</label>
 	                                                    </div>
-	                                                    <div class="col-12 col-md-8 offset-md-4 form-group">
-	                                                        <div class="form-check">
-	                                                            <div class="checkbox">
-	                                                                <input type="checkbox" id="checkbox1" class="form-check-input" checked="">
-	                                                                <label for="checkbox1">Remember Me</label>
-	                                                            </div>
-	                                                        </div>
+	                                                    <div class="col-md-8 form-group">
+	                                                        <textarea class="form-control" rows="3" name="warning"
+	                                                        	style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;"></textarea>
 	                                                    </div>
+														<div class="col-md-4">
+															<label>대표 이미지</label>
+														</div>
+														<div class="col-md-8 form-group">
+															<input class="form-control" type="file" name="mainimage">
+														</div>
+														<div class="col-md-4">
+															<label>이미지</label>
+														</div>
+														<div class="col-md-8 form-group">
+															<input class="form-control" type="file" name="image" multiple="">
+														</div>
+														<div class="col-md-4">
+															<label>주소(위치)</label>
+														</div>
+														<div class="col-md-8 form-group">
+															<div class="input-group mb-2">
+			                                                    <input type="text" class="form-control" placeholder="현재 동작하지 않음. 추후 API 추가 예정">
+			                                                    <button class="btn btn-primary" type="button" id="button-addon1">주소검색</button>
+			                                                </div>
+		                                                    <input type="text" class="form-control" name="address" placeholder="상세주소">
+														</div>
+	                                                    <div class="col-md-4">
+															<label>웹사이트</label>
+														</div>
+														<div class="col-md-8 form-group">
+		                                                    <input type="text" class="form-control" name="site" placeholder="URL">
+														</div>
+	                                                    <div class="col-md-4">
+															<label>이메일</label>
+														</div>
+														<div class="col-md-8 form-group">
+		                                                    <div class="input-group mb-3">
+			                                                    <input type="text" class="form-control" name="email_id">
+			                                                    <span class="input-group-text">@</span>
+			                                                    <input type="text" class="form-control" name="email_domain">
+			                                                    <select class="form-select">
+			                                                        <option>직접입력</option>
+			                                                        <option>naver.com</option>
+			                                                        <option>hanmail.net</option>
+			                                                        <option>gmail.com</option>
+			                                                    </select>
+			                                                </div>
+														</div>
+	                                                    <div class="col-md-4">
+															<label>연락처</label>
+														</div>
+														<div class="col-md-8 form-group">
+		                                                    <div class="input-group mb-3">
+			                                                    <input type="text" class="form-control" name="hp1" value="010">
+			                                                    <span class="input-group-text">-</span>
+			                                                    <input type="text" class="form-control" name="hp2">
+			                                                    <span class="input-group-text">-</span>
+			                                                    <input type="text" class="form-control" name="hp3">
+			                                                </div>
+														</div>
+	                                                    <div class="col-md-4">
+															<label>이용시간</label>
+														</div>
+														<div class="col-md-8 form-group">
+		                                                    <div class="input-group mb-3">
+			                                                    <select class="form-select">
+			                                                        <option>직접입력</option>
+			                                                        <option>naver.com</option>
+			                                                        <option>hanmail.net</option>
+			                                                        <option>gmail.com</option>
+			                                                    </select>
+			                                                </div>
+														</div>
+														
 	                                                    <div class="col-sm-12 d-flex justify-content-end">
 	                                                        <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
 	                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
@@ -129,10 +210,23 @@
             </div>
         </div>
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
-		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		
+		<script src="./resources/assets/vendors/choices.js/choices.min.js"></script>
+		<script>
+		      document.addEventListener('DOMContentLoaded', function() {
+		        var textRemove = new Choices(
+		                document.getElementById('choices-text-remove-button'),
+		                {
+		                  delimiter: ',',
+		                  editItems: true,
+		                  maxItemCount: 5,
+		                  removeItemButton: true,
+		                }
+		      	);
+		      });
+    	</script>
 		<%-- ******* CUSTOM Script END ******* --%>
+		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 	</div>
 </body>
 </html>
