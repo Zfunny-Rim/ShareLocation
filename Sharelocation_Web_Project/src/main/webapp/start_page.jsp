@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <% 
 
-	String viewPage = request.getContextPath()+"/list.sp";
+	String viewPage = request.getContextPath();
 
 	response.sendRedirect(viewPage);
 %>
