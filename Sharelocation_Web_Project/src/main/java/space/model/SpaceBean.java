@@ -3,31 +3,33 @@ package space.model;
 public class SpaceBean {
 
 	private int num;
-	private int member_num;
+	private int membernum;
 	private String name;
 	private String type;
-	private String contents_sim;
-	private String contents_com;
+	private String contentssim;
+	private String contentscom;
+	private String mainimage;
 	private String warning;
 	private String site;
 	private String address;
 	private String email;
 	private String hp;
-	private String operating_time;
+	private String operatingtime;
 	private String holiday;
 	private String grade;
 	
+
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getMember_num() {
-		return member_num;
+	public int getMembernum() {
+		return membernum;
 	}
-	public void setMember_num(int member_num) {
-		this.member_num = member_num;
+	public void setMembernum(int membernum) {
+		this.membernum = membernum;
 	}
 	public String getName() {
 		return name;
@@ -41,17 +43,23 @@ public class SpaceBean {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getContents_sim() {
-		return contents_sim;
+	public String getContentssim() {
+		return contentssim;
 	}
-	public void setContents_sim(String contents_sim) {
-		this.contents_sim = contents_sim;
+	public void setContentssim(String contentssim) {
+		this.contentssim = contentssim;
 	}
-	public String getContents_com() {
-		return contents_com;
+	public String getContentscom() {
+		return contentscom;
 	}
-	public void setContents_com(String contents_com) {
-		this.contents_com = contents_com;
+	public void setContentscom(String contentscom) {
+		this.contentscom = contentscom;
+	}
+	public String getMainimage() {
+		return mainimage;
+	}
+	public void setMainimage(String mainimage) {
+		this.mainimage = mainimage;
 	}
 	public String getWarning() {
 		return warning;
@@ -83,11 +91,11 @@ public class SpaceBean {
 	public void setHp(String hp) {
 		this.hp = hp;
 	}
-	public String getOperating_time() {
-		return operating_time;
+	public String getOperatingtime() {
+		return operatingtime;
 	}
-	public void setOperating_time(String operating_time) {
-		this.operating_time = operating_time;
+	public void setOperatingtime(String operatingtime) {
+		this.operatingtime = operatingtime;
 	}
 	public String getHoliday() {
 		return holiday;
@@ -105,6 +113,12 @@ public class SpaceBean {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	@Override
+	public String toString() {
+		return "SpaceBean [num=" + num + ", membernum=" + membernum + ", name=" + name + ", type=" + type
+				+ ", contentssim=" + contentssim + ", contentscom=" + contentscom + ", mainimage=" + mainimage
+				+ ", warning=" + warning + ", site=" + site + ", address=" + address + ", email=" + email + ", hp=" + hp
+				+ ", operatingtime=" + operatingtime + ", holiday=" + holiday + ", grade=" + grade + "]";
+	}
 	
 }
