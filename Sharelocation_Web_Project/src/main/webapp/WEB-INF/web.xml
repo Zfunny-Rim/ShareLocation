@@ -65,7 +65,7 @@
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
-<<<<<<< HEAD
+
 	
 	<!-- HOST -->
 	<servlet>
