@@ -23,4 +23,12 @@ public class SpaceDao {
 		return spaceLists;
 	}
 
+	public SpaceBean getSpace(int num) {
+		
+		SpaceBean space = sqlSessionTemplate.selectOne(namespace+".getSpace", num);
+		System.out.println("SpaceDao »Æ¿Œ"+space);
+		
+		return space;
+	}
+
 }

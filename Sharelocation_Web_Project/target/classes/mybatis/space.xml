@@ -11,4 +11,11 @@ order by num desc
 
 </select>
 
+<select id="getSpace" resultType="MySpace">
+
+select * from space
+where num = #{num}
+
+</select>
+
 </mapper>

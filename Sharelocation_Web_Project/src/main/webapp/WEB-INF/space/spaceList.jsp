@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <script type="text/javascript">
-function viewDetail(){
-	
-	
+function viewDetail(num){
+	//alert(1);
+	location.href="detailView.sp?num="+num;
 }
 
 
@@ -50,7 +50,7 @@ function viewDetail(){
 										</div>
 										<div class="card-footer d-flex justify-content-between">
 											<p><span>${space.address}</span></p>
-											<button onclick="viewDetail()" class="btn btn-light-primary">detail</button>
+											<button onclick="viewDetail(${space.num})" class="btn btn-light-primary">detail</button>
 										</div>
 									</div>
 								</div>
