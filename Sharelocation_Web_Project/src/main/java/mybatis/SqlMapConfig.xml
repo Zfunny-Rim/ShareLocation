@@ -3,20 +3,14 @@
 			"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-<<<<<<< HEAD
 		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
-=======
 		<typeAlias alias="MyMember" type="member.model.Member"/>
 		<typeAlias alias="MyMall" type="mall.model.Mall"/>
->>>>>>> refs/heads/SHIN
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/member.xml"/>
-<<<<<<< HEAD
 		<mapper resource="mybatis/space.xml"/>
-=======
 		<mapper resource="mybatis/mall.xml"/>
->>>>>>> refs/heads/SHIN
 	</mappers>
 </configuration>

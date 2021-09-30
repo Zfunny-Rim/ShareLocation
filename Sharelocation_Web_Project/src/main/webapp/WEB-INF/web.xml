@@ -65,17 +65,10 @@
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
-<<<<<<< HEAD
 	
-	<!-- HOST -->
+<!-- HOST -->
 	<servlet>
 		<servlet-name>host</servlet-name>
-=======
-<<<<<<< HEAD
-<!-- 	admin -->
-		<servlet>
-		<servlet-name>admin</servlet-name>
->>>>>>> refs/heads/SHIN
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
@@ -83,14 +76,13 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
 	<servlet-mapping>
-<<<<<<< HEAD
 		<servlet-name>host</servlet-name>
 		<url-pattern>*.ho</url-pattern>
 	</servlet-mapping>
+	
 <!-- 	space -->
-		<servlet>
+	<servlet>
 		<servlet-name>space</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -103,10 +95,7 @@
 	<servlet-mapping>
 		<servlet-name>space</servlet-name>
 		<url-pattern>*.sp</url-pattern>
-=======
-		<servlet-name>admin</servlet-name>
-		<url-pattern>*.ad</url-pattern>
-=======
+	</servlet-mapping>
 <!-- memeber -->	
 	<servlet>
 		<servlet-name>member</servlet-name>
@@ -117,12 +106,11 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
 	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.member</url-pattern>
 	</servlet-mapping>
-	
+<!-- mall -->
 	<servlet>
 		<servlet-name>mall</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -132,12 +120,9 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
 	<servlet-mapping>
 		<servlet-name>mall</servlet-name>
 		<url-pattern>*.mall</url-pattern>
->>>>>>> refs/heads/ShareLocation_JH
->>>>>>> refs/heads/SHIN
 	</servlet-mapping>
 	
 </web-app>
