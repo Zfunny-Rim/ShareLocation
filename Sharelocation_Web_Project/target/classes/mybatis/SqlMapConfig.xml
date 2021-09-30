@@ -10,10 +10,8 @@
 	
 	<mappers>
 		<mapper resource="mybatis/member.xml"/>
-<<<<<<< HEAD
+
 		<mapper resource="mybatis/space.xml"/>
-=======
-		
->>>>>>> branch 'HS' of https://github.com/Zfunny-Rim/ShareLocation.git
+
 	</mappers>
 </configuration>
