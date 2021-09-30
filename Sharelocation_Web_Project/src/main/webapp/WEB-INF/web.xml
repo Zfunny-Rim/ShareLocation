@@ -64,6 +64,7 @@
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
+<<<<<<< HEAD
 <!-- HOST -->
 	<servlet>
 		<servlet-name>host</servlet-name>
@@ -94,6 +95,8 @@
 		<url-pattern>*.sp</url-pattern>
 	</servlet-mapping>
 	
+=======
+>>>>>>> refs/heads/SHIN
 <!-- memeber -->	
 	<servlet>
 		<servlet-name>member</servlet-name>
