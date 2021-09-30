@@ -4,4 +4,11 @@
 			
 <mapper namespace="space.model.SpaceBean">
 
+<select id="getSpaceList" resultType="MySpace">
+select * from space
+
+order by num desc
+
+</select>
+
 </mapper>
