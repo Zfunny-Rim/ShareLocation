@@ -48,7 +48,7 @@
 	                                </div>
 	                                <div class="card-content">
 	                                    <div class="card-body">
-	                                        <form class="form form-horizontal" action="insertSpace_1.ho" method="post">
+	                                        <form class="form form-horizontal" action="insertSpace_1.ho" method="post" enctype="multipart/form-data">
 	                                            <div class="form-body">
 	                                                <div class="row">
 	                                                	<div class="divider">
@@ -130,13 +130,13 @@
 															<label>대표 이미지</label>
 														</div>
 														<div class="col-md-8 form-group">
-															<input class="form-control" type="file" name="mainimage">
+															<input class="form-control" type="file" name="mainimage_file">
 														</div>
 														<div class="col-md-4">
 															<label>이미지</label>
 														</div>
 														<div class="col-md-8 form-group">
-															<input class="form-control" type="file" name="spaceimage" multiple="">
+															<input class="form-control" type="file" name="spaceimage_file" multiple="multiple">
 														</div>
 														<div class="col-md-4">
 															<label>주소(위치)</label>
