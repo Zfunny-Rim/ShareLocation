@@ -65,10 +65,16 @@
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
+<<<<<<< HEAD
 	
 <!-- HOST -->
 	<servlet>
 		<servlet-name>host</servlet-name>
+=======
+<!-- 	admin -->
+		<servlet>
+		<servlet-name>admin</servlet-name>
+>>>>>>> refs/heads/SHIN
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
@@ -93,8 +99,13 @@
 	</servlet>
 		
 	<servlet-mapping>
+<<<<<<< HEAD
 		<servlet-name>space</servlet-name>
 		<url-pattern>*.sp</url-pattern>
+=======
+		<servlet-name>admin</servlet-name>
+		<url-pattern>*.ad</url-pattern>
+>>>>>>> refs/heads/SHIN
 	</servlet-mapping>
 <!-- memeber -->	
 	<servlet>
@@ -120,6 +131,10 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+<<<<<<< HEAD
+=======
+		   
+>>>>>>> refs/heads/SHIN
 	<servlet-mapping>
 		<servlet-name>mall</servlet-name>
 		<url-pattern>*.mall</url-pattern>
