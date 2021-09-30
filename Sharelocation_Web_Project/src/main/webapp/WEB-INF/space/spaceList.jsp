@@ -3,7 +3,14 @@
 	
 <!DOCTYPE html>
 <html lang="ko">
+<script type="text/javascript">
+function viewDetail(){
+	
+	
+}
 
+
+</script>
 
 	
 <head>
@@ -43,7 +50,7 @@
 										</div>
 										<div class="card-footer d-flex justify-content-between">
 											<p><span>${space.address}</span></p>
-											<button class="btn btn-light-primary">detail</button>
+											<button onclick="viewDetail()" class="btn btn-light-primary">detail</button>
 										</div>
 									</div>
 								</div>
