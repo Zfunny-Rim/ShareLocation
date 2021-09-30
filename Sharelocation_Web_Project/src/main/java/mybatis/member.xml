@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="model.member.MyMember">
+<mapper namespace="member.model.MemberBean">
+
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from members
+		<if test="whatColumn=='id'">
+			where id like #{keyword}
+		</if>
+		<if test="whatColumn=='성별'">
+			where gender like #{keyword}
+		</if>
+	
+	</select>
+
+	<select id="getMemberList" resultType="MyMember">
+		select * from members
+			<if test="whatColumn=='id'">
+			where id like #{keyword}
+		</if>
+		<if test="whatColumn=='성별'">
+			where gender like #{keyword}
+		</if>
+		order by num desc
+	</select>
+
+	<select id="getData" resultType="MyMember">
+		select * from members
+		where id = #{id}
+	</select>
+
+	<insert id="insertMember">
+	insert into members
+	values(members_seq.nextval,#{id},#{password},#{nickname},#{email},#{adress},#{hp},#{birth},#{gender},#{type},#{point},#{joindate})
+	</insert>
 
 </mapper>

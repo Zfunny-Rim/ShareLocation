@@ -24,13 +24,14 @@
                     	<div class="card">
 	                    	<div class="card-content">
 		                    	<div class="main-image mx-auto">
-			                        <img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid">
+			                        <a href ="list.sp"><img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid"></a> 
+			                       <!--  그림 누르면 placeList 이동 임시 -->
 		                    	</div>
 	                    	</div>
                     	</div>
                     	<%-- ******* Main Code END ******* --%>
                     </section>
-                </div>
+                </div>	
             </div>
         </div>
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>

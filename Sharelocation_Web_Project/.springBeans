@@ -8,7 +8,11 @@
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/main-servlet.xml</config>
+<<<<<<< HEAD
 		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>
+=======
+		<config>src/main/webapp/WEB-INF/spring/appServlet/memeber-servlet.xml</config>
+>>>>>>> branch 'HS' of https://github.com/Zfunny-Rim/ShareLocation.git
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
