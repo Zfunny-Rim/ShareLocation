@@ -59,27 +59,11 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
 	<servlet-mapping>
 		<servlet-name>main</servlet-name>
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
-<!-- 	admin -->
-		<servlet>
-		<servlet-name>admin</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/admin-servlet.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		
-	<servlet-mapping>
-		<servlet-name>admin</servlet-name>
-		<url-pattern>*.ad</url-pattern>
-	</servlet-mapping>
 <!-- memeber -->	
 	<servlet>
 		<servlet-name>member</servlet-name>
@@ -90,25 +74,9 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
 	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.member</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>mall</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/mall-servlet.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		   
-	<servlet-mapping>
-		<servlet-name>mall</servlet-name>
-		<url-pattern>*.mall</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
