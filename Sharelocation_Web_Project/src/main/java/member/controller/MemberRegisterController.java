@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import member.model.Member;
+import member.model.MemberBean;
 import member.model.MemberDao;
 
 @Controller
@@ -26,7 +26,7 @@ public class MemberRegisterController {
 	
 	@RequestMapping(value = command, method =RequestMethod.POST)
 	public ModelAndView goActionPOST(
-			Member member,
+			MemberBean member,
 			ModelAndView mav
 			) {
 		
