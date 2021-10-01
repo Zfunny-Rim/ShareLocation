@@ -12,12 +12,12 @@ public class MemberDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 
-	public Member getData(String id) {
-		Member member = sqlSessionTemplate.selectOne(namespace+"getData",id);
+	public MemberBean getData(String id) {
+		MemberBean member = sqlSessionTemplate.selectOne(namespace+"getData",id);
 		return member;
 	}
 
-	public void insertMember(Member member) {
+	public void insertMember(MemberBean member) {
 		sqlSessionTemplate.insert(namespace+"insertMember");
 	}
 }

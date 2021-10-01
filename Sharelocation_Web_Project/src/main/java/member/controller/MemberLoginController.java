@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import member.model.Member;
+import member.model.MemberBean;
 import member.model.MemberDao;
 
 @Controller
@@ -25,12 +25,12 @@ public class MemberLoginController {
 
 	 @RequestMapping(value = command,method = RequestMethod.POST)
 	  public String doAction(
-			  Member member,
+			  MemberBean member,
 			  HttpServletResponse response,
 			  HttpSession session
 			  ) throws IOException {
 		 
-		 Member dbMember = mdao.getData(member.getId());
+		 MemberBean dbMember = mdao.getData(member.getId());
 		 PrintWriter pw = response.getWriter();
 		 response.setContentType("text/html;charset=UTF-8");
 		 
