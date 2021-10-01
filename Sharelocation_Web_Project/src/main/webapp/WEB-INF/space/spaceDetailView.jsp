@@ -25,7 +25,7 @@
 						<div>
 							<div class="card">
 								<div class="card-header">
-									<h4>${space.name }</h4>
+									<h4>${space.name } <a href="#" class="btn btn-danger" onclick=" favorite(${space.num})">찜하기</a></h4> 
 
 								</div>
 								<div class="card-body"
@@ -83,11 +83,7 @@
 							<h4 class="card-title">${space.contents_com}</h4>
 							<h4 class="card-title">지도</h4>
 							<h4 class="card-title">지도</h4>
-							<h4 class="card-title">지도</h4>
-							<h4 class="card-title">지도</h4>
-							<h4 class="card-title">지도</h4>
-							<h4 class="card-title">지도</h4>
-							<h4 class="card-title">지도</h4>
+			
 						</div>
 						<!-- 설명 끝1 -->
 
@@ -107,22 +103,22 @@
 										<div class="card-body" >
 											<form>
 											
-											<div class="card-body">
+											<div class="card-body" style="width:auto" >
                                        <!-- Table with outer spacing -->
                                         <div class="table-responsive">
-                                            <table class="table table-lg">
+                                            <table class="table table-lg" style="width: auto;"> 
 
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-bold-500">Michael Right</td>
-                                                        <td>$15/hr</td>
+                                                        <td class="text-bold-500" >Michael Right</td>
+                                                        <td align="center">$15/hr</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-bold-500" >시간선택</td>
-                                                        <td><div class="col-md-6 mb-4">
+                                                        <td class="text-bold-500">시간선택</td>
+                                                        <td align="center"><div class="col-md-6 mb-4">
                                                 <fieldset class="form-group" class="text-bold-500">
-                                                    <select class="form-select" id="basicSelect" name="time" style="width: 180px; margin-top: 22px;" > <!-- 이름 확인해봐야됨 -->
+                                                    <select class="form-select" id="basicSelect" name="time" style="width: 160px; margin-top: 22px;" > <!-- 이름 확인해봐야됨 -->
                                                         <option >10~12</option>
                                                         <option>12~14</option>
                                                         <option>14~16</option>
@@ -133,7 +129,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="text-bold-500">가격</td>
-                                                        <td>$15/hr</td>
+                                                        <td align="center">$15/hr</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2"  class="text-bold-500" align="center"><a class="btn btn-secondary">예약하기</a></td>
@@ -166,7 +162,16 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-
+	
+	<script type="text/javascript">
+	
+	function favorite(num){
+		alert(num);
+	}
+	
+	
+	
+	</script>
 
 
 
