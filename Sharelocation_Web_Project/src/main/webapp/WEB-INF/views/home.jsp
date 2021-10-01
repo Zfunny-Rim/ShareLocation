@@ -6,11 +6,7 @@
 </head>
 <body>
 <h1>
-<<<<<<< HEAD
-	Hello world!1
-=======
 	 Hello world! <!-- pulltest -->
->>>>>>> refs/heads/ShareLocation_JH
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
