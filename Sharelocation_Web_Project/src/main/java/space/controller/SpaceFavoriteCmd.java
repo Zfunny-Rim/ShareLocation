@@ -30,7 +30,6 @@ public class SpaceFavoriteCmd {
 			FavoriteBean bean, HttpServletResponse response
 			) throws IOException {
 		System.out.println("spaceDetailView");
-		PrintWriter pw = response.getWriter();
 		
 		bean.setMemberNum(memberNum); 
 		bean.setSpaceNum(spaceNum);

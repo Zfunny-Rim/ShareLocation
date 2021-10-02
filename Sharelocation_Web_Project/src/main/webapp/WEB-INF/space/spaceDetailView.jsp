@@ -26,8 +26,8 @@
 							<div class="page-title">
 								<div class="row">
 									<div class="col-12 col-md-6 order-md-1 order-last">
-										<h3>${space.name } ${space.num},${space.memberNum}
-											<a href="#" class="btn btn-danger" onclick="favorite()">찜하기</a>
+										<h3>${space.name }
+											<a href="#" class="btn btn-danger" onclick="favorite(${space.num},${space.memberNum})">찜하기</a>
 										</h3>
 									</div>
 									<div class="col-12 col-md-6 order-md-2 order-first">
@@ -123,7 +123,7 @@
 														aria-labelledby="headingOne" data-parent="#cardAccordion">
 														<div class="card-body">
 																<!-- reservation 넘어가기 -->
-<form action ="reserv.rv">
+
 																<div class="card-body" style="width: auto">
 																	<!-- Table with outer spacing -->
 																	<div class="table-responsive">
@@ -167,7 +167,7 @@
 																		</table>
 																	</div>
 																</div>
-														</form>
+													
 														</div>
 													</div>
 												</div>
@@ -197,8 +197,8 @@
 
 	<script type="text/javascript">
 	
-	function favorite(){
-		alert();
+	function favorite(spaceNum,memberNum){
+		alert(memberNum ,num);
 		location.href="favorite.sp?spaceNum="+spaceNum+"&memberNum="+memberNum;
 	}
 	
