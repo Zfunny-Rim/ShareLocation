@@ -18,4 +18,17 @@ where num = #{num}
 
 </select>
 
+<insert id="addFavorite">
+
+insert into favorite
+values(favorite_seq.nextval, #{spaceNum},#{memberNum})
+</insert>
+
+
+
+<delete id="delFavorite">
+delete from favorite
+where spaceNum = #{spaceNum} and memberNum = #{memberNum}
+</delete>
+
 </mapper>

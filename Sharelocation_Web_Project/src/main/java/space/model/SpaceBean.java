@@ -3,31 +3,30 @@ package space.model;
 public class SpaceBean {
 
 	private int num;
-	private int member_num;
+	private int memberNum;
 	private String name;
 	private String type;
-	private String contents_sim;
-	private String contents_com;
+	private String contentsSim;
+	private String contentsCom;
 	private String warning;
 	private String site;
 	private String address;
 	private String email;
 	private String hp;
-	private String operating_time;
+	private String operatingTime;
 	private String holiday;
 	private String grade;
-	
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getMember_num() {
-		return member_num;
+	public int getMemberNum() {
+		return memberNum;
 	}
-	public void setMember_num(int member_num) {
-		this.member_num = member_num;
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
 	}
 	public String getName() {
 		return name;
@@ -41,17 +40,17 @@ public class SpaceBean {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getContents_sim() {
-		return contents_sim;
+	public String getContentsSim() {
+		return contentsSim;
 	}
-	public void setContents_sim(String contents_sim) {
-		this.contents_sim = contents_sim;
+	public void setContentsSim(String contentsSim) {
+		this.contentsSim = contentsSim;
 	}
-	public String getContents_com() {
-		return contents_com;
+	public String getContentsCom() {
+		return contentsCom;
 	}
-	public void setContents_com(String contents_com) {
-		this.contents_com = contents_com;
+	public void setContentsCom(String contentsCom) {
+		this.contentsCom = contentsCom;
 	}
 	public String getWarning() {
 		return warning;
@@ -83,11 +82,11 @@ public class SpaceBean {
 	public void setHp(String hp) {
 		this.hp = hp;
 	}
-	public String getOperating_time() {
-		return operating_time;
+	public String getOperatingTime() {
+		return operatingTime;
 	}
-	public void setOperating_time(String operating_time) {
-		this.operating_time = operating_time;
+	public void setOperatingTime(String operatingTime) {
+		this.operatingTime = operatingTime;
 	}
 	public String getHoliday() {
 		return holiday;
@@ -101,10 +100,30 @@ public class SpaceBean {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	public SpaceBean(int num, int memberNum, String name, String type, String contentsSim, String contentsCom,
+			String warning, String site, String address, String email, String hp, String operatingTime, String holiday,
+			String grade) {
+		super();
+		this.num = num;
+		this.memberNum = memberNum;
+		this.name = name;
+		this.type = type;
+		this.contentsSim = contentsSim;
+		this.contentsCom = contentsCom;
+		this.warning = warning;
+		this.site = site;
+		this.address = address;
+		this.email = email;
+		this.hp = hp;
+		this.operatingTime = operatingTime;
+		this.holiday = holiday;
+		this.grade = grade;
+	}
 	public SpaceBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	
 }

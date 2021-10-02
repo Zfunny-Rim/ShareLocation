@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class SpaceDao {
 
 	private String namespace = "space.model.SpaceBean";
+
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
@@ -29,6 +30,31 @@ public class SpaceDao {
 		System.out.println("SpaceDao »Æ¿Œ"+space);
 		
 		return space;
+	}
+
+	
+
+	public int addFavorite(FavoriteBean bean) {
+		
+		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
+	
+		
+		return cnt;
+	}
+
+	public FavoriteBean getFavortie(FavoriteBean bean) {
+		
+		FavoriteBean fb = sqlSessionTemplate.selectOne(namespace+".getFavortie", bean );
+		
+		return fb;
+	}
+
+	public int delFavorite(FavoriteBean bean) {
+	
+		int cnt = sqlSessionTemplate.delete(namespace+".delFavorite",bean);
+	
+		
+		return cnt;
 	}
 
 }

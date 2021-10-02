@@ -22,14 +22,32 @@
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
-						<div>
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>${space.name } <a href="#" class="btn btn-danger" onclick=" favorite(${space.num},${space.memberNum})">찜하기</a></h3>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                             </nav>
+                        </div>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="card">
+              
+                        <div class="card-body">
+                     <!-- 기본 틀 -->
+                     
+                    <div>
+                    
+                    <!-- 사진시작 -->
 							<div class="card">
 								<div class="card-header">
-									<h4>${space.name } <a href="#" class="btn btn-danger" onclick=" favorite(${space.num})">찜하기</a></h4> 
-
 								</div>
 								<div class="card-body"
-									style="height: 600px; width: 600px; float: left;">
+									style="height: auto; width: 400px; float: left;">
 									<div id="carouselExampleCaptions" class="carousel slide"
 										data-bs-ride="carousel">
 										<ol class="carousel-indicators">
@@ -47,8 +65,7 @@
 													class="d-block w-100" alt="...">
 												<div class="carousel-caption d-none d-md-block">
 													<h5>${space.name }first</h5>
-													<p>Nulla vitae elit libero, a pharetra augue mollis
-														interdum.</p>
+													<p>${space.contentsSim}</p>
 												</div>
 											</div>
 											<div class="carousel-item">
@@ -57,8 +74,7 @@
 													class="d-block w-100" alt="...">
 												<div class="carousel-caption d-none d-md-block">
 													<h5>${space.name }Second</h5>
-													<p>Nulla vitae elit libero, a pharetra augue mollis
-														interdum.</p>
+													<p>${space.contentsSim }</p>
 												</div>
 											</div>
 										</div>
@@ -78,11 +94,12 @@
 							</div>
 						</div>
 						<!-- 설명 시작1 -->
-						<div class="card-header" style="width: 65%; float: left;">
-							<h4 class="card-title">${space.contents_sim}</h4>
-							<h4 class="card-title">${space.contents_com}</h4>
+						<div class="card-header" style="width: 50%; float: left;">
+							<h4 class="card-title">${space.contentsSim}</h4>
+							<h4 class="card-title">${space.contentsCom}</h4>
 							<h4 class="card-title">지도</h4>
-							<h4 class="card-title">지도</h4>
+							<h4 class="card-title">사용자 후기</h4>
+						    <h5></h5>
 			
 						</div>
 						<!-- 설명 끝1 -->
@@ -101,7 +118,7 @@
 									<div id="collapseOne" class="collapse pt-1"
 										aria-labelledby="headingOne" data-parent="#cardAccordion">
 										<div class="card-body" >
-											<form>
+											<form action = "/reservation.rs" method="get"> <!-- reservation 넘어가기 -->
 											
 											<div class="card-body" style="width:auto" >
                                        <!-- Table with outer spacing -->
@@ -132,15 +149,14 @@
                                                         <td align="center">$15/hr</td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2"  class="text-bold-500" align="center"><a class="btn btn-secondary">예약하기</a></td>
+                                                        <td colspan="2"  class="text-bold-500" align="center">
+                                                        <input type="submit" class="btn btn-secondary" value="예약하기"></td>
                                                     </tr>
 
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-											
-											
 											</form>
 									
 										</div>
@@ -149,6 +165,18 @@
 							</div>
 						</div>
 						<!-- 	  접히는거 끝 -->
+                     
+                     
+                     
+                     
+                     
+                     
+                     <!-- 기본 틀 -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+						
 
 
 
@@ -165,10 +193,14 @@
 	
 	<script type="text/javascript">
 	
-	function favorite(num){
-		alert(num);
+	function favorite(spaceNum,memberNum){
+		//alert(memberNum ,num);
+		location.href="favorite.sp?spaceNum="+spaceNum+"&memberNum="+memberNum;
 	}
 	
+	function favorite reserve(){
+		alert(1);
+	}
 	
 	
 	</script>

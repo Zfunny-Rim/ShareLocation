@@ -42,7 +42,7 @@ function viewDetail(num){
 										<div class="card-content">
 											<div class="card-body" >
 												<h4 class="card-title">${space.name}</h4>
-												<p class="card-text">${space.contents_sim}
+												<p class="card-text">${space.contentsSim}
 												</p>
 											</div>
 											<img class="img-fluid w-100"
