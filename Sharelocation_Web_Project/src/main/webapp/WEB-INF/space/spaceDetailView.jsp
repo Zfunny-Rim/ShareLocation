@@ -27,7 +27,8 @@
 								<div class="row">
 									<div class="col-12 col-md-6 order-md-1 order-last">
 										<h3>${space.name }
-											<a href="#" class="btn btn-danger" onclick="favorite(${space.num},${space.memberNum})">찜하기</a>
+											<a href="#" class="btn btn-danger"
+												onclick="favorite(${space.num},${space.memberNum})">찜하기</a>
 										</h3>
 									</div>
 									<div class="col-12 col-md-6 order-md-2 order-first">
@@ -100,7 +101,7 @@
 											<h4 class="card-title">${space.contentsCom}</h4>
 											<h4 class="card-title">지도</h4>
 											<h4 class="card-title">사용자 후기</h4>
-							
+
 
 
 										</div>
@@ -108,7 +109,7 @@
 
 
 										<!-- 	  접히는거 시작 -->
-										
+
 										<div class="card-header"
 											style="width: auto; align-content: center;">
 											<div class="accordion" id="cardAccordion" style="width: auto">
@@ -122,11 +123,12 @@
 													<div id="collapseOne" class="collapse pt-1"
 														aria-labelledby="headingOne" data-parent="#cardAccordion">
 														<div class="card-body">
-																<!-- reservation 넘어가기 -->
+															<!-- reservation 넘어가기 -->
 
-																<div class="card-body" style="width: auto">
-																	<!-- Table with outer spacing -->
-																	<div class="table-responsive">
+															<div class="card-body" style="width: auto">
+																<!-- Table with outer spacing -->
+																<div class="table-responsive">
+																	<form action="/reserv.rv">
 																		<table class="table table-lg" style="width: auto;">
 
 																			<tbody>
@@ -165,9 +167,10 @@
 
 																			</tbody>
 																		</table>
-																	</div>
+																	</form>
 																</div>
-													
+															</div>
+
 														</div>
 													</div>
 												</div>
@@ -195,10 +198,10 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 
-	<script type="text/javascript">
+		<script type="text/javascript">
 	
 	function favorite(spaceNum,memberNum){
-		alert(memberNum ,num);
+		//alert(spaceNum ,memberNum);
 		location.href="favorite.sp?spaceNum="+spaceNum+"&memberNum="+memberNum;
 	}
 	

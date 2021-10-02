@@ -6,7 +6,7 @@
 
 <select id="getSpaceList" resultType="MySpace">
 select * from space
-
+where name like #{keyword}
 order by num desc
 
 </select>

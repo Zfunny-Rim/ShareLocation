@@ -16,10 +16,10 @@ public class SpaceDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<SpaceBean> getSpaceList() {
+	public List<SpaceBean> getSpaceList(String keyword) {
 
 		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
-		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList");
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword);
 			
 		return spaceLists;
 	}

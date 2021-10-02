@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import space.model.SpaceBean;
@@ -20,10 +21,11 @@ public class spaceListCmd {
 	SpaceDao spaceDao;
 	
 	@RequestMapping(value = command)
-	public ModelAndView doAction(ModelAndView mav) {
+	public ModelAndView doAction(ModelAndView mav,
+			@RequestParam(value ="keyword",required = false) String keyword) {
 		
 		
-		List<SpaceBean> spaceLists = spaceDao.getSpaceList();
+		List<SpaceBean> spaceLists = spaceDao.getSpaceList("%"+keyword+"%");
 		System.out.println("spaceLists °¹¼ö"+spaceLists.size());
 		mav.addObject("spaceLists",spaceLists);
 		mav.setViewName(getPage);

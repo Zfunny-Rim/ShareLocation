@@ -3,14 +3,7 @@
 	
 <!DOCTYPE html>
 <html lang="ko">
-<script type="text/javascript">
-function viewDetail(num){
-	//alert(1);
-	location.href="detailView.sp?num="+num;
-}
 
-
-</script>
 
 	
 <head>
@@ -66,6 +59,15 @@ function viewDetail(num){
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+<script type="text/javascript">
+function viewDetail(num){
+	//alert(1);
+	location.href="detailView.sp?num="+num;
+}
+
+
+</script>
+
 
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
