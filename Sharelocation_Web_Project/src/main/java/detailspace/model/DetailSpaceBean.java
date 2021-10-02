@@ -1,20 +1,39 @@
 package detailspace.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 public class DetailSpaceBean {
 	private int num;
 	private int spacenum;
+	@Length(min=2, max=10, message="이름은 2자에서 10자 사이로 입력하세요.")
 	private String name;
 	private String type;
+	@NotBlank(message="대표이미지를 선택해주세요.")
 	private String mainimage;
+	@Min(value=1, message="최소 예약시간은 1시간 이상으로 설정해주세요.")
+	@Max(value=24, message="최소 예약시간은 24시간 이하로 설정해주세요.")
 	private int mintime;
+	@Min(value=1, message="최소 인원은 1명 이상으로 설정해주세요.")
 	private int minperson;
+	@Min(value=1, message="최대 인원은 1명 이상으로 설정해주세요.")
 	private int maxperson;
 	private String priceunit;
+	@Min(value=0, message="가격은 음수를 입력할 수 없습니다.")
 	private int price;
-	
+	//
 	private MultipartFile mainimagefile;
+	public MultipartFile getMainimagefile() {
+		return mainimagefile;
+	}
+	public void setMainimagefile(MultipartFile mainimagefile) {
+		this.mainimagefile = mainimagefile;
+		this.setMainimage(mainimagefile.getOriginalFilename());
+	}
 	
 	public DetailSpaceBean() {
 		super();
@@ -115,12 +134,12 @@ public class DetailSpaceBean {
 		this.price = price;
 	}
 
-	public MultipartFile getMainimagefile() {
-		return mainimagefile;
-	}
-
-	public void setMainimagefile(MultipartFile mainimagefile) {
-		this.mainimagefile = mainimagefile;
+	@Override
+	public String toString() {
+		return "DetailSpaceBean [num=" + num + ", spacenum=" + spacenum + ", name=" + name + ", type=" + type
+				+ ", mainimage=" + mainimage + ", mintime=" + mintime + ", minperson=" + minperson + ", maxperson="
+				+ maxperson + ", priceunit=" + priceunit + ", price=" + price + ", mainimagefile=" + mainimagefile
+				+ "]";
 	}
 	
 	

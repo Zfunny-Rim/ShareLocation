@@ -31,8 +31,8 @@
 		                            <div class="col-6 col-md-6 order-md-2 order-first">
 		                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 		                                    <ol class="breadcrumb">
-		                                        <li class="breadcrumb-item "><b>공간정보 입력</b></li>
-		                                        <li class="breadcrumb-item active" aria-current="page">세부공간정보 입력</li>
+		                                        <li class="breadcrumb-item ">공간정보 입력</li>
+		                                        <li class="breadcrumb-item active" aria-current="page"><b>세부공간정보 입력</b></li>
 		                                        <li class="breadcrumb-item ">정산정보 입력</li>
 		                                    </ol>
 		                                </nav>
@@ -56,7 +56,7 @@
 											</c:if>
 	                                    </div>
 	                                    <div class="card-footer d-flex justify-content-between">
-	                                    		<button class="btn btn-light-primary">세부공간 추가하기</button>
+	                                    		<button class="btn btn-light-primary" onClick="location.href='detailSpaceInsert.ho?spaceNum=11'">세부공간 추가하기</button>
 												<button class="btn btn-primary">다음</button>
 	                                    </div>
 	                                </div>

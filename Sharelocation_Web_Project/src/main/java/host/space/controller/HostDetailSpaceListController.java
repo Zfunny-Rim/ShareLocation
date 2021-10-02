@@ -14,7 +14,7 @@ import space.model.SpaceBean;
 import space.model.SpaceDao;
 
 @Controller
-public class HostDetailSpaceList {
+public class HostDetailSpaceListController {
 	private final String command = "/detailSpaceList.ho";
 	private final String viewPage = "hostDetailSpaceList";
 	
