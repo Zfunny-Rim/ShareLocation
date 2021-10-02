@@ -31,4 +31,9 @@ delete from favorite
 where spaceNum = #{spaceNum} and memberNum = #{memberNum}
 </delete>
 
+<!-- <select id="getReview" resultType="reviewBoard.model.reviewBoardBean">
+select * from reiewBoard
+order by num desc
+</select> -->
+
 </mapper>

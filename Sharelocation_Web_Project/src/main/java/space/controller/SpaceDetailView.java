@@ -1,5 +1,6 @@
 package space.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,13 @@ public class SpaceDetailView {
 		
 		SpaceBean space = spaceDao.getSpace(num);
 		System.out.println("space »Æ¿Œ"+space);
+		
+
+		//List<ReviewBoardBean> review = reviewBoardDao.getReview(num);
+		
+		
 		mav.addObject("space",space);
+		//mav.addObject("review", review);
 		mav.setViewName(getPage);
 		
 		return mav;
