@@ -28,19 +28,23 @@
                 <div class="page-heading">
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
-                    	<div class="row">
-                            <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>공간 등록하기</h3>
-                            </div>
-                            <div class="col-12 col-md-6 order-md-2 order-first">
-                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item active" aria-current="page"><b>공간정보 입력</b></li>
-                                        <li class="breadcrumb-item ">세부공간정보 입력</li>
-                                        <li class="breadcrumb-item ">정산정보 입력</li>
-                                    </ol>
-                                </nav>
-                            </div>
+                    	<div class="row justify-content-md-center mb-2">
+                    		<div class="col-md-9 col-12">
+                    			<div class="row">
+		                    		<div class="col-6 col-md-6 order-md-1 order-last">
+		                                <h3>공간 등록하기</h3>
+		                            </div>
+		                            <div class="col-6 col-md-6 order-md-2 order-first">
+		                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+		                                    <ol class="breadcrumb">
+		                                        <li class="breadcrumb-item active" aria-current="page"><b>공간정보 입력</b></li>
+		                                        <li class="breadcrumb-item ">세부공간정보 입력</li>
+		                                        <li class="breadcrumb-item ">정산정보 입력</li>
+		                                    </ol>
+		                                </nav>
+		                            </div>
+                    			</div>
+                    		</div>
                         </div>
                         
                     	<div class="row justify-content-md-center">
@@ -51,7 +55,7 @@
 	                                </div>
 	                                <div class="card-content">
 	                                    <div class="card-body">
-	                                        <form:form commandName="spaceBean" class="form form-horizontal" action="insertSpace_1.ho" method="post" enctype="multipart/form-data" name="insert_form">
+	                                        <form:form commandName="spaceBean" class="form form-horizontal" action="insertSpace.ho" method="post" enctype="multipart/form-data" name="insert_form">
 	                                            <div class="form-body">
 	                                                <div class="row">
 	                                                	<div class="divider">

@@ -1,17 +1,21 @@
 package host.space.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,34 +27,31 @@ public class HostSpaceInsertController {
 	public final String command = "insertSpace.ho";
 	public final String command_tier1 = "insertSpace_1.ho";
 	public final String viewPage = "insert/insertSpace";
+	public final String gotoPage = "hostSpaceList";
 	
 	@Autowired
 	ServletContext servletContext;
 	
-	@RequestMapping(value=command)
+	@RequestMapping(value=command, method = RequestMethod.GET)
 	public ModelAndView doAction() {
 		ModelAndView mav = new ModelAndView(viewPage);
 		return mav;
 	}
 	
-	@RequestMapping(value=command_tier1)
+	@RequestMapping(value=command, method = RequestMethod.POST)
 	public ModelAndView insert_tier1(@Valid SpaceBean spaceBean, BindingResult result,
-			HttpServletRequest request, MultipartHttpServletRequest mtfRequest) {
+			HttpServletRequest request, MultipartHttpServletRequest mtfRequest,
+			HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
 		ModelAndView mav = new ModelAndView(viewPage);
+		
 		System.out.println(spaceBean);
 		if(result.hasErrors()) {
 			System.out.println("has Error");
 			return mav;
 		}
-		
-//		//email처리
-//		String email = ((String)request.getParameter("email_id"))+"@"+((String)request.getParameter("email_domain"));
-//		spaceBean.setEmail(email);
-//		//hp처리
-//		String hp = ((String)request.getParameter("hp1"))+"-"+
-//					((String)request.getParameter("hp2"))+"-"+
-//					((String)request.getParameter("hp3"));
-//		spaceBean.setHp(hp);
+		mav.setViewName(gotoPage);
 		
 		//operatingtime 처리
 		String operatingtime = ((String)request.getParameter("starttime"))+"~"+
@@ -88,6 +89,9 @@ public class HostSpaceInsertController {
 		for(String facStr:facilityList) {
 			System.out.println(facStr);
 		}
+		
+		pw.println("<script>alert('공간정보가 저장되었습니다.');</script>");
+		pw.flush();
 		
 		return mav;
 	}
