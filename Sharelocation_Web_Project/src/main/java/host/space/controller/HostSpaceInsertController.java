@@ -21,6 +21,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import space.model.SpaceBean;
+import space.model.SpaceDao;
+import space.model.SpaceFacilityBean;
+import space.model.SpaceImageBean;
+import space.model.SpaceTagBean;
 
 @Controller
 public class HostSpaceInsertController {
@@ -31,6 +35,8 @@ public class HostSpaceInsertController {
 	
 	@Autowired
 	ServletContext servletContext;
+	@Autowired
+	SpaceDao spaceDao;
 	
 	@RequestMapping(value=command, method = RequestMethod.GET)
 	public ModelAndView doAction() {
@@ -46,26 +52,23 @@ public class HostSpaceInsertController {
 		PrintWriter pw = response.getWriter();
 		ModelAndView mav = new ModelAndView(viewPage);
 		
-		System.out.println(spaceBean);
+		
 		if(result.hasErrors()) {
 			System.out.println("has Error");
 			return mav;
 		}
 		mav.setViewName(gotoPage);
+		//set memberNum (session 에서 가져와야함)
+		spaceBean.setMembernum(1); //임시
+		//set Status (등록대기 - 검수대기/검수완료/운영중/비공개) 
+		spaceBean.setStatus("등록대기");
+		//set grade (기본 - 기본/사이트추천)
+		spaceBean.setGrade("기본");
 		
 		//operatingtime 처리
 		String operatingtime = ((String)request.getParameter("starttime"))+"~"+
 				((String)request.getParameter("endtime"));
 		spaceBean.setOperatingtime(operatingtime);
-		
-		//Tag 처리
-		ArrayList<String> tagArray = new ArrayList<String>();
-		String tagList = ((String)request.getParameter("spacetag"));
-		String[] token = tagList.split(",");
-		for(String tag:token) {
-			System.out.println("Tag: " + tag);
-			tagArray.add(tag);
-		}
 		
 		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
@@ -75,19 +78,50 @@ public class HostSpaceInsertController {
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		spaceBean.setMainimage(safeFileName);
 		
+		System.out.println("test1");
+		System.out.println(spaceBean);
+		///DB에 저장
+		int cnt = -1;
+		cnt = spaceDao.insertSpace(spaceBean);
+		System.out.println("test2");
+		
+		//DB저장에 성공했으면 이미지도 서버에 업로드
+		if(cnt != -1) {
+			mpfMainImage.transferTo(mainimage_File);
+		}
+		int spaceNum = spaceDao.getRecentSpaceNum();
+		
 		//spaceimage (다중이미지) 처리
 		List<MultipartFile> spImageList = mtfRequest.getFiles("spaceimagefile");
 		for(int i=0;i<spImageList.size();i++) {
 			MultipartFile mpfSpaceImage = spImageList.get(i);
 			String spOriginFileName = mpfSpaceImage.getOriginalFilename();
-			String spSafeFileName = (i+1)+"_"+System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
+			String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // 파일명 중복 막기
 			File spaceImage_File = new File(uploadPath+"\\"+spSafeFileName);
+			cnt = -1;
+			SpaceImageBean spaceImageBean = new SpaceImageBean(0, spaceNum, spSafeFileName);
+			cnt = spaceDao.insertSpaceImage(spaceImageBean);
+			if(cnt != -1) {
+				//DB저장에 성공했으면 이미지도 서버에 업로드
+				mpfSpaceImage.transferTo(spaceImage_File);
+			}
 		}
 		
 		//facility 처리
 		String[] facilityList = request.getParameterValues("facility");
 		for(String facStr:facilityList) {
-			System.out.println(facStr);
+			SpaceFacilityBean sfBean = new SpaceFacilityBean(0, spaceNum, facStr);
+			cnt = -1;
+			cnt = spaceDao.insertSpaceFacility(sfBean);
+		}
+		
+		//Tag 처리
+		String tagList = ((String)request.getParameter("spacetag"));
+		String[] token = tagList.split(",");
+		for(String tag:token) {
+			SpaceTagBean stBean = new SpaceTagBean(0, spaceNum, tag);
+			cnt = -1;
+			cnt = spaceDao.insertSpaceTag(stBean);
 		}
 		
 		pw.println("<script>alert('공간정보가 저장되었습니다.');</script>");

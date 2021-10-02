@@ -4,11 +4,31 @@
 			
 <mapper namespace="space.model.SpaceBean">
 
-<select id="getSpaceList" resultType="MySpace">
-select * from space
-
-order by num desc
-
-</select>
+	<select id="getSpaceList" resultType="MySpace">
+	select * from space
+	
+	order by num desc
+	
+	</select>
+	
+	<insert id="insertSpace">
+		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage,
+		site, address, email, hp, operatingtime, holiday, grade, status, regdate) values 
+		(space_seq.nextval, #{membernum}, #{name}, #{type}, #{contentssim}, #{contentscom}, #{warning}, #{mainimage},
+		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
+	</insert>
+	<select id="getRecentSpaceNum" resultType="int">
+		select num from (select * from space order by rownum desc) where rownum = 1
+	</select>
+	
+	<insert id="insertSpaceTag">
+		insert into spacetag values(spacetag_seq.nextval, #{spacenum}, #{tag})
+	</insert>
+	<insert id="insertSpaceImage">
+		insert into spaceimage values(spaceimage_seq.nextval, #{spacenum}, #{image})
+	</insert>
+	<insert id="insertSpaceFacility">
+		insert into spacefacility values(spacefacility_seq.nextval, #{spacenum}, #{facility})
+	</insert>
 
 </mapper>
