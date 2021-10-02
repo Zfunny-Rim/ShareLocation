@@ -30,7 +30,7 @@
 	                                        <h4 class="card-title">IPS 파티룸</h4>
 	                                        <p class="card-text">
 	                                        	현재 상태 - 등록중(/검수중/운영중)<br>
-	                                            세부공간 등록하기<br>
+	                                            <a href="detailSpaceList.ho?spaceNum=11">세부공간 등록하기</a><br>
 	                                            정산정보 등록하기<br>
 	                                        </p>
 	                                    </div>

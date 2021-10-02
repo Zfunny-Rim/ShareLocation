@@ -30,5 +30,4 @@
 	<insert id="insertSpaceFacility">
 		insert into spacefacility values(spacefacility_seq.nextval, #{spacenum}, #{facility})
 	</insert>
-
 </mapper>
