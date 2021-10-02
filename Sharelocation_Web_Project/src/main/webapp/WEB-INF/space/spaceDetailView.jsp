@@ -102,7 +102,7 @@
 											<h4 class="card-title">지도</h4>
 											<h4 class="card-title">사용자 후기</h4>
 
-
+					
 
 										</div>
 										<!-- 설명 끝1 -->
