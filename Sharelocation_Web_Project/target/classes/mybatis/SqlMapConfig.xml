@@ -4,10 +4,20 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
+<<<<<<< HEAD
 		<typeAlias alias="MyDetailSpace" type="detailspace.model.DetailSpaceBean"/>
+=======
+		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
+>>>>>>> branch 'SHINJOONHO' of https://github.com/Zfunny-Rim/ShareLocation.git
 	</typeAliases>
 	<mappers>
+<<<<<<< HEAD
 		<mapper resource="mybatis/space.xml"/>
 		<mapper resource="mybatis/detailSpace.xml"/>     
 	</mappers>  
+=======
+		<mapper resource="mybatis/space.xml"/>   
+		<mapper resource="mybatis/member.xml"/>
+	</mappers>
+>>>>>>> branch 'SHINJOONHO' of https://github.com/Zfunny-Rim/ShareLocation.git
 </configuration>
