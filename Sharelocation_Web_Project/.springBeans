@@ -8,12 +8,8 @@
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/main-servlet.xml</config>
-<<<<<<< HEAD
 		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>
-=======
 		<config>src/main/webapp/WEB-INF/spring/appServlet/member-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/mall-servlet.xml</config>
->>>>>>> refs/heads/SHIN
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>

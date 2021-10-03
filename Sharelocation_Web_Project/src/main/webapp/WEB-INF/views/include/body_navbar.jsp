@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <header class='mb-3'>
-	<nav class="navbar navbar-expand navbar-light bg-dark" id="navbar">
+	<nav class="navbar navbar-expand navbar-light bg-light" id="navbar">
 		<div class="logo-image" style="width: 200px; margin-right: 50px;">
 			<a href="index.jsp"><img
 				src="./resources/assets/images/logo/ips_logo.png" alt="Logo"

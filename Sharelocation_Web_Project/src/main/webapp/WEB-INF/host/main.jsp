@@ -15,7 +15,7 @@
 <body>
 	<div id="app">
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp" %>
-		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp" %>
+		<%@ include file="/WEB-INF/views/include/body_sidebar_host.jsp" %>
         <div id="main" style="padding-top:0px;">
             <div id="main-content">
                 <div class="page-heading">
@@ -28,29 +28,38 @@
 										<h3>당신의 공간을 등록해보세요.</h3>
 										<p class="text-subtitle text-muted">partagé의 호스트가 되어보세요. 저희가 도와드리겠습니다.</p>
 									</div>
-									<div class="col-12 col-md-6 order-md-2 order-first">
-										<nav aria-label="breadcrumb"
-											class="breadcrumb-header float-start float-lg-end">
-											<ol class="breadcrumb">
-												<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-												<li class="breadcrumb-item active" aria-current="page">Layout
-													Vertical Navbar</li>
-											</ol>
-										</nav>
-									</div>
 								</div>
 							</div>
 							<section class="section">
-								<div class="card">
-									<div class="card-header">
-										<h4 class="card-title">Example Content</h4>
-									</div>
-									<div class="card-body">Lorem ipsum dolor sit amet
-										consectetur adipisicing elit. Consectetur quas omnis
-										laudantium tempore exercitationem, expedita aspernatur sed
-										officia asperiores unde tempora maxime odio reprehenderit
-										distinctio incidunt! Vel aspernatur dicta consequatur!</div>
-								</div>
+							<div class="card">
+                                <div class="card-body">
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item">
+                                                <img src="./resources/assets/images/samples/architecture1.jpg" class="d-block w-100" alt="...">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="./resources/assets/images/samples/jump.jpg" class="d-block w-100" alt="...">
+                                            </div>
+                                            <div class="carousel-item active">
+                                                <img src="./resources/assets/images/samples/bg-mountain.jpg" class="d-block w-100" alt="...">
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </a>
+                                    </div>
+                                    <div class="card-body">
+                                    	<button class="btn btn-primary">공간 등록하기</button>
+                                    	<button class="btn btn-secondary">등록 메뉴얼</button>
+                                    </div>
+                                </div>
+                            </div>
 							</section>
 						</div>
 						<%-- ******* Main Code END ******* --%>
