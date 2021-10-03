@@ -45,5 +45,27 @@ public class SpaceDao {
 	public List<SpaceBean> getSpaceListByMemberNum(int memberNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceListByMemberNum", memberNum);
 	}
+	
+	public SpaceBean getSpace(int num) {
+		SpaceBean space = sqlSessionTemplate.selectOne(namespace+".getSpace", num);
+		return space;
+	}
+	
+	public int delFavorite(FavoriteBean bean) {
+		int cnt = sqlSessionTemplate.delete(namespace+".delFavorite",bean);
+		return cnt;
+	}
+	
+	public int addFavorite(FavoriteBean bean) {
+		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
+		return cnt;
+	}
+	
+	public List<SpaceBean> getSpaceList(String keyword) {
+		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword);
+		return spaceLists;
+	}
 
+	
 }

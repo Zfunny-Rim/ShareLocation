@@ -24,8 +24,8 @@
                     	<div class="card">
 	                    	<div class="card-content">
 		                    	<div class="main-image mx-auto">
-			                        <img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid">
-		                    	</div>
+			                       <a href="list.sp"><img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid">	</a>
+		                    	</div>   
 	                    	</div>
                     	</div>
                     	<%-- ******* Main Code END ******* --%>

@@ -3,12 +3,28 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 			
 <mapper namespace="space.model.SpaceBean">
+	
+	<select id="getSpace" resultType="MySpace">
+	select * from space
+	where num = #{num}
+	</select>
+	
+	<insert id="addFavorite">
+	insert into favorite
+	values(favorite_seq.nextval, #{spaceNum},#{memberNum})
+	</insert>
 
 	<select id="getSpaceList" resultType="MySpace">
 	select * from space
-	
+	where name like #{keyword}
 	order by num desc
 	</select>
+	
+
+	<delete id="delFavorite">
+	delete from favorite
+	where spaceNum = #{spaceNum} and memberNum = #{memberNum}
+	</delete>
 	
 	<insert id="insertSpace">
 		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage,
