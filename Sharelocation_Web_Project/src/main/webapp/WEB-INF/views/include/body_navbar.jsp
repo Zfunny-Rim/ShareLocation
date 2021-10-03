@@ -21,7 +21,11 @@
 			<div class="collapse navbar-collapse justify-content-between"
 				id="navbarSupportedContent">
 				<div class="navbar-nav ms-auto mb-2 bg-lg-0">
+<<<<<<< HEAD
 					<form action="list.sp" method="get" class="m-0 p-0">
+=======
+					<form class="m-0 p-0" action ="list.sp" method="get">
+>>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 						<div class="input-group ms-auto">
 							<span class="input-group-text" id="basic-addon1"><i
 								class="bi bi-search"></i></span> <input type="text"
