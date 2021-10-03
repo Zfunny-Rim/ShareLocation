@@ -15,12 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class SpaceBean {
 
 	private int num;
-<<<<<<< HEAD
-	private int membernum;
 	@NotBlank(message="이름을 입력하세요.")
-=======
-	private int memberNum;
->>>>>>> branch 'SHINJOONHO' of https://github.com/Zfunny-Rim/ShareLocation.git
+	private int membernum;
 	private String name;
 	@NotBlank(message="분류를 선택하세요.")
 	private String type;
@@ -130,21 +126,11 @@ public class SpaceBean {
 	public void setNum(int num) {
 		this.num = num;
 	}
-<<<<<<< HEAD
 	public int getMembernum() {
 		return membernum;
-=======
-	public int getMember_num() {
-		return memberNum;
->>>>>>> branch 'SHINJOONHO' of https://github.com/Zfunny-Rim/ShareLocation.git
-	}
-<<<<<<< HEAD
+	}	
 	public void setMembernum(int membernum) {
 		this.membernum = membernum;
-=======
-	public void setMember_num(int memberNum) {
-		this.memberNum = memberNum;
->>>>>>> branch 'SHINJOONHO' of https://github.com/Zfunny-Rim/ShareLocation.git
 	}
 	public String getName() {
 		return name;
