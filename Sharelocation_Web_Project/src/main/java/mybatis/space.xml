@@ -8,7 +8,7 @@
 	select * from space
 	
 	order by num desc
-	
+	  
 	</select>
 	
 	<insert id="insertSpace">
