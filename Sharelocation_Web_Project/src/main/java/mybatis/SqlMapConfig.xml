@@ -3,11 +3,11 @@
 			"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
+		<typeAlias alias="MyRerservation" type="reservation.model.ReservationBean"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="mybatis/member.xml"/>
 		<mapper resource="mybatis/space.xml"/>
+		<mapper resource="mybatis/reservation.xml"/>
 	</mappers>
 </configuration>
