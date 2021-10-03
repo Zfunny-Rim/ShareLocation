@@ -8,6 +8,6 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/space.xml"/>
-		<mapper resource="mybatis/detailSpace.xml"/>
-	</mappers>
+		<mapper resource="mybatis/detailSpace.xml"/>     
+	</mappers>  
 </configuration>
