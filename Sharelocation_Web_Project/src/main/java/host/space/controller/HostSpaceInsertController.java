@@ -72,7 +72,7 @@ public class HostSpaceInsertController {
 		String originFileName = mpfMainImage.getOriginalFilename();
 		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
-		spaceBean.setMainimage(safeFileName);
+		spaceBean.setMainimage(safeFileName); 
 		
 		//spaceimage (다중이미지) 처리
 		List<MultipartFile> spImageList = mtfRequest.getFiles("spaceimagefile");

@@ -24,19 +24,23 @@
                     	<div class="card">
 	                    	<div class="card-content">
 		                    	<div class="main-image mx-auto">
-			                        <img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid">
+			                        <a href="list.sp?keyword= "><img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid"></a> 
+			                       <!--  그림 누르면 placeList 이동 임시 -->
 		                    	</div>
 	                    	</div>
                     	</div>
                     	<%-- ******* Main Code END ******* --%>
                     </section>
-                </div>
+                </div>	
             </div>
         </div>
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		
+		<script type="text/javascript">
+		/* alert(1); */
+			
+		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>

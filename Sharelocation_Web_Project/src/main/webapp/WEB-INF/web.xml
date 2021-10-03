@@ -65,6 +65,7 @@
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
+	
 	<!-- HOST -->
 	<servlet>
 		<servlet-name>host</servlet-name>
@@ -95,6 +96,7 @@
 		<servlet-name>space</servlet-name>
 		<url-pattern>*.sp</url-pattern>
 	</servlet-mapping>
+
 	
 <!-- memeber -->	
 	<servlet>
@@ -127,4 +129,5 @@
 		<servlet-name>reservation</servlet-name>
 		<url-pattern>*.rv</url-pattern>
 	</servlet-mapping>
+
 </web-app>

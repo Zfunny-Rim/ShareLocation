@@ -35,7 +35,7 @@
 										<div class="card-content">
 											<div class="card-body" >
 												<h4 class="card-title">${space.name}</h4>
-												<p class="card-text">${space.contents_sim}
+												<p class="card-text">${space.contentsSim}
 												</p>
 											</div>
 											<img class="img-fluid w-100"
@@ -43,7 +43,7 @@
 										</div>
 										<div class="card-footer d-flex justify-content-between">
 											<p><span>${space.address}</span></p>
-											<button class="btn btn-light-primary">detail</button>
+											<button onclick="viewDetail(${space.num})" class="btn btn-light-primary">detail</button>
 										</div>
 									</div>
 								</div>
@@ -59,6 +59,15 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+<script type="text/javascript">
+function viewDetail(num){
+	//alert(1);
+	location.href="detailView.sp?num="+num;
+}
+
+
+</script>
+
 
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
