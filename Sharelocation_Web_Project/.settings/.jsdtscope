@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="src/main/webapp/resources/assets/js/extensions/sweetalert2.js|src/main/webapp/resources/assets/js/pages/dashboard.js|src/main/webapp/resources/assets/vendors/apexcharts/locales/ko.js|src/main/webapp/resources/assets/vendors/ckeditor/ckeditor.js|src/main/webapp/resources/assets/vendors/simple-datatables/simple-datatables.js" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
