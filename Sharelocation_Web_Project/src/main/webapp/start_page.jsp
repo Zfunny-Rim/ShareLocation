@@ -3,5 +3,5 @@
 <% 
 	String viewPage = request.getContextPath();
 
-	response.sendRedirect(viewPage);
+	response.sendRedirect(viewPage);   
 %>
