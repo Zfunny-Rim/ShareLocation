@@ -21,12 +21,13 @@
 			<div class="collapse navbar-collapse justify-content-between"
 				id="navbarSupportedContent">
 				<div class="navbar-nav ms-auto mb-2 bg-lg-0">
-					<form class="m-0 p-0">
+					<form action="list.sp" method="get" class="m-0 p-0">
+					<form class="m-0 p-0" action ="list.sp" method="get">
 						<div class="input-group ms-auto">
 							<span class="input-group-text" id="basic-addon1"><i
 								class="bi bi-search"></i></span> <input type="text"
-								class="form-control" placeholder="공간을 검색하세요.">
-							<button class="btn btn-outline-secondary" type="button"
+								class="form-control" placeholder="공간을 검색하세요." name="keyword">
+							<button class="btn btn-outline-secondary" type="submit"
 								id="button-addon2">검색</button>
 						</div>
 					</form>

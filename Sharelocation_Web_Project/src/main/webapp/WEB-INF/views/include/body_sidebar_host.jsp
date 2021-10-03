@@ -55,7 +55,7 @@
 			<!-- ***** Login Card END ***** -->
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="main.ho" class='sidebar-link'>
 						<i class="bi bi-house-door-fill"></i> <span>홈</span>
 				</a></li>
 				<li class="sidebar-item"><a href="insertSpace.ho" class='sidebar-link'>
@@ -64,7 +64,7 @@
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-book-half"></i> <span>공간 등록 메뉴얼</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="spaceList.ho" class='sidebar-link'>
 						<i class="bi bi-gear"></i> <span>내 공간 관리하기</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
@@ -77,7 +77,7 @@
 						<i class="bi bi-chat-right-text-fill"></i> <span>Q&A</span>
 				</a></li>
 				<li class="sidebar-title"></li>
-				<li class="sidebar-item"><a href="main.ho" class='sidebar-link'>
+				<li class="sidebar-item"><a href="/sharelocation" class='sidebar-link'>
 						<i class="bi bi-cart"></i> <span>사용자 페이지 보기</span>
 				</a></li>
 			</ul>

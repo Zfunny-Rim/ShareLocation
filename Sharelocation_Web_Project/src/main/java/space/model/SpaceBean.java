@@ -5,11 +5,9 @@ import java.util.List;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SpaceBean {
@@ -37,7 +35,43 @@ public class SpaceBean {
 	private String operatingtime;
 	private String holiday;
 	private String grade;
+	private String status;
+	private String regdate;
 	
+	//생성자
+	public SpaceBean() {
+		super();
+	}
+	public SpaceBean(int num, int membernum, String name, String type, String contentssim, String contentscom,
+			String mainimage, String warning, String site, String address, String email, String hp,
+			String operatingtime, String holiday, String grade, String status, String regdate,
+			MultipartFile mainimagefile, List<MultipartFile> spaceimagefile, List<String> spaceimage,
+			int spaceimageCount) {
+		super();
+		this.num = num;
+		this.membernum = membernum;
+		this.name = name;
+		this.type = type;
+		this.contentssim = contentssim;
+		this.contentscom = contentscom;
+		this.mainimage = mainimage;
+		this.warning = warning;
+		this.site = site;
+		this.address = address;
+		this.email = email;
+		this.hp = hp;
+		this.operatingtime = operatingtime;
+		this.holiday = holiday;
+		this.grade = grade;
+		this.status = status;
+		this.regdate = regdate;
+		this.mainimagefile = mainimagefile;
+		this.spaceimagefile = spaceimagefile;
+		this.spaceimage = spaceimage;
+		this.spaceimageCount = spaceimageCount;
+	}
+
+
 	//DB에 저장되지 않는 값들
 	private MultipartFile mainimagefile;
 	private List<MultipartFile> spaceimagefile;
@@ -81,7 +115,7 @@ public class SpaceBean {
 		this.spaceimageCount = spaceimageCount;
 		System.out.println("spaceimageCount : " + spaceimageCount);
 	}
-	//
+	
 	
 	
 	public int getNum() {
@@ -92,7 +126,7 @@ public class SpaceBean {
 	}
 	public int getMembernum() {
 		return membernum;
-	}
+	}	
 	public void setMembernum(int membernum) {
 		this.membernum = membernum;
 	}
@@ -174,18 +208,28 @@ public class SpaceBean {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-	public SpaceBean() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 	@Override
 	public String toString() {
 		return "SpaceBean [num=" + num + ", membernum=" + membernum + ", name=" + name + ", type=" + type
 				+ ", contentssim=" + contentssim + ", contentscom=" + contentscom + ", mainimage=" + mainimage
 				+ ", warning=" + warning + ", site=" + site + ", address=" + address + ", email=" + email + ", hp=" + hp
-				+ ", operatingtime=" + operatingtime + ", holiday=" + holiday + ", grade=" + grade + ", mainimagefile="
-				+ mainimagefile + ", spaceimagefile=" + spaceimagefile + "]";
+				+ ", operatingtime=" + operatingtime + ", holiday=" + holiday + ", grade=" + grade + ", status="
+				+ status + ", regdate=" + regdate + ", mainimagefile=" + mainimagefile + ", spaceimagefile="
+				+ spaceimagefile + ", spaceimage=" + spaceimage + ", spaceimageCount=" + spaceimageCount + "]";
 	}
+	
 
 	
 }
