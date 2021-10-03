@@ -28,11 +28,7 @@ public class spaceListCmd {
 		keyword += "%"+keyword+"%";
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(keyword);
-<<<<<<< HEAD
 		System.out.println("spaceLists"+spaceLists.size());
-=======
-		System.out.println("spaceLists °¹¼ö"+spaceLists.size());
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 		mav.addObject("spaceLists",spaceLists);
 		mav.setViewName(getPage);
 		return mav;

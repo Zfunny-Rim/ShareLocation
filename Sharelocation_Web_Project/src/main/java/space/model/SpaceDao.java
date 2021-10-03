@@ -23,8 +23,6 @@ public class SpaceDao {
 			
 		return spaceLists;
 	}
-
-<<<<<<< HEAD
 	public int insertSpace(SpaceBean spaceBean) {
 		System.out.println("into insertSpace");
 		return sqlSessionTemplate.insert(namespace+".insertSpace", spaceBean);
@@ -62,47 +60,4 @@ public class SpaceDao {
 		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
 		return cnt;
 	}
-	
-	public List<SpaceBean> getSpaceList(String keyword) {
-		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
-		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword);
-		return spaceLists;
-	}
-
-	
-=======
-	public SpaceBean getSpace(int num) {
-		
-		SpaceBean space = sqlSessionTemplate.selectOne(namespace+".getSpace", num);
-		System.out.println("SpaceDao È®ÀÎ"+space);
-		
-		return space;
-	}
-
-	
-
-	public int addFavorite(FavoriteBean bean) {
-		
-		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
-	
-		
-		return cnt;
-	}
-
-	public FavoriteBean getFavortie(FavoriteBean bean) {
-		
-		FavoriteBean fb = sqlSessionTemplate.selectOne(namespace+".getFavortie", bean );
-		
-		return fb;
-	}
-
-	public int delFavorite(FavoriteBean bean) {
-	
-		int cnt = sqlSessionTemplate.delete(namespace+".delFavorite",bean);
-	
-		
-		return cnt;
-	}
-
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 }

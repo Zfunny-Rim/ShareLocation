@@ -7,25 +7,9 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 		<config>src/main/webapp/WEB-INF/spring/appServlet/main-servlet.xml</config>
-<<<<<<< HEAD
 		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>
-<<<<<<< HEAD
 		<config>src/main/webapp/WEB-INF/spring/appServlet/member-servlet.xml</config>
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
-=======
->>>>>>> branch 'SHINJOONHO' of https://github.com/Zfunny-Rim/ShareLocation.git
-=======
-=======
-=======
-		<config>src/main/webapp/WEB-INF/spring/appServlet/memeber-servlet.xml</config>
->>>>>>> branch 'HS' of https://github.com/Zfunny-Rim/ShareLocation.git
->>>>>>> branch 'HS' of https://github.com/Zfunny-Rim/ShareLocation.git
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>

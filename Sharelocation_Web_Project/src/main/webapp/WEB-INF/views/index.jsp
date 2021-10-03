@@ -24,14 +24,8 @@
                     	<div class="card">
 	                    	<div class="card-content">
 		                    	<div class="main-image mx-auto">
-<<<<<<< HEAD
 			                       <a href="list.sp"><img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid">	</a>
 		                    	</div>   
-=======
-			                        <a href="list.sp?keyword= "><img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid"></a> 
-			                       <!--  그림 누르면 placeList 이동 임시 -->
-		                    	</div>
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 	                    	</div>
                     	</div>
                     	<%-- ******* Main Code END ******* --%>

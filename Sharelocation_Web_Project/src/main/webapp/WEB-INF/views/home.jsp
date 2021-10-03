@@ -6,17 +6,7 @@
 </head>
 <body>
 <h1>
-<<<<<<< HEAD
 	 Hello world! <!-- pulltest -->
-=======
-<<<<<<< HEAD
-	Hello world!1
-=======
-	Hello world!  
-	
-	time to play
->>>>>>> branch 'HS' of https://github.com/Zfunny-Rim/ShareLocation.git
->>>>>>> branch 'HS' of https://github.com/Zfunny-Rim/ShareLocation.git
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>

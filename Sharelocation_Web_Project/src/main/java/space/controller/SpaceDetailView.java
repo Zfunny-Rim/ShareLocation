@@ -25,11 +25,7 @@ public class SpaceDetailView {
 		System.out.println("spaceDetailView");
 		
 		SpaceBean space = spaceDao.getSpace(num);
-<<<<<<< HEAD
 		System.out.println("space"+space);
-=======
-		System.out.println("space È®ÀÎ"+space);
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 		
 
 		//List<ReviewBoardBean> review = reviewBoardDao.getReview(num);

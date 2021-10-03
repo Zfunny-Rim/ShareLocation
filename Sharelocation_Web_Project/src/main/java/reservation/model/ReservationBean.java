@@ -2,9 +2,9 @@ package reservation.model;
 
 public class ReservationBean {
 	private int num;
-	private int memberNum;
-	private int spaceNum;
-	private int detailspaceNum;
+	private int membernum;
+	private int spacenum;
+	private int detailspacenum;
 	private String checkin;
 	private String checkout;
 	private int person;
@@ -17,13 +17,13 @@ public class ReservationBean {
 		super();
 	}
 
-	public ReservationBean(int num, int memberNum, int spaceNum, int detailspaceNum, String checkin, String checkout,
+	public ReservationBean(int num, int membernum, int spacenum, int detailspacenum, String checkin, String checkout,
 			int person, int amounts, String cusrequest, String applicationdate, String status) {
 		super();
 		this.num = num;
-		this.memberNum = memberNum;
-		this.spaceNum = spaceNum;
-		this.detailspaceNum = detailspaceNum;
+		this.membernum = membernum;
+		this.spacenum = spacenum;
+		this.detailspacenum = detailspacenum;
 		this.checkin = checkin;
 		this.checkout = checkout;
 		this.person = person;
@@ -41,28 +41,28 @@ public class ReservationBean {
 		this.num = num;
 	}
 
-	public int getMemberNum() {
-		return memberNum;
+	public int getMembernum() {
+		return membernum;
 	}
 
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
+	public void setMembernum(int membernum) {
+		this.membernum = membernum;
 	}
 
-	public int getSpaceNum() {
-		return spaceNum;
+	public int getSpacenum() {
+		return spacenum;
 	}
 
-	public void setSpaceNum(int spaceNum) {
-		this.spaceNum = spaceNum;
+	public void setSpacenum(int spacenum) {
+		this.spacenum = spacenum;
 	}
 
-	public int getDetailspaceNum() {
-		return detailspaceNum;
+	public int getDetailspacenum() {
+		return detailspacenum;
 	}
 
-	public void setDetailspaceNum(int detailspaceNum) {
-		this.detailspaceNum = detailspaceNum;
+	public void setDetailspacenum(int detailspacenum) {
+		this.detailspacenum = detailspacenum;
 	}
 
 	public String getCheckin() {
@@ -120,5 +120,7 @@ public class ReservationBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
 	
 }

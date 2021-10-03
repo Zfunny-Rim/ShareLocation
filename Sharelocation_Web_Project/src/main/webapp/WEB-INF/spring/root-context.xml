@@ -16,20 +16,8 @@
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="classpath:/mybatis/SqlMapConfig.xml"/>
-<<<<<<< HEAD
 	</bean>   
-	
-=======
-	</bean>
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 	<bean class="org.mybatis.spring.SqlSessionTemplate"  id="sqlSessionTemplate">
-<<<<<<< HEAD
 		<constructor-arg ref="sqlSessionFactoryBean"/>        
 	</bean>   
 </beans>   
-=======
-		<constructor-arg ref="sqlSessionFactoryBean"/>
-	</bean>	
-		
-</beans>
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git

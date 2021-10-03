@@ -17,10 +17,5 @@
 	</bean>
 	
 	<context:component-scan base-package="space" />
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 
 </beans>

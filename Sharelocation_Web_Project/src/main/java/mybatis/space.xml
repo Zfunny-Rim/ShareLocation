@@ -14,7 +14,6 @@
 	values(favorite_seq.nextval, #{spacenum},#{membernum})
 	</insert>
 
-<<<<<<< HEAD
 	<select id="getSpaceList" resultType="MySpace">
 	select * from space
 	where name like #{keyword}
@@ -49,39 +48,5 @@
 	<insert id="insertSpaceFacility">
 		insert into spacefacility values(spacefacility_seq.nextval, #{spacenum}, #{facility})
 	</insert>
-	
-=======
-<select id="getSpaceList" resultType="MySpace">
-select * from space
-where name like #{keyword}
-order by num desc
 
-</select>
-
-<select id="getSpace" resultType="MySpace">
-
-select * from space
-where num = #{num}
-
-</select>
-
-<insert id="addFavorite">
-
-insert into favorite
-values(favorite_seq.nextval, #{spaceNum},#{memberNum})
-</insert>
-
-
-
-<delete id="delFavorite">
-delete from favorite
-where spaceNum = #{spaceNum} and memberNum = #{memberNum}
-</delete>
-
-<!-- <select id="getReview" resultType="reviewBoard.model.reviewBoardBean">
-select * from reiewBoard
-order by num desc
-</select> -->
-
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 </mapper>

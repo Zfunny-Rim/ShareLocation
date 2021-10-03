@@ -1,4 +1,4 @@
-package reservation.Controller;
+package reservation.controller;
 
 import javax.validation.Valid;
 
@@ -29,9 +29,9 @@ public class reservationInsertController {
 			@Valid ReservationBean bean,BindingResult result
 			) {
 		
-		bean.setMemberNum(memberNum);
-		bean.setSpaceNum(spaceNum);
-		bean.setDetailspaceNum(detailspaceNum);
+		bean.setMembernum(memberNum);
+		bean.setSpacenum(spaceNum);
+		bean.setDetailspacenum(detailspaceNum);
 		
 		if(result.hasErrors()) {
 			System.out.println("유효성 검사 오류입니다.");

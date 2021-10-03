@@ -1,4 +1,4 @@
-package reservation.Controller;
+package reservation.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,22 +28,22 @@ public class reservationController {
 	
 	@RequestMapping(value=command)
 	public String reservation(HttpServletRequest request,
-			@RequestParam(value="spaceNum") int spaceNum,
+			@RequestParam(value="spaceNum", required = false) int spaceNum,
 			@RequestParam(value="memberNum") int memberNum,
 			HttpSession session ) {
 		
 		//로그인 안했다면
-		if(session.getAttribute("loginInfo")==null) { 
-			session.setAttribute("destination", "redirect:/reserv.rv");
-			return "redirect:/loginForm.me";
-		}
+//		if(session.getAttribute("loginInfo")==null) { 
+//			session.setAttribute("destination", "redirect:/reserv.rv");
+//			return "redirect:/loginForm.me";
+//		}
 		//로그인 했으면
-		else {
+//		else {
 			//spaceNum값 받아서 bean 묶기
 			//호스트정보가져오려면 호스트memberNum값 bean으로 묶기
 			ReservationBean reservation = reservationDao.getReserv(spaceNum);  		
 			request.setAttribute("reservation",reservation);			
 			return getPage;
-		}
+//		}
 	}	
 }

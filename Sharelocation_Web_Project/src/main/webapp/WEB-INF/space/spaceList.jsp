@@ -35,11 +35,7 @@
 										<div class="card-content">
 											<div class="card-body" >
 												<h4 class="card-title">${space.name}</h4>
-<<<<<<< HEAD
 												<p class="card-text">${space.contentssim}
-=======
-												<p class="card-text">${space.contentsSim}
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 												</p>
 											</div>   
 											<img class="img-fluid w-100"
@@ -68,11 +64,6 @@ function viewDetail(num){
 	//alert(1);
 	location.href="detailView.sp?num="+num;
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
 </script>
 
 

@@ -31,7 +31,6 @@ public class SpaceFavoriteCmd {
 			) throws IOException {
 		System.out.println("spaceDetailView");
 		
-<<<<<<< HEAD
 		bean.setMembernum(memberNum); 
 		bean.setSpacenum(spaceNum);
 		
@@ -63,36 +62,3 @@ public class SpaceFavoriteCmd {
 		return getPage+"?num="+spaceNum;
 	}
 }
-=======
-		bean.setMemberNum(memberNum); 
-		bean.setSpaceNum(spaceNum);
-		
-		if(flag == true) {
-			
-			int cnt = spaceDao.delFavorite(bean);
-			flag = false;
-			if(cnt != 0) {
-			System.out.println(" 좋아요삭제성공");
-			/* 찜하기 메세지 설정 */
-			/*
-			 * pw.println("<script>alert('찜하기 해제 되었습니다');</script>"); pw.flush(); // 화면 출력
-			 * 부분
-			 */			}
-		}
-		else {	
-		
-			int cnt = spaceDao.addFavorite(bean);
-			flag = true;
-			if(cnt != 0) {
-				System.out.println(" 좋아요입력성공");
-				/* 찜하기 메세지 설정 */
-				/*
-				 * pw.println("<script>alert('찜하기 설정 되었습니다');</script>"); pw.flush(); // 화면 출력
-				 * 부분
-				 */			}
-		}
-
-		return getPage+"?num="+spaceNum;
-	}
-}
->>>>>>> branch 'Park' of https://github.com/Zfunny-Rim/ShareLocation.git
