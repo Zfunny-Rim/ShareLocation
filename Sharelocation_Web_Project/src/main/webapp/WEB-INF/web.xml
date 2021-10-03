@@ -64,7 +64,11 @@
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
 	
+<<<<<<< HEAD
 <!-- HOST -->
+=======
+	<!-- HOST -->
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 	<servlet>
 		<servlet-name>host</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

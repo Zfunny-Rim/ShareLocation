@@ -3,9 +3,17 @@
 			"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+<<<<<<< HEAD
+=======
+		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
 	</typeAliases>
 	<mappers>
+<<<<<<< HEAD
+=======
+		<mapper resource="mybatis/member.xml"/>
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 		<mapper resource="mybatis/space.xml"/>
 	</mappers>
 </configuration>
