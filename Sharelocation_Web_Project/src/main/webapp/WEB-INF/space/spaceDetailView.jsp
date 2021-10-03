@@ -28,7 +28,7 @@
 									<div class="col-12 col-md-6 order-md-1 order-last">
 										<h3>${space.name }
 											<a href="#" class="btn btn-danger"
-												onclick="favorite(${space.num},${space.memberNum})">찜하기</a>
+												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
 										</h3>
 									</div>
 									<div class="col-12 col-md-6 order-md-2 order-first">
@@ -67,7 +67,7 @@
 																	class="d-block w-100" alt="...">
 																<div class="carousel-caption d-none d-md-block">
 																	<h5>${space.name }first</h5>
-																	<p>${space.contentsSim}</p>
+																	<p>${space.contentssim}</p>
 																</div>
 															</div>
 															<div class="carousel-item">
@@ -76,7 +76,7 @@
 																	class="d-block w-100" alt="...">
 																<div class="carousel-caption d-none d-md-block">
 																	<h5>${space.name }Second</h5>
-																	<p>${space.contentsSim }</p>
+																	<p>${space.contentssim }</p>
 																</div>
 															</div>
 														</div>
@@ -97,8 +97,8 @@
 										</div>
 										<!-- 설명 시작1 -->
 										<div class="card-header" style="width: 50%; float: left;">
-											<h4 class="card-title">${space.contentsSim}</h4>
-											<h4 class="card-title">${space.contentsCom}</h4>
+											<h4 class="card-title">${space.contentssim}</h4>
+											<h4 class="card-title">${space.contentscom}</h4>
 											<h4 class="card-title">지도</h4>
 											<h4 class="card-title">사용자 후기</h4>
 

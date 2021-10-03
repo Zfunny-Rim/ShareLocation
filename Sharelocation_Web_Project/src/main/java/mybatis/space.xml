@@ -11,7 +11,7 @@
 	
 	<insert id="addFavorite">
 	insert into favorite
-	values(favorite_seq.nextval, #{spaceNum},#{memberNum})
+	values(favorite_seq.nextval, #{spacenum},#{membernum})
 	</insert>
 
 	<select id="getSpaceList" resultType="MySpace">
@@ -23,7 +23,7 @@
 
 	<delete id="delFavorite">
 	delete from favorite
-	where spaceNum = #{spaceNum} and memberNum = #{memberNum}
+	where spaceNum = #{spaceNum} and membernum = #{membernum}
 	</delete>
 	
 	<insert id="insertSpace">

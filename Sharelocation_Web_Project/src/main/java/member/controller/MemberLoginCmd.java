@@ -33,16 +33,16 @@ public class MemberLoginCmd {
 			  ) throws IOException {
 		 MemberBean dbMember = mdao.getData(member.getId());
 		 session.setAttribute("loginInfo", dbMember);
-		 PrintWriter pw = response.getWriter();
 		 response.setContentType("text/html;charset=UTF-8");
+		 PrintWriter pw = response.getWriter();
 		 
 		 ModelAndView mav = new ModelAndView();
 		 mav.addObject("loginInfo",dbMember);
 		 
 		 if(dbMember == null) {
+			 mav.setViewName("/");
 			 pw.println("<script>alert('아이디|비밀번호를 확인해 주세요');</script>");
 			 pw.flush();
-			 mav.setViewName(guestPage);
 			 return mav;
 		 }
 		 else {

@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class SpaceBean {
 
 	private int num;
-	@NotBlank(message="이름을 입력하세요.")
 	private int membernum;
+	@NotBlank(message="이름을 입력하세요.")
 	private String name;
 	@NotBlank(message="분류를 선택하세요.")
 	private String type;
