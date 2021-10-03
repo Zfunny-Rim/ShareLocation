@@ -11,15 +11,12 @@
 	<mvc:annotation-driven/> <!-- annotation 사용할수 있도록 해주는 속성 설정 -->
 
 
-<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/space/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
 	<context:component-scan base-package="space" />
 	
-
-
-
 
 </beans>

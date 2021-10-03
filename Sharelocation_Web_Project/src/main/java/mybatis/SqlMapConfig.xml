@@ -4,9 +4,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
+		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
 	</typeAliases>
 	<mappers>
+		<mapper resource="mybatis/space.xml"/>   
 		<mapper resource="mybatis/member.xml"/>
-		<mapper resource="mybatis/space.xml"/>
 	</mappers>
 </configuration>

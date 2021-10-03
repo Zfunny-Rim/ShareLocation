@@ -3,7 +3,7 @@ package space.model;
 public class SpaceBean {
 
 	private int num;
-	private int member_num;
+	private int memberNum;
 	private String name;
 	private String type;
 	private String contents_sim;
@@ -24,10 +24,10 @@ public class SpaceBean {
 		this.num = num;
 	}
 	public int getMember_num() {
-		return member_num;
+		return memberNum;
 	}
-	public void setMember_num(int member_num) {
-		this.member_num = member_num;
+	public void setMember_num(int memberNum) {
+		this.memberNum = memberNum;
 	}
 	public String getName() {
 		return name;
