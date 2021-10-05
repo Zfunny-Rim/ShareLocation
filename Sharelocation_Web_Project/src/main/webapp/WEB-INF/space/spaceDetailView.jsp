@@ -94,8 +94,8 @@
 												class="img-fluid1, first" alt="singleminded"> 
 												
 												<c:forEach items="${spaceimage}" var="detail" begin="0" end="1">
-												<img src="<%=request.getContextPath()%>/resources/spaceimage/${detail.image}"
-												class="img-fluid1, second" alt="singleminded"> 
+												<a onclick="detailView(${space.num})"><img src="<%=request.getContextPath()%>/resources/spaceimage/${detail.image}"
+												class="img-fluid1, second" alt="singleminded"></a> 
 																							
 												</c:forEach>
 												
@@ -213,6 +213,10 @@
 		location.href="favorite.sp?spaceNum="+spaceNum+"&memberNum="+memberNum;
 	}
 	
+	function detailView(spacenum){
+		//alert(장소 더 보기);
+		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
+	}
 	</script>
 
 		<%-- ******* CUSTOM Script END ******* --%>
