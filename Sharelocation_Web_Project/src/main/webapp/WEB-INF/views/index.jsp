@@ -30,13 +30,16 @@
                     	</div>
                     	<%-- ******* Main Code END ******* --%>
                     </section>
-                </div>
+                </div>	
             </div>
         </div>
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		
+		<script type="text/javascript">
+		/* alert(1); */
+			
+		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>

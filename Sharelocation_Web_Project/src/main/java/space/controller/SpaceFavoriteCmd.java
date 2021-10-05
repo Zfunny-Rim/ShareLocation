@@ -31,8 +31,8 @@ public class SpaceFavoriteCmd {
 			) throws IOException {
 		System.out.println("spaceDetailView");
 		
-		bean.setMemberNum(memberNum); 
-		bean.setSpaceNum(spaceNum);
+		bean.setMembernum(memberNum); 
+		bean.setSpacenum(spaceNum);
 		
 		if(flag == true) {
 			

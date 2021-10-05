@@ -35,11 +35,11 @@
 										<div class="card-content">
 											<div class="card-body" >
 												<h4 class="card-title">${space.name}</h4>
-												<p class="card-text">${space.contentsSim}
+												<p class="card-text">${space.contentssim}
 												</p>
 											</div>   
 											<img class="img-fluid w-100"
-												src="assets/images/samples/banana.jpg" alt="Card image cap">
+												src="./resources/assets/images/samples/banana.jpg" alt="Card image cap">
 										</div>
 										<div class="card-footer d-flex justify-content-between">
 											<p><span>${space.address}</span></p>

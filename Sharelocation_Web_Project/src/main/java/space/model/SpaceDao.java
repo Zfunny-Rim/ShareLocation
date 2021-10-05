@@ -11,18 +11,18 @@ import org.springframework.stereotype.Component;
 public class SpaceDao {
 
 	private String namespace = "space.model.SpaceBean";
+
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<SpaceBean> getSpaceList() {
+	public List<SpaceBean> getSpaceList(String keyword) {
 
 		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
-		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList");
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword);
 			
 		return spaceLists;
 	}
-
 	public int insertSpace(SpaceBean spaceBean) {
 		System.out.println("into insertSpace");
 		return sqlSessionTemplate.insert(namespace+".insertSpace", spaceBean);
@@ -60,12 +60,4 @@ public class SpaceDao {
 		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
 		return cnt;
 	}
-	
-	public List<SpaceBean> getSpaceList(String keyword) {
-		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
-		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword);
-		return spaceLists;
-	}
-
-	
 }
