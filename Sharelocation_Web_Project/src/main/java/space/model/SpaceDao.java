@@ -3,9 +3,12 @@ package space.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import utility.Paging;
 
 @Component("mySpaceDao")
 public class SpaceDao {
@@ -16,13 +19,7 @@ public class SpaceDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<SpaceBean> getSpaceList(String keyword) {
 
-		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
-		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword);
-			
-		return spaceLists;
-	}
 	public int insertSpace(SpaceBean spaceBean) {
 		System.out.println("into insertSpace");
 		return sqlSessionTemplate.insert(namespace+".insertSpace", spaceBean);
@@ -59,5 +56,18 @@ public class SpaceDao {
 	public int addFavorite(FavoriteBean bean) {
 		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
 		return cnt;
+	}
+
+	public int getTotalCount(String keyword) {
+		int cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCount",keyword);
+		return cnt;
+	}
+	public List<SpaceBean> getSpaceList(Paging pageInfo, String keyword) {
+
+		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword,rowBounds);
+			
+		return spaceLists;
 	}
 }

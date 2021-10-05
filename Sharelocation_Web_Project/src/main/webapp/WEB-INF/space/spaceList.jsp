@@ -21,6 +21,7 @@
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
+		 
 		<div id="main" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
@@ -50,12 +51,37 @@
 				</c:forEach>		
 							</div>
 						</section>
-
+						<!-- page info start -->
+						
+						<div class="card-body" style="align-items: center;" >
+                       
+                                    <nav aria-label="Page navigation example" style="align-items: center;">
+                                        <ul class="pagination pagination-dark">
+                                            <li class="page-item"><a class="page-link" href="#">
+                                                    <span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+                                                </a></li>
+                                             
+                                            <li class="page-item"><a class="page-link" >1</a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">
+                                                    <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                                                </a></li>
+                                        </ul>
+                                    </nav>
+   
+                                </div>
+						
+							${pageInfo.pagingHtml}
+								 
+						<!-- page info end -->		 
 						<%-- ******* Main Code END ******* --%>
 					</section>
 				</div>
 			</div>
 		</div>
+		<BR>
+
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
