@@ -12,7 +12,15 @@
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
+<style type="text/css">
 
+.img-fluid1, .img-thumbnail {
+    max-width: 60%;
+    height: 40%;
+    margin-left: 20%;
+}
+
+</style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 
@@ -31,7 +39,7 @@
 						<section id="content-types"  >
 							<div class="row" >
 				<c:forEach var="space" items="${spaceLists}">
-								<div class="col-xl-4 col-md-6 col-sm-12" >
+								<div class="col-xl-3 col-md-6 col-sm-12" >
 									<div class="card" >
 										<div class="card-content">
 											<div class="card-body" >
@@ -39,11 +47,11 @@
 												<p class="card-text">${space.contentssim}
 												</p>
 											</div>   
-											<img class="img-fluid w-100"
-												src="./resources/assets/images/samples/banana.jpg" alt="Card image cap">
+											<img class="img-fluid1"
+												src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}" alt="Card image cap">
 										</div>
 										<div class="card-footer d-flex justify-content-between">
-											<p><span>${space.address}</span></p>
+											<p><span>${space.address} </span></p>
 											<button onclick="viewDetail(${space.num})" class="btn btn-light-primary">detail</button>
 										</div>
 									</div>

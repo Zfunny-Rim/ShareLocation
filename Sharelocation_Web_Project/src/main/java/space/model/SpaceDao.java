@@ -70,4 +70,11 @@ public class SpaceDao {
 			
 		return spaceLists;
 	}
+	public List<SpaceTagBean> getTag(int num) {
+		
+		List<SpaceTagBean> st = sqlSessionTemplate.selectList(namespace+".getTag", num);
+		System.out.println("stDao:"+st);
+		return st;
+	}
+
 }

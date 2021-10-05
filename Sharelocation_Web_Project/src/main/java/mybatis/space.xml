@@ -69,4 +69,9 @@
 
 	</select>
 
+	<select id="getTag" resultType="MySpaceTag">
+		select * from spacetag
+		where spacenum = #{num}
+	</select>
+
 </mapper>

@@ -8,7 +8,43 @@
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
+<style type="text/css">
 
+.img-fluid1, .img-thumbnail {
+    max-width: 70%;
+    height: auto;
+    margin-left: 20%;
+}
+
+.parent{
+    width: 90%;
+    margin: 10px auto;
+}
+
+.first {
+    border: 1px solid black;
+    float: left;
+    width:30%;
+    box-sizing: border-box;
+}
+
+.second{
+    border: 1px solid black;
+    float: left;
+    margin-left: 5%;
+    width:30%;
+    box-sizing: border-box;
+}
+
+.third{
+    border: 1px solid black;
+    float: right;
+    width:30%;
+    box-sizing: border-box;
+}
+
+
+</style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 
@@ -29,6 +65,11 @@
 										<h3>${space.name }
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
+												<!-- tag 넣기  시작-->
+											${st.tag}	
+												
+												<!-- tag 넣기  끝-->
+												
 										</h3>
 									</div>
 									<div class="col-12 col-md-6 order-md-2 order-first">
@@ -43,62 +84,34 @@
 									<div class="card-body">
 										<!-- 기본 틀 -->
 
-										<div>
+										<!-- 	사진 test 1 -->
 
-											<!-- 사진시작 -->
-											<div class="card">
-												<div class="card-header"></div>
-												<div class="card-body"
-													style="height: auto; width: 400px; float: left;">
-													<div id="carouselExampleCaptions" class="carousel slide"
-														data-bs-ride="carousel">
-														<ol class="carousel-indicators">
-															<li data-bs-target="#carouselExampleCaptions"
-																data-bs-slide-to="0" class="active"></li>
-															<li data-bs-target="#carouselExampleCaptions"
-																data-bs-slide-to="1" class=""></li>
-															<li data-bs-target="#carouselExampleCaptions"
-																data-bs-slide-to="2"></li>
-														</ol>
-														<div class="carousel-inner">
-															<div class="carousel-item active">
-																<img
-																	src="//live.staticflickr.com/3229/2345709106_69cca5292f_h.jpg"
-																	class="d-block w-100" alt="...">
-																<div class="carousel-caption d-none d-md-block">
-																	<h5>${space.name }first</h5>
-																	<p>${space.contentssim}</p>
-																</div>
-															</div>
-															<div class="carousel-item">
-																<img
-																	src="//live.staticflickr.com/2223/2344882021_38302e0b8d_n.jpg"
-																	class="d-block w-100" alt="...">
-																<div class="carousel-caption d-none d-md-block">
-																	<h5>${space.name }Second</h5>
-																	<p>${space.contentssim }</p>
-																</div>
-															</div>
-														</div>
-														<a class="carousel-control-prev"
-															href="#carouselExampleCaptions" role="button"
-															data-bs-slide="prev"> <span
-															class="carousel-control-prev-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Previous</span>
-														</a> <a class="carousel-control-next"
-															href="#carouselExampleCaptions" role="button"
-															data-bs-slide="next"> <span
-															class="carousel-control-next-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Next</span>
-														</a>
-													</div>
+										<div class="card">
+											<div class="col-12 col-md-4, parent" >
+												<img  src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+													class="img-fluid1, first" alt="singleminded" >
+													
+												<img  src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+													class="img-fluid1, second" alt="singleminded" >
+												<img  src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+													class="img-fluid1, third" alt="singleminded" >	
+												<div class="card-body">
+													
 												</div>
 											</div>
+											<ul class="list-group list-group-flush">
+																						
+											</ul>
 										</div>
+
+										<!-- 	사진 test 1 -->
+
 										<!-- 설명 시작1 -->
 										<div class="card-header" style="width: 50%; float: left;">
-											<h4 class="card-title">${space.contentssim}</h4>
-											<h4 class="card-title">${space.contentscom}</h4>
+											<h4 class="card-title"></h4>
+											${space.contentssim}
+											<h4 class="card-title">공간소개</h4>
+											${space.contentscom}
 											<h4 class="card-title">지도</h4>
 											<h4 class="card-title">사용자 후기</h4>
 
@@ -131,7 +144,7 @@
 
 																			<tbody>
 																				<tr>
-																					<td class="text-bold-500">Michael Right</td>
+																					<td class="text-bold-500">세부공간 선택</td>
 																					<td align="center">$15/hr</td>
 
 																				</tr>
