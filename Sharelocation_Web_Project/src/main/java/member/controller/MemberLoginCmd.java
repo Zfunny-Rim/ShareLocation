@@ -21,6 +21,7 @@ public class MemberLoginCmd {
 	private final String hostPage = "redirect:/list.ho";
 	private final String guestPage = "redirect:/list.sp";
 	private final String adminPage = "redirect:/list.admin";
+	private final String getPage = "/login.member";
 	
 	@Autowired
 	MemberDao mdao;
@@ -42,7 +43,7 @@ public class MemberLoginCmd {
 		 if(dbMember == null) {
 			 pw.println("<script>alert('아이디|비밀번호를 확인해 주세요');</script>");
 			 pw.flush();
-			 mav.setViewName(guestPage);
+			 mav.setViewName(getPage);
 			 return mav;
 		 }
 		 else {
