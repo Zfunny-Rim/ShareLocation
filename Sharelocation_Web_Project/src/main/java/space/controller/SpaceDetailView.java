@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import space.model.SpaceBean;
 import space.model.SpaceDao;
+import space.model.SpaceImageBean;
 import space.model.SpaceTagBean;
 
 @Controller
@@ -36,15 +37,17 @@ public class SpaceDetailView {
 		System.out.println("space"+space);
 
 
-		List<SpaceTagBean> st = spaceDao.getTag(num);
+		List<SpaceTagBean> spacetag = spaceDao.getTag(num);
+		List<SpaceImageBean> spaceimage = spaceDao.getImage(num);
 		
-		System.out.println("tag실행"+st);
+		System.out.println("tag실행"+spacetag);
+		System.out.println("spaceimage실행"+spaceimage);
 		
-		mav.addObject("st",st);
+		if(spacetag.size()!=0) {
+			mav.addObject("spacetag",spacetag);
+		}
 		mav.addObject("space",space);
-		
-		
-		//mav.addObject("review", review);
+		mav.addObject("spaceimage",spaceimage);
 		mav.setViewName(getPage);
 		
 		

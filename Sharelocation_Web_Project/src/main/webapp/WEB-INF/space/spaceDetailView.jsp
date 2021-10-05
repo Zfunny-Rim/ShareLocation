@@ -9,41 +9,38 @@
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
 <style type="text/css">
-
 .img-fluid1, .img-thumbnail {
-    max-width: 70%;
-    height: auto;
-    margin-left: 20%;
+	max-width: 70%;
+	height: auto;
+	margin-left: 20%;
 }
 
-.parent{
-    width: 90%;
-    margin: 10px auto;
+.parent {
+	width: 90%;
+	margin: 10px auto;
 }
 
 .first {
-    border: 1px solid black;
-    float: left;
-    width:30%;
-    box-sizing: border-box;
+	border: 1px solid black;
+	float: left;
+	width: 30%;
+	box-sizing: border-box;
 }
 
-.second{
-    border: 1px solid black;
-    float: left;
-    margin-left: 5%;
-    width:30%;
-    box-sizing: border-box;
+.second {
+	border: 1px solid black;
+	float: left;
+	margin-left: 5%;
+	width: 30%;
+	box-sizing: border-box;
 }
 
-.third{
-    border: 1px solid black;
-    float: right;
-    width:30%;
-    box-sizing: border-box;
+.third {
+	border: 1px solid black;
+	float: right;
+	width: 30%;
+	box-sizing: border-box;
 }
-
-
 </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -65,11 +62,16 @@
 										<h3>${space.name }
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
-												<!-- tag 넣기  시작-->
-											${st.tag}	
-												
-												<!-- tag 넣기  끝-->
-												
+										<!-- tag 넣기  시작-->
+										<br>
+										<span style="font-size: medium;;">
+										<c:forEach var="tag" items="${spacetag}">
+										#${tag.tag}
+										</c:forEach>
+										</span>
+										
+										<!-- tag 넣기  끝-->
+
 										</h3>
 									</div>
 									<div class="col-12 col-md-6 order-md-2 order-first">
@@ -87,20 +89,20 @@
 										<!-- 	사진 test 1 -->
 
 										<div class="card">
-											<div class="col-12 col-md-4, parent" >
-												<img  src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
-													class="img-fluid1, first" alt="singleminded" >
-													
-												<img  src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
-													class="img-fluid1, second" alt="singleminded" >
-												<img  src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
-													class="img-fluid1, third" alt="singleminded" >	
-												<div class="card-body">
-													
-												</div>
+											<div class="col-12 col-md-4, parent">
+												<img src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+												class="img-fluid1, first" alt="singleminded"> 
+												
+												<c:forEach items="${spaceimage}" var="detail" begin="0" end="1">
+												<img src="<%=request.getContextPath()%>/resources/spaceimage/${detail.image}"
+												class="img-fluid1, second" alt="singleminded"> 
+																							
+												</c:forEach>
+												
+												<div class="card-body"></div>
 											</div>
 											<ul class="list-group list-group-flush">
-																						
+
 											</ul>
 										</div>
 
@@ -108,7 +110,7 @@
 
 										<!-- 설명 시작1 -->
 										<div class="card-header" style="width: 50%; float: left;">
-											<h4 class="card-title"></h4>
+											<h4 class="card-title">한줄소개</h4>
 											${space.contentssim}
 											<h4 class="card-title">공간소개</h4>
 											${space.contentscom}

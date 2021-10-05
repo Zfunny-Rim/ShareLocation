@@ -76,5 +76,9 @@ public class SpaceDao {
 		System.out.println("stDao:"+st);
 		return st;
 	}
+	public List<SpaceImageBean> getImage(int num) {
+		List<SpaceImageBean> SpaceImage = sqlSessionTemplate.selectList(namespace+".getImage", num);
+		return SpaceImage;
+	}
 
 }

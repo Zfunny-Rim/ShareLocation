@@ -73,5 +73,10 @@
 		select * from spacetag
 		where spacenum = #{num}
 	</select>
+	
+		<select id="getImage" resultType="MySpaceImage">
+		select * from spaceimage
+		where spacenum = #{num}
+	</select>
 
 </mapper>
