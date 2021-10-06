@@ -41,8 +41,8 @@ public class SpaceDao {
 		return sqlSessionTemplate.insert(namespace+".insertSpaceImage", spaceImageBean);
 	}
 
-	public List<SpaceBean> getSpaceListByMemberNum(int memberNum) {
-		return sqlSessionTemplate.selectList(namespace+".getSpaceListByMemberNum", memberNum);
+	public List<SpaceBean> getSpaceListByMemberNum(int membernum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceListByMemberNum", membernum);
 	}
 
 	public SpaceBean getSpace(int num) {
