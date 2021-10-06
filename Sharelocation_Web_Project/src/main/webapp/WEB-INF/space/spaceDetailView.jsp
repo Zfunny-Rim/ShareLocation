@@ -167,8 +167,8 @@ element.style {
 											<c:forEach var="review" items="${reviewBoard}">
 												<div class="col-12">
 													<div class="card">
-														<div class="card-header" style="font: ">
-															<h1 class="card-title" style="float: left;">${review.write}</h1> 
+														<div class="card-header" style="font:">
+															<h1 class="card-title" style="float: left;">${review.write}</h1>
 															<!-- 별점 별 그림 시작-->
 															<div id="step" class="star-rating"
 																style="width: 160px; height: 30px; background-size: 30px;"
@@ -217,23 +217,56 @@ element.style {
 
 																			<tbody>
 																				<tr>
-																					<td class="text-bold-500">${detailspace.name}</td>
-																					<td align="center">$15/hr</td>
+																					<td class="text-bold-500">장소 선택</td>
+																					<td align="center">
+																					<c:forEach var="spaceName"
+																							items="${detailspace.name}">
+																							<input type="radio" value="spaceName" name="name">${spaceName}
+																					</c:forEach>
+																					</td>
 
 																				</tr>
 																				<tr>
-																					<td class="text-bold-500">시간선택</td>
-																					<td align="center"><div class="col-md-6 mb-4">
+																					<td align="left" colspan="2">
+																						${detailspace.contents}</td>
+																				</tr>
+																				<tr>
+																					<td align="center" colspan="2"><img
+																						src="<%=request.getContextPath()%>/resources/spaceimage/${detailspace.mainimage}"
+																						width="200px" height="200px"></td>
+																				</tr>
+																				<tr>
+																					<td class="text-bold-500">인원</td>
+																					<td align="center">최소${detailspace.minperson}~최대${detailspace.maxperson}
+																					</td>
+
+																				</tr>
+
+
+																				<tr>
+																					<td class="text-bold-500">시간선택 ${space.operatingtime}</td>
+																					<td align="center">
+																						<c:forTokens var="time" items="${space.operatingtime}" delims="~" varStatus="count">
+																						<select name="operatingtime">
+																						<option value="${time+1}">${time}~${time+1}</option>
+																						</select> 
+																						
+																						</c:forTokens>
+																					
+																					<div class="col-md-6 mb-4">
 
 																							<fieldset class="form-group"
 																								class="text-bold-500">
 																								<select class="form-select" id="basicSelect"
-																									name="time"
+																									name="operatingtime"
 																									style="width: 160px; margin-top: 22px;">
 																									<!-- 이름 확인해봐야됨 -->
+																									
+																								
+							
 																									<option>10~12</option>
-																									<option>12~14</option>
-																									<option>14~16</option>
+																							
+																								
 																								</select>
 																							</fieldset>
 																						</div></td>
@@ -241,7 +274,7 @@ element.style {
 																				</tr>
 																				<tr>
 																					<td class="text-bold-500">가격</td>
-																					<td align="center">$15/hr</td>
+																					<td align="center">${detailspace.price }원/${detailspace.priceunit}</td>
 																				</tr>
 																				<tr>
 																					<td colspan="2" class="text-bold-500"
