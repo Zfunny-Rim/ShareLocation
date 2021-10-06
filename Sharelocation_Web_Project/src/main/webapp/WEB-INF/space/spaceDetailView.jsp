@@ -62,15 +62,14 @@
 										<h3>${space.name }
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
-										<!-- tag 넣기  시작-->
-										<br>
-										<span style="font-size: medium;;">
-										<c:forEach var="tag" items="${spacetag}">
+											<!-- tag 넣기  시작-->
+											<br> <span style="font-size: medium;"> <c:forEach
+													var="tag" items="${spacetag}">
 										#${tag.tag}
 										</c:forEach>
-										</span>
-										
-										<!-- tag 넣기  끝-->
+											</span>
+
+											<!-- tag 넣기  끝-->
 
 										</h3>
 									</div>
@@ -90,15 +89,18 @@
 
 										<div class="card">
 											<div class="col-12 col-md-4, parent">
-												<img src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
-												class="img-fluid1, first" alt="singleminded"> 
-												
-												<c:forEach items="${spaceimage}" var="detail" begin="0" end="1">
-												<a onclick="detailView(${space.num})"><img src="<%=request.getContextPath()%>/resources/spaceimage/${detail.image}"
-												class="img-fluid1, second" alt="singleminded"></a> 
-																							
+												<img
+													src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+													class="img-fluid1, first" alt="singleminded">
+
+												<c:forEach items="${spaceimage}" var="detail" begin="0"
+													end="1">
+													<a onclick="detailView(${space.num})"><img
+														src="<%=request.getContextPath()%>/resources/spaceimage/${detail.image}"
+														class="img-fluid1, second" alt="singleminded"></a>
+
 												</c:forEach>
-												
+
 												<div class="card-body"></div>
 											</div>
 											<ul class="list-group list-group-flush">
@@ -116,7 +118,19 @@
 											${space.contentscom}
 											<h4 class="card-title">지도</h4>
 											<h4 class="card-title">사용자 후기</h4>
-
+											<!-- 후기	시작 -->
+										<table>
+										<c:forEach var="review" items="${reviewBoard}">
+										<tr>
+										<td>${review.write}</td>										
+										<td>${review.content}</td>										
+										<td>${review.regdate}</td>										
+										</tr>
+										
+										</c:forEach>
+										</table>
+										
+											<!-- 후기	끝 -->
 										</div>
 										<!-- 설명 끝1 -->
 

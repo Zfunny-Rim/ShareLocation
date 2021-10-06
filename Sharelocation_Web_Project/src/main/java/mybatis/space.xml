@@ -79,4 +79,7 @@
 		where spacenum = #{num}
 	</select>
 
+
 </mapper>
+
+

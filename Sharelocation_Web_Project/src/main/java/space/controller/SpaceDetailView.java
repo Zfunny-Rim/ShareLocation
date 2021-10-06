@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reviewBoard.model.ReviewBoardBean;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceImageBean;
@@ -51,8 +52,12 @@ public class SpaceDetailView {
 		mav.addObject("space",space);
 		mav.addObject("spaceimage",spaceimage);
 		mav.setViewName(getPage);
-
-
+		
+		List<ReviewBoardBean> reviewBoard = spaceDao.getReview(num);
+		System.out.println("reviewBoard: " +reviewBoard.size());
+		mav.addObject("reviewBoard",reviewBoard);
+		
+		
 		return mav;
 	}
 
@@ -67,5 +72,7 @@ public class SpaceDetailView {
 
 		return mav;
 	}
+	
+	
 
 }
