@@ -126,14 +126,13 @@
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="/reserv.rv">
+																	<form action="<%=request.getContextPath()%>/reserv.rv?mr=$15/hr&selectTime=10~12&pr=$15/hr&spaceNum=11&memberNum=1"
+																	 method="post">           
 																		<table class="table table-lg" style="width: auto;">
-
 																			<tbody>
 																				<tr>
 																					<td class="text-bold-500">Michael Right</td>
 																					<td align="center">$15/hr</td>
-
 																				</tr>
 																				<tr>
 																					<td class="text-bold-500">시간선택</td>
@@ -195,7 +194,7 @@
 	
 	function favorite(spaceNum,memberNum){
 		//alert(spaceNum ,memberNum);
-		location.href="favorite.sp?spaceNum="+spaceNum+"&memberNum="+memberNum;
+		location.href="favorite.sp?space="+spaceNum+"&memberNum="+memberNum;
 	}
 	
 	</script>

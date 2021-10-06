@@ -1,6 +1,8 @@
 package space.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +22,10 @@ public class SpaceDetailView {
 	SpaceDao spaceDao;
 	
 	@RequestMapping(value= command)
-	public ModelAndView doAction(@RequestParam(value = "num") int num
-			,  ModelAndView mav) {
+	public ModelAndView doAction(@RequestParam(value = "num") int num,
+				ModelAndView mav ) {
+		
+		
 		System.out.println("spaceDetailView");
 		
 		SpaceBean space = spaceDao.getSpace(num);
