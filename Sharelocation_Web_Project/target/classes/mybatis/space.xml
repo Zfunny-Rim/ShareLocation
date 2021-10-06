@@ -50,7 +50,11 @@
 	</insert>
 	
 	<select id="getSpaceListByMemberNum" resultType="MySpace">
-		select * from space where membernum = #{memberNum} order by rownum desc
+		select * from space where membernum = #{memberNum} order by rownum
+	</select>
+	
+	<select id="getSpaceImageListBySpaceNum" resultType="MySpaceImage">
+		select * from spaceimage where spacenum = #{spaceNum} order by rownum
 	</select>
 
 </mapper>

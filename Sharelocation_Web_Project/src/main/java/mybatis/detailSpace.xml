@@ -12,4 +12,8 @@
 		insert into detailspace(num, spacenum, name, contents, mainimage, mintime, minperson, maxperson, priceunit, price)
 		values(detailspace_seq.nextval, #{spacenum}, #{name}, #{contents}, #{mainimage}, #{mintime}, #{minperson}, #{maxperson}, #{priceunit}, #{price})
 	</insert>
+	
+	<select id="getDetailSpaceCountBySpaceNum" resultType="int">
+		select count(*) from detailspace where spacenum = #{spaceNum}
+	</select>
 </mapper>

@@ -47,7 +47,7 @@
 										<div class="card-body">
 											<div class="container">
 		                                   		 <div class="row row-cols-3">
-		                                   		 	<c:forEach var="space" items="${spList }">
+		                                   		 	<c:forEach var="space" items="${spList }" varStatus="vs">
 			                                   		 	<div class="col">
 				                                   		 	<div class="card bg-light">
 								                                <div class="card-content">
@@ -58,7 +58,7 @@
 								                                    		<div class="col-md-4" style="text-align:right;"><span class="badge bg-warning m-0">${space.status }</span></div>
 								                                    	</div>
 								                                        <p class="card-text">
-								                                            <a href="detailSpaceList.ho?spaceNum=11">세부공간 등록하기</a><br>
+								                                            <a href="detailSpaceList.ho?spaceNum=${space.num }">세부공간 등록하기 - ${dspCountMap[space.num] }</a><br>
 								                                            정산정보 등록하기<br>
 								                                        </p>
 								                                        <p class="card-text">
@@ -67,7 +67,7 @@
 								                                    </div>
 								                                </div>
 								                                <div class="card-footer d-flex justify-content-between bg-light">
-								                                    <button class="btn btn-light-primary" onClick="location.href='spaceManage.ho'">공간 관리하기</button>
+								                                    <button class="btn btn-light-primary" onClick="location.href='spaceManage.ho?spaceNum=${space.num}'">공간 관리하기</button>
 								                                    <button class="btn btn-light-danger">삭제</button>
 								                                </div>
 								                            </div>

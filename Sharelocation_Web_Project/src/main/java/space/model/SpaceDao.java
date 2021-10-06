@@ -60,4 +60,7 @@ public class SpaceDao {
 		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
 		return cnt;
 	}
+	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
+	}
 }

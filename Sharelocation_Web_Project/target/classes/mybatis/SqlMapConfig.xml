@@ -8,6 +8,9 @@
 		<typeAlias alias="MyDetailSpace" type="detailspace.model.DetailSpaceBean"/>
 		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
 		<typeAlias alias="MyRerservation" type="reservation.model.ReservationBean"/>
+		<typeAlias alias="MySpaceImage" type="space.model.SpaceImageBean"/>
+		<typeAlias alias="MySpaceFacility" type="space.model.SpaceFacilityBean"/>
+		<typeAlias alias="MySpaceTag" type="space.model.SpaceTagBean"/>
 	</typeAliases>
 	
 	<mappers>
