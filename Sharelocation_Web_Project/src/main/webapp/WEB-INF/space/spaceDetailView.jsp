@@ -41,6 +41,49 @@
 	width: 30%;
 	box-sizing: border-box;
 }
+
+/* 별 스타일 시작*/
+element.style {
+	width: 160px;
+	height: 32px;
+	background-size: 32px;
+}
+
+.star-rating {
+	width: 0;
+	position: relative;
+	display: inline-block;
+	background-image:
+		url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDguOSIgaGVpZ2h0PSIxMDMuNiIgdmlld0JveD0iMCAwIDEwOC45IDEwMy42Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2UzZTZlNjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPnN0YXJfMDwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMTA4LjkgMzkuNiA3MS4zIDM0LjEgNTQuNCAwIDM3LjYgMzQuMSAwIDM5LjYgMjcuMiA2Ni4xIDIwLjggMTAzLjYgNTQuNCA4NS45IDg4LjEgMTAzLjYgODEuNyA2Ni4xIDEwOC45IDM5LjYiLz48L2c+PC9nPjwvc3ZnPg0K);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	cursor: pointer;
+}
+
+.star-rating {
+	width: 0;
+	position: relative;
+	display: inline-block;
+	background-image: url(star_0.svg);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	cursor: pointer;
+}
+
+*, :after, :before {
+	box-sizing: border-box;
+}
+
+.star-rating .star-value {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background:
+		url(data:image/svg+xml;base64,PHN2Zw0KCXhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwOC45IiBoZWlnaHQ9IjEwMy42IiB2aWV3Qm94PSIwIDAgMTA4LjkgMTAzLjYiPg0KCTxkZWZzPg0KCQk8c3R5bGU+LmNscy0xe2ZpbGw6I2YxYzk0Nzt9PC9zdHlsZT4NCgk8L2RlZnM+DQoJPHRpdGxlPnN0YXIxPC90aXRsZT4NCgk8ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj4NCgkJPGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj4NCgkJCTxwb2x5Z29uIGNsYXNzPSJjbHMtMSIgcG9pbnRzPSI1NC40IDAgNzEuMyAzNC4xIDEwOC45IDM5LjYgODEuNyA2Ni4xIDg4LjEgMTAzLjYgNTQuNCA4NS45IDIwLjggMTAzLjYgMjcuMiA2Ni4xIDAgMzkuNiAzNy42IDM0LjEgNTQuNCAwIi8+DQoJCTwvZz4NCgk8L2c+DQo8L3N2Zz4NCg==);
+	background-repeat: repeat-x;
+}
+
+/* 별 스타일 끝*/
 </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -119,17 +162,30 @@
 											<h4 class="card-title">지도</h4>
 											<h4 class="card-title">사용자 후기</h4>
 											<!-- 후기	시작 -->
-										<table>
-										<c:forEach var="review" items="${reviewBoard}">
-										<tr>
-										<td>${review.write}</td>										
-										<td>${review.content}</td>										
-										<td>${review.regdate}</td>										
-										</tr>
-										
-										</c:forEach>
-										</table>
-										
+
+											<c:forEach var="review" items="${reviewBoard}">
+												<div class="col-12">
+													<div class="card">
+														<div class="card-header" style="font: ">
+															<h1 class="card-title" style="float: left;">${review.write}</h1> 
+															<!-- 별점 별 그림 시작-->
+															<div id="step" class="star-rating"
+																style="width: 160px; height: 30px; background-size: 30px;"
+																data-rating="5" title="${review.totalrating/3}/5">
+																<div class="star-value"
+																	style="background-size: 32px; width: ${review.totalrating/3/5*100}%;"></div>
+															</div>
+															<!-- 별점 별 그림 끝 -->
+
+														</div>
+														<div class="card-body">
+															<p>${review.content}</p>
+															<p>${review.regdate}</p>
+														</div>
+													</div>
+												</div>
+
+											</c:forEach>
 											<!-- 후기	끝 -->
 										</div>
 										<!-- 설명 끝1 -->
@@ -231,6 +287,7 @@
 		//alert(장소 더 보기);
 		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
 	}
+
 	</script>
 
 		<%-- ******* CUSTOM Script END ******* --%>
