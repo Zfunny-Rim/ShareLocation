@@ -26,7 +26,7 @@
 
 	<delete id="delFavorite">
 		delete from favorite
-		where spaceNum = #{spaceNum} and
+		where spacenum = #{spacenum} and
 		membernum = #{membernum}
 	</delete>
 
@@ -71,15 +71,18 @@
 
 	<select id="getTag" resultType="MySpaceTag">
 		select * from spacetag
-		where spacenum = #{num}
+		where
+		spacenum = #{num}
+	</select>
+
+	<select id="getImage" resultType="MySpaceImage">
+		select * from spaceimage
+		where
+		spacenum = #{num}
 	</select>
 	
-		<select id="getImage" resultType="MySpaceImage">
-		select * from spaceimage
-		where spacenum = #{num}
-	</select>
-
-
+		
+	
 </mapper>
 
 

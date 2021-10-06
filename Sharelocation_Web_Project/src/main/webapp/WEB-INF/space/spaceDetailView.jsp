@@ -1,3 +1,4 @@
+<%@page import="detailspace.model.DetailSpaceBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -216,7 +217,7 @@ element.style {
 
 																			<tbody>
 																				<tr>
-																					<td class="text-bold-500">세부공간 선택</td>
+																					<td class="text-bold-500">${detailspace.name}</td>
 																					<td align="center">$15/hr</td>
 
 																				</tr>
@@ -278,9 +279,8 @@ element.style {
 
 		<script type="text/javascript">
 	
-	function favorite(spaceNum,memberNum){
-		//alert(spaceNum ,memberNum);
-		location.href="favorite.sp?spaceNum="+spaceNum+"&memberNum="+memberNum;
+	function favorite(spacenum,membernum){
+		location.href="favorite.sp?spacenum="+spacenum+"&membernum="+membernum;
 	}
 	
 	function detailView(spacenum){

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import space.model.SpaceDao;
 import space.model.FavoriteBean;
@@ -26,10 +27,11 @@ public class SpaceFavoriteCmd {
 	@RequestMapping(value= command)
 	public String doAction(@RequestParam(value = "spacenum") int spacenum,
 			@RequestParam(value = "membernum") int membernum, 
-			FavoriteBean bean, HttpServletResponse response
+			FavoriteBean bean, HttpServletResponse response,
+			ModelAndView mav
 			) throws IOException {
 		System.out.println("spaceDetailView");
-
+		PrintWriter pw = response.getWriter();	
 		bean.setMembernum(membernum); 
 		bean.setSpacenum(spacenum);
 
@@ -40,10 +42,9 @@ public class SpaceFavoriteCmd {
 			if(cnt != 0) {
 				System.out.println(" 좋아요삭제성공");
 				/* 찜하기 메세지 설정 */
-				/*
-				 * pw.println("<script>alert('찜하기 해제 되었습니다');</script>"); pw.flush(); // 화면 출력
-				 * 부분
-				 */			}
+
+			//	pw.println("<script>alert('찜하기 해제 되었습니다');</script>"); pw.flush(); // 화면 출력
+			}
 		}
 		else {	
 

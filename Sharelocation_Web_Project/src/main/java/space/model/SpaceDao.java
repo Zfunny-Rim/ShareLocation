@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import detailspace.model.DetailSpaceBean;
 import reviewBoard.model.ReviewBoardBean;
 import utility.Paging;
 
@@ -15,6 +16,7 @@ import utility.Paging;
 public class SpaceDao {
 
 	private String namespace = "space.model.SpaceBean";
+	private String namespace2 = "detailspace.model.DetailSpaceBean";
 	private String namespace1 = "reviewBoard.model.ReviewBoardBean";
 
 
@@ -90,6 +92,10 @@ public class SpaceDao {
 		return reviewBoard; 
 		
 	}
-
-
+	public DetailSpaceBean getDetailSpaceListBySpaceNum(int spacenum) {
+		DetailSpaceBean detailspace = sqlSessionTemplate.selectOne(namespace2+".getDetailSpaceListBySpaceNum", spacenum);
+		return detailspace;
+	}
+	
+	
 }

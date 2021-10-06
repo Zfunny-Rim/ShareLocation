@@ -2,6 +2,8 @@ package host.space.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +24,13 @@ public class HostDetailSpaceListController {
 	DetailSpaceDao detailSpaceDao;
 	
 	@RequestMapping(value=command)
-	public ModelAndView doAction(@RequestParam("spaceNum") int spaceNum) {
+	public ModelAndView doAction(@RequestParam("spaceNum") int spaceNum, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewPage);
 		
 		List<DetailSpaceBean> dspBeanList = detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
 		mav.addObject("dspBeanList", dspBeanList);
+		session.setAttribute("dspBeanList", dspBeanList);
 		return mav;
 	}
 }
