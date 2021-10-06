@@ -91,7 +91,7 @@
 														<div class="col-md-8 form-group">
 															<input type="number" class="form-control" name="mintime" value="1">
 															<p><small class="text-muted">
-																<form:errors cssClass="err" path="mintime" />
+																<form:errors cssClass="err"/>
 															</small></p>
 														</div>
 														<div class="col-md-6">
@@ -100,7 +100,8 @@
 				                                                    <label>최소 인원 <span class="required">*</span></label>
 				                                                </div>
 				                                                <div class="col-lg-8 col-8">
-				                                                    <input type="number" class="form-control" name="minperson" placeholder="1">
+				                                                    <input type="number" class="form-control" name="minperson" value="1">
+				                                                    <form:errors cssClass="err" />
 				                                                </div>
 				                                            </div>
 				                                        </div>
@@ -111,7 +112,8 @@
 				                                                    <label>최대 인원<span class="required">*</span></label>
 				                                                </div>
 				                                                <div class="col-lg-8 col-8">
-				                 	                               <input type="number" class="form-control" name="maxperson" placeholder="8">
+				                 	                               <input type="number" class="form-control" name="maxperson" value="8">
+				                 	                               <form:errors cssClass="err" />
 				                                                </div>
 				                                            </div>
 				                                        </div>
@@ -127,7 +129,7 @@
 															<input class="form-check-input" type="radio" name="priceunit" id="priceunitPackage" value="공간">
 															<label class="form-check-label" for="priceunitPackage">공간당</label>
 															<p><small class="text-muted">
-		                                                        	<form:errors cssClass="err"/>
+		                                                        	<form:errors cssClass="err" />
 		                                                        </small></p>
 														</div>
 														<div class="col-md-4">
@@ -135,8 +137,9 @@
 														</div>
 														<div class="col-md-8 form-group">
 															<div class="input-group">
-																<input type="number" class="form-control" name="price" placeholder="10000">
+																<input type="number" class="form-control" name="price" value="10000">
 			                                                    <span class="input-group-text" id="priceUnitLabel">￦/시간</span>
+			                                                    <form:errors cssClass="err" />
 			                                                </div>
 														</div>
 														

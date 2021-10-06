@@ -5,5 +5,11 @@
 <mapper namespace="detailspace.model.DetailSpaceBean">
 	<select id="getDetailSpaceListBySpaceNum" resultType="MyDetailSpace">
 		select * from detailspace where spacenum = #{spaceNum}
+		order by rownum desc
 	</select>
+	
+	<insert id="insertDSpace">
+		insert into detailspace(num, spacenum, name, contents, mainimage, mintime, minperson, maxperson, priceunit, price)
+		values(detailspace_seq.nextval, #{spacenum}, #{name}, #{contents}, #{mainimage}, #{mintime}, #{minperson}, #{maxperson}, #{priceunit}, #{price})
+	</insert>
 </mapper>

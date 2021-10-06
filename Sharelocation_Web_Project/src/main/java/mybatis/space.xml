@@ -48,5 +48,9 @@
 	<insert id="insertSpaceFacility">
 		insert into spacefacility values(spacefacility_seq.nextval, #{spacenum}, #{facility})
 	</insert>
+	
+	<select id="getSpaceListByMemberNum" resultType="MySpace">
+		select * from space where membernum = #{memberNum} order by rownum desc
+	</select>
 
 </mapper>
