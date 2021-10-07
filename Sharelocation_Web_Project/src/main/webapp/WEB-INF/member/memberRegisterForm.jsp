@@ -44,12 +44,22 @@
 	                                                        	<form:errors cssClass="err" path="id"/>
 	                                                        </div>
 	                                                        <div class="col-md-2 form-group">
-	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck(${idLists})">
+	                                                        ${idLists }<br>
+	                                                        <c:forEach var="mbean" items="${idLists}" varStatus="vs">
+	                                                        	${vs.count}<br>
+	                                                        	${mbean.id }<br>
+	                                                        </c:forEach>
+	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck('${idLists }')">
 	                                                        </div>
 	                                                    <div class="col-12">
 	                                                        <div class="form-group">
 	                                                            <label>비밀번호<span class="required">*</span></label>
 	                                                            <input type="password" id="first-name-vertical" class="form-control" name="password" placeholder="Password">
+	                                                        	<form:errors cssClass="err" path="password"/>
+	                                                        </div>
+	                                                        <div class="form-group">
+	                                                            <label>비밀번호확인<span class="required">*</span></label>
+	                                                            <input type="password" id="first-name-vertical" class="form-control" name="repassword" placeholder="비밀번호확인">
 	                                                        	<form:errors cssClass="err" path="password"/>
 	                                                        </div>
 	                                                    </div>
@@ -105,7 +115,7 @@
 	                                                        	<form:errors cssClass="err" path="birth"/>
 	                                                        </div>
 	                                                    </div>
-	                                                    <div class="col-12">
+	                                                    <div class="col-12" style="float:left;">
 	                                                        <div class="form-check">
 	                                                            <label>성별<span class="required">*</span></label>
 	                                                            <div class="checkbox">
@@ -150,22 +160,27 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		<script src="./resources/assets/vendors/choices.js/choices.min.js"></script>
 		<script>
 		
 		duplicate = false;
 		
 		function idCheck(idLists){
-			//alert(1);
+			alert(idLists);  
 			duplicate = true;
 			
-			if($('input[id="id"]').val() == idLists){
+			if($('input[id="id"]').val().indexOf(idLists)){
 				alert("이미 사용중인 아이디입니다.");
 				$('input[id="id"]').val("");
 			}
 			else{
 				alert("사용 가능한 아이디입니다.");
 			}
+		}
+		
+		if($(input[name="password"]).val()!=$(input[name="repassword"]).val()){
+			alert("비번이 일치하지 않습니다.")
+			$(input[name="password"]).select();
+			return false;
 		}
 		
 		function processing(){
