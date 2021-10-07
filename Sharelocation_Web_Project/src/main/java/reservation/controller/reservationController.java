@@ -49,6 +49,7 @@ public class reservationController {
 		reservationbean.setCheckout("21");
 		reservationbean.setPerson(1);
 		reservationbean.setAmounts(10000);
+		reservationbean.setApplicationdate("2021-10-20");;
 		
 		System.out.println("reservationbean:"+reservationbean.toString());
 		//로그인 안했다면

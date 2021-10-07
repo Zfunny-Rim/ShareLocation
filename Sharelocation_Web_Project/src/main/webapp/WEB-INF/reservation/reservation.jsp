@@ -22,7 +22,26 @@
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
 
 		<h2 data-v-744e58ae="" class="heading--new" align="center">예약하기</h2>
-
+		<!-- 예약 공간 시작-->
+		<div id="main">
+		
+		<p class="text-subtitle text-muted">예약 공간</p>
+		<div class="card">
+			<div class="card-content">
+				<img src="assets/images/samples/motorcycle.jpg"
+					class="card-img-top img-fluid" alt="singleminded">
+				<div class="card-body">
+					<h5 class="card-title">${spacebean.name }</h5>
+					<p class="card-text">${spacebean.contentscom }</p>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">공간유형 : ${spacebean.type }</li>
+				<li class="list-group-item">예약인원 : 최소${detailSpacebean.minperson }명~최대${detailSpacebean.maxperson }명</li>
+			</ul>
+		</div>
+		<!-- 예약 공간 끜-->
+		
 		<!-- 예약 정보 시작-->
 		<div class="col-md-6 col-12">
 			<div class="card">
@@ -40,11 +59,12 @@
 							<tbody>
 								<tr>
 									<td class="text-bold-500">예약 날짜</td>
-									<td align="center">${selectTime}</td>
+									<td align="center">${reservationbean.applicationdate}
+										${reservationbean.checkin}시~${reservationbean.checkout}시</td>
 								</tr>
 								<tr>
 									<td class="text-bold-500">예약인원</td>
-									<td align="center">${reservation.person }</td>
+									<td align="center">${reservationbean.person}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -120,14 +140,6 @@
 									</div>
 									<div class="col-md-4">
 										<label><font style="vertical-align: inherit;"><font
-												style="vertical-align: inherit;">사용목적</font></font></label>
-									</div>
-									<div class="col-md-8 form-group">
-										<input type="email" id="email-id" class="form-control"
-											name="email-id" placeholder="사용목적을 적어주세요!">
-									</div>
-									<div class="col-md-4">
-										<label><font style="vertical-align: inherit;"><font
 												style="vertical-align: inherit;">요청사항</font></font></label>
 									</div>
 									<div class="col-md-8 form-group">
@@ -146,7 +158,7 @@
 			</div>
 		</div>
 		<!-- 예약자 정보 끝 -->
-	
+
 		<!-- 호스트 정보 시작 -->
 		<div class="col-12 col-md-6">
 			<div class="card">
@@ -187,33 +199,7 @@
 			</div>
 		</div>
 		<!-- 호스트 정보 끝-->
-		
-		<!-- 예약시 주의사항 시작 -->
-		<div class="col-12 col-md-6">
-			<div class="card">
-				<div class="card-header" bgColor="yellow">
-					<h4 class="card-title">예약시 주의사항</h4>
-				</div>
-				<div class="card-content">
-					<div class="card-body">
-						<!-- Table with outer spacing -->
-						<div class="table-responsive">
-							<table class="table table-lg">
-								<tbody>
-								<c:forEach var="space" items="${lists }">
-									<tr>
-										<td class="text-bold-500">공간상호</td>
-										<td>${space.warning}</td>
-									</tr>
-								</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 예약시 주의사항 끝 -->
+
 		<div class="card-header" style="width: auto; align-content: center;">
 			<div class="accordion" id="cardAccordion" style="width: auto">
 				<div class="card" style="width: auto">
@@ -230,21 +216,27 @@
 							<div class="card-body" style="width: auto">
 								<!-- Table with outer spacing -->
 								<div class="table-responsive">
-									<form action="<%=request.getContextPath()%>/reservInsert.rv?memberNum=1&spaceNum=11" method="post">
+									<form
+										action="<%=request.getContextPath()%>/reservInsert.rv?memberNum=1&spaceNum=11"
+										method="post">
 										<table class="table table-lg" style="width: auto;">
 											<tbody>
 												<tr>
 													<td class="text-bold-500">예약날짜</td>
-													<td align="center">2021/10/02</td>
+													<td align="center">${reservationbean.applicationdate}</td>
 
 												</tr>
 												<tr>
 													<td class="text-bold-500">예약시간</td>
-													<td align="center">2시간</td>
+													<td align="center">${reservationbean.checkin}시~${reservationbean.checkout}시</td>
 												</tr>
 												<tr>
 													<td class="text-bold-500">예약인원</td>
-													<td align="center">2명</td>
+													<td align="center">${reservationbean.person}</td>
+												</tr>
+												<tr>
+													<td class="text-bold-500" align="center" colspan="2">총
+														가격:${reservationbean.amounts}</td>
 												</tr>
 												<tr>
 													<td colspan="2" class="text-bold-500" align="center"><input
@@ -262,8 +254,10 @@
 			</div>
 		</div>
 		<!-- 	  접히는거 끝 -->
+		</div>
 		<div class="dimmed" data-v-5abc2650=""></div>
 		<div class="dimmed" style="display: none;" data-v-5abc2650=""></div>
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
+		</div>
 </body>
