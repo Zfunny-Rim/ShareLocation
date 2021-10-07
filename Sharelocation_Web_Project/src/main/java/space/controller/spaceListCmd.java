@@ -45,7 +45,7 @@ public class spaceListCmd {
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,keyword);
 		System.out.println("spaceLists"+spaceLists.size());
-		mav.addObject("spaceLists",spaceLists);
+		mav.addObject("spaceLists",spaceLists);  
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
 		return mav;
