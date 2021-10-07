@@ -3,5 +3,50 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 			
 <mapper namespace="space.model.SpaceBean">
+	
+	<select id="getSpace" resultType="MySpace">
+	select * from space
+	where num = #{num}
+	</select>
+	
+	<insert id="addFavorite">
+	insert into favorite
+	values(favorite_seq.nextval, #{spacenum},#{membernum})
+	</insert>
+
+	<select id="getSpaceList" resultType="MySpace">
+	select * from space
+	where name like #{keyword}
+	order by num desc
+	</select>
+	
+
+	<delete id="delFavorite">
+	delete from favorite
+	where spaceNum = #{spaceNum} and membernum = #{membernum}
+	</delete>
+	
+	<insert id="insertSpace">
+		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage,
+		site, address, email, hp, operatingtime, holiday, grade, status, regdate) values 
+		(space_seq.nextval, #{membernum}, #{name}, #{type}, #{contentssim}, #{contentscom}, #{warning}, #{mainimage},
+		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
+	</insert>
+	
+	<select id="getRecentSpaceNum" resultType="int">
+		select num from (select * from space order by rownum desc) where rownum = 1
+	</select>
+	
+	<insert id="insertSpaceTag">
+		insert into spacetag values(spacetag_seq.nextval, #{spacenum}, #{tag})
+	</insert>
+	
+	<insert id="insertSpaceImage">
+		insert into spaceimage values(spaceimage_seq.nextval, #{spacenum}, #{image})
+	</insert>
+	
+	<insert id="insertSpaceFacility">
+		insert into spacefacility values(spacefacility_seq.nextval, #{spacenum}, #{facility})
+	</insert>
 
 </mapper>

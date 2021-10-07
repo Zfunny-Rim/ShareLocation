@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[3.9.15.202012132325-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[3.9.18.202108161154-CI-B2817]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -9,8 +9,11 @@
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/main-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/member-servlet.xml</config>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/host-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
 	</autoconfigs>

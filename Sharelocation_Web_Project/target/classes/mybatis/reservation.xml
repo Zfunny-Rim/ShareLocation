@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservation.model.ReservationBean">
+	<select id="getReserv" resultType="MyRerservation">
+		select * from reservation
+		where spacenum = #{spacenum}
+		order by num
+	</select>
+	
+	<insert id="reservInsert">
+	</insert>
+</mapper>
