@@ -17,24 +17,27 @@
 		</div>
 		<div class="sidebar-menu">
 			<!-- ***** Login Card Start ***** -->
+		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
+		<c:if test="${empty loginInfo }">
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">Login</h4>
 				</div>
 				<div class="card-body">
 					<div class="basic-form">
-						<form>
+						<form action="login.member" method="post">
 							<div class="form-group row">
-								<label class="col-sm-4 col-form-label">아이디</label>
+								<label class="col-sm-4 col-form-label" id="id">아이디</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" placeholder="ID">
+									<input type="text" class="form-control" placeholder="ID" name="id">
+									<input type="hidden" id="id" value="${id }">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-sm-4 col-form-label">비밀번호</label>
+								<label class="col-sm-4 col-form-label" >비밀번호</label>
 								<div class="col-sm-8">
-									<input type="password" class="form-control"
-										placeholder="Password">
+									<input type="password" class="form-control" placeholder="Password" name="password">
+									<input type="hidden" id="password" value="${password }">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -45,13 +48,31 @@
 						</form>
 						<div class="new-account mt-3">
 							<p>
-								계정이 없으신가요? <a class="text-primary" href="#">회원가입</a>
+								계정이 없으신가요? <a class="text-primary" href="register.member">회원가입</a>
 							</p>
-							<small><a href="#">아이디/비밀번호 찾기</a></small>
+							<small><a href="findIdPw.member">아이디/비밀번호 찾기</a></small>
 						</div>
 					</div>
 				</div>
 			</div>
+		</c:if>
+		<c:if test="${not empty loginInfo }">
+			<div class="card bg-light">
+				<div class="card-header">
+					<h4 class="card-title">${loginInfo.nickname }</h4>
+					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
+				</div>
+				<div class="card-body">
+					<div class="basic-form">
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<button type="button" class="btn btn-primary btn-block" onClick="location.href='mypage.member?id=${loginInfo.id}'">MyPage</button>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
 			<!-- ***** Login Card END ***** -->
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>
