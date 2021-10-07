@@ -28,7 +28,7 @@
 	                            	<div class="card-content">
 	                            		<div class="card-body">
 		                            		<nav class="nav nav-pills flex-column flex-sm-row">
-											  <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page"
+											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white"
 											   href="spaceManage.ho?spaceNum=${spaceBean.num }">관리 홈</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" 
 											   href="spaceManageModify.ho?spaceNum=${spaceBean.num }">공간정보 수정</a>
@@ -62,7 +62,12 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		
+		<script type="text/javascript">
+		 $(document).ready(function(){
+			var pageName = <%=request.getAttribute("getPage")%>;
+			alert(pageName)
+		 });
+		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>

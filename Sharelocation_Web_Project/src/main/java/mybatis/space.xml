@@ -28,9 +28,9 @@
 	
 	<insert id="insertSpace">
 		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage,
-		site, address, email, hp, operatingtime, holiday, grade, status, regdate) values 
+		site, address, email, hp, operatingtime, operatingendtime, holiday, grade, status, regdate) values 
 		(space_seq.nextval, #{membernum}, #{name}, #{type}, #{contentssim}, #{contentscom}, #{warning}, #{mainimage},
-		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
+		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{operatingendtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
 	</insert>
 	
 	<select id="getRecentSpaceNum" resultType="int">

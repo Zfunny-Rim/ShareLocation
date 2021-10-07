@@ -31,7 +31,7 @@ public class HostSpaceInsertController {
 	public final String command = "insertSpace.ho";
 	public final String command_tier1 = "insertSpace_1.ho";
 	public final String viewPage = "insert/insertSpace";
-	public final String gotoPage = "hostSpaceList";
+	public final String gotoPage = "redirect:/spaceList.ho";
 	
 	@Autowired
 	ServletContext servletContext;
@@ -66,9 +66,10 @@ public class HostSpaceInsertController {
 		spaceBean.setGrade("기본");
 		
 		//operatingtime 처리
-		String operatingtime = ((String)request.getParameter("starttime"))+"~"+
-				((String)request.getParameter("endtime"));
+		String operatingtime = request.getParameter("starttime");
+		String operatingendtime = request.getParameter("endtime");
 		spaceBean.setOperatingtime(operatingtime);
+		spaceBean.setOperatingendtime(operatingendtime);
 		
 		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
@@ -124,8 +125,8 @@ public class HostSpaceInsertController {
 			cnt = spaceDao.insertSpaceTag(stBean);
 		}
 		
-		pw.println("<script>alert('공간정보가 저장되었습니다.');</script>");
-		pw.flush();
+//		pw.println("<script>alert('공간정보가 저장되었습니다.');</script>");
+//		pw.flush();
 		
 		return mav;
 	}

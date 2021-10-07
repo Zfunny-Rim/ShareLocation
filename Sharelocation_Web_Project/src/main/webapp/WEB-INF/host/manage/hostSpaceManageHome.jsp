@@ -33,8 +33,7 @@
 					<h5>공간 소개</h5>
 					<p class="card-text">${spaceBean.contentssim }</p>
 					<h5>영업 시간</h5>
-					<c:set var="opTime" value="${fn:split(spaceBean.operatingtime, '~')}"/>
-					<p class="card-text">${opTime[0] }시 ~ ${opTime[1] }시</p>
+					<p class="card-text">${spaceBean.operatingtime }시 ~ ${spaceBean.operatingendtime }시</p>
 					<h5>휴무일</h5>
 					<p class="card-text">
 						<c:if test="${empty spaceBean.holiday}">

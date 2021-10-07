@@ -31,13 +31,14 @@ public class HostSpaceManageController {
 			@RequestParam(value="tab", required = false) String tab) {
 		ModelAndView mav = new ModelAndView(viewPage);
 		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
-		getPage = "hostSpaceManageHome.jsp";
 		
 		List<DetailSpaceBean> dspList =  detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
 		List<SpaceImageBean> spImgList = spaceDao.getSpaceImageListBySpaceNum(spaceNum);
 		mav.addObject("spaceBean",spaceBean);
 		mav.addObject("dspList",dspList);
 		mav.addObject("spImgList", spImgList);
+		
+		getPage = "hostSpaceManageHome.jsp";
 		mav.addObject("getPage", getPage);
 		return mav;
 	}
