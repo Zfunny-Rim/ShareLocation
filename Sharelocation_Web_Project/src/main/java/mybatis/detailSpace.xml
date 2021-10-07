@@ -4,6 +4,6 @@
 			
 <mapper namespace="detailspace.model.DetailSpaceBean">
 	<select id="getDetailSpaceListBySpaceNum" resultType="MyDetailSpace">
-		select * from detailspace where spacenum = #{spaceNum}
+		select * from detailspace where spacenum = #{spacenum}
 	</select>
 </mapper>
