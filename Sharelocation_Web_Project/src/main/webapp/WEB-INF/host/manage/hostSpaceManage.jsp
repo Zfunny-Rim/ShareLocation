@@ -29,11 +29,11 @@
 	                            		<div class="card-body">
 		                            		<nav class="nav nav-pills flex-column flex-sm-row">
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Home"
-											   href="spaceManage.ho?spaceNum=${spaceBean.num }">관리 홈</a>
+											   href="spaceManage.ho?spaceNum=${spaceNum }">관리 홈</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Modify"
-											   href="spaceManageModify.ho?spaceNum=${spaceBean.num }">공간정보 수정</a>
+											   href="spaceManageModify.ho?spaceNum=${spaceNum }">공간정보 수정</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Detail"
-											   href="spaceManageDetailSpace.ho?spaceNum=${spaceBean.num }">세부공간 관리</a>
+											   href="spaceManageDetailSpace.ho?spaceNum=${spaceNum }">세부공간 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Balance"
 											   href="#">정산정보 수정</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Review"

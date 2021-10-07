@@ -202,7 +202,10 @@
 			                                                        <option value="">직접입력</option>
 			                                                        <option value="naver.com">naver.com</option>
 			                                                        <option value="hanmail.net">hanmail.net</option>
+			                                                        <option value="daum.net">daum.net</option>
 			                                                        <option value="gmail.com">gmail.com</option>
+			                                                        <option value="hotmail.com">hotmail.com</option>
+			                                                        <option value="nate.com">nate.com</option>
 			                                                    </select>
 			                                                </div>
 														</div>
@@ -229,7 +232,7 @@
 														</div>
 														<div class="col-md-8 form-group">
 		                                                    <div class="input-group mb-3">
-			                                                    <select class="form-select" name="starttime">
+			                                                    <select class="form-select" name="operatingtime">
 			                                                    	<c:forEach var="i" begin="0" end="24">
 			                                                    		<option value="${i}">
 			                                                    			<fmt:formatNumber value="${i }" pattern="00"/>
@@ -237,7 +240,7 @@
 			                                                    	</c:forEach>
 			                                                    </select>
 			                                                    <span class="input-group-text">시 부터</span>
-			                                                    <select class="form-select" name="endtime">
+			                                                    <select class="form-select" name="operatingendtime">
 			                                                        <c:forEach var="i" begin="0" end="24">
 			                                                    		<option value="${i}">
 			                                                    			<fmt:formatNumber value="${i }" pattern="00"/>
@@ -338,6 +341,12 @@
 		  		var hpStr = $('input[name="hp1"]').val()+"-"+$('input[name="hp2"]').val()+"-"+$('input[name="hp3"]').val();
 		  		$('input[name="hp"]').val(hpStr);
 		  		
+		  		var opTime = Number($('select[name="operatingtime"]').val());
+		 		var opEndTime = Number($('select[name="operatingendtime"]').val());
+		 		if(opTime >= opEndTime){
+		 			alert('운영시간을 정확하게 입력해주세요.');
+		 			return false;
+		 		}
 		  		return true;
 		  	}
 		  	

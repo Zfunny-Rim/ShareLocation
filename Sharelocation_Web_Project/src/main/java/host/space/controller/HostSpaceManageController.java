@@ -29,6 +29,8 @@ import space.model.SpaceImageBean;
 public class HostSpaceManageController {
 	private final String homeCommand = "spaceManage.ho";
 	private final String modifyCommand = "spaceManageModify.ho";
+	private final String detailCommand = "spaceManageDetailSpace.ho";
+	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
 	
@@ -47,6 +49,7 @@ public class HostSpaceManageController {
 		
 		List<DetailSpaceBean> dspList =  detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
 		List<SpaceImageBean> spImgList = spaceDao.getSpaceImageListBySpaceNum(spaceNum);
+		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("spaceBean",spaceBean);
 		mav.addObject("dspList",dspList);
 		mav.addObject("spImgList", spImgList);
@@ -66,6 +69,7 @@ public class HostSpaceManageController {
 		List<SpaceImageBean> spaceImageList = spaceDao.getImage(spaceNum);
 		List<SpaceFacilityBean> spaceFacilityList = spaceDao.getFacility(spaceNum);
 		
+		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("spaceBean", spaceBean);
 		mav.addObject("spaceImageList", spaceImageList);
 		mav.addObject("spaceFacilityList", spaceFacilityList);
@@ -169,6 +173,18 @@ public class HostSpaceManageController {
 		
 		mav.setViewName("redirect:/spaceManage.ho");
 		mav.addObject("spaceNum", spaceBean.getNum());
+		return mav;
+	}
+
+	@RequestMapping(value=detailCommand)
+	public ModelAndView detailList(@RequestParam(value="spaceNum")int spaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "Detail";
+		mav.addObject("getPage", getPage);
+		
+		List<DetailSpaceBean> dspBeanList = detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
+		mav.addObject("dspBeanList", dspBeanList);
+		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}
 }
