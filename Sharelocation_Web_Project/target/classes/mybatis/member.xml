@@ -2,16 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member.model.MemberBean">
-	<select id="getData" resultType="MyMember">
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from members
+		<if test="whatColumn=='id'">
+			where id like #{keyword}
+		</if>
+		<if test="whatColumn=='성별'">
+			where gender like #{keyword}
+		</if>
+	
+	</select>
+
+	<select id="getMemberList" resultType="MyMember">
 		select * from members
+			<if test="whatColumn=='id'">
+			where id like #{keyword}
+		</if>
+		<if test="whatColumn=='성별'">
+			where gender like #{keyword}
+		</if>
+		order by num desc
+	</select>
+
+	<select id="getData" resultType="MyMember">
+		select * from members 
 		where id = #{id}
 	</select>
+
 	
 	<select id="getIdPw" resultType="MyMember">
 		select * from members
 		where email=#{email} and hp=#{hp}
 	</select>
 	
+
 	<insert id="insertMember">
 		insert into members values
 		(members_seq.nextval,#{id},#{password},#{nickname},#{email},#{address},#{hp},#{birth},#{gender},#{type},0,sysdate)
@@ -20,5 +45,9 @@
 		update members set  
 		nickname=#{nickname}, email=#{email}, address=#{address}, hp=#{hp}, birth=#{birth}, gender=#{gender}, type=#{type} where id=#{id}
 	</update>
+	
+	<select id="getId" resultType="MyMember">
+		select id from members
+	</select>
 	
 </mapper>

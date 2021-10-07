@@ -22,7 +22,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>1</load-on-startup>   
 	</servlet>
 		
 	<servlet-mapping>
@@ -49,23 +49,24 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- CUSTOM SETTING -->
-	<servlet>
-		<servlet-name>main</servlet-name>
+<!--  reservation -->
+ 	<servlet>
+		<servlet-name>reservation</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/main-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/reservation-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+		
 	<servlet-mapping>
-		<servlet-name>main</servlet-name>
-		<url-pattern>*.main</url-pattern>
+		<servlet-name>reservation</servlet-name>
+		<url-pattern>*.rv</url-pattern>
 	</servlet-mapping>
-	
-<!-- HOST -->
-	<servlet>
+
+<!-- HOST -->   
+	<servlet>   
 		<servlet-name>host</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -93,7 +94,7 @@
 		<servlet-name>space</servlet-name>
 		<url-pattern>*.sp</url-pattern>
 	</servlet-mapping>
-	
+
 <!-- memeber -->	
 	<servlet>
 		<servlet-name>member</servlet-name>
@@ -104,9 +105,9 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+		
 	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.member</url-pattern>
 	</servlet-mapping>
-	
 </web-app>
