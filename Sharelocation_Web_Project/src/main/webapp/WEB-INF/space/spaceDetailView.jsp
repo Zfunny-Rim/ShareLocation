@@ -1,3 +1,4 @@
+<%@page import="detailspace.model.DetailSpaceBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +9,83 @@
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
+<style type="text/css">
+.img-fluid1, .img-thumbnail {
+	max-width: 70%;
+	height: auto;
+	margin-left: 20%;
+}
 
+.parent {
+	width: 90%;
+	margin: 10px auto;
+}
+
+.first {
+	border: 1px solid black;
+	float: left;
+	width: 30%;
+	box-sizing: border-box;
+}
+
+.second {
+	border: 1px solid black;
+	float: left;
+	margin-left: 5%;
+	width: 30%;
+	box-sizing: border-box;
+}
+
+.third {
+	border: 1px solid black;
+	float: right;
+	width: 30%;
+	box-sizing: border-box;
+}
+
+/* 별 스타일 시작*/
+element.style {
+	width: 160px;
+	height: 32px;
+	background-size: 32px;
+}
+
+.star-rating {
+	width: 0;
+	position: relative;
+	display: inline-block;
+	background-image:
+		url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDguOSIgaGVpZ2h0PSIxMDMuNiIgdmlld0JveD0iMCAwIDEwOC45IDEwMy42Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2UzZTZlNjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPnN0YXJfMDwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMTA4LjkgMzkuNiA3MS4zIDM0LjEgNTQuNCAwIDM3LjYgMzQuMSAwIDM5LjYgMjcuMiA2Ni4xIDIwLjggMTAzLjYgNTQuNCA4NS45IDg4LjEgMTAzLjYgODEuNyA2Ni4xIDEwOC45IDM5LjYiLz48L2c+PC9nPjwvc3ZnPg0K);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	cursor: pointer;
+}
+
+.star-rating {
+	width: 0;
+	position: relative;
+	display: inline-block;
+	background-image: url(star_0.svg);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	cursor: pointer;
+}
+
+*, :after, :before {
+	box-sizing: border-box;
+}
+
+.star-rating .star-value {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background:
+		url(data:image/svg+xml;base64,PHN2Zw0KCXhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwOC45IiBoZWlnaHQ9IjEwMy42IiB2aWV3Qm94PSIwIDAgMTA4LjkgMTAzLjYiPg0KCTxkZWZzPg0KCQk8c3R5bGU+LmNscy0xe2ZpbGw6I2YxYzk0Nzt9PC9zdHlsZT4NCgk8L2RlZnM+DQoJPHRpdGxlPnN0YXIxPC90aXRsZT4NCgk8ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj4NCgkJPGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj4NCgkJCTxwb2x5Z29uIGNsYXNzPSJjbHMtMSIgcG9pbnRzPSI1NC40IDAgNzEuMyAzNC4xIDEwOC45IDM5LjYgODEuNyA2Ni4xIDg4LjEgMTAzLjYgNTQuNCA4NS45IDIwLjggMTAzLjYgMjcuMiA2Ni4xIDAgMzkuNiAzNy42IDM0LjEgNTQuNCAwIi8+DQoJCTwvZz4NCgk8L2c+DQo8L3N2Zz4NCg==);
+	background-repeat: repeat-x;
+}
+
+/* 별 스타일 끝*/
+</style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 
@@ -29,6 +106,15 @@
 										<h3>${space.name }
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
+											<!-- tag 넣기  시작-->
+<%-- 											<br> <span style="font-size: medium;"> <c:forEach --%>
+<%-- 													var="tag" items="${spacetag}"> --%>
+<!-- 										#${tag.tag} -->
+<%-- 										</c:forEach> --%>
+<!-- 											</span> -->
+
+											<!-- tag 넣기  끝-->
+
 										</h3>
 									</div>
 									<div class="col-12 col-md-6 order-md-2 order-first">
@@ -43,65 +129,65 @@
 									<div class="card-body">
 										<!-- 기본 틀 -->
 
-										<div>
+										<!-- 	사진 test 1 -->
 
-											<!-- 사진시작 -->
-											<div class="card">
-												<div class="card-header"></div>
-												<div class="card-body"
-													style="height: auto; width: 400px; float: left;">
-													<div id="carouselExampleCaptions" class="carousel slide"
-														data-bs-ride="carousel">
-														<ol class="carousel-indicators">
-															<li data-bs-target="#carouselExampleCaptions"
-																data-bs-slide-to="0" class="active"></li>
-															<li data-bs-target="#carouselExampleCaptions"
-																data-bs-slide-to="1" class=""></li>
-															<li data-bs-target="#carouselExampleCaptions"
-																data-bs-slide-to="2"></li>
-														</ol>
-														<div class="carousel-inner">
-															<div class="carousel-item active">
-																<img
-																	src="//live.staticflickr.com/3229/2345709106_69cca5292f_h.jpg"
-																	class="d-block w-100" alt="...">
-																<div class="carousel-caption d-none d-md-block">
-																	<h5>${space.name }first</h5>
-																	<p>${space.contentssim}</p>
-																</div>
-															</div>
-															<div class="carousel-item">
-																<img
-																	src="//live.staticflickr.com/2223/2344882021_38302e0b8d_n.jpg"
-																	class="d-block w-100" alt="...">
-																<div class="carousel-caption d-none d-md-block">
-																	<h5>${space.name }Second</h5>
-																	<p>${space.contentssim }</p>
-																</div>
-															</div>
-														</div>
-														<a class="carousel-control-prev"
-															href="#carouselExampleCaptions" role="button"
-															data-bs-slide="prev"> <span
-															class="carousel-control-prev-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Previous</span>
-														</a> <a class="carousel-control-next"
-															href="#carouselExampleCaptions" role="button"
-															data-bs-slide="next"> <span
-															class="carousel-control-next-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Next</span>
-														</a>
-													</div>
-												</div>
+										<div class="card">
+											<div class="col-12 col-md-4, parent">
+												<img
+													src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+													class="img-fluid1, first" alt="singleminded">
+
+												<c:forEach items="${spaceimage}" var="detail" begin="0"
+													end="1">
+													<a onclick="detailView(${space.num})"><img
+														src="<%=request.getContextPath()%>/resources/spaceimage/${detail.image}"
+														class="img-fluid1, second" alt="singleminded"></a>
+
+												</c:forEach>
+
+												<div class="card-body"></div>
 											</div>
+											<ul class="list-group list-group-flush">
+
+											</ul>
 										</div>
+
+										<!-- 	사진 test 1 -->
+
 										<!-- 설명 시작1 -->
 										<div class="card-header" style="width: 50%; float: left;">
-											<h4 class="card-title">${space.contentssim}</h4>
-											<h4 class="card-title">${space.contentscom}</h4>
+											<h4 class="card-title">한줄소개</h4>
+											${space.contentssim}
+											<h4 class="card-title">공간소개</h4>
+											${space.contentscom}
 											<h4 class="card-title">지도</h4>
 											<h4 class="card-title">사용자 후기</h4>
+											<!-- 후기	시작 -->
 
+											<c:forEach var="review" items="${reviewBoard}">
+												<div class="col-12">
+													<div class="card">
+														<div class="card-header" style="font:">
+															<h1 class="card-title" style="float: left;">${review.write}</h1>
+															<!-- 별점 별 그림 시작-->
+															<div id="step" class="star-rating"
+																style="width: 160px; height: 30px; background-size: 30px;"
+																data-rating="5" title="${review.totalrating/3}/5">
+																<div class="star-value"
+																	style="background-size: 32px; width: ${review.totalrating/3/5*100}%;"></div>
+															</div>
+															<!-- 별점 별 그림 끝 -->
+
+														</div>
+														<div class="card-body">
+															<p>${review.content}</p>
+															<p>${review.regdate}</p>
+														</div>
+													</div>
+												</div>
+
+											</c:forEach>
+											<!-- 후기	끝 -->
 										</div>
 										<!-- 설명 끝1 -->
 
@@ -126,28 +212,61 @@
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="/reserv.rv">
+																	<form action="<%=request.getContextPath()%>/reserv.rv?&spaceNum=1&memberNum=1"
+																	 method="post">           
 																		<table class="table table-lg" style="width: auto;">
-
 																			<tbody>
 																				<tr>
-																					<td class="text-bold-500">Michael Right</td>
-																					<td align="center">$15/hr</td>
-
+																					<td class="text-bold-500">장소 선택</td>
+																					<td align="center">
+																					<c:forEach var="spaceName"
+																							items="${detailspace.name}">
+																							<input type="radio" value="spaceName" name="name">${spaceName}
+																					</c:forEach>
+																					</td>
 																				</tr>
 																				<tr>
-																					<td class="text-bold-500">시간선택</td>
-																					<td align="center"><div class="col-md-6 mb-4">
+																					<td align="left" colspan="2">
+																						${detailspace.contents}</td>
+																				</tr>
+																				<tr>
+																					<td align="center" colspan="2"><img
+																						src="<%=request.getContextPath()%>/resources/spaceimage/${detailspace.mainimage}"
+																						width="200px" height="200px"></td>
+																				</tr>
+																				<tr>
+																					<td class="text-bold-500">인원</td>
+																					<td align="center">최소${detailspace.minperson}~최대${detailspace.maxperson}
+																					</td>
+
+																				</tr>
+
+
+																				<tr>
+																					<td class="text-bold-500">시간선택 ${space.operatingtime}</td>
+																					<td align="center">
+																						<c:forTokens var="time" items="${space.operatingtime}" delims="~" varStatus="count">
+																						<select name="operatingtime">
+																						<!-- split -->
+																						<option value="${time+1}">${time}~${time+1}</option>
+																						</select> 
+																						
+																						</c:forTokens>
+																					
+																					<div class="col-md-6 mb-4">
 
 																							<fieldset class="form-group"
 																								class="text-bold-500">
 																								<select class="form-select" id="basicSelect"
-																									name="time"
+																									name="operatingtime"
 																									style="width: 160px; margin-top: 22px;">
 																									<!-- 이름 확인해봐야됨 -->
+																									
+																								
+							
 																									<option>10~12</option>
-																									<option>12~14</option>
-																									<option>14~16</option>
+																							
+																								
 																								</select>
 																							</fieldset>
 																						</div></td>
@@ -155,7 +274,7 @@
 																				</tr>
 																				<tr>
 																					<td class="text-bold-500">가격</td>
-																					<td align="center">$15/hr</td>
+																					<td align="center">${detailspace.price }원/${detailspace.priceunit}</td>
 																				</tr>
 																				<tr>
 																					<td colspan="2" class="text-bold-500"
@@ -193,11 +312,15 @@
 
 		<script type="text/javascript">
 	
-	function favorite(spaceNum,memberNum){
-		//alert(spaceNum ,memberNum);
-		location.href="favorite.sp?spaceNum="+spaceNum+"&memberNum="+memberNum;
+	function favorite(spacenum,membernum){
+		location.href="favorite.sp?spacenum="+spacenum+"&membernum="+membernum;
 	}
 	
+	function detailView(spacenum){
+		//alert(장소 더 보기);
+		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
+	}
+
 	</script>
 
 		<%-- ******* CUSTOM Script END ******* --%>

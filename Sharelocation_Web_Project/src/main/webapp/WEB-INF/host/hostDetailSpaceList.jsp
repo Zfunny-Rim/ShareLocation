@@ -86,7 +86,7 @@
 		                                    </div>
 	                                    </div>
 	                                    <div class="card-footer d-flex justify-content-between">
-	                                    		<button class="btn btn-light-primary" onClick="location.href='detailSpaceInsert.ho?spaceNum=11'">세부공간 추가하기</button>
+	                                    		<button class="btn btn-light-primary" onClick="location.href='detailSpaceInsert.ho?spaceNum=${spaceNum}'">세부공간 추가하기</button>
 												<button class="btn btn-primary">다음</button>
 	                                    </div>
 	                                </div>

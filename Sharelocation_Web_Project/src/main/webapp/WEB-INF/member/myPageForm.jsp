@@ -35,12 +35,13 @@
 	                        <div class="col-md-6 col-12">
 	                            <div class="card">
 	                                <div class="card-header">
-	                                    <h4 class="card-title">회원가입</h4>
+	                                    <h4 class="card-title">MyPage</h4>
 	                                </div>
 	                                <div class="card-content">
 	                                    <div class="card-body">
 	                                    <%@include file="./../common/common.jsp"%>
 	                                        <form class="form form-vertical" action="update.member" method="get">
+	                                        <input type="hidden" name="id" value="${member.id }">
 	                                            <div class="form-body">
 	                                                <div class="row">
 	                                                    <div class="col-12">
@@ -91,7 +92,7 @@
 	                                                    </div>
 	                                                    <div class="col-12 d-flex justify-content-end">
 	                                                        <button type="submit" class="btn btn-primary me-1 mb-1">수정하기</button>
-	                                                        <button type="button" class="btn btn-light-secondary me-1 mb-1" onClick="href=delete.member">탈퇴하기</button>
+	                                                        <button type="button" class="btn btn-light-secondary me-1 mb-1" onClick="location.href='delete.member?id=${member.num}'">탈퇴하기</button>
 	                                                    </div>
 	                                                </div>
 	                                            </div>

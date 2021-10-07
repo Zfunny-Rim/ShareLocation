@@ -10,6 +10,7 @@
     
 <form:form commandName="spaceBean" class="form form-horizontal"
 			action="modifySpace.ho" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="num" value="${spaceBean.num }"/>
 	<div class="form-body">
 		<div class="row">
 			<div class="divider">
@@ -79,7 +80,7 @@
 			</div>
 			<div class="col-md-8 form-group">
 				<input class="form-control" id="choices-text-remove-button"
-					type="text" name="spacetag" value="태그1,태그2" />
+					type="text" name="tag" value="${spaceBean.tag }" />
 			</div>
 			<div class="col-md-4">
 				<label>시설 안내 <span class="required">*</span></label>
@@ -92,8 +93,9 @@
 				</div>
 				<fieldset class="form-group">
 					<select class="form-select" name="facility" multiple>
-						<option value="시설안내1">시설안내1</option>
-						<option value="시설안내2">시설안내2</option>
+						<c:forEach var="fac" items="${spaceFacilityList }">
+							<option value="${fac.facility }">${fac.facility }</option>
+						</c:forEach>
 					</select>
 				</fieldset>
 				<div class="col-sm-12 d-flex justify-content-between">
@@ -254,7 +256,7 @@
 				name="hp">
 			<div class="col-sm-12 d-flex justify-content-end">
 				<button type="submit" class="btn btn-primary me-1 mb-1"
-					onClick="return processing()">다음</button>
+					onClick="return processing()">수정</button>
 				<button type="reset" class="btn btn-light-secondary me-1 mb-1">취소</button>
 			</div>
 		</div>

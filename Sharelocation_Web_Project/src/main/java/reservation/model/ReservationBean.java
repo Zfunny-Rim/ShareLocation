@@ -121,6 +121,12 @@ public class ReservationBean {
 		this.status = status;
 	}
 
-
+	@Override
+	public String toString() {
+		return "ReservationBean [num=" + num + ", membernum=" + membernum + ", spacenum=" + spacenum
+				+ ", detailspacenum=" + detailspacenum + ", checkin=" + checkin + ", checkout=" + checkout + ", person="
+				+ person + ", amounts=" + amounts + ", cusrequest=" + cusrequest + ", applicationdate="
+				+ applicationdate + ", status=" + status + "]";
+	}
 	
 }

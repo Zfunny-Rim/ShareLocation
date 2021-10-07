@@ -12,6 +12,7 @@ import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
+import space.model.SpaceFacilityBean;
 import space.model.SpaceImageBean;
 
 @Controller
@@ -31,13 +32,14 @@ public class HostSpaceManageController {
 			@RequestParam(value="tab", required = false) String tab) {
 		ModelAndView mav = new ModelAndView(viewPage);
 		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
-		getPage = "hostSpaceManageHome.jsp";
 		
 		List<DetailSpaceBean> dspList =  detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
 		List<SpaceImageBean> spImgList = spaceDao.getSpaceImageListBySpaceNum(spaceNum);
 		mav.addObject("spaceBean",spaceBean);
 		mav.addObject("dspList",dspList);
 		mav.addObject("spImgList", spImgList);
+		
+		getPage = "Home";
 		mav.addObject("getPage", getPage);
 		return mav;
 	}
@@ -45,11 +47,15 @@ public class HostSpaceManageController {
 	@RequestMapping(value=modifyCommand)
 	public ModelAndView modifySpace(@RequestParam(value="spaceNum") int spaceNum) {
 		ModelAndView mav = new ModelAndView(viewPage);
-		getPage = "hostSpaceManageModify.jsp";
+		getPage = "Modify";
 		mav.addObject("getPage", getPage);
 		
 		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		List<SpaceImageBean> spaceImageList = spaceDao.getImage(spaceNum);
+		List<SpaceFacilityBean> spaceFacilityList = spaceDao.getFacility(spaceNum);
 		mav.addObject("spaceBean", spaceBean);
+		mav.addObject("spaceImageList", spaceImageList);
+		mav.addObject("spaceFacilityList", spaceFacilityList);
 		return mav;
 	}
 }
