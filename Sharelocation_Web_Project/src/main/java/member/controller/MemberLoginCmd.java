@@ -17,7 +17,7 @@ import member.model.MemberDao;
 @Controller
 public class MemberLoginCmd {
 	private final String command = "/login.member";
-	private final String hostPage = "redirect:/list.ho";
+	private final String hostPage = "redirect:/main.ho";
 	private final String guestPage = "redirect:/list.sp";
 	private final String adminPage = "redirect:/list.admin";
 	private final String getPage = "loginForm";
@@ -40,7 +40,7 @@ public class MemberLoginCmd {
 		 mav.addObject("loginInfo",dbMember);
 		 
 		 if(dbMember == null) {
-			// pw.println("<script>alert('¾ÆÀÌµð|ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä');</script>");
+			// pw.println("<script>alert('ï¿½ï¿½ï¿½Ìµï¿½|ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½');</script>");
 			// pw.flush();
 			 mav.setViewName(getPage);
 			 return mav;
