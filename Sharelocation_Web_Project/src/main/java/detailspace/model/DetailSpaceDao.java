@@ -13,8 +13,8 @@ public class DetailSpaceDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<DetailSpaceBean> getDetailSpaceListBySpaceNum(int spaceNum){
-		return sqlSessionTemplate.selectList(namespace+".getDetailSpaceListBySpaceNum", spaceNum);
+	public List<DetailSpaceBean> getDetailSpaceListBySpaceNum(int spacenum){
+		return sqlSessionTemplate.selectList(namespace+".getDetailSpaceListBySpaceNum", spacenum);
 	}
 	
 	public int getDetailSpaceCountBySpaceNum(int spaceNum) {

@@ -21,10 +21,10 @@ public class SpaceBean {
 	@NotBlank(message="한줄소개를 입력하세요.")
 	private String contentssim;
 	@NotBlank(message="공간소개를 입력하세요.")
-	private String contentscom;
+	private String contentscom;  
 	@NotBlank(message="대표 이미지를 선택하세요.")
 	private String mainimage;
-	@NotBlank(message="주의사항을 입력하세요.")
+	@NotBlank(message="주의사항을 입력하세요.")   
 	private String warning;
 	private String site;
 	@NotBlank(message="주소를 입력하세요.")

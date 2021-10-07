@@ -1,5 +1,7 @@
 package member.model;
 
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 public class MemberBean {
@@ -10,11 +12,10 @@ public class MemberBean {
 	private String password;
 	@NotBlank(message = "Nickname를 입력하세요")
 	private String nickname;
-	@NotBlank(message = "Email를 입력하세요")
 	private String email;
 	@NotBlank(message = "Address를 입력하세요")
 	private String address;
-	@NotBlank(message = "Phone Number를 입력하세요")
+	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="올바른 전화번호 형식을 입력하세요.")
 	private String hp;
 	@NotBlank(message = "생일을 선택 하세요")
 	private String birth;

@@ -5,6 +5,9 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
+		<typeAlias alias="MySpaceTag" type="space.model.SpaceTagBean"/>
+		<typeAlias alias="MySpaceImage" type="space.model.SpaceImageBean"/>
+		<typeAlias alias="MyReview" type="reviewBoard.model.ReviewBoardBean"/>
 		<typeAlias alias="MyDetailSpace" type="detailspace.model.DetailSpaceBean"/>
 		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
 		<typeAlias alias="MyRerservation" type="reservation.model.ReservationBean"/>
@@ -16,6 +19,7 @@
 	<mappers>
 		<mapper resource="mybatis/space.xml"/>
 		<mapper resource="mybatis/detailSpace.xml"/>     
+		<mapper resource="mybatis/reviewBoard.xml"/>     
 		<mapper resource="mybatis/member.xml"/>
 		<mapper resource="mybatis/reservation.xml"/>
 	</mappers>
