@@ -79,7 +79,7 @@
 			</div>
 			<div class="col-md-8 form-group">
 				<input class="form-control" id="choices-text-remove-button"
-					type="text" name="spacetag" value="태그1,태그2" />
+					type="text" name="tag" value="" />
 			</div>
 			<div class="col-md-4">
 				<label>시설 안내 <span class="required">*</span></label>
@@ -92,8 +92,9 @@
 				</div>
 				<fieldset class="form-group">
 					<select class="form-select" name="facility" multiple>
-						<option value="시설안내1">시설안내1</option>
-						<option value="시설안내2">시설안내2</option>
+						<c:forEach var="fac" items="${spaceFacilityList }">
+							<option value="${fac.facility }">${fac.facility }</option>
+						</c:forEach>
 					</select>
 				</fieldset>
 				<div class="col-sm-12 d-flex justify-content-between">

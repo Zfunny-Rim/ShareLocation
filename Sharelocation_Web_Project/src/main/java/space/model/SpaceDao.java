@@ -37,12 +37,7 @@ public class SpaceDao {
 	public int getRecentSpaceNum() {
 		return sqlSessionTemplate.selectOne(namespace+".getRecentSpaceNum");
 	}
-	
-	public int insertSpaceTag(SpaceTagBean spaceTagBean) {
-		return sqlSessionTemplate.insert(namespace+".insertSpaceTag", spaceTagBean);
-	}
 	public int insertSpaceFacility(SpaceFacilityBean spaceFacilityBean) {
-		
 		return sqlSessionTemplate.insert(namespace+".insertSpaceFacility", spaceFacilityBean);
 	}
 	public int insertSpaceImage(SpaceImageBean spaceImageBean) {
@@ -79,15 +74,13 @@ public class SpaceDao {
 
 		return spaceLists;
 	}
-	public List<SpaceTagBean> getTag(int num) {
-
-		List<SpaceTagBean> st = sqlSessionTemplate.selectList(namespace+".getTag", num);
-		System.out.println("stDao:"+st);
-		return st;
-	}
 	public List<SpaceImageBean> getImage(int num) {
 		List<SpaceImageBean> SpaceImage = sqlSessionTemplate.selectList(namespace+".getImage", num);
 		return SpaceImage;
+	}
+	public List<SpaceFacilityBean> getFacility(int num){
+		List<SpaceFacilityBean> spaceFacility = sqlSessionTemplate.selectList(namespace+".getFacility", num);
+		return spaceFacility;
 	}
 
 	public List<ReviewBoardBean> getReview(int num) {

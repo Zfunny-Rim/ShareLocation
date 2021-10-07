@@ -117,7 +117,7 @@
 	                                                        <label>공간 태그</label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-															<input class="form-control"	id="choices-text-remove-button" type="text"	name="spacetag" value="태그1,태그2"/>
+															<input class="form-control"	id="choices-text-remove-button" type="text"	name="tag" value="태그1,태그2"/>
 														</div>
 														<div class="col-md-4">
 															<label>시설 안내 <span class="required">*</span></label>

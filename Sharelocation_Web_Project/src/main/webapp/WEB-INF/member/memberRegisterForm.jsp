@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/include/tagLib.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -44,7 +45,7 @@
 	                                                        	<form:errors cssClass="err" path="id"/>
 	                                                        </div>
 	                                                        <div class="col-md-2 form-group">
-	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck(${idLists})">
+	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck('${idLists}')">
 	                                                        </div>
 	                                                    <div class="col-12">
 	                                                        <div class="form-group">
@@ -156,7 +157,7 @@
 		duplicate = false;
 		
 		function idCheck(idLists){
-			//alert(1);
+			alert(idLists);
 			duplicate = true;
 			
 			if($('input[id="id"]').val() == idLists){

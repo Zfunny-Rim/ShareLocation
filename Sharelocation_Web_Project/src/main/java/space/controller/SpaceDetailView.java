@@ -17,7 +17,6 @@ import reviewBoard.model.ReviewBoardBean;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceImageBean;
-import space.model.SpaceTagBean;
 
 @Controller
 public class SpaceDetailView {
@@ -45,15 +44,15 @@ public class SpaceDetailView {
 		System.out.println("space"+space);
 
 
-		List<SpaceTagBean> spacetag = spaceDao.getTag(num);
+//		List<SpaceTagBean> spacetag = spaceDao.getTag(num);
 		List<SpaceImageBean> spaceimage = spaceDao.getImage(num);
 
-		System.out.println("tag실행"+spacetag);
-		System.out.println("spaceimage실행"+spaceimage);
+//		System.out.println("tag�떎�뻾"+spacetag);
+		System.out.println("spaceimage�떎�뻾"+spaceimage);
 
-		if(spacetag.size()!=0) {
-			mav.addObject("spacetag",spacetag);
-		}
+//		if(spacetag.size()!=0) {
+//			mav.addObject("spacetag",spacetag);
+//		}
 		mav.addObject("space",space);
 		mav.addObject("spaceimage",spaceimage);
 		
@@ -63,7 +62,7 @@ public class SpaceDetailView {
 		mav.addObject("reviewBoard",reviewBoard);
 		
 		//DetailSpaceBean detailspace = spaceDao.getDetailSpaceListBySpaceNum(num);
-		//(to hs) 일단 똑같이 Bean으로 동작하게 변경함 - List로 수정요망
+		//(to hs) �씪�떒 �삊媛숈씠 Bean�쑝濡� �룞�옉�븯寃� 蹂�寃쏀븿 - List濡� �닔�젙�슂留�
 		DetailSpaceBean detailspace = detailSpaceDao.getDetailSpace(num);
 		System.out.println("detailspace: "+detailspace);
 		mav.addObject("detailspace",detailspace);
@@ -77,7 +76,7 @@ public class SpaceDetailView {
 			,   ModelAndView mav) {
 		System.out.println("doActionImage");
 		List<SpaceImageBean> spaceimage = spaceDao.getImage(spacenum);
-		System.out.println("spaceimage실행"+spaceimage);
+		System.out.println("spaceimage�떎�뻾"+spaceimage);
 		mav.addObject("spaceimage",spaceimage);
 		mav.setViewName(getImage);
 
