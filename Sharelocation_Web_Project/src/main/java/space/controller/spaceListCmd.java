@@ -41,18 +41,9 @@ public class spaceListCmd {
 		System.out.println("url 확인해보자"+url);
 		
 		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, null, keyword, null);
-		
-		System.out.println(keyword);
-<<<<<<< HEAD
-		if(keyword==null) {
-	         keyword = "";
-	    }
 		keyword += "%"+keyword+"%";
 		System.out.println(keyword);
-		List<SpaceBean> spaceLists = spaceDao.getSpaceList(keyword);
-=======
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,keyword);
->>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 		System.out.println("spaceLists"+spaceLists.size());
 		mav.addObject("spaceLists",spaceLists);
 		mav.setViewName(getPage);
