@@ -38,40 +38,13 @@ public class SpaceBean {
 	private String grade;
 	private String status;
 	private String regdate;
+	private String tag;
+	
 	
 	//생성자
 	public SpaceBean() {
 		super();
 	}
-	public SpaceBean(int num, int membernum, String name, String type, String contentssim, String contentscom,
-			String mainimage, String warning, String site, String address, String email, String hp,
-			String operatingtime, String holiday, String grade, String status, String regdate,
-			MultipartFile mainimagefile, List<MultipartFile> spaceimagefile, List<String> spaceimage,
-			int spaceimageCount) {
-		super();
-		this.num = num;
-		this.membernum = membernum;
-		this.name = name;
-		this.type = type;
-		this.contentssim = contentssim;
-		this.contentscom = contentscom;
-		this.mainimage = mainimage;
-		this.warning = warning;
-		this.site = site;
-		this.address = address;
-		this.email = email;
-		this.hp = hp;
-		this.operatingtime = operatingtime;
-		this.holiday = holiday;
-		this.grade = grade;
-		this.status = status;
-		this.regdate = regdate;
-		this.mainimagefile = mainimagefile;
-		this.spaceimagefile = spaceimagefile;
-		this.spaceimage = spaceimage;
-		this.spaceimageCount = spaceimageCount;
-	}
-
 
 	//DB에 저장되지 않는 값들
 	private MultipartFile mainimagefile;
@@ -238,7 +211,11 @@ public class SpaceBean {
 				+ mainimagefile + ", spaceimagefile=" + spaceimagefile + ", spaceimage=" + spaceimage
 				+ ", spaceimageCount=" + spaceimageCount + "]";
 	}
-	
-
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 	
 }

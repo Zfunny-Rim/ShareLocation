@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/include/tagLib.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -44,12 +45,16 @@
 	                                                        	<form:errors cssClass="err" path="id"/>
 	                                                        </div>
 	                                                        <div class="col-md-2 form-group">
+<<<<<<< HEAD
 	                                                        ${idLists }<br>
 	                                                        <c:forEach var="mbean" items="${idLists}" varStatus="vs">
 	                                                        	${vs.count}<br>
 	                                                        	${mbean.id }<br>
 	                                                        </c:forEach>
 	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck('${idLists }')">
+=======
+	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck('${idLists}')">
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 	                                                        </div>
 	                                                    <div class="col-12">
 	                                                        <div class="form-group">
@@ -165,7 +170,11 @@
 		duplicate = false;
 		
 		function idCheck(idLists){
+<<<<<<< HEAD
 			alert(idLists);  
+=======
+			alert(idLists);
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 			duplicate = true;
 			
 			if($('input[id="id"]').val().indexOf(idLists)){
