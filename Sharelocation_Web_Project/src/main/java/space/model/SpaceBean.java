@@ -24,7 +24,7 @@ public class SpaceBean {
 	private String contentscom;  
 	@NotBlank(message="대표 이미지를 선택하세요.")
 	private String mainimage;
-	@NotBlank(message="주의사항을 입력하세요.")
+	@NotBlank(message="주의사항을 입력하세요.")   
 	private String warning;
 	private String site;
 	@NotBlank(message="주소를 입력하세요.")
@@ -33,6 +33,7 @@ public class SpaceBean {
 	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="올바른 전화번호 형식을 입력하세요.")
 	private String hp;
 	private String operatingtime;
+	private String operatingendtime;
 	private String holiday;
 	private String grade;
 	private String status;
@@ -220,14 +221,22 @@ public class SpaceBean {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	public String getOperatingendtime() {
+		return operatingendtime;
+	}
+	public void setOperatingendtime(String operatingendtime) {
+		this.operatingendtime = operatingendtime;
+	}
+	
 	@Override
 	public String toString() {
 		return "SpaceBean [num=" + num + ", membernum=" + membernum + ", name=" + name + ", type=" + type
 				+ ", contentssim=" + contentssim + ", contentscom=" + contentscom + ", mainimage=" + mainimage
 				+ ", warning=" + warning + ", site=" + site + ", address=" + address + ", email=" + email + ", hp=" + hp
-				+ ", operatingtime=" + operatingtime + ", holiday=" + holiday + ", grade=" + grade + ", status="
-				+ status + ", regdate=" + regdate + ", mainimagefile=" + mainimagefile + ", spaceimagefile="
-				+ spaceimagefile + ", spaceimage=" + spaceimage + ", spaceimageCount=" + spaceimageCount + "]";
+				+ ", operatingtime=" + operatingtime + ", operatingendtime=" + operatingendtime + ", holiday=" + holiday
+				+ ", grade=" + grade + ", status=" + status + ", regdate=" + regdate + ", mainimagefile="
+				+ mainimagefile + ", spaceimagefile=" + spaceimagefile + ", spaceimage=" + spaceimage
+				+ ", spaceimageCount=" + spaceimageCount + "]";
 	}
 	
 

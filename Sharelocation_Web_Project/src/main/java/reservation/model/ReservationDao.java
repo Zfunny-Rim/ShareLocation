@@ -4,6 +4,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import space.model.SpaceBean;
+
 @Component("myReservationDao")
 public class ReservationDao {
 	

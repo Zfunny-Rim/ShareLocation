@@ -11,7 +11,6 @@
 		<if test="whatColumn=='성별'">
 			where gender like #{keyword}
 		</if>
-	
 	</select>
 
 	<select id="getMemberList" resultType="MyMember">
