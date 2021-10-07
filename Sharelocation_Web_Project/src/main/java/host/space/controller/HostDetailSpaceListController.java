@@ -28,6 +28,7 @@ public class HostDetailSpaceListController {
 		
 		List<DetailSpaceBean> dspBeanList = detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
 		mav.addObject("dspBeanList", dspBeanList);
+		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}
 }

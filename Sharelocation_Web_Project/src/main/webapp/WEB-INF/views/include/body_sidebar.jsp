@@ -17,7 +17,7 @@
 		</div>
 		<div class="sidebar-menu">
 			<!-- ***** Login Card Start ***** -->
-	<%@include file="./../../common/common.jsp"%>
+	<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
 	<c:if test="${empty loginInfo }">
 			<div class="card bg-light">
 				<div class="card-header">
@@ -56,23 +56,23 @@
 				</div>
 			</div>
 		</c:if>
+		<c:if test="${not empty loginInfo }">
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">${loginInfo.nickname }</h4>
+					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
 				</div>
 				<div class="card-body">
 					<div class="basic-form">
-						<form action="mypage.member" method="post">
-						<input type="hidden" id="id" value="${loginInfo.id }">
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<button type="submit" class="btn btn-primary btn-block">MyPage</button>
+									<button type="button" class="btn btn-primary btn-block" onClick="location.href='mypage.member?id=${loginInfo.id}'">MyPage</button>
 								</div>
 							</div>
-						</form>
 					</div>
 				</div>
 			</div>
+		</c:if>
 			<!-- ***** Login Card END ***** -->
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>

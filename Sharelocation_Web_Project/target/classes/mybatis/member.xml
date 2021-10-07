@@ -11,7 +11,6 @@
 		<if test="whatColumn=='성별'">
 			where gender like #{keyword}
 		</if>
-	
 	</select>
 
 	<select id="getMemberList" resultType="MyMember">
@@ -26,7 +25,7 @@
 	</select>
 
 	<select id="getData" resultType="MyMember">
-		select * from members
+		select * from members 
 		where id = #{id}
 	</select>
 
@@ -45,4 +44,9 @@
 		update members set  
 		nickname=#{nickname}, email=#{email}, address=#{address}, hp=#{hp}, birth=#{birth}, gender=#{gender}, type=#{type} where id=#{id}
 	</update>
+	
+	<select id="getId" resultType="MyMember">
+		select id from members
+	</select>
+	
 </mapper>
