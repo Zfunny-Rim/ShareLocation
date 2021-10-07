@@ -126,7 +126,7 @@
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="<%=request.getContextPath()%>/reserv.rv?mr=$15/hr&selectTime=10~12&pr=$15/hr&spaceNum=11&memberNum=1"
+																	<form action="<%=request.getContextPath()%>/reserv.rv?&spaceNum=1&memberNum=1"
 																	 method="post">           
 																		<table class="table table-lg" style="width: auto;">
 																			<tbody>

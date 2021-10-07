@@ -9,6 +9,7 @@ public class BalanceBean {
 	private String email;
 	private String bank;
 	private String account;
+	
 	public BalanceBean() {
 		super();
 	}

@@ -6,12 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import member.model.MemberDao;
-import reservation.model.BalanceBean;
+import detailspace.model.DetailSpaceBean;
+import detailspace.model.DetailSpaceDao;
 import reservation.model.BalanceDao;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
@@ -27,23 +28,29 @@ public class reservationController {
 	
 	@Autowired
 	ReservationDao reservationDao;
+		
+	@Autowired
+	SpaceDao spaceDao;
 	
 	@Autowired
-	BalanceDao balanceDao;
+	DetailSpaceDao detailSpaceDao;
 	
 	@RequestMapping(value=command)
 	public ModelAndView reservation(HttpServletRequest request,ModelAndView mav,
-			@RequestParam(value="spaceNum", required = false) int spaceNum,
-			@RequestParam(value="memberNum", required = false) int memberNum,
-			@RequestParam(value="mr", required = false) String mr,
-			@RequestParam(value="selectTime", required = false) String selectTime,
-			@RequestParam(value="pr", required = false) String pr,
+		//	@RequestParam(value="spaceNum", required = false) int spaceNum,
+		//	@RequestParam(value="memberNum", required = false) int memberNum,
+			
 			HttpSession session ) {
 		
-		System.out.println("mr:"+mr);
-		System.out.println("selectTime:"+selectTime);
-		System.out.println("pr:"+pr);
+		ReservationBean reservationbean = new ReservationBean();
+		reservationbean.setSpacenum(1);
+		reservationbean.setDetailspacenum(1);
+		reservationbean.setCheckin("20");
+		reservationbean.setCheckout("21");
+		reservationbean.setPerson(1);
+		reservationbean.setAmounts(10000);
 		
+		System.out.println("reservationbean:"+reservationbean.toString());
 		//로그인 안했다면
 //		if(session.getAttribute("loginInfo")==null) { 
 //			session.setAttribute("destination", "redirect:/reserv.rv");
@@ -54,15 +61,17 @@ public class reservationController {
 //		else {
 			//spaceNum값 받아서 bean 묶기
 			//호스트정보가져오려면 호스트memberNum값 bean으로 묶기
-			ReservationBean reservation = reservationDao.getReserv(spaceNum);
+			//reservationbean = reservationDao.getReserv(reservationbean.getSpacenum());
 			
-			BalanceBean balance = balanceDao.getBalance(memberNum);
+			SpaceBean spacebean = spaceDao.getSpace(reservationbean.getSpacenum());
 			
-			mav.addObject("reservation",reservation);
-			mav.addObject("balance",balance);
-			mav.addObject("mr",mr);
-			mav.addObject("selectTime",selectTime);
-			mav.addObject("pr",pr);
+			DetailSpaceBean detailSpacebean = detailSpaceDao.getdetailspace(reservationbean.getDetailspacenum());
+			
+			mav.addObject("spacebean",spacebean);
+			mav.addObject("detailSpacebean",detailSpacebean);
+			mav.addObject("reservationbean",reservationbean);
+			
+		//	mav.addObject("balance",balance);
 			mav.setViewName(getPage);
 			return mav;
 //		}
