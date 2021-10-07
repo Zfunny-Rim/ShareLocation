@@ -248,6 +248,7 @@ element.style {
 																					<td align="center">
 																						<c:forTokens var="time" items="${space.operatingtime}" delims="~" varStatus="count">
 																						<select name="operatingtime">
+																						<!-- split -->
 																						<option value="${time+1}">${time}~${time+1}</option>
 																						</select> 
 																						
