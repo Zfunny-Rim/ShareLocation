@@ -24,7 +24,7 @@ public class SpaceDao {
 	SqlSessionTemplate sqlSessionTemplate;
 
 
-	public int insertSpace(SpaceBean spaceBean) {
+	public int insertSpace(SpaceBean spaceBean) {  
 		System.out.println("into insertSpace");
 		return sqlSessionTemplate.insert(namespace+".insertSpace", spaceBean);
 	}
