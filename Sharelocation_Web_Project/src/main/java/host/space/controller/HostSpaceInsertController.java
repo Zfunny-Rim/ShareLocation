@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class HostSpaceInsertController {
 	@RequestMapping(value=command, method = RequestMethod.POST)
 	public ModelAndView insert_tier1(@Valid SpaceBean spaceBean, BindingResult result,
 			HttpServletRequest request, MultipartHttpServletRequest mtfRequest,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response, HttpSession session) throws IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		ModelAndView mav = new ModelAndView(viewPage);
@@ -72,14 +73,20 @@ public class HostSpaceInsertController {
 		
 		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
+		session.setAttribute("uploadPath", uploadPath);
+		
 		MultipartFile mpfMainImage = mtfRequest.getFile("mainimagefile");
 		String originFileName = mpfMainImage.getOriginalFilename();
 		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		spaceBean.setMainimage(safeFileName); 
 		
+	  
+		
 		System.out.println("test1");
 		System.out.println(spaceBean);
+		
+		
 		///DB에 저장
 		int cnt = -1;
 		cnt = spaceDao.insertSpace(spaceBean);

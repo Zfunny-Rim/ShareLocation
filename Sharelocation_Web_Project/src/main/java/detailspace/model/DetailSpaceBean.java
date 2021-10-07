@@ -12,7 +12,7 @@ public class DetailSpaceBean {
 	private int spacenum;
 	@Length(min=2, max=10, message="이름은 2자에서 10자 사이로 입력하세요.")
 	private String name;
-	private String type;
+	private String contents;
 	@NotBlank(message="대표이미지를 선택해주세요.")
 	private String mainimage;
 	@Min(value=1, message="최소 예약시간은 1시간 이상으로 설정해주세요.")
@@ -38,13 +38,13 @@ public class DetailSpaceBean {
 	public DetailSpaceBean() {
 		super();
 	}
-	public DetailSpaceBean(int num, int spacenum, String name, String type, String mainimage, int mintime,
+	public DetailSpaceBean(int num, int spacenum, String name, String contents, String mainimage, int mintime,
 			int minperson, int maxperson, String priceunit, int price, MultipartFile mainimagefile) {
 		super();
 		this.num = num;
 		this.spacenum = spacenum;
 		this.name = name;
-		this.type = type;
+		this.contents = contents;
 		this.mainimage = mainimage;
 		this.mintime = mintime;
 		this.minperson = minperson;
@@ -78,12 +78,12 @@ public class DetailSpaceBean {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public String getcontents() {
+		return contents;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setcontents(String contents) {
+		this.contents = contents;
 	}
 
 	public String getMainimage() {
@@ -136,7 +136,7 @@ public class DetailSpaceBean {
 
 	@Override
 	public String toString() {
-		return "DetailSpaceBean [num=" + num + ", spacenum=" + spacenum + ", name=" + name + ", type=" + type
+		return "DetailSpaceBean [num=" + num + ", spacenum=" + spacenum + ", name=" + name + ", contents=" + contents
 				+ ", mainimage=" + mainimage + ", mintime=" + mintime + ", minperson=" + minperson + ", maxperson="
 				+ maxperson + ", priceunit=" + priceunit + ", price=" + price + ", mainimagefile=" + mainimagefile
 				+ "]";
