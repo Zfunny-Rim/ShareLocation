@@ -1,5 +1,7 @@
 package member.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,15 @@ public class MemberRegisterCmd {
 	MemberDao mdao;
 	
 	@RequestMapping(value = command,method = RequestMethod.GET)
-	public String doAction() {
-		return getPage;
+	public ModelAndView doAction(
+			ModelAndView mav
+			) {
+		
+		List<MemberBean> idLists=mdao.getId();
+		System.out.println(idLists);
+		mav.addObject("idLists",idLists);
+		mav.setViewName(getPage);
+		return mav;
 	}
 	
 	@RequestMapping(value = command, method =RequestMethod.POST)
