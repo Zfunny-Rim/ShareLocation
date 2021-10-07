@@ -25,6 +25,9 @@ public class spaceListCmd {
 	public ModelAndView doAction(ModelAndView mav,
 			@RequestParam(value ="keyword",required = false) String keyword) {
 		System.out.println(keyword);
+		if(keyword==null) {
+	         keyword = "";
+	    }
 		keyword += "%"+keyword+"%";
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(keyword);
