@@ -17,7 +17,7 @@
 		</div>
 		<div class="sidebar-menu">
 			<!-- ***** Login Card Start ***** -->
-	<%@include file="./../../common/common.jsp"%>
+	<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
 	<c:if test="${empty loginInfo }">
 			<div class="card bg-light">
 				<div class="card-header">
@@ -60,6 +60,7 @@
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">${loginInfo.nickname }</h4>
+					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
 				</div>
 				<div class="card-body">
 					<div class="basic-form">
