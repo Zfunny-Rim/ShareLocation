@@ -25,14 +25,13 @@ import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
 import space.model.SpaceImageBean;
-import space.model.SpaceTagBean;
 
 @Controller
 public class HostSpaceInsertController {
 	public final String command = "insertSpace.ho";
 	public final String command_tier1 = "insertSpace_1.ho";
 	public final String viewPage = "insert/insertSpace";
-	public final String gotoPage = "hostSpaceList";
+	public final String gotoPage = "redirect:/spaceList.ho";
 	
 	@Autowired
 	ServletContext servletContext;
@@ -53,6 +52,7 @@ public class HostSpaceInsertController {
 		PrintWriter pw = response.getWriter();
 		ModelAndView mav = new ModelAndView(viewPage);
 		
+		System.out.println("TAG : " + spaceBean.getTag());
 		
 		if(result.hasErrors()) {
 			System.out.println("has Error");
@@ -67,9 +67,10 @@ public class HostSpaceInsertController {
 		spaceBean.setGrade("기본");
 		
 		//operatingtime 처리
-		String operatingtime = ((String)request.getParameter("starttime"))+"~"+
-				((String)request.getParameter("endtime"));
+		String operatingtime = request.getParameter("starttime");
+		String operatingendtime = request.getParameter("endtime");
 		spaceBean.setOperatingtime(operatingtime);
+		spaceBean.setOperatingendtime(operatingendtime);
 		
 		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
@@ -122,17 +123,8 @@ public class HostSpaceInsertController {
 			cnt = spaceDao.insertSpaceFacility(sfBean);
 		}
 		
-		//Tag 처리
-		String tagList = ((String)request.getParameter("spacetag"));
-		String[] token = tagList.split(",");
-		for(String tag:token) {
-			SpaceTagBean stBean = new SpaceTagBean(0, spaceNum, tag);
-			cnt = -1;
-			cnt = spaceDao.insertSpaceTag(stBean);
-		}
-		
-		pw.println("<script>alert('공간정보가 저장되었습니다.');</script>");
-		pw.flush();
+//		pw.println("<script>alert('공간정보가 저장되었습니다.');</script>");
+//		pw.flush();
 		
 		return mav;
 	}

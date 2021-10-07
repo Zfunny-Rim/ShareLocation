@@ -107,11 +107,11 @@ element.style {
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
 											<!-- tag 넣기  시작-->
-											<br> <span style="font-size: medium;"> <c:forEach
-													var="tag" items="${spacetag}">
-										#${tag.tag}
-										</c:forEach>
-											</span>
+<%-- 											<br> <span style="font-size: medium;"> <c:forEach --%>
+<%-- 													var="tag" items="${spacetag}"> --%>
+<!-- 										#${tag.tag} -->
+<%-- 										</c:forEach> --%>
+<!-- 											</span> -->
 
 											<!-- tag 넣기  끝-->
 
@@ -212,9 +212,9 @@ element.style {
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="/reserv.rv">
+																	<form action="<%=request.getContextPath()%>/reserv.rv?&spaceNum=1&memberNum=1"
+																	 method="post">           
 																		<table class="table table-lg" style="width: auto;">
-
 																			<tbody>
 																				<tr>
 																					<td class="text-bold-500">장소 선택</td>
@@ -224,7 +224,6 @@ element.style {
 																							<input type="radio" value="spaceName" name="name">${spaceName}
 																					</c:forEach>
 																					</td>
-
 																				</tr>
 																				<tr>
 																					<td align="left" colspan="2">
