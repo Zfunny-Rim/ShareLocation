@@ -212,9 +212,9 @@ element.style {
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="/reserv.rv">
+																	<form action="<%=request.getContextPath()%>/reserv.rv?&spaceNum=1&memberNum=1"
+																	 method="post">           
 																		<table class="table table-lg" style="width: auto;">
-
 																			<tbody>
 																				<tr>
 																					<td class="text-bold-500">장소 선택</td>
@@ -224,7 +224,6 @@ element.style {
 																							<input type="radio" value="spaceName" name="name">${spaceName}
 																					</c:forEach>
 																					</td>
-
 																				</tr>
 																				<tr>
 																					<td align="left" colspan="2">
