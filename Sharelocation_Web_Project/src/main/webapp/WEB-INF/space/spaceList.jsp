@@ -36,6 +36,8 @@
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
 						
+						
+						
 						<section id="content-types"  >
 							<div class="row" >
 				<c:forEach var="space" items="${spaceLists}">
