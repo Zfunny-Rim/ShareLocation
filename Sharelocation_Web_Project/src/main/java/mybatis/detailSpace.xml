@@ -16,4 +16,8 @@
 	<select id="getDetailSpaceCountBySpaceNum" resultType="int">
 		select count(*) from detailspace where spacenum = #{spaceNum}
 	</select>
+	
+	<select id="getDetailSpace" resultType="MyDetailSpace">
+		select * from detailspace where spacenum=#{spaceNum}
+	</select>
 </mapper>
