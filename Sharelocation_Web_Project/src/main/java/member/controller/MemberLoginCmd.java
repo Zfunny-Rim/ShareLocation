@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,9 +17,10 @@ import member.model.MemberDao;
 @Controller
 public class MemberLoginCmd {
 	private final String command = "/login.member";
-	private final String hostPage = "redirect:/list.ho";
+	private final String hostPage = "redirect:/main.ho";
 	private final String guestPage = "redirect:/list.sp";
 	private final String adminPage = "redirect:/list.admin";
+	private final String getPage = "loginForm";
 	
 	@Autowired
 	MemberDao mdao;
@@ -33,16 +33,16 @@ public class MemberLoginCmd {
 			  ) throws IOException {
 		 MemberBean dbMember = mdao.getData(member.getId());
 		 session.setAttribute("loginInfo", dbMember);
-		 response.setContentType("text/html;charset=UTF-8");
-		 PrintWriter pw = response.getWriter();
+		 //response.setContentType("text/html;charset=UTF-8");
+		 //PrintWriter pw = response.getWriter();
 		 
 		 ModelAndView mav = new ModelAndView();
 		 mav.addObject("loginInfo",dbMember);
 		 
 		 if(dbMember == null) {
-			 mav.setViewName("/");
-			 pw.println("<script>alert('¾ÆÀÌµð|ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä');</script>");
-			 pw.flush();
+			// pw.println("<script>alert('ï¿½ï¿½ï¿½Ìµï¿½|ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½');</script>");
+			// pw.flush();
+			 mav.setViewName(getPage);
 			 return mav;
 		 }
 		 else {

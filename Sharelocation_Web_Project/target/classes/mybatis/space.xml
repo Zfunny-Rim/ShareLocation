@@ -28,18 +28,14 @@
 	
 	<insert id="insertSpace">
 		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage,
-		site, address, email, hp, operatingtime, holiday, grade, status, regdate) values 
+		site, address, email, hp, operatingtime, operatingendtime, holiday, grade, status, regdate) values 
 		(space_seq.nextval, #{membernum}, #{name}, #{type}, #{contentssim}, #{contentscom}, #{warning}, #{mainimage},
-		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
+		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{operatingendtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
 	</insert>
 	
 	<select id="getRecentSpaceNum" resultType="int">
 		select num from (select * from space order by rownum desc) where rownum = 1
 	</select>
-	
-	<insert id="insertSpaceTag">
-		insert into spacetag values(spacetag_seq.nextval, #{spacenum}, #{tag})
-	</insert>
 	
 	<insert id="insertSpaceImage">
 		insert into spaceimage values(spaceimage_seq.nextval, #{spacenum}, #{image})
@@ -48,5 +44,27 @@
 	<insert id="insertSpaceFacility">
 		insert into spacefacility values(spacefacility_seq.nextval, #{spacenum}, #{facility})
 	</insert>
+	
+	<select id="getSpaceListByMemberNum" resultType="MySpace">
+		select * from space where membernum = #{memberNum} order by rownum
+	</select>
+	
+	<select id="getSpaceImageListBySpaceNum" resultType="MySpaceImage">
+		select * from spaceimage where spacenum = #{spaceNum} order by rownum
+		
+	</select>
+		<select id="getTotalCount" resultType="int">
+		select count(*) from space
+		where name like #{keyword}
+	</select>
+	<select id="getImage" resultType="MySpaceImage">
+		select * from spaceimage
+		where
+		spacenum = #{num}
+	</select>
+	<select id="getFacility" resultType="MySpaceFacility">
+		select * from spacefacility where spacenum=#{num}
+	</select>
+	
 
 </mapper>

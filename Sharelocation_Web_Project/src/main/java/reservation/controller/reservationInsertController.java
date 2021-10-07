@@ -13,38 +13,39 @@ import reservation.model.ReservationDao;
 
 @Controller
 public class reservationInsertController {
-	
+
 	private final String command="/reservInsert.rv";
 	private final String getPage="reservationConfirmation";
 	private final String gotoPage = "redirect:/reserv.rv";
-	
+
 	@Autowired
 	ReservationDao reservationDao;
-	
+
 	@RequestMapping(value=command)
 	public String reservationInsert(
-			@RequestParam(value="memberNum") int memberNum,
-			@RequestParam(value = "spaceNum") int spaceNum,
+			//@RequestParam(value="memberNum") int memberNum,
+			//@RequestParam(value = "spaceNum") int spaceNum,
 			@Valid ReservationBean bean,BindingResult result
 			) {
-		/*	
-		bean.setMembernum(memberNum);
-		bean.setSpacenum(spaceNum);
-		bean.setDetailspacenum(detailspaceNum);
-		
+
+		bean.setMembernum(1);
+		bean.setDetailspacenum(1);
+		bean.setSpacenum(1);
+
 		if(result.hasErrors()) {
 			System.out.println("유효성 검사 오류입니다.");
 			return gotoPage;
 		}
-		
-		int cnt = reservationDao.reservInsert(bean);
-		if(cnt != 0) {
-			System.out.println("저장 성공");
-		}
 		else {
-			System.out.println("저장 살패");
+			int cnt=-1;
+			cnt = reservationDao.reservInsert(bean);
+			if(cnt != -1) {
+				System.out.println("저장 성공");
+			}
+			else {
+				System.out.println("저장 살패");
+			}
+			return getPage;
 		}
-		*/
-		return getPage;
 	}
 }

@@ -1,5 +1,7 @@
 package member.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -30,5 +32,11 @@ public class MemberDao {
 
 	public void updateMember(MemberBean member) {
 		sqlSessionTemplate.update(namespace+"updateMember",member);
+	}
+
+	public List<MemberBean> getId() {
+		List<MemberBean> idLists = new ArrayList<MemberBean>();
+		idLists = sqlSessionTemplate.selectList(namespace+"getId");
+		return idLists;
 	}
 }

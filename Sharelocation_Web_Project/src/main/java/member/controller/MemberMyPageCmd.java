@@ -18,11 +18,10 @@ public class MemberMyPageCmd {
 	@Autowired
 	MemberDao mdao;
 	
-	 @RequestMapping(value = command,method = RequestMethod.POST)
+	 @RequestMapping(value = command,method = RequestMethod.GET)
 	 public ModelAndView doAction(
 			 @RequestParam("id") String id
-			 ) {
-		 
+			 ) {   
 		 MemberBean member = mdao.getData(id);
 		 ModelAndView mav = new ModelAndView();
 		 mav.addObject("member",member);
