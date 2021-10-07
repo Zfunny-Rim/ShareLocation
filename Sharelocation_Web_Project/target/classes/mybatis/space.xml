@@ -37,10 +37,6 @@
 		select num from (select * from space order by rownum desc) where rownum = 1
 	</select>
 	
-	<insert id="insertSpaceTag">
-		insert into spacetag values(spacetag_seq.nextval, #{spacenum}, #{tag})
-	</insert>
-	
 	<insert id="insertSpaceImage">
 		insert into spaceimage values(spaceimage_seq.nextval, #{spacenum}, #{image})
 	</insert>
@@ -61,15 +57,13 @@
 		select count(*) from space
 		where name like #{keyword}
 	</select>
-		<select id="getTag" resultType="MySpaceTag">
-		select * from spacetag
-		where
-		spacenum = #{num}
-	</select>
 	<select id="getImage" resultType="MySpaceImage">
 		select * from spaceimage
 		where
 		spacenum = #{num}
+	</select>
+	<select id="getFacility" resultType="MySpaceFacility">
+		select * from spacefacility where spacenum=#{num}
 	</select>
 	
 
