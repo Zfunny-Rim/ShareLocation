@@ -15,22 +15,31 @@
 <body>
 	<div id="app">
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp" %>
-		<%@ include file="/WEB-INF/views/include/body_sidebar_host.jsp" %>
+		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp" %>
         <div id="main" style="padding-top:0px;">
             <div id="main-content">
                 <div class="page-heading">
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
-						HOST SPACE MANAGER
+                    	<div class="card">
+	                    	<div class="card-content">
+		                    	<div class="main-image mx-auto">
+			                       <a href="list.sp"><img src="./resources/assets/images/bg/title01.jpg" class="card-img-top img-fluid">	</a>
+		                    	</div>   
+	                    	</div>
+                    	</div>
                     	<%-- ******* Main Code END ******* --%>
                     </section>
-                </div>
+                </div>	
             </div>
         </div>
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		
+		<script type="text/javascript">
+		/* alert(1); */
+			
+		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>

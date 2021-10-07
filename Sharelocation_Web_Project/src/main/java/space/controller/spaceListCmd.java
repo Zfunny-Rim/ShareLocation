@@ -41,7 +41,7 @@ public class spaceListCmd {
 		System.out.println("url 확인해보자"+url);
 		
 		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, null, keyword, null);
-		
+		keyword += "%"+keyword+"%";
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,keyword);
 		System.out.println("spaceLists"+spaceLists.size());

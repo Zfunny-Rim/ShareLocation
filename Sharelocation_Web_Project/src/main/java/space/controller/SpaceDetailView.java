@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import detailspace.model.DetailSpaceBean;
+import detailspace.model.DetailSpaceDao;
 import reviewBoard.model.ReviewBoardBean;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
@@ -28,6 +29,9 @@ public class SpaceDetailView {
 
 	@Autowired
 	SpaceDao spaceDao;
+	
+	@Autowired
+	DetailSpaceDao detailSpaceDao;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -58,7 +62,9 @@ public class SpaceDetailView {
 		System.out.println("reviewBoard: " +reviewBoard.size());
 		mav.addObject("reviewBoard",reviewBoard);
 		
-		DetailSpaceBean detailspace = spaceDao.getDetailSpaceListBySpaceNum(num);
+		//DetailSpaceBean detailspace = spaceDao.getDetailSpaceListBySpaceNum(num);
+		//(to hs) 일단 똑같이 Bean으로 동작하게 변경함 - List로 수정요망
+		DetailSpaceBean detailspace = detailSpaceDao.getDetailSpace(num);
 		System.out.println("detailspace: "+detailspace);
 		mav.addObject("detailspace",detailspace);
 		
@@ -81,3 +87,4 @@ public class SpaceDetailView {
 	
 
 }
+
