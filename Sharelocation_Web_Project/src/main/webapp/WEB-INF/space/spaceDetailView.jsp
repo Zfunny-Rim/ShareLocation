@@ -217,7 +217,6 @@ element.style {
 																		<table class="table table-lg" style="width: auto;">
 																			<tbody>
 																				<tr>
-<<<<<<< HEAD
 																					<td class="text-bold-500">장소 선택</td>
 																					<td align="center">
 																					<c:forEach var="spaceName"
@@ -225,11 +224,6 @@ element.style {
 																							<input type="radio" value="spaceName" name="name">${spaceName}
 																					</c:forEach>
 																					</td>
-
-=======
-																					<td class="text-bold-500">Michael Right</td>
-																					<td align="center">$15/hr</td>
->>>>>>> branch 'jaehyun' of https://github.com/Zfunny-Rim/ShareLocation.git
 																				</tr>
 																				<tr>
 																					<td align="left" colspan="2">
@@ -318,14 +312,8 @@ element.style {
 
 		<script type="text/javascript">
 	
-<<<<<<< HEAD
 	function favorite(spacenum,membernum){
 		location.href="favorite.sp?spacenum="+spacenum+"&membernum="+membernum;
-=======
-	function favorite(spaceNum,memberNum){
-		//alert(spaceNum ,memberNum);
-		location.href="favorite.sp?space="+spaceNum+"&memberNum="+memberNum;
->>>>>>> branch 'jaehyun' of https://github.com/Zfunny-Rim/ShareLocation.git
 	}
 	
 	function detailView(spacenum){
