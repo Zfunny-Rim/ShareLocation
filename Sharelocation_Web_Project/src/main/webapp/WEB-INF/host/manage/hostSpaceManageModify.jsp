@@ -9,7 +9,7 @@
     
     
 <form:form commandName="spaceBean" class="form form-horizontal"
-			action="modifySpace.ho" method="post" enctype="multipart/form-data">
+			action="spaceManageModify.ho" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="num" value="${spaceBean.num }"/>
 	<div class="form-body">
 		<div class="row">
@@ -127,7 +127,7 @@
 					<img src="<%=request.getContextPath() %>/resources/spaceimage/${spaceBean.mainimage}"
 					 style="width:100px;height:100px; margin:5px 7px;">
 				</div>
-				<input class="form-control" type="file" name="mainimagefile">
+				<input class="form-control" type="file" name="mainimageupdatefile">
 				<small class="text-muted"> 이미지 선택시 기존 이미지는 삭제됩니다. </small>
 				<p>
 					<small class="text-muted"> <form:errors cssClass="err"
@@ -145,7 +145,7 @@
 						 style="width:100px;height:100px; margin:5px 7px;">
 					</c:forEach>
 				</div>
-				<input class="form-control" type="file" name="spaceimagefile"
+				<input class="form-control" type="file" name="spaceimageupdatefile"
 					multiple="multiple">
 				<small class="text-muted"> 이미지 선택시 기존 이미지들은 모두 삭제됩니다. </small>
 				<p>
@@ -281,8 +281,10 @@
 				</ul>
 			</div>
 			<hr class="divider">
-			<input type="hidden" name="email"> <input type="hidden"
-				name="hp">
+			<input type="hidden" name="email">
+			<input type="hidden" name="hp">
+			<input type="hidden" name="mainimageOrigin" value="${spaceBean.mainimage }">
+			<input type="hidden" name="spaceimageOriginCount" value="${spaceImageList.size() }">
 			<div class="col-sm-12 d-flex justify-content-end">
 				<button type="submit" class="btn btn-primary me-1 mb-1"
 					onClick="return processing()">수정</button>

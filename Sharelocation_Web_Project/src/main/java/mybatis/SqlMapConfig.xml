@@ -3,6 +3,9 @@
 			"http://mybatis.org/dtd/mybatis-3-config.dtd">
 			
 <configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 	<typeAliases>
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
 		<typeAlias alias="MyReview" type="reviewBoard.model.ReviewBoardBean"/>

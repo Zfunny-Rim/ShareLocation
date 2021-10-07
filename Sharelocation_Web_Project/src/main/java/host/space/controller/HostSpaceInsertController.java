@@ -82,8 +82,6 @@ public class HostSpaceInsertController {
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		spaceBean.setMainimage(safeFileName); 
 		
-	  
-		
 		System.out.println("test1");
 		System.out.println(spaceBean);
 		

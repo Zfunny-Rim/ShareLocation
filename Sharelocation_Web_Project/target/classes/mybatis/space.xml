@@ -27,9 +27,9 @@
 	</delete>
 	
 	<insert id="insertSpace">
-		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage,
+		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage, tag,
 		site, address, email, hp, operatingtime, operatingendtime, holiday, grade, status, regdate) values 
-		(space_seq.nextval, #{membernum}, #{name}, #{type}, #{contentssim}, #{contentscom}, #{warning}, #{mainimage},
+		(space_seq.nextval, #{membernum}, #{name}, #{type}, #{contentssim}, #{contentscom}, #{warning}, #{mainimage}, #{tag},
 		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{operatingendtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
 	</insert>
 	
@@ -65,6 +65,15 @@
 	<select id="getFacility" resultType="MySpaceFacility">
 		select * from spacefacility where spacenum=#{num}
 	</select>
-	
-
+	<update id="updateSpace">
+		update space set name=#{name}, type=#{type}, contentssim=#{contentssim}, contentscom=#{contentscom}, tag=#{tag}, warning=#{warning}, site=#{site},
+		mainimage=#{mainimage}, address=#{address}, email=#{email}, hp=#{hp}, operatingtime=#{operatingtime}, operatingendtime=#{operatingendtime}, holiday=#{holiday} 
+		where num=#{num}
+	</update>
+	<delete id="deleteFacility">
+		delete spacefacility where spacenum=#{spaceNum}
+	</delete>
+	<delete id="deleteSpaceImageBySpaceNum">
+		delete spaceimage where spacenum=#{spaceNum}
+	</delete>
 </mapper>

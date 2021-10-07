@@ -48,11 +48,17 @@ public class SpaceBean {
 
 	//DB에 저장되지 않는 값들
 	private MultipartFile mainimagefile;
+	private MultipartFile mainimageupdatefile;
+	private String mainimageOrigin;
 	private List<MultipartFile> spaceimagefile;
+	private List<MultipartFile> spaceimageupdatefile;
 	private List<String> spaceimage;
+	private List<String> spaceimageupdate;
+	
 	@Min(value = 1, message="이미지를 최소 한개 선택해주세요.")
 	@Max(value = 5, message="이미지는 최대 5장까지 선택 가능합니다.")
 	private int spaceimageCount;
+	private int spaceimageOriginCount;
 	
 	public MultipartFile getMainimagefile() {
 		return mainimagefile;
@@ -90,7 +96,55 @@ public class SpaceBean {
 		System.out.println("spaceimageCount : " + spaceimageCount);
 	}
 	
-	
+	//update null issue
+	public MultipartFile getMainimageupdatefile() {
+		return mainimageupdatefile;
+	}
+	public void setMainimageupdatefile(MultipartFile mainimageupdatefile) {
+		this.mainimageupdatefile = mainimageupdatefile;
+		if(mainimageupdatefile.getOriginalFilename().equals("")) {
+			this.setMainimage(this.getMainimageOrigin());
+		}else {
+			this.setMainimage(mainimageupdatefile.getOriginalFilename());
+		}
+	}
+	public List<MultipartFile> getSpaceimageupdatefile() {
+		return spaceimageupdatefile;
+	}
+	public void setSpaceimageupdatefile(List<MultipartFile> spaceimageupdatefile) {
+		this.spaceimageupdatefile = spaceimageupdatefile;
+		//
+		List<String> sImg = new ArrayList<String>();
+		for(MultipartFile mpf:spaceimageupdatefile) {
+			if(mpf.getOriginalFilename().length() != 0)
+				sImg.add(mpf.getOriginalFilename());
+		}
+		this.setSpaceimageupdate(sImg);
+	}
+	public List<String> getSpaceimageupdate() {
+		return spaceimageupdate;
+	}
+	public void setSpaceimageupdate(List<String> spaceimageupdate) {
+		this.spaceimageupdate = spaceimageupdate;
+		//
+		if(this.spaceimageupdate.size() == 0) {
+			this.setSpaceimageCount(this.getSpaceimageOriginCount());
+		}else {
+			this.setSpaceimageCount(this.spaceimageupdate.size());
+		}
+	}
+	public String getMainimageOrigin() {
+		return mainimageOrigin;
+	}
+	public void setMainimageOrigin(String mainimageOrigin) {
+		this.mainimageOrigin = mainimageOrigin;
+	}
+	public int getSpaceimageOriginCount() {
+		return spaceimageOriginCount;
+	}
+	public void setSpaceimageOriginCount(int spaceimageOriginCount) {
+		this.spaceimageOriginCount = spaceimageOriginCount;
+	}
 	
 	public int getNum() {
 		return num;
@@ -200,16 +254,14 @@ public class SpaceBean {
 	public void setOperatingendtime(String operatingendtime) {
 		this.operatingendtime = operatingendtime;
 	}
-	
 	@Override
 	public String toString() {
-		return "SpaceBean [num=" + num + ", membernum=" + membernum + ", name=" + name + ", type=" + type
-				+ ", contentssim=" + contentssim + ", contentscom=" + contentscom + ", mainimage=" + mainimage
-				+ ", warning=" + warning + ", site=" + site + ", address=" + address + ", email=" + email + ", hp=" + hp
-				+ ", operatingtime=" + operatingtime + ", operatingendtime=" + operatingendtime + ", holiday=" + holiday
-				+ ", grade=" + grade + ", status=" + status + ", regdate=" + regdate + ", mainimagefile="
-				+ mainimagefile + ", spaceimagefile=" + spaceimagefile + ", spaceimage=" + spaceimage
-				+ ", spaceimageCount=" + spaceimageCount + "]";
+		return "SpaceBean \n[num=" + num + ", membernum=" + membernum + ", name=" + name + ", type=" + type
+				+ ",\n contentssim=" + contentssim + ", contentscom=" + contentscom + ", mainimage=" + mainimage
+				+ ",\n warning=" + warning + ", site=" + site + ", address=" + address + ", email=" + email + ", hp=" + hp
+				+ ",\n operatingtime=" + operatingtime + ", operatingendtime=" + operatingendtime + ", holiday=" + holiday
+				+ ",\n grade=" + grade + ", status=" + status + ", regdate=" + regdate + ", tag=" + tag
+				+ ",\n spaceimageCount=" + spaceimageCount + "]";
 	}
 	public String getTag() {
 		return tag;
