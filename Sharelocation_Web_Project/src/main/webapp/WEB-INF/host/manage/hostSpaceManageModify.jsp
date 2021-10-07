@@ -123,7 +123,12 @@
 				<label>대표 이미지 <span class="required">*</span></label>
 			</div>
 			<div class="col-md-8 form-group">
+				<div class="img-box border border-dark rounded-3 p-2 mb-2 bg-light">
+					<img src="<%=request.getContextPath() %>/resources/spaceimage/${spaceBean.mainimage}"
+					 style="width:100px;height:100px; margin:5px 7px;">
+				</div>
 				<input class="form-control" type="file" name="mainimagefile">
+				<small class="text-muted"> 이미지 선택시 기존 이미지는 삭제됩니다. </small>
 				<p>
 					<small class="text-muted"> <form:errors cssClass="err"
 							path="mainimage" />
@@ -134,8 +139,15 @@
 				<label>이미지 <span class="required">*</span></label>
 			</div>
 			<div class="col-md-8 form-group">
+				<div class="img-box border border-dark rounded-3 p-2 mb-2 bg-light">
+					<c:forEach var="imageBean" items="${spaceImageList }">
+						<img src="<%=request.getContextPath() %>/resources/spaceimage/${imageBean.image}"
+						 style="width:100px;height:100px; margin:5px 7px;">
+					</c:forEach>
+				</div>
 				<input class="form-control" type="file" name="spaceimagefile"
 					multiple="multiple">
+				<small class="text-muted"> 이미지 선택시 기존 이미지들은 모두 삭제됩니다. </small>
 				<p>
 					<small class="text-muted"> <form:errors cssClass="err"
 							path="spaceimageCount" />
@@ -172,11 +184,19 @@
 			</div>
 			<div class="col-md-8 form-group">
 				<div class="input-group mb-3">
-					<input type="text" class="form-control" name="email_id"
-						value="example"> <span class="input-group-text">@</span> <input
-						type="text" class="form-control" name="email_domain"
-						value="empas.com"> <select class="form-select"
-						name="domain_selector">
+					<c:if test="${empty spaceBean.email }">
+						<c:set var="emailid" value=""/>
+						<c:set var="emaildomain" value=""/>
+					</c:if>
+					<c:if test="${not empty spaceBean.email }">
+						<c:set var="emailToken" value="${fn:split(spaceBean.email,'@')}"/>
+						<c:set var="emailid" value="${emailToken[0] }"/>
+						<c:set var="emaildomain" value="${emailToken[1] }"/>
+					</c:if>
+					<input type="text" class="form-control" name="email_id"	value="${emailid }">
+					<span class="input-group-text">@</span>
+					<input type="text" class="form-control" name="email_domain"	value="${emaildomain }">
+					<select class="form-select"	name="domain_selector" id="domain_selector">
 						<option value="">직접입력</option>
 						<option value="naver.com">naver.com</option>
 						<option value="hanmail.net">hanmail.net</option>
@@ -189,11 +209,12 @@
 			</div>
 			<div class="col-md-8 form-group">
 				<div class="input-group">
-					<input type="text" class="form-control" name="hp1" value="010">
+					<c:set var="hpToken" value="${fn:split(spaceBean.hp, '-')}"/>
+					<input type="text" class="form-control" name="hp1" value="${hpToken[0] }">
 					<span class="input-group-text">-</span> <input type="text"
-						class="form-control" name="hp2" value="1234"> <span
+						class="form-control" name="hp2" value="${hpToken[1] }"> <span
 						class="input-group-text">-</span> <input type="text"
-						class="form-control" name="hp3" value="5678">
+						class="form-control" name="hp3" value="${hpToken[2] }">
 				</div>
 				<p>
 					<small class="text-muted"> <form:errors cssClass="err"
@@ -209,16 +230,20 @@
 			</div>
 			<div class="col-md-8 form-group">
 				<div class="input-group mb-3">
-					<select class="form-select" name="starttime">
+					<select class="form-select" name="operatingtime">
 						<c:forEach var="i" begin="0" end="24">
-							<option value="${i}">
+							<option value="${i}"
+							<c:if test="${spaceBean.operatingtime eq i }">selected</c:if>
+							>
 								<fmt:formatNumber value="${i }" pattern="00" />
 							</option>
 						</c:forEach>
 					</select> <span class="input-group-text">시 부터</span> <select
-						class="form-select" name="endtime">
+						class="form-select" name="operatingendtime">
 						<c:forEach var="i" begin="0" end="24">
-							<option value="${i}">
+							<option value="${i}"
+							<c:if test="${spaceBean.operatingendtime eq i }">selected</c:if>
+							>
 								<fmt:formatNumber value="${i }" pattern="00" />
 							</option>
 						</c:forEach>
@@ -243,8 +268,12 @@
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox"
 										class="form-check-input form-check-primary form-check-glow"
-										name="holiday" id="${weekStr }" value="${weekStr }"> <label
-										class="form-check-label" for="${weekStr }">${weekStr }</label>
+										name="holiday" id="${weekStr }" value="${weekStr }"
+										<c:if test="${fn:contains(spaceBean.holiday, weekStr)}">
+											checked
+										</c:if>
+										> 
+									<label class="form-check-label" for="${weekStr }">${weekStr }</label>
 								</div>
 							</div>
 						</li>
@@ -281,17 +310,17 @@
      
  	function fac_add_btn(){
  		var fac_text = $('input[id="fac_input"]').val();
-	if(fac_text == ''){
-		alert('시설안내를 입력하세요.');
-		return;
-	}else if($('select[name="facility"] option').length >= 10){
-		alert('시설안내는 10개까지 입력 가능합니다.');
-		return;
+		if(fac_text == ''){
+			alert('시설안내를 입력하세요.');
+			return;
+		}else if($('select[name="facility"] option').length >= 10){
+			alert('시설안내는 10개까지 입력 가능합니다.');
+			return;
+		}
+		else{
+			$('select[name="facility"]').append('<option value="'+fac_text+'">'+fac_text+'</option>');
+		}
 	}
-	else{
-		$('select[name="facility"]').append('<option value="'+fac_text+'">'+fac_text+'</option>');
-	}
-}
  	
  	function fac_del_btn(){
  		$('select[name="facility"] option:selected').each(function(){
@@ -311,19 +340,38 @@
  		var hpStr = $('input[name="hp1"]').val()+"-"+$('input[name="hp2"]').val()+"-"+$('input[name="hp3"]').val();
  		$('input[name="hp"]').val(hpStr);
  		
+ 		var opTime = Number($('select[name="operatingtime"]').val());
+ 		var opEndTime = Number($('select[name="operatingendtime"]').val());
+ 		if(opTime >= opEndTime){
+ 			alert('운영시간을 정확하게 입력해주세요.');
+ 			return false;
+ 		}
  		return true;
  	}
  	
- 	$(function(){
- 		$('select[name="domain_selector"]').change(function(){
- 			var selVal = $('select[name="domain_selector"] option:selected').val();
- 			if(selVal == ""){
- 				$('input[name="email_domain"]').val('');
- 				$('input[name="email_domain"]').removeAttr('readonly');
- 			}else{
- 				$('input[name="email_domain"]').val(selVal);
- 				$('input[name="email_domain"]').attr('readonly', 'readonly');
- 			}
- 		});
+ 	var target = document.getElementById('domain_selector');
+ 	target.addEventListener('change', function(event){
+		var selVal = $('select[name="domain_selector"] option:selected').val();
+		if(selVal == ""){
+			$('input[name="email_domain"]').val('');
+			$('input[name="email_domain"]').removeAttr('readonly');
+		}else{
+			$('input[name="email_domain"]').val(selVal);
+			$('input[name="email_domain"]').attr('readonly', 'readonly');
+		}
  	});
+ 	
+//   	$(function(){
+// 		$('select[name="domain_selector"]').change(function(){
+//  			alert(1);
+//  			var selVal = $('select[name="domain_selector"] option:selected').val();
+//  			if(selVal == ""){
+//  				$('input[name="email_domain"]').val('');
+//  				$('input[name="email_domain"]').removeAttr('readonly');
+//  			}else{
+//  				$('input[name="email_domain"]').val(selVal);
+//  				$('input[name="email_domain"]').attr('readonly', 'readonly');
+//  			}
+//  		});
+// 	});
 </script>
