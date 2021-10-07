@@ -40,11 +40,11 @@
 							<tbody>
 								<tr>
 									<td class="text-bold-500">예약 날짜</td>
-									<td align="center">$15/hr</td>
+									<td align="center">${selectTime}</td>
 								</tr>
 								<tr>
 									<td class="text-bold-500">예약인원</td>
-									<td align="center">2명</td>
+									<td align="center">${reservation.person }</td>
 								</tr>
 							</tbody>
 						</table>
@@ -161,23 +161,23 @@
 								<tbody>
 									<tr>
 										<td class="text-bold-500">공간상호</td>
-										<td>${space.company}</td>
+										<td>${balance.company}</td>
 									</tr>
 									<tr>
 										<td class="text-bold-500">대표자명</td>
-										<td>${space.name }</td>
+										<td>${balance.name }</td>
 									</tr>
 									<tr>
 										<td class="text-bold-500">소재지</td>
-										<td>${space.address }</td>
+										<td>${balance.address }</td>
 									</tr>
 									<tr>
 										<td class="text-bold-500">사업자번호</td>
-										<td>${space.call }</td>
+										<td>${balance.call }</td>
 									</tr>
 									<tr>
 										<td class="text-bold-500">연락처</td>
-										<td>${space.hp }</td>
+										<td>${balance.hp }</td>
 									</tr>
 								</tbody>
 							</table>
@@ -230,9 +230,8 @@
 							<div class="card-body" style="width: auto">
 								<!-- Table with outer spacing -->
 								<div class="table-responsive">
-									<form action="/reservInsert.rv">
+									<form action="<%=request.getContextPath()%>/reservInsert.rv?memberNum=1&spaceNum=11" method="post">
 										<table class="table table-lg" style="width: auto;">
-
 											<tbody>
 												<tr>
 													<td class="text-bold-500">예약날짜</td>
@@ -251,7 +250,6 @@
 													<td colspan="2" class="text-bold-500" align="center"><input
 														type="submit" class="btn btn-secondary" value="예약신청하기"></td>
 												</tr>
-
 											</tbody>
 										</table>
 									</form>

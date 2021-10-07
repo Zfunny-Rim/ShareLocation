@@ -14,9 +14,11 @@
 		<typeAlias alias="MySpaceImage" type="space.model.SpaceImageBean"/>
 		<typeAlias alias="MySpaceFacility" type="space.model.SpaceFacilityBean"/>
 		<typeAlias alias="MySpaceTag" type="space.model.SpaceTagBean"/>
+		<typeAlias alias="MyBalance" type="reservation.model.BalanceBean"/>
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="mybatis/balance.xml"/>
 		<mapper resource="mybatis/space.xml"/>
 		<mapper resource="mybatis/detailSpace.xml"/>     
 		<mapper resource="mybatis/reviewBoard.xml"/>     

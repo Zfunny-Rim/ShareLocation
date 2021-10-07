@@ -101,3 +101,4 @@ public class SpaceDao {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
 	}
 }
+

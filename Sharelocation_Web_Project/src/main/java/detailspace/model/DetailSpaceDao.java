@@ -28,4 +28,9 @@ public class DetailSpaceDao {
 	public DetailSpaceBean getDetailSpace(int spaceNum) {
 		return sqlSessionTemplate.selectOne(namespace+".getDetailSpace", spaceNum);
 	}
+
+	public DetailSpaceBean getdetailspace(int detailspacenum) {
+		DetailSpaceBean detailSpaceBean = sqlSessionTemplate.selectOne(namespace+".getdetailspace",detailspacenum);
+		return detailSpaceBean;
+	}
 }
