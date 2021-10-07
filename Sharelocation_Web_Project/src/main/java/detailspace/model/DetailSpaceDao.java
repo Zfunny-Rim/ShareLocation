@@ -16,4 +16,21 @@ public class DetailSpaceDao {
 	public List<DetailSpaceBean> getDetailSpaceListBySpaceNum(int spacenum){
 		return sqlSessionTemplate.selectList(namespace+".getDetailSpaceListBySpaceNum", spacenum);
 	}
+	
+	public int getDetailSpaceCountBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceCountBySpaceNum", spaceNum);
+	}
+
+	public int insertDSpace(DetailSpaceBean detailSpaceBean) {
+		return sqlSessionTemplate.insert(namespace+".insertDSpace", detailSpaceBean);
+	}
+
+	public DetailSpaceBean getDetailSpace(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpace", spaceNum);
+	}
+
+	public DetailSpaceBean getdetailspace(int detailspacenum) {
+		DetailSpaceBean detailSpaceBean = sqlSessionTemplate.selectOne(namespace+".getdetailspace",detailspacenum);
+		return detailSpaceBean;
+	}
 }

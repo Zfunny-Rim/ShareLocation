@@ -15,7 +15,7 @@ import reservation.model.ReservationDao;
 public class reservationInsertController {
 	
 	private final String command="/reservInsert.rv";
-	private final String getPage="reservationInsert";
+	private final String getPage="reservationConfirmation";
 	private final String gotoPage = "redirect:/reserv.rv";
 	
 	@Autowired
@@ -25,10 +25,9 @@ public class reservationInsertController {
 	public String reservationInsert(
 			@RequestParam(value="memberNum") int memberNum,
 			@RequestParam(value = "spaceNum") int spaceNum,
-			@RequestParam(value = "detailspaceNum") int detailspaceNum,
 			@Valid ReservationBean bean,BindingResult result
 			) {
-		
+		/*	
 		bean.setMembernum(memberNum);
 		bean.setSpacenum(spaceNum);
 		bean.setDetailspacenum(detailspaceNum);
@@ -45,6 +44,7 @@ public class reservationInsertController {
 		else {
 			System.out.println("저장 살패");
 		}
+		*/
 		return getPage;
 	}
 }

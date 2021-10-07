@@ -4,6 +4,26 @@
 			
 <mapper namespace="detailspace.model.DetailSpaceBean">
 	<select id="getDetailSpaceListBySpaceNum" resultType="MyDetailSpace">
-		select * from detailspace where spacenum = #{spacenum}
+		select * from detailspace where spacenum = #{spaceNum}
+		order by rownum desc
+	</select>
+	
+	<insert id="insertDSpace">
+		insert into detailspace(num, spacenum, name, contents, mainimage, mintime, minperson, maxperson, priceunit, price)
+		values(detailspace_seq.nextval, #{spacenum}, #{name}, #{contents}, #{mainimage}, #{mintime}, #{minperson}, #{maxperson}, #{priceunit}, #{price})
+	</insert>
+	
+	<select id="getDetailSpaceCountBySpaceNum" resultType="int">
+		select count(*) from detailspace where spacenum = #{spaceNum}
+	</select>
+	
+	<select id="getDetailSpace" resultType="MyDetailSpace">
+		select * from detailspace where spacenum=#{spaceNum}
+	</select>
+	
+	<select id="getdetailspace" resultType="MyDetailSpace">
+		select * from
+		detailspace
+		where num=#{detailspacenum}
 	</select>
 </mapper>
