@@ -37,7 +37,9 @@ public class spaceListCmd {
 		if(keyword==null) {
 			keyword = "";
 		}
-		
+		if(area==null) {
+			area = "";
+		}		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
 		map.put("area", "%"+area+"%");

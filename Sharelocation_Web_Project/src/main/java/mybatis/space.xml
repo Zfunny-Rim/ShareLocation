@@ -20,9 +20,6 @@
 		<if test="whatColumn!=null">
   		and type like #{whatColumn}
   		</if>
-  		<if test="whatColumn!=null">
-  		and type like #{whatColumn}
-  		</if>
   		<if test="area!=null">
   		and address like #{area}
   		</if>

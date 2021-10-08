@@ -107,7 +107,10 @@ element.style {
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
 											<!-- tag 넣기  시작-->
-										<br> 
+										<br>
+										 <c:forEach var="tag" items="${space.tag }">
+												${tag}										 
+										 </c:forEach>
 
 											<!-- tag 넣기  끝-->
 
