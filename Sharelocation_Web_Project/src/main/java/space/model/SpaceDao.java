@@ -102,5 +102,14 @@ public class SpaceDao {
 	public int deleteSpaceImageBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.delete(namespace+".deleteSpaceImageBySpaceNum", spaceNum);
 	}
+	public List<String> getSpaceImageFileListBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceImageFileListBySpaceNum", spaceNum);
+	}
+	public String getspaceMainImage(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getspaceMainImage", spaceNum);
+	}
+	public int deleteSpace(int spaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteSpace", spaceNum);
+	}
 }
 

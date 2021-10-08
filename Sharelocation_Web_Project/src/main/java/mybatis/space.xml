@@ -76,4 +76,13 @@
 	<delete id="deleteSpaceImageBySpaceNum">
 		delete spaceimage where spacenum=#{spaceNum}
 	</delete>
+	<select id="getSpaceImageFileListBySpaceNum" resultType="String">
+		select image from spaceimage where spacenum=#{spaceNum}
+	</select>
+	<select id="getspaceMainImage" resultType="String">
+		select mainimage from space where num=#{spaceNum}
+	</select>
+	<delete id="deleteSpace">
+		delete space where num=#{spaceNum}
+	</delete>
 </mapper>

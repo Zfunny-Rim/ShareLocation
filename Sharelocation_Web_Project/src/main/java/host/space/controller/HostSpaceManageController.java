@@ -300,7 +300,17 @@ public class HostSpaceManageController {
 	public ModelAndView deleteDetailSpace(@RequestParam(value="spaceNum")int spaceNum,
 			@RequestParam(value="detailSpaceNum")int detailSpaceNum) {
 		ModelAndView mav = new ModelAndView();
-		detailSpaceDao.deleteDSpace(detailSpaceNum);
+		String imgName = detailSpaceDao.getDetailSpaceImage(detailSpaceNum);
+		System.out.println("Delete File : " + imgName);
+		int cnt = -1;
+		cnt = detailSpaceDao.deleteDSpace(detailSpaceNum);
+		if(cnt != -1) {
+			String uploadPath = servletContext.getRealPath("/resources/spaceimage");
+			File dFile = new File(uploadPath+"\\"+imgName);
+			if(dFile.exists()) {
+				dFile.delete();
+			}
+		}
 		mav.addObject("spaceNum", spaceNum);
 		mav.setViewName("redirect:/spaceManageDetailSpace.ho");
 		return mav;

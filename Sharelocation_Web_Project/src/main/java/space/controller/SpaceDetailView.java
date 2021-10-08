@@ -63,7 +63,7 @@ public class SpaceDetailView {
 		
 		//DetailSpaceBean detailspace = spaceDao.getDetailSpaceListBySpaceNum(num);
 		//(to hs) �씪�떒 �삊媛숈씠 Bean�쑝濡� �룞�옉�븯寃� 蹂�寃쏀븿 - List濡� �닔�젙�슂留�
-		DetailSpaceBean detailspace = detailSpaceDao.getDetailSpace(num);
+		DetailSpaceBean detailspace = detailSpaceDao.getdetailspace(num);
 		System.out.println("detailspace: "+detailspace);
 		mav.addObject("detailspace",detailspace);
 		

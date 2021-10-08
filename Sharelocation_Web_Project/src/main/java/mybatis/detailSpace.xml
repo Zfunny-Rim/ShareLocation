@@ -17,7 +17,7 @@
 		select count(*) from detailspace where spacenum = #{spaceNum}
 	</select>
 	
-	<select id="getDetailSpace" resultType="MyDetailSpace">
+	<select id="getDetailSpaceBySpaceNum" resultType="MyDetailSpace">
 		select * from detailspace where spacenum=#{spaceNum}
 	</select>
 	
@@ -34,4 +34,10 @@
 	<delete id="deleteDSpace">
 		delete detailspace where num=#{detailSpaceNum}
 	</delete>
+	<select id="getDetailSpaceImage" resultType="String">
+		select mainimage from detailspace where num=#{detailSpaceNum}
+	</select>
+	<select id="getSpaceImageBySpaceNum" resultType="String">
+		select mainimage from detailspace where spacenum=#{spaceNum}
+	</select>
 </mapper>

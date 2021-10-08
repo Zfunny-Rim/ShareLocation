@@ -7,7 +7,7 @@
 </style>
 <h4 class="card-title">세부공간 추가하기</h4>
 <form:form commandName="detailSpaceBean" class="form form-horizontal"
-	action="detailSpaceInsert.ho" method="post"
+	action="spaceManageDetailSpaceInsert.ho" method="post"
 	enctype="multipart/form-data" name="insert_form">
 	<div class="form-body">
 		<div class="row">

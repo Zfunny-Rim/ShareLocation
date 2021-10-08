@@ -25,8 +25,8 @@ public class DetailSpaceDao {
 		return sqlSessionTemplate.insert(namespace+".insertDSpace", detailSpaceBean);
 	}
 
-	public DetailSpaceBean getDetailSpace(int spaceNum) {
-		return sqlSessionTemplate.selectOne(namespace+".getDetailSpace", spaceNum);
+	public List<DetailSpaceBean> getDetailSpaceBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getDetailSpaceBySpaceNum", spaceNum);
 	}
 
 	public DetailSpaceBean getdetailspace(int detailspacenum) {
@@ -40,5 +40,13 @@ public class DetailSpaceDao {
 
 	public int deleteDSpace(int detailSpaceNum) {
 		return sqlSessionTemplate.delete(namespace+".deleteDSpace", detailSpaceNum);
+	}
+
+	public String getDetailSpaceImage(int detailSpaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceImage", detailSpaceNum);
+	}
+
+	public List<String> getSpaceImageBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceImageBySpaceNum", spaceNum);
 	}
 }
