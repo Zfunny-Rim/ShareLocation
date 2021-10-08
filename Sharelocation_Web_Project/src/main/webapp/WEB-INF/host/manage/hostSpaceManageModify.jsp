@@ -6,8 +6,7 @@
 	.err{color:red; font-weight: bold; font-size:11px;}
 	.required{color:red;}
 </style>
-    
-    
+<h4 class="card-title">공간정보 수정하기</h4>
 <form:form commandName="spaceBean" class="form form-horizontal"
 			action="spaceManageModify.ho" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="num" value="${spaceBean.num }"/>

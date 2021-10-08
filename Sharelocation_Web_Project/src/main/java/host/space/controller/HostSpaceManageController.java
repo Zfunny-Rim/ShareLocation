@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,7 @@ public class HostSpaceManageController {
 	private final String modifyCommand = "spaceManageModify.ho";
 	private final String detailCommand = "spaceManageDetailSpace.ho";
 	private final String detailInsertCommand = "spaceManageDetailSpaceInsert.ho";
+	private final String detailModifyCommand = "spaceManageDetailSpaceModify.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -190,11 +192,61 @@ public class HostSpaceManageController {
 	}
 	
 	@RequestMapping(value=detailInsertCommand, method=RequestMethod.GET)
-	public ModelAndView detailInsertist(@RequestParam(value="spaceNum") int spaceNum) {
+	public ModelAndView detailInsert(@RequestParam(value="spaceNum") int spaceNum) {
 		ModelAndView mav = new ModelAndView(viewPage);
 		getPage = "DetailInsert";
 		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=detailInsertCommand, method=RequestMethod.POST)
+	public ModelAndView insertDetailSpace(@Valid DetailSpaceBean detailSpaceBean,
+			BindingResult result, MultipartHttpServletRequest mtfRequest) throws IllegalStateException, IOException {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(detailSpaceBean);
+		if(result.hasErrors()) {
+			List<ObjectError> errList = result.getAllErrors();
+			for(ObjectError err:errList) {
+				System.out.println(err.getDefaultMessage()); 
+			}
+			System.out.println("Has Error");
+			mav.setViewName(viewPage);
+			mav.addObject("spaceNum", detailSpaceBean.getSpacenum());
+			return mav;
+		}
+		
+		//mainimage 파일 처리
+		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
+		MultipartFile mpfMainImage = mtfRequest.getFile("mainimagefile");
+		String originFileName = mpfMainImage.getOriginalFilename();
+		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
+		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
+		detailSpaceBean.setMainimage(safeFileName);
+		
+		int cnt = -1;
+		cnt = detailSpaceDao.insertDSpace(detailSpaceBean);
+		if(cnt != -1) {
+			mpfMainImage.transferTo(mainimage_File);
+		}
+		
+		mav.addObject("spaceNum", detailSpaceBean.getSpacenum());
+		mav.setViewName("redirect:/spaceManageDetailSpace.ho");
+		return mav;
+	}
+	
+	@RequestMapping(value=detailModifyCommand, method=RequestMethod.GET)
+	public ModelAndView modifyDetailSpaceForm(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="detailSpaceNum")int detailSpaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "DetailModify";
+		
+		DetailSpaceBean detailSpaceBean = detailSpaceDao.getdetailspace(detailSpaceNum);
+		
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("detailSpaceBean", detailSpaceBean);
+		
 		return mav;
 	}
 }

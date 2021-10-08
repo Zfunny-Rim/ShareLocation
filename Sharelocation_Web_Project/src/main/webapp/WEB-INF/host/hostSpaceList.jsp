@@ -58,8 +58,10 @@
 								                                    		<div class="col-md-4" style="text-align:right;"><span class="badge bg-warning m-0">${space.status }</span></div>
 								                                    	</div>
 								                                        <p class="card-text">
-								                                            <a href="detailSpaceList.ho?spaceNum=${space.num }">세부공간 등록하기 - ${dspCountMap[space.num] }</a><br>
-								                                            정산정보 등록하기<br>
+								                                          	<c:set var="tagList" value="${fn:split(space.tag, ',')}"/>
+								                                          	<c:forEach var="tagToken" items="${tagList }">
+								                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tagToken }</span>
+								                                          	</c:forEach>
 								                                        </p>
 								                                        <p class="card-text">
 								                                        	<small class="text-muted">등록일 : ${space.regdate } </small>

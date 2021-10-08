@@ -71,10 +71,11 @@
 		 $(document).ready(function(){
 			var pageName = '<%=request.getAttribute("getPage")%>';
 			var nav;
-			if(pageNum == 'DetailInsert'){
+			if(pageName.startsWith('Detail')){
 				nav = document.getElementById('Detail');
+			}else{
+				nav = document.getElementById(pageName);
 			}
-			nav = document.getElementById(pageName);
 			nav.classList.remove('bg-light');
 			nav.classList.remove('border');
 			nav.classList.remove('border-white');

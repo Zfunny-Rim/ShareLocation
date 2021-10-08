@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
+<h4 class="card-title">세부공간 리스트</h4>
 <div class="mb-3">
 	<c:if test="${dspBeanList.size() eq 0 }">
 	등록된 세부공간이 없습니다.
@@ -27,11 +28,12 @@
 						<div
 							class="card-footer d-flex justify-content-between bg-light p-2 px-3">
 							<div class="left-side">
-								<button class="btn btn-sm btn-light-primary">TEST1</button>
+								<button class="btn btn-sm btn-light-primary"
+									onClick="viewDSpace(${dsp.num})">상세보기</button>
 							</div>
 							<div class="right-side">
 								<button class="btn btn-sm btn-primary"
-									onClick="modifyDSpace(${dsp.num})">수정</button>
+									onClick="location.href='spaceManageDetailSpaceModify.ho?spaceNum=${spaceNum}&detailSpaceNum=${dsp.num}'">수정</button>
 								<button class="btn btn-sm btn-danger"
 									onClick="deleteDSpace(${dsp.num})">삭제</button>
 							</div>
