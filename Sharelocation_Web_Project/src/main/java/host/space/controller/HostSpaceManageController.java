@@ -30,6 +30,7 @@ public class HostSpaceManageController {
 	private final String homeCommand = "spaceManage.ho";
 	private final String modifyCommand = "spaceManageModify.ho";
 	private final String detailCommand = "spaceManageDetailSpace.ho";
+	private final String detailInsertCommand = "spaceManageDetailSpaceInsert.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -184,6 +185,15 @@ public class HostSpaceManageController {
 		
 		List<DetailSpaceBean> dspBeanList = detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
 		mav.addObject("dspBeanList", dspBeanList);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=detailInsertCommand, method=RequestMethod.GET)
+	public ModelAndView detailInsertist(@RequestParam(value="spaceNum") int spaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "DetailInsert";
+		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}

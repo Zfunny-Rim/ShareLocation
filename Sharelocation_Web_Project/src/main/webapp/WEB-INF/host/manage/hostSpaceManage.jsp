@@ -23,7 +23,7 @@
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
                     	<div class="row justify-content-md-center">
-							<div class="col-12">
+							<div class="col-9">
 	                            <div class="card mb-2">
 	                            	<div class="card-content">
 	                            		<div class="card-body">
@@ -49,7 +49,7 @@
 	                            	</div>
 	                            </div>
 	                        </div>
-	                        <div class="col-12">
+	                        <div class="col-9">
 	                       		<div class="card">
 	                      	      	<div class="card-content">	
 	                            		<div class="card-body">
@@ -70,7 +70,11 @@
 		<script type="text/javascript">
 		 $(document).ready(function(){
 			var pageName = '<%=request.getAttribute("getPage")%>';
-			var nav = document.getElementById(pageName);
+			var nav;
+			if(pageNum == 'DetailInsert'){
+				nav = document.getElementById('Detail');
+			}
+			nav = document.getElementById(pageName);
 			nav.classList.remove('bg-light');
 			nav.classList.remove('border');
 			nav.classList.remove('border-white');
