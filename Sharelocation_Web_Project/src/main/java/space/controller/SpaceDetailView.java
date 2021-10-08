@@ -57,9 +57,9 @@ public class SpaceDetailView {
 		mav.addObject("spaceimage",spaceimage);
 		
 		
-		List<ReviewBoardBean> reviewBoard = spaceDao.getReview(num);
-		System.out.println("reviewBoard: " +reviewBoard.size());
-		mav.addObject("reviewBoard",reviewBoard);
+		//List<ReviewBoardBean> reviewBoard = spaceDao.getReview(num);
+		//System.out.println("reviewBoard: " +reviewBoard.size());
+		//mav.addObject("reviewBoard",reviewBoard);
 		
 		//DetailSpaceBean detailspace = spaceDao.getDetailSpaceListBySpaceNum(num);
 		//(to hs) �씪�떒 �삊媛숈씠 Bean�쑝濡� �룞�옉�븯寃� 蹂�寃쏀븿 - List濡� �닔�젙�슂留�

@@ -33,7 +33,11 @@ public class spaceListCmd {
 			@RequestParam(value ="pageNumber",required = false) String pageNumber,
 			HttpServletRequest request
 						) {
-	
+		if(keyword==null) {
+			keyword = "";
+		}
+		
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
 		map.put("keyword", "%"+keyword+"%");

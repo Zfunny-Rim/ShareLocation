@@ -48,19 +48,20 @@ request.setAttribute("locationtype", locationtype);
 								<form class="m-0 p-0" action="list.sp" method="get">
 									<div class="input-group ms-auto">
 										<select name="whatColumn" class="input-group-text">
-											<option value="all">전체 검색</option>
+											<option value="%%">전체</option>
 											<c:forEach var="locationtype" items="${locationtype}">
 												<option value="${locationtype}">${locationtype}</option>
 											</c:forEach>
-										</select><input type="text" type="text" class="form-control"
+										</select><input type="text" class="form-control"
 											placeholder="공간을 검색하세요." name="keyword"> <input
 											type="submit" value="검색" class="btn btn-outline-secondary">
-
 									</div>
 								</form>
 							</div>
 						</div>
-						<div class=""></div>
+						<div class="">
+						<BR><BR>
+						</div>
 
 
 						<section id="content-types">
