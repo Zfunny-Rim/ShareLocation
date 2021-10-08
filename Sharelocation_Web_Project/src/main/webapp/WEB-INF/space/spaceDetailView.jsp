@@ -107,11 +107,7 @@ element.style {
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
 											<!-- tag 넣기  시작-->
-<%-- 											<br> <span style="font-size: medium;"> <c:forEach --%>
-<%-- 													var="tag" items="${spacetag}"> --%>
-<!-- 										#${tag.tag} -->
-<%-- 										</c:forEach> --%>
-<!-- 											</span> -->
+										<br> 
 
 											<!-- tag 넣기  끝-->
 
@@ -212,7 +208,7 @@ element.style {
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="<%=request.getContextPath()%>/reserv.rv?&spaceNum=1&memberNum=1"
+																	<form action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
 																	 method="post">           
 																		<table class="table table-lg" style="width: auto;">
 																			<tbody>

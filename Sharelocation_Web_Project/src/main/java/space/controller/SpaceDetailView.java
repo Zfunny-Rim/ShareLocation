@@ -48,7 +48,7 @@ public class SpaceDetailView {
 		List<SpaceImageBean> spaceimage = spaceDao.getImage(num);
 
 //		System.out.println("tag�떎�뻾"+spacetag);
-		System.out.println("spaceimage�떎�뻾"+spaceimage);
+		System.out.println("spaceimage"+spaceimage);
 
 //		if(spacetag.size()!=0) {
 //			mav.addObject("spacetag",spacetag);
@@ -64,8 +64,7 @@ public class SpaceDetailView {
 		//DetailSpaceBean detailspace = spaceDao.getDetailSpaceListBySpaceNum(num);
 		//(to hs) �씪�떒 �삊媛숈씠 Bean�쑝濡� �룞�옉�븯寃� 蹂�寃쏀븿 - List濡� �닔�젙�슂留�
 		DetailSpaceBean detailspace = detailSpaceDao.getDetailSpace(num);
-		System.out.println("detailspace: "+detailspace);
-		mav.addObject("detailspace",detailspace);
+
 		
 		mav.setViewName(getPage);
 		return mav;

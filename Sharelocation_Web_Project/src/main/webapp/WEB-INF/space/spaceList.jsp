@@ -11,6 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
+<%
+String[] locationtype = new String[]{"파티룸", "스터디룸", "게임룸", "카페","공유주방","회의실","연습실","보컬연습실","악기연습실","녹음실","운동시설","촬영스튜디오","라이브방송","공연장","공유오피스","독립오피스","강의실","컨퍼런스"};
+request.setAttribute("locationtype", locationtype);
+%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
 <style type="text/css">
 .img-fluid1, .img-thumbnail {
@@ -18,12 +22,11 @@
 	height: 40%;
 	margin-left: 20%;
 }
-.search{
-align-content: center;
-align-items: center;
 
+.search {
+	align-content: center;
+	align-items: center;
 }
-
 </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -40,28 +43,24 @@ align-items: center;
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
 
-<div class="row justify-content-center" sryl>
-	<div class="col-10">
-		<form class="m-0 p-0" action="list.sp" method="get">
-			<div class="input-group ms-auto">
-				<span class="input-group-text" id="basic-addon1"><i
-					class="bi bi-search"></i></span>
-					<span class="input-group-text" id="basic-addon1"><i
-					class="bi bi-search"></i></span>
-					<span class="input-group-text" id="basic-addon1"><i
-					class="bi bi-search"></i></span>
-				<span class="input-group-text" id="basic-addon1"><i
-					class="bi bi-search"></i></span> <input type="text" class="form-control"
-					placeholder="공간을 검색하세요." name="keyword">
-				<button class="btn btn-outline-secondary" type="submit"
-					id="button-addon2">검색</button>
-			</div>
-	</form>
-	</div>
-</div>
-<div class="">
-		
-</div>
+						<div class="row justify-content-center">
+							<div class="col-10">
+								<form class="m-0 p-0" action="list.sp" method="get">
+									<div class="input-group ms-auto">
+										<select name="whatColumn" class="input-group-text">
+											<option value="all">전체 검색</option>
+											<c:forEach var="locationtype" items="${locationtype}">
+												<option value="${locationtype}">${locationtype}</option>
+											</c:forEach>
+										</select><input type="text" type="text" class="form-control"
+											placeholder="공간을 검색하세요." name="keyword"> <input
+											type="submit" value="검색" class="btn btn-outline-secondary">
+
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class=""></div>
 
 
 						<section id="content-types">

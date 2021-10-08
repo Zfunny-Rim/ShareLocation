@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-			
 <mapper namespace="space.model.SpaceBean">
 	
 	<select id="getSpace" resultType="MySpace">
@@ -16,7 +15,7 @@
 
 	<select id="getSpaceList" resultType="MySpace">
 	select * from space
-	where name like #{keyword}
+	where type ${whatcolumn} or name like #{keyword}
 	order by num desc
 	</select>
 	
@@ -65,6 +64,5 @@
 	<select id="getFacility" resultType="MySpaceFacility">
 		select * from spacefacility where spacenum=#{num}
 	</select>
-	
 
 </mapper>
