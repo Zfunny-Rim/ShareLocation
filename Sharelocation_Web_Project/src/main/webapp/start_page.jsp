@@ -7,12 +7,3 @@
 	response.sendRedirect(viewPage);
 %>
 
-
-
-
-
-
-
-
-
-

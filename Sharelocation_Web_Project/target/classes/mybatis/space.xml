@@ -19,7 +19,7 @@
 		where name like #{keyword}
 		<if test="whatColumn!=null">
   		and type like #{whatColumn}
-  		</if>
+  		</if> 
   		<if test="area!=null">
   		and address like #{area}
   		</if>
@@ -87,7 +87,7 @@
 	<select id="getImage" resultType="MySpaceImage">
 		select * from spaceimage
 		where
-		spacenum = #{num}
+		spacenum = #{spacenum}
 	</select>
 	<select id="getFacility" resultType="MySpaceFacility">
 		select * from spacefacility

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import reviewBoard.model.ReviewBoardBean;
+import reviewBoard.model.ReviewBoardDao;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceImageBean;
@@ -32,40 +33,37 @@ public class SpaceDetailView {
 	@Autowired
 	DetailSpaceDao detailSpaceDao;
 	
+	
 	@Autowired
 	ServletContext servletContext;
+	
+	@Autowired
+	ReviewBoardDao reviewBoardDao;
+	
 
 	@RequestMapping(value= command)
-	public ModelAndView doAction(@RequestParam(value = "num") int num
-			,   ModelAndView mav) {
+	public ModelAndView doAction(@RequestParam(value = "num") int num,
+			   ModelAndView mav) {
 		System.out.println("spaceDetailView");
 
 		SpaceBean space = spaceDao.getSpace(num);
 		System.out.println("space"+space);
+		mav.addObject("space",space);
 
-
-//		List<SpaceTagBean> spacetag = spaceDao.getTag(num);
 		List<SpaceImageBean> spaceimage = spaceDao.getImage(num);
 
-//		System.out.println("tag�떎�뻾"+spacetag);
 		System.out.println("spaceimage"+spaceimage);
 
-//		if(spacetag.size()!=0) {
-//			mav.addObject("spacetag",spacetag);
-//		}
-		mav.addObject("space",space);
 		mav.addObject("spaceimage",spaceimage);
-		
-		
-		//List<ReviewBoardBean> reviewBoard = spaceDao.getReview(num);
-		//System.out.println("reviewBoard: " +reviewBoard.size());
-		//mav.addObject("reviewBoard",reviewBoard);
-		
-		//DetailSpaceBean detailspace = spaceDao.getDetailSpaceListBySpaceNum(num);
-		//(to hs) �씪�떒 �삊媛숈씠 Bean�쑝濡� �룞�옉�븯寃� 蹂�寃쏀븿 - List濡� �닔�젙�슂留�
-		DetailSpaceBean detailspace = detailSpaceDao.getDetailSpace(num);
 
+		List<DetailSpaceBean> detailspace = detailSpaceDao.getListDetailSpace(num);
+		System.out.println("detailspace"+detailspace);
+		mav.addObject("detailspace",detailspace);
 		
+		
+		List<ReviewBoardBean> reviewBoard = reviewBoardDao.getReview(num);
+		System.out.println("reviewBoard"+reviewBoard);
+		mav.addObject("reviewBoard",reviewBoard);
 		mav.setViewName(getPage);
 		return mav;
 	}
@@ -75,7 +73,7 @@ public class SpaceDetailView {
 			,   ModelAndView mav) {
 		System.out.println("doActionImage");
 		List<SpaceImageBean> spaceimage = spaceDao.getImage(spacenum);
-		System.out.println("spaceimage�떎�뻾"+spaceimage);
+		System.out.println("spaceimage확인"+spaceimage);
 		mav.addObject("spaceimage",spaceimage);
 		mav.setViewName(getImage);
 

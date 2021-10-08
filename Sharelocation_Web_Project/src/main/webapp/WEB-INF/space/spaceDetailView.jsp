@@ -107,8 +107,8 @@ element.style {
 											<a href="#" class="btn btn-danger"
 												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
 											<!-- tag 넣기  시작-->
-										<br>
-										 <c:forEach var="tag" items="${space.tag }">
+											<br>
+											<c:forEach var="tag" items="${space.tag }">
 												${tag}										 
 										 </c:forEach>
 
@@ -130,16 +130,16 @@ element.style {
 
 										<!-- 	사진 test 1 -->
 
-										<div class="card">
+										<div class="card">  
 											<div class="col-12 col-md-4, parent">
-												<img
-													src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+												<img src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
 													class="img-fluid1, first" alt="singleminded">
 
-												<c:forEach items="${spaceimage}" var="detail" begin="0"
+												<c:forEach items="${detailspace}" var="detail" begin="0"
 													end="1">
-													<a onclick="detailView(${space.num})"><img
-														src="<%=request.getContextPath()%>/resources/spaceimage/${detail.image}"
+													<a onclick="detailView(${detail.spacenum})">
+													
+													<img src="<%=request.getContextPath()%>/resources/spaceimage/${detail.mainimage}"
 														class="img-fluid1, second" alt="singleminded"></a>
 
 												</c:forEach>
@@ -154,142 +154,75 @@ element.style {
 										<!-- 	사진 test 1 -->
 
 										<!-- 설명 시작1 -->
-										<div class="card-header" style="width: 50%; float: left;">
-											<h4 class="card-title">한줄소개</h4>
-											${space.contentssim}
-											<h4 class="card-title">공간소개</h4>
-											${space.contentscom}
-											<h4 class="card-title">지도</h4>
-											<h4 class="card-title">사용자 후기</h4>
-											<!-- 후기	시작 -->
 
-											<c:forEach var="review" items="${reviewBoard}">
-												<div class="col-12">
-													<div class="card">
-														<div class="card-header" style="font:">
-															<h1 class="card-title" style="float: left;">${review.write}</h1>
-															<!-- 별점 별 그림 시작-->
-															<div id="step" class="star-rating"
-																style="width: 160px; height: 30px; background-size: 30px;"
-																data-rating="5" title="${review.totalrating/3}/5">
-																<div class="star-value"
-																	style="background-size: 32px; width: ${review.totalrating/3/5*100}%;"></div>
-															</div>
-															<!-- 별점 별 그림 끝 -->
+										<div class="container">
+											<div class="row row-cols-2">
 
-														</div>
-														<div class="card-body">
-															<p>${review.content}</p>
-															<p>${review.regdate}</p>
-														</div>
-													</div>
-												</div>
+												<div class="col">
+													<h4 class="card-title">한줄소개</h4>
+													${space.contentssim}
+													<h4 class="card-title">공간소개</h4>
+													${space.contentscom}
+													<h4 class="card-title">지도</h4>
+													<h4 class="card-title">사용자 후기</h4>
+													<!-- 후기	시작 -->
 
-											</c:forEach>
-											<!-- 후기	끝 -->
-										</div>
-										<!-- 설명 끝1 -->
+													<c:forEach var="review" items="${reviewBoard}">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-header" style="font:">
+																	<h1 class="card-title" style="float: left;">${review.write}</h1>
+																	<!-- 별점 별 그림 시작-->
+																	<div id="step" class="star-rating"
+																		style="width: 160px; height: 30px; background-size: 30px;"
+																		data-rating="5" title="${review.totalrating/3}/5">
+																		<div class="star-value"
+																			style="background-size: 32px; width: ${review.totalrating/3/5*100}%;"></div>
+																	</div>
+																	<!-- 별점 별 그림 끝 -->
 
-
-										<!-- 	  접히는거 시작 -->
-
-										<div class="card-header"
-											style="width: auto; align-content: center;">
-											<div class="accordion" id="cardAccordion" style="width: auto">
-												<div class="card" style="width: auto">
-													<div class="card-header" id="headingOne"
-														data-bs-toggle="collapse" data-bs-target="#collapseOne"
-														aria-expanded="false" aria-controls="collapseOne"
-														role="button">
-														<span class="collapsed collapse-title">예약 정보</span>
-													</div>
-													<div id="collapseOne" class="collapse pt-1"
-														aria-labelledby="headingOne" data-parent="#cardAccordion">
-														<div class="card-body">
-															<!-- reservation 넘어가기 -->
-
-															<div class="card-body" style="width: auto">
-																<!-- Table with outer spacing -->
-																<div class="table-responsive">
-																	<form
-																		action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
-																		method="post">
-																		<table class="table table-lg" style="width: auto;">
-																			<tbody>
-																				<tr>
-																					<td class="text-bold-500">장소 선택</td>
-																					<td align="center"><c:forEach var="spaceName"
-																							items="${detailspace.name}">
-																							<input type="radio" value="spaceName" name="name">${spaceName}
-																					</c:forEach></td>
-																				</tr>
-																				<tr> 
-																					<td align="left" colspan="2">
-																						${detailspace.contents}</td>
-																				</tr>
-																				<tr>
-																					<td align="center" colspan="2"><img
-																						src="<%=request.getContextPath()%>/resources/spaceimage/${detailspace.mainimage}"
-																						width="200px" height="200px"></td>
-																				</tr>
-																				<tr>
-																					<td class="text-bold-500">인원</td>
-																					<td align="center">최소${detailspace.minperson}~최대${detailspace.maxperson}
-																					</td>
-
-																				</tr>
-
-
-																				<tr>
-																					<td class="text-bold-500">시간선택
-																						${space.operatingtime}</td>
-																					<td align="center"><c:forTokens var="time"
-																							items="${space.operatingtime}" delims="~"
-																							varStatus="count">
-																							<select name="operatingtime">
-																								<!-- split -->
-																								<option value="${time+1}">${time}~${time+1}</option>
-																							</select>
-
-																						</c:forTokens>
-
-																						<div class="col-md-6 mb-4">
-
-																							<fieldset class="form-group"
-																								class="text-bold-500">
-																								<select class="form-select" id="basicSelect"
-																									name="operatingtime"
-																									style="width: 160px; margin-top: 22px;">
-																									<!-- 이름 확인해봐야됨 -->
-
-
-
-																									<option>10~12</option>
-
-
-																								</select>
-																							</fieldset>
-																						</div></td>
-
-																				</tr>
-																				<tr>
-																					<td class="text-bold-500">가격</td>
-																					<td align="center">${detailspace.price }원/${detailspace.priceunit}</td>
-																				</tr>
-																				<tr>
-																					<td colspan="2" class="text-bold-500"
-																						align="center"><input type="submit"
-																						class="btn btn-secondary" value="예약하기"></td>
-																				</tr>
-
-																			</tbody>
-																		</table>
-																	</form>
+																</div>
+																<div class="card-body">
+																	<p>${review.content}</p>
+																	<p>${review.regdate}</p>
 																</div>
 															</div>
-
 														</div>
-													</div>
+
+													</c:forEach>
+													<!-- 후기	끝 -->
+												</div>
+												<!-- 설명 끝1 -->
+
+
+												<!-- 	  접히는거 시작 -->
+
+												<div class="col" style="align-content: center;">
+													<!-- reservation 넘어가기 -->
+													<form
+														action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
+														method="post">
+															<h4 class="card-title">예약하기</h4>
+														<table class="table table-lg" style="border: thick; border-radius: 8px;  ">
+															<tbody>
+																<tr>
+																	<td class="text-bold-500">장소 선택</td>
+																	<td align="center"><c:forEach var="spacename"
+																			items="${detailspace}">
+																			<input type="radio" value="spacename" name="name"
+																				onclick="selectUnit(${space.num},${spacename.num})">${spacename.name}
+																					</c:forEach></td>
+																</tr>
+
+																<tr>
+																	<td colspan="2" class="text-bold-500" align="center"><input
+																		type="submit" class="btn btn-secondary" value="예약하기"></td>
+																</tr>
+
+															</tbody>
+														</table>
+													</form>
+
 												</div>
 											</div>
 										</div>
@@ -317,8 +250,13 @@ element.style {
 	}
 	
 	function detailView(spacenum){
-		//alert(장소 더 보기);
+		alert("세부 사진 보기");
 		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
+	}
+	
+	function selectUnit(num,spacenum){
+		//alert(num,":",spacenum);
+		location.href ="detailView.sp?num="+num+"&spacenum="+spacenum;
 	}
 
 	</script>
