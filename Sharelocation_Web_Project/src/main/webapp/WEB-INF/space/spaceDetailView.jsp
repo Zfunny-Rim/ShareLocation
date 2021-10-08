@@ -130,16 +130,16 @@ element.style {
 
 										<!-- 	사진 test 1 -->
 
-										<div class="card">  
+										<div class="card">
 											<div class="col-12 col-md-4, parent">
-												<img src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
+												<img
+													src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
 													class="img-fluid1, first" alt="singleminded">
 
 												<c:forEach items="${detailspace}" var="detail" begin="0"
 													end="1">
-													<a onclick="detailView(${detail.spacenum})">
-													
-													<img src="<%=request.getContextPath()%>/resources/spaceimage/${detail.mainimage}"
+													<a onclick="detailView(${detail.spacenum})"> <img
+														src="<%=request.getContextPath()%>/resources/spaceimage/${detail.mainimage}"
 														class="img-fluid1, second" alt="singleminded"></a>
 
 												</c:forEach>
@@ -199,19 +199,30 @@ element.style {
 
 												<div class="col" style="align-content: center;">
 													<!-- reservation 넘어가기 -->
+											     <h4 class="card-title">예약하기</h4>
+
+													<form action="detailView.sp">
+														<c:forEach var="spacename" items="${detailspace}">
+															<input type="radio" value="${spacename.name}" name ="name">${spacename.name}
+														</c:forEach>
+															<input type="hidden" value="${space.num}" name ="num">
+															<input type="hidden" value="${spacename.num}" name ="detailspacenum">
+														<br>
+														<input type="submit" value="확인">
+													</form>
+													
+													
 													<form
 														action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
 														method="post">
-															<h4 class="card-title">예약하기</h4>
-														<table class="table table-lg" style="border: thick; border-radius: 8px;  ">
+													
+
+
+														<table  class="table table-lg"  style="border: thick; border-radius: 8px;">
 															<tbody>
 																<tr>
 																	<td class="text-bold-500">장소 선택</td>
-																	<td align="center"><c:forEach var="spacename"
-																			items="${detailspace}">
-																			<input type="radio" value="spacename" name="name"
-																				onclick="selectUnit(${space.num},${spacename.num})">${spacename.name}
-																					</c:forEach></td>
+																	<td align="center"></td>
 																</tr>
 
 																<tr>
@@ -254,11 +265,6 @@ element.style {
 		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
 	}
 	
-	function selectUnit(num,spacenum){
-		//alert(num,":",spacenum);
-		location.href ="detailView.sp?num="+num+"&spacenum="+spacenum;
-	}
-
 	</script>
 
 		<%-- ******* CUSTOM Script END ******* --%>
