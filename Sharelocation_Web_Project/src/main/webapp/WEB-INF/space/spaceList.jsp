@@ -55,7 +55,7 @@ request.setAttribute("area", area);
 												<option value="${locationtype}">${locationtype}</option>
 											</c:forEach>
 										</select> 
-										<select name="whatColumn1" class="input-group-text">
+										<select name="area" class="input-group-text">
 											<option value="%%">전체지역</option>
 											<c:forEach var="area" items="${area}">
 												<option value="${area}">${area}</option>

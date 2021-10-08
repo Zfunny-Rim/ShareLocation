@@ -30,6 +30,7 @@ public class spaceListCmd {
 	public ModelAndView doAction(ModelAndView mav,
 			@RequestParam(value ="whatColumn",required = false) String whatColumn,
 			@RequestParam(value ="keyword",required = false) String keyword,
+			@RequestParam(value ="area",required = false) String area,
 			@RequestParam(value ="pageNumber",required = false) String pageNumber,
 			HttpServletRequest request
 						) {
@@ -37,9 +38,9 @@ public class spaceListCmd {
 			keyword = "";
 		}
 		
-		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
+		map.put("area", "%"+area+"%");
 		map.put("keyword", "%"+keyword+"%");
 		
 		int totalCount = spaceDao.getTotalCount(map);
