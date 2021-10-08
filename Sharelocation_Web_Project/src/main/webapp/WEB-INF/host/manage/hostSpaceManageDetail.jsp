@@ -29,13 +29,13 @@
 							class="card-footer d-flex justify-content-between bg-light p-2 px-3">
 							<div class="left-side">
 								<button class="btn btn-sm btn-light-primary"
-									onClick="viewDSpace(${dsp.num})">상세보기</button>
+									onClick="viewDSpace('${dsp.num}')">상세보기</button>
 							</div>
 							<div class="right-side">
 								<button class="btn btn-sm btn-primary"
 									onClick="location.href='spaceManageDetailSpaceModify.ho?spaceNum=${spaceNum}&detailSpaceNum=${dsp.num}'">수정</button>
 								<button class="btn btn-sm btn-danger"
-									onClick="deleteDSpace(${dsp.num})">삭제</button>
+									onClick="deleteDSpace(${dsp.num},${spaceNum },'${dsp.name }')">삭제</button>
 							</div>
 						</div>
 					</div>
@@ -50,3 +50,11 @@
 		<button class="btn btn-primary" onClick="location.href='spaceManageDetailSpaceInsert.ho?spaceNum=${spaceNum}'">세부공간 추가하기</button>
 	</div>
 </div>
+<script type="text/javascript">
+	function deleteDSpace(detailnum, spacenum, name){
+		result = confirm(name+" 세부공간을 삭제하시겠습니까?");
+		if(result){
+			location.href='spaceManageDetailSpaceDelete.ho?detailSpaceNum='+detailnum+"&spaceNum="+spacenum;
+		}
+	}
+</script>

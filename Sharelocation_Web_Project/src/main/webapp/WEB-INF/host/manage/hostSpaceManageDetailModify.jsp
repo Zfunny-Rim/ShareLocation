@@ -7,8 +7,9 @@
 </style>
 <h4 class="card-title">세부공간 수정하기</h4>
 <form:form commandName="detailSpaceBean" class="form form-horizontal"
-	action="detailSpaceInsert.ho" method="post"
+	action="spaceManageDetailSpaceModify.ho" method="post"
 	enctype="multipart/form-data" name="insert_form">
+	<input type="hidden" name="mainimageOrigin" value="${detailSpaceBean.mainimage }">
 	<div class="form-body">
 		<div class="row">
 			<div class="divider">
@@ -40,7 +41,12 @@
 				<label>대표 이미지 <span class="required">*</span></label>
 			</div>
 			<div class="col-md-8 form-group">
-				<input class="form-control" type="file" name="mainimagefile">
+				<div class="img-box border border-dark rounded-3 p-2 mb-2 bg-light">
+					<img src="<%=request.getContextPath() %>/resources/spaceimage/${detailSpaceBean.mainimage}"
+					 style="width:100px;height:100px; margin:5px 7px;">
+				</div>
+				<input class="form-control" type="file" name="mainimageupdatefile">
+				<small class="text-muted"> 이미지 선택시 기존 이미지는 삭제됩니다. </small>
 				<p>
 					<small class="text-muted"> <form:errors cssClass="err"
 							path="mainimage" />
@@ -53,7 +59,7 @@
 			<div class="col-md-8 form-group">
 				<input type="number" class="form-control" name="mintime" value="${detailSpaceBean.mintime  }">
 				<p>
-					<small class="text-muted"> <form:errors cssClass="err" />
+					<small class="text-muted"> <form:errors cssClass="err" path="mintime"/>
 					</small>
 				</p>
 			</div>
@@ -65,7 +71,7 @@
 					<div class="col-lg-8 col-8">
 						<input type="number" class="form-control" name="minperson"
 							value="${detailSpaceBean.minperson }">
-						<form:errors cssClass="err" />
+						<form:errors cssClass="err" path="minperson"/>
 					</div>
 				</div>
 			</div>
@@ -78,7 +84,7 @@
 					<div class="col-lg-8 col-8">
 						<input type="number" class="form-control" name="maxperson"
 							value="${detailSpaceBean.maxperson }">
-						<form:errors cssClass="err" />
+						<form:errors cssClass="err" path="maxperson"/>
 					</div>
 				</div>
 			</div>
@@ -100,7 +106,7 @@
 						<c:if test="${detailSpaceBean.priceunit eq '공간'}">checked</c:if>
 					>공간당</label>
 				<p>
-					<small class="text-muted"> <form:errors cssClass="err" />
+					<small class="text-muted"> <form:errors cssClass="err"/>
 					</small>
 				</p>
 			</div>
@@ -112,8 +118,8 @@
 					<input type="number" class="form-control" name="price"
 						value="${detailSpaceBean.price }"> <span class="input-group-text"
 						id="priceUnitLabel">￦/시간</span>
-					<form:errors cssClass="err" />
 				</div>
+				<form:errors cssClass="err" path="price"/>
 			</div>
 
 			<hr class="divider">

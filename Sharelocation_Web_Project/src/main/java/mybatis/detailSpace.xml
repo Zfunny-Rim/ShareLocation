@@ -26,4 +26,12 @@
 		detailspace
 		where num=#{detailspacenum}
 	</select>
+	<update id="updateDSpace">
+		update detailspace set name=#{name}, contents=#{contents}, mainimage=#{mainimage},
+		mintime=#{mintime}, minperson=#{minperson}, maxperson=#{maxperson}, priceunit=#{priceunit}, price=#{price}
+		where num=#{num}
+	</update>
+	<delete id="deleteDSpace">
+		delete detailspace where num=#{detailSpaceNum}
+	</delete>
 </mapper>

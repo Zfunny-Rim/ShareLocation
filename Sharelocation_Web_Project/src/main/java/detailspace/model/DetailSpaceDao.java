@@ -33,4 +33,12 @@ public class DetailSpaceDao {
 		DetailSpaceBean detailSpaceBean = sqlSessionTemplate.selectOne(namespace+".getdetailspace",detailspacenum);
 		return detailSpaceBean;
 	}
+
+	public int updateDSpace(DetailSpaceBean detailSpaceBean) {
+		return sqlSessionTemplate.update(namespace+".updateDSpace", detailSpaceBean);
+	}
+
+	public int deleteDSpace(int detailSpaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteDSpace", detailSpaceNum);
+	}
 }

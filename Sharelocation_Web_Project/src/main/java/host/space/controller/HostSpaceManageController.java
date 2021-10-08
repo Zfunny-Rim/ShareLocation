@@ -33,6 +33,7 @@ public class HostSpaceManageController {
 	private final String detailCommand = "spaceManageDetailSpace.ho";
 	private final String detailInsertCommand = "spaceManageDetailSpaceInsert.ho";
 	private final String detailModifyCommand = "spaceManageDetailSpaceModify.ho";
+	private final String detailDeleteCommand = "spaceManageDetailSpaceDelete.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -106,7 +107,6 @@ public class HostSpaceManageController {
 		File mainimage_File = null;
 		MultipartFile mpfMainImage = null;
 		
-		System.out.println(spaceBean.getMainimage() + " ?= " + spaceBean.getMainimageOrigin());
 		if(!spaceBean.getMainimage().equals(spaceBean.getMainimageOrigin())) {
 			//Origin과 이름이 같다면 수정이 일어나지 않음.
 			mpfMainImage = mtfRequest.getFile("mainimageupdatefile");
@@ -247,6 +247,62 @@ public class HostSpaceManageController {
 		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("detailSpaceBean", detailSpaceBean);
 		
+		return mav;
+	}
+	
+	@RequestMapping(value=detailModifyCommand, method=RequestMethod.POST)
+	public ModelAndView modifyDetailSpace(@Valid DetailSpaceBean detailSpaceBean, BindingResult result,
+			MultipartHttpServletRequest mtfRequest) throws IllegalStateException, IOException {
+		ModelAndView mav = new ModelAndView(viewPage);
+		System.out.println(detailSpaceBean);
+		System.out.println("setMainImageOrigin: "+ detailSpaceBean.getMainimageOrigin());
+		if(result.hasErrors()) {
+			System.out.println("has Error");
+			mav.addObject("spaceNum", detailSpaceBean.getSpacenum());
+			mav.setViewName(viewPage);
+			getPage = "DetailModify";
+			mav.addObject("getPage", getPage);
+			return mav;
+		}
+		//mainimage 파일 처리
+		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
+		File mainimage_File = null;
+		MultipartFile mpfMainImage = null;
+		
+		if(!detailSpaceBean.getMainimage().equals(detailSpaceBean.getMainimageOrigin())) {
+			//Origin과 이름이 같다면 수정이 일어나지 않음.
+			mpfMainImage = mtfRequest.getFile("mainimageupdatefile");
+			String originFileName = mpfMainImage.getOriginalFilename();
+			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
+			mainimage_File = new File(uploadPath+"\\"+safeFileName);
+			detailSpaceBean.setMainimage(safeFileName); 
+		}		
+		int cnt = -1;
+		cnt = detailSpaceDao.updateDSpace(detailSpaceBean);
+		if(cnt != -1) {
+			if(mainimage_File != null && mpfMainImage != null) {
+				mpfMainImage.transferTo(mainimage_File);
+				//TODO: 기존 메인이미지 파일 삭제 작업
+				File dFile = new File(uploadPath+"\\"+detailSpaceBean.getMainimageOrigin());
+				if(dFile.exists()) {
+					dFile.delete();
+				}
+			}
+		}
+		getPage = "Detail";
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", detailSpaceBean.getSpacenum());
+		mav.setViewName("redirect:/spaceManageDetailSpace.ho");
+		return mav;
+	}
+	
+	@RequestMapping(value=detailDeleteCommand)
+	public ModelAndView deleteDetailSpace(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="detailSpaceNum")int detailSpaceNum) {
+		ModelAndView mav = new ModelAndView();
+		detailSpaceDao.deleteDSpace(detailSpaceNum);
+		mav.addObject("spaceNum", spaceNum);
+		mav.setViewName("redirect:/spaceManageDetailSpace.ho");
 		return mav;
 	}
 }
