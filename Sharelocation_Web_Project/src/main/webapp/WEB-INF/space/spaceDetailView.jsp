@@ -208,20 +208,19 @@ element.style {
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
-																	 method="post">           
+																	<form
+																		action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
+																		method="post">
 																		<table class="table table-lg" style="width: auto;">
 																			<tbody>
 																				<tr>
 																					<td class="text-bold-500">장소 선택</td>
-																					<td align="center">
-																					<c:forEach var="spaceName"
+																					<td align="center"><c:forEach var="spaceName"
 																							items="${detailspace.name}">
 																							<input type="radio" value="spaceName" name="name">${spaceName}
-																					</c:forEach>
-																					</td>
+																					</c:forEach></td>
 																				</tr>
-																				<tr>
+																				<tr> 
 																					<td align="left" colspan="2">
 																						${detailspace.contents}</td>
 																				</tr>
@@ -239,17 +238,19 @@ element.style {
 
 
 																				<tr>
-																					<td class="text-bold-500">시간선택 ${space.operatingtime}</td>
-																					<td align="center">
-																						<c:forTokens var="time" items="${space.operatingtime}" delims="~" varStatus="count">
-																						<select name="operatingtime">
-																						<!-- split -->
-																						<option value="${time+1}">${time}~${time+1}</option>
-																						</select> 
-																						
+																					<td class="text-bold-500">시간선택
+																						${space.operatingtime}</td>
+																					<td align="center"><c:forTokens var="time"
+																							items="${space.operatingtime}" delims="~"
+																							varStatus="count">
+																							<select name="operatingtime">
+																								<!-- split -->
+																								<option value="${time+1}">${time}~${time+1}</option>
+																							</select>
+
 																						</c:forTokens>
-																					
-																					<div class="col-md-6 mb-4">
+
+																						<div class="col-md-6 mb-4">
 
 																							<fieldset class="form-group"
 																								class="text-bold-500">
@@ -257,12 +258,12 @@ element.style {
 																									name="operatingtime"
 																									style="width: 160px; margin-top: 22px;">
 																									<!-- 이름 확인해봐야됨 -->
-																									
-																								
-							
+
+
+
 																									<option>10~12</option>
-																							
-																								
+
+
 																								</select>
 																							</fieldset>
 																						</div></td>

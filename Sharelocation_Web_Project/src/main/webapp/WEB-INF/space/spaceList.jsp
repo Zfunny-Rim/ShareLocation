@@ -14,6 +14,8 @@
 <%
 String[] locationtype = new String[]{"파티룸", "스터디룸", "게임룸", "카페","공유주방","회의실","연습실","보컬연습실","악기연습실","녹음실","운동시설","촬영스튜디오","라이브방송","공연장","공유오피스","독립오피스","강의실","컨퍼런스"};
 request.setAttribute("locationtype", locationtype);
+String[] area = new String[]{"서울", "인천", "부산", "광주","대구","대전","울산","제주","강원도","경남","경북","전남","전북"};
+request.setAttribute("area", area);
 %>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
 <style type="text/css">
@@ -48,11 +50,18 @@ request.setAttribute("locationtype", locationtype);
 								<form class="m-0 p-0" action="list.sp" method="get">
 									<div class="input-group ms-auto">
 										<select name="whatColumn" class="input-group-text">
-											<option value="%%">전체</option>
+											<option value="%%">전체종류</option>
 											<c:forEach var="locationtype" items="${locationtype}">
 												<option value="${locationtype}">${locationtype}</option>
 											</c:forEach>
-										</select><input type="text" class="form-control"
+										</select> 
+										<select name="whatColumn1" class="input-group-text">
+											<option value="%%">전체지역</option>
+											<c:forEach var="area" items="${area}">
+												<option value="${area}">${area}</option>
+											</c:forEach>
+										</select> 
+										<input type="text" class="form-control"
 											placeholder="공간을 검색하세요." name="keyword"> <input
 											type="submit" value="검색" class="btn btn-outline-secondary">
 									</div>
@@ -60,7 +69,8 @@ request.setAttribute("locationtype", locationtype);
 							</div>
 						</div>
 						<div class="">
-						<BR><BR>
+							<BR>
+							<BR>
 						</div>
 
 

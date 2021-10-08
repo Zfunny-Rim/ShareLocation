@@ -35,7 +35,7 @@
 
 	<delete id="delFavorite">
 		delete from favorite
-		where spaceNum = #{spaceNum} and membernum = #{membernum}
+		where spacenum = #{spacenum} and membernum = #{membernum}
 	</delete>
 
 	<insert id="insertSpace">
