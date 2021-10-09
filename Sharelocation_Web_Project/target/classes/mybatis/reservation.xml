@@ -20,6 +20,5 @@
 	<select id="getReservList" resultType="MyRerservation">
 		select * from reservation
 		where membernum = #{membernum}
-		order by applicationdate
 	</select>
 </mapper>

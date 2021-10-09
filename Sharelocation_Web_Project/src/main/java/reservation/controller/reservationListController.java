@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
+import space.model.SpaceDao;
 import utility.Paging;
 
 @Controller
@@ -24,6 +25,9 @@ public class reservationListController {
 	
 	@Autowired
 	ReservationDao reservationDao;
+	
+	//@Autowired
+	//SpaceDao spaceDao;
 	
 	@RequestMapping(value=command,method = RequestMethod.GET)
 	public ModelAndView doAction(
@@ -42,11 +46,12 @@ public class reservationListController {
 		}
 		Paging pageInfo = new Paging(pageNumber, null, 0, null, null, null, null);
 		
-		List<ReservationBean> reservationbean = reservationDao.getReservList(1,pageInfo);  //membernum값 1 임시
-		System.out.println("reservationbean.List:"+reservationbean);
+		List<ReservationBean> reservationLists = reservationDao.getReservList(1,pageInfo);  //membernum값 1 임시
+		System.out.println("reservationbean.List:"+reservationLists.size());
 		
-		mav.addObject("reservationbean",reservationbean);
 		mav.setViewName(getPage);
+		mav.addObject("pageInfo",pageInfo);
+		mav.addObject("reservationLists",reservationLists);
 		return mav;
 	}
 }
