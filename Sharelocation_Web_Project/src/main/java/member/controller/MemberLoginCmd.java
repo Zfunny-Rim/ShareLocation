@@ -40,7 +40,7 @@ public class MemberLoginCmd {
 		 mav.addObject("loginInfo",dbMember);
 		 
 		 if(dbMember == null) {
-			// pw.println("<script>alert('���̵�|��й�ȣ�� Ȯ���� �ּ���');</script>");
+			// pw.println("<script>alert('占쏙옙占싱듸옙|占쏙옙橘占싫ｏ옙占� 확占쏙옙占쏙옙 占쌍쇽옙占쏙옙');</script>");
 			// pw.flush();
 			 mav.setViewName(getPage);
 			 return mav;

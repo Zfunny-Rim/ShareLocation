@@ -10,7 +10,16 @@
 	</select>
 	
 	<insert id="reservInsert">
-		insert into reservation(num,membernum,spacenum,detailspacenum,checkin,checkout,person,amounts,cusrequest,applicationdate,status)
-		values(reservation_seq.nextval,#{membernum},#{spacenum},#{detailspacenum},#{checkin},#{checkout},#{person},#{amounts},#{cusrequest},#{applicationdate},#{status})
+		insert into reservation
+		(num,membernum,spacenum,detailspacenum,checkin,checkout,person,
+		amounts,cusrequest,paymenttype,applicationdate,status)values
+		(reservation_seq.nextval,#{membernum},#{spacenum},#{detailspacenum},#{checkin},#{checkout},#{person},
+		#{amounts},#{cusrequest},#{paymenttype},#{applicationdate},#{status})
 	</insert>
+	
+	<select id="getReservList" resultType="MyRerservation">
+		select * from reservation
+		where membernum = #{membernum}
+		order by applicationdate
+	</select>
 </mapper>

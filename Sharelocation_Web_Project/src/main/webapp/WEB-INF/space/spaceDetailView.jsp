@@ -212,8 +212,10 @@ element.style {
 															<div class="card-body" style="width: auto">
 																<!-- Table with outer spacing -->
 																<div class="table-responsive">
-																	<form action="<%=request.getContextPath()%>/reserv.rv?&spaceNum=1&memberNum=1"
+																	<form action="reserv.rv"
 																	 method="post">           
+																		<input type="hidden" name="spacenum" value="${space.num }">
+																		<input type="hidden" name="detailspacenum" value="${detailspace.num }">				
 																		<table class="table table-lg" style="width: auto;">
 																			<tbody>
 																				<tr>
@@ -320,7 +322,6 @@ element.style {
 		//alert(장소 더 보기);
 		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
 	}
-
 	</script>
 
 		<%-- ******* CUSTOM Script END ******* --%>
