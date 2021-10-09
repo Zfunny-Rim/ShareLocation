@@ -41,6 +41,7 @@ public class HostSpaceManageController {
 	private final String balanceCommand = "spaceManageBalance.ho";
 	private final String balanceInsertCommand = "spaceManageBalanceInsert.ho";
 	private final String balanceViewCommand = "spaceManageBalanceView.ho";
+	private final String balanceModifyCommand = "spaceManageBalanceModify.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -403,6 +404,53 @@ public class HostSpaceManageController {
 		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
 		mav.addObject("balanceBean", balanceBean);
 		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+
+	@RequestMapping(value=balanceModifyCommand, method=RequestMethod.GET)
+	public ModelAndView balanceModifyForm(@RequestParam(value="spaceNum")int spaceNum,
+			HttpSession session) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int memberNum = 0;
+		if(loginInfo == null) {
+			System.out.println("로그인 안되어있음. 임시 번호 사용.");
+			memberNum = 1;
+		}else {
+			memberNum = loginInfo.getNum();
+		}
+		getPage = "BalanceModify";
+		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
+		mav.addObject("balanceBean", balanceBean);
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=balanceModifyCommand, method=RequestMethod.POST)
+	public ModelAndView balanceModifyProc(@Valid BalanceBean balanceBean, BindingResult result, 
+			HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		int spaceNum = Integer.parseInt(request.getParameter("spacenum"));
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int memberNum = 0;
+		if(loginInfo == null) {
+			System.out.println("로그인 안되어있음. 임시 번호 사용.");
+			memberNum = 1;
+		}else {
+			memberNum = loginInfo.getNum();
+		}
+		System.out.println(balanceBean);
+		if(result.hasErrors()) {
+			getPage = "BalanceModify";
+			mav.addObject("getPage", getPage);
+			mav.addObject("spaceNum", spaceNum);
+			return mav;
+		}
+		balanceBean.setMembernum(memberNum);
+		int cnt = balanceDao.updateBalance(balanceBean);
+		mav.setViewName("redirect:/"+balanceViewCommand);
 		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}

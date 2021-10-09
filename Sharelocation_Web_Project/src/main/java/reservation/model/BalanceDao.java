@@ -20,4 +20,9 @@ public class BalanceDao {
 	public int insertBalance(BalanceBean balanceBean) {
 		return sqlSessionTemplate.insert(namespace+".insertBalance", balanceBean);
 	}
+
+	public int updateBalance(BalanceBean balanceBean) {
+		return sqlSessionTemplate.update(namespace+".updateBalance", balanceBean);
+		
+	}
 }

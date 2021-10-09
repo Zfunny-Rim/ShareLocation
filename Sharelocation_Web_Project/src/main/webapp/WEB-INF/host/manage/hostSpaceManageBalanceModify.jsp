@@ -5,10 +5,10 @@
 	.err{color:red; font-weight: bold; font-size:11px;}
 	.required{color:red;}
 </style>
-<h4 class="card-title">정산정보 등록하기</h4>
+<h4 class="card-title">정산정보 수정하기</h4>
 <hr>
 <form:form commandName="balanceBean" class="form form-horizontal"
-	action="spaceManageBalanceInsert.ho" method="post"
+	action="spaceManageBalanceModify.ho" method="post"
 	enctype="multipart/form-data" name="insert_form">
 	<div class="form-body">
 		<div class="row">
@@ -116,6 +116,7 @@
 				</small></p>
 			</div>
 			<hr class="divider">
+			<input type="hidden" name="num" value="${balanceBean.num }">
 			<input type="hidden" name="spacenum" value="${spaceNum }">
 			<input type="hidden" name="email">
 			<input type="hidden" name="call">
@@ -128,6 +129,7 @@
 	</div>
 </form:form>
 <script type="text/javascript">
+
 var target = document.getElementById('domain_selector');
 	target.addEventListener('change', function(event){
 	var selVal = $('select[id="domain_selector"] option:selected').val();
@@ -139,6 +141,7 @@ var target = document.getElementById('domain_selector');
 		$('input[name="email_domain"]').attr('readonly', 'readonly');
 	}
 });
+	
 function processing(){
 	//email
 	var email_id = $('input[name="email_id"]').val();
@@ -160,6 +163,6 @@ function processing(){
 		var hpStr = $('input[name="hp1"]').val()+"-"+$('input[name="hp2"]').val()+"-"+$('input[name="hp3"]').val();
 		$('input[name="call"]').val(hpStr);
 	}
+	
 }
 </script>
-    
