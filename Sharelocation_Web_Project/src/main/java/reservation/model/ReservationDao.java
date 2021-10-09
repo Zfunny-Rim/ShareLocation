@@ -35,4 +35,9 @@ public class ReservationDao {
 		reservationLists = sqlSessionTemplate.selectList(namespace+".getReservList",membernum,rowBounds);
 		return reservationLists;
 	}
+
+	public int deleteReserv(int num) {
+		int cnt= sqlSessionTemplate.delete(namespace+".deleteReserv",num);
+		return cnt;
+	}
 }

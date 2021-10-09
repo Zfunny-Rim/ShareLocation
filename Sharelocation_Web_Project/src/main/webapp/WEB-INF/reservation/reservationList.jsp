@@ -18,15 +18,19 @@
 	color: #fff;
 	background-color: #435ebe;
 	border-color: #435ebe;
-	
 }
+
 dl, ol, ul {
-    margin-top: 0;
-    margin-bottom: 2rem;
+	margin-top: 0;
+	margin-bottom: 2rem;
 }
 
 .justify-content-center {
-    justify-content: center!important;
+	justify-content: center !important;
+}
+.btn-outline-primary {
+    color: #fff;
+    border-color: #fff;
 }
 </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
@@ -113,9 +117,46 @@ dl, ol, ul {
 																				원
 																			</button>
 																		</div>
-																		<div class="right-side">
-																			<button class="btn btn-sm btn-danger"
-																				onClick="deleteReserv(${reservation.num})">예약취소</button>
+																		<button type="button"
+																			class="btn btn-outline-primary block bg-danger"
+																			data-bs-toggle="modal" data-bs-backdrop="false"
+																			data-bs-target="#backdrop">예약취소</button>
+																		<div class="modal fade text-left" id="backdrop"
+																			tabindex="-1" aria-labelledby="myModalLabel4"
+																			style="display: none;" aria-hidden="true">
+																			<div
+																				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+																				role="document">
+																				<div class="modal-content">
+																					<div class="modal-header">
+																						<h4 class="modal-title" id="myModalLabel4">
+																							예약 취소
+																						</h4>
+																						<button type="button" class="close"
+																							data-bs-dismiss="modal" aria-label="Close">
+																							<i data-feather="x"></i>
+																						</button>
+																					</div>
+																					<div class="modal-body">
+																						<p>
+																							예약을 취소하시겠습니까?
+																						</p>
+																					</div>
+																					<div class="modal-footer">
+																						<button type="button"
+																							class="btn btn-light-secondary"
+																							data-bs-dismiss="modal">
+																							<i class="bx bx-x d-block d-sm-none"></i> <span
+																								class="d-none d-sm-block">Close</span>
+																						</button>
+																						<button type="button" class="btn btn-primary ml-1"
+																							data-bs-dismiss="modal" onClick="deleteReserv(${reservation.num})">
+																							<i class="bx bx-check d-block d-sm-none"></i> <span
+																								class="d-none d-sm-block">Accept</span>
+																						</button>
+																					</div>
+																				</div>
+																			</div>
 																		</div>
 																	</div>
 																</div>
@@ -126,9 +167,10 @@ dl, ol, ul {
 											</div>
 										</div>
 										<!--  페이지 -->
-										
+
 										<nav aria-label="Page navigation example">
-											<ul class="pagination pagination-primary justify-content-center" >
+											<ul
+												class="pagination pagination-primary justify-content-center">
 												<li class="page-item"><a class="page-link" href="#">
 														<span aria-hidden="true"><i
 															class="bi bi-chevron-left"></i></span>
@@ -158,7 +200,7 @@ dl, ol, ul {
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
 			function deleteReserv(num){
-				alert(num);
+				//alert(num);
  				location.href="reservationdelete.rv?num="+num;
 			}
 		</script>
