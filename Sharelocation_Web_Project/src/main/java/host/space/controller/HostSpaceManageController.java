@@ -543,4 +543,16 @@ public class HostSpaceManageController {
 		mav.setViewName("redirect:/"+packageCommand);
 		return mav;
 	}
+	
+	@RequestMapping(value=packageDeleteCommand)
+	public ModelAndView packageDelete(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="detailSpaceNum")int detailSpaceNum,
+			@RequestParam(value="num")int packageNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		int cnt = detailSpaceDao.deleteDPackage(packageNum);
+		mav.setViewName("redirect:/"+packageCommand);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("detailSpaceNum", detailSpaceNum);
+		return mav;
+	}
 }

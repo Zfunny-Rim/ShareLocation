@@ -57,4 +57,8 @@ public class DetailSpaceDao {
 	public int insertDPackage(PackagePriceBean packagePriceBean) {
 		return sqlSessionTemplate.insert(namespace+".insertDPackage", packagePriceBean);
 	}
+
+	public int deleteDPackage(int num) {
+		return sqlSessionTemplate.delete(namespace+".deleteDPackage", num);
+	}
 }

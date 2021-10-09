@@ -47,4 +47,7 @@
 		insert into packageprice(num, detailspacenum, title, checkintime, checkouttime, price)
 		values(packageprice_seq.nextval, #{detailspacenum}, #{title}, #{checkintime}, #{checkouttime}, #{price})
 	</insert>
+	<delete id="deleteDPackage">
+		delete packageprice where num=#{num}
+	</delete>
 </mapper>

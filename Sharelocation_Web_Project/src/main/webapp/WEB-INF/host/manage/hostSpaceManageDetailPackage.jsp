@@ -36,7 +36,7 @@
 						</div>
 						<div class="right-side">
 							<button class="btn btn-sm btn-danger"
-								onClick="">삭제</button>
+								onClick="location.href='spaceManageDetailPackageDelete.ho?spaceNum=${spaceNum}&detailSpaceNum=${detailSpaceNum }&num=${packageBean.num }'">삭제</button>
 						</div>
 					</div>
 				</div>
