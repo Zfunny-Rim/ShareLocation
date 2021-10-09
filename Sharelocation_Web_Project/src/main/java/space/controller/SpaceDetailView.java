@@ -43,6 +43,7 @@ public class SpaceDetailView {
 
 	@RequestMapping(value= command)
 	public ModelAndView doAction(@RequestParam(value = "num") int num,
+				@RequestParam(value ="detailspacenum", required = false) String detailspacenum ,
 			   ModelAndView mav) {
 		System.out.println("spaceDetailView");
 

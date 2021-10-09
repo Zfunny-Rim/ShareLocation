@@ -199,26 +199,28 @@ element.style {
 
 												<div class="col" style="align-content: center;">
 													<!-- reservation 넘어가기 -->
-											     <h4 class="card-title">예약하기</h4>
+													<h4 class="card-title">예약하기</h4>
 
 													<form action="detailView.sp">
 														<c:forEach var="spacename" items="${detailspace}">
-															<input type="radio" value="${spacename.name}" name ="name">${spacename.name}
+
+															<input type="radio" value="${spacename.name}" name="name">${spacename.name}
+															<h4>${spacename.num}</h4>
 														</c:forEach>
-															<input type="hidden" value="${space.num}" name ="num">
-															<input type="hidden" value="${spacename.num}" name ="detailspacenum">
-														<br>
-														<input type="submit" value="확인">
+														<input type="hidden" value="${space.num}" name="num">
+														<h4>${space.num}</h4>
+														<br> <input type="submit" value="확인">
 													</form>
-													
-													
+
+
 													<form
 														action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
 														method="post">
-													
 
 
-														<table  class="table table-lg"  style="border: thick; border-radius: 8px;">
+
+														<table class="table table-lg"
+															style="border: thick; border-radius: 8px;">
 															<tbody>
 																<tr>
 																	<td class="text-bold-500">장소 선택</td>
@@ -264,6 +266,9 @@ element.style {
 		alert("세부 사진 보기");
 		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
 	}
+	
+/*  TOSTRING SPECATDETAIL NUM 변경 */
+	
 	
 	</script>
 

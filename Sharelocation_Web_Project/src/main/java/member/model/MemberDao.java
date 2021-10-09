@@ -39,4 +39,11 @@ public class MemberDao {
 		idLists = sqlSessionTemplate.selectList(namespace+"getId");
 		return idLists;
 	}
+
+	public int idCheck(String id) {
+		
+		int cnt = sqlSessionTemplate.selectOne(namespace+"idCheck",id);
+		
+		return cnt;
+	}
 }

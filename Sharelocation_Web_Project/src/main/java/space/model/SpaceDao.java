@@ -86,5 +86,11 @@ public class SpaceDao {
 	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
 	}
+	public List<SpaceBean> getPowerSpaceList(Map<String, String> map) {
+		List<SpaceBean> spacePowertLists = new ArrayList<SpaceBean>();
+		spacePowertLists = sqlSessionTemplate.selectList(namespace+".getPowerSpaceList", map);
+		return spacePowertLists;
+		
+	}
 }
 

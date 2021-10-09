@@ -94,5 +94,20 @@
 		where spacenum=#{num}
 	</select>
 
+	<select id="getPowerSpaceList" resultType="MySpace" >
+		select * from space
+		where name like #{keyword} 
+		<if test="status!=null">
+  		and status like #{status}
+  		</if>
+		<if test="whatColumn!=null">
+  		and type like #{whatColumn}
+  		</if>
+  		<if test="area!=null">
+  		and address like #{area}
+  		</if>
+  	
+	
+	</select>
 
 </mapper>

@@ -44,6 +44,7 @@ public class spaceListCmd {
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
 		map.put("area", "%"+area+"%");
 		map.put("keyword", "%"+keyword+"%");
+		map.put("status", "%운영중%");
 		
 		int totalCount = spaceDao.getTotalCount(map);
 		String url = request.getContextPath() + command;
@@ -54,6 +55,11 @@ public class spaceListCmd {
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,map);
 		System.out.println("spaceLists"+spaceLists.size());
+		
+		List<SpaceBean> powerLink = spaceDao.getPowerSpaceList(map);
+		System.out.println("powerLink"+powerLink.size());
+		
+		mav.addObject("powerLink",powerLink);
 		mav.addObject("spaceLists",spaceLists);
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
