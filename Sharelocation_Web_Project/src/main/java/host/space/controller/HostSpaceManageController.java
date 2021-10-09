@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
+import member.model.MemberBean;
+import reservation.model.BalanceBean;
+import reservation.model.BalanceDao;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
@@ -34,6 +38,9 @@ public class HostSpaceManageController {
 	private final String detailInsertCommand = "spaceManageDetailSpaceInsert.ho";
 	private final String detailModifyCommand = "spaceManageDetailSpaceModify.ho";
 	private final String detailDeleteCommand = "spaceManageDetailSpaceDelete.ho";
+	private final String balanceCommand = "spaceManageBalance.ho";
+	private final String balanceInsertCommand = "spaceManageBalanceInsert.ho";
+	private final String balanceViewCommand = "spaceManageBalanceView.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -42,6 +49,9 @@ public class HostSpaceManageController {
 	SpaceDao spaceDao;
 	@Autowired
 	DetailSpaceDao detailSpaceDao;
+	@Autowired
+	BalanceDao balanceDao;
+	
 	@Autowired
 	ServletContext servletContext;
 	
@@ -313,6 +323,87 @@ public class HostSpaceManageController {
 		}
 		mav.addObject("spaceNum", spaceNum);
 		mav.setViewName("redirect:/spaceManageDetailSpace.ho");
+		return mav;
+	}
+	
+	@RequestMapping(value=balanceCommand)
+	public ModelAndView balanceManage(@RequestParam(value="spaceNum")int spaceNum, 
+			HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int memberNum = 0;
+		if(loginInfo == null) {
+			System.out.println("로그인 안되어있음. 임시 번호 사용.");
+			memberNum = 1;
+		}else {
+			memberNum = loginInfo.getNum();
+		}
+		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
+		if(balanceBean == null) {
+			//정산정보 입력으로 이동
+			mav.setViewName("redirect:/spaceManageBalanceInsert.ho");
+		}else {
+			//정산정보 상세보기로 이동
+			mav.setViewName("redirect:/spaceManageBalanceView.ho");
+		}
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=balanceInsertCommand, method=RequestMethod.GET)
+	public ModelAndView balanceInsert(@RequestParam(value="spaceNum")int spaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "BalanceInsert";
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=balanceInsertCommand, method=RequestMethod.POST)
+	public ModelAndView balanceInsertProc(@Valid BalanceBean balanceBean, BindingResult result, 
+			HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		int spaceNum = Integer.parseInt(request.getParameter("spacenum"));
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int memberNum = 0;
+		if(loginInfo == null) {
+			System.out.println("로그인 안되어있음. 임시 번호 사용.");
+			memberNum = 1;
+		}else {
+			memberNum = loginInfo.getNum();
+		}
+		
+		System.out.println(balanceBean);
+		if(result.hasErrors()) {
+			getPage = "BalanceInsert";
+			mav.addObject("getPage", getPage);
+			mav.addObject("spaceNum", spaceNum);
+			return mav;
+		}
+		balanceBean.setMembernum(memberNum);
+		int cnt = balanceDao.insertBalance(balanceBean);
+		mav.setViewName("redirect:/"+balanceViewCommand);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=balanceViewCommand, method=RequestMethod.GET)
+	public ModelAndView balanceView(@RequestParam(value="spaceNum")int spaceNum,
+			HttpSession session) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "BalanceView";
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int memberNum = 0;
+		if(loginInfo == null) {
+			System.out.println("로그인 안되어있음. 임시 번호 사용.");
+			memberNum = 1;
+		}else {
+			memberNum = loginInfo.getNum();
+		}
+		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
+		mav.addObject("balanceBean", balanceBean);
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}
 }

@@ -11,4 +11,9 @@
 		from space
 		where num=#{num})
 	</select>
+	
+	<insert id="insertBalance">
+		insert into balance(num, membernum, company, name, address, email, call, bank, account)
+		values(balance_seq.nextval, #{membernum}, #{company}, #{name}, #{address}, #{email}, #{call}, #{bank}, #{account})
+	</insert>
 </mapper>

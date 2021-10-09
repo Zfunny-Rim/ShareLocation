@@ -35,7 +35,7 @@
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Detail"
 											   href="spaceManageDetailSpace.ho?spaceNum=${spaceNum }">세부공간 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Balance"
-											   href="#">정산정보 관리</a>
+											   href="spaceManageBalance.ho?spaceNum=${spaceNum }">정산정보 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Review"
 											   href="#">후기 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Statistics"
@@ -73,6 +73,9 @@
 			var nav;
 			if(pageName.startsWith('Detail')){
 				nav = document.getElementById('Detail');
+			}
+			else if(pageName.startsWith('Balance')){
+				mav = document.getElementById('Balance');
 			}else{
 				nav = document.getElementById(pageName);
 			}

@@ -16,4 +16,8 @@ public class BalanceDao {
 		BalanceBean balance = sqlSessionTemplate.selectOne(namespace+".getBalance",memberNum);
 		return balance;
 	}
+
+	public int insertBalance(BalanceBean balanceBean) {
+		return sqlSessionTemplate.insert(namespace+".insertBalance", balanceBean);
+	}
 }
