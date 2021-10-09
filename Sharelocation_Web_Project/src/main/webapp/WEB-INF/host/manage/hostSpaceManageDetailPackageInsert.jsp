@@ -74,7 +74,14 @@
 	function processing(){
 		var start_time = $('select[name="checkintime"]').val();
 		var end_time = $('select[name="checkouttime"]').val();
-		if(start_time > end_time){
+		
+		var opStime = ${spaceBean.operatingtime};
+		var opEtime = ${spaceBean.operatingendtime};
+		if(opStime == 0 && opEtime == 24){
+			//24시간 운영
+			return true;
+		}
+		if(parseInt(start_time) > parseInt(end_time)){
 			alert("시작시간은 종료시간보다 빨라야 합니다.");
 			return false;
 		}

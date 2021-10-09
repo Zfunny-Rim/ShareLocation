@@ -75,7 +75,7 @@
 				nav = document.getElementById('Detail');
 			}
 			else if(pageName.startsWith('Balance')){
-				mav = document.getElementById('Balance');
+				nav = document.getElementById('Balance');
 			}else{
 				nav = document.getElementById(pageName);
 			}
