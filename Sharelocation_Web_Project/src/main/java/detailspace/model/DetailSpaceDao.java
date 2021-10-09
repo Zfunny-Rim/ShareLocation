@@ -49,4 +49,12 @@ public class DetailSpaceDao {
 	public List<String> getSpaceImageBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageBySpaceNum", spaceNum);
 	}
+
+	public List<PackagePriceBean> getPackageListByDetailSpaceNum(int detailSpaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getPackageListByDetailSpaceNum", detailSpaceNum);
+	}
+
+	public int insertDPackage(PackagePriceBean packagePriceBean) {
+		return sqlSessionTemplate.insert(namespace+".insertDPackage", packagePriceBean);
+	}
 }

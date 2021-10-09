@@ -2,6 +2,7 @@ package host.space.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
+import detailspace.model.PackagePriceBean;
 import member.model.MemberBean;
 import reservation.model.BalanceBean;
 import reservation.model.BalanceDao;
@@ -42,7 +44,9 @@ public class HostSpaceManageController {
 	private final String balanceInsertCommand = "spaceManageBalanceInsert.ho";
 	private final String balanceViewCommand = "spaceManageBalanceView.ho";
 	private final String balanceModifyCommand = "spaceManageBalanceModify.ho";
-	
+	private final String packageCommand = "spaceManageDetailPackage.ho";
+	private final String packageInsertCommand = "spaceManageDetailPackageInsert.ho";
+	private final String packageDeleteCommand = "spaceManageDetailPackageDelete.ho";
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
 	
@@ -452,6 +456,57 @@ public class HostSpaceManageController {
 		int cnt = balanceDao.updateBalance(balanceBean);
 		mav.setViewName("redirect:/"+balanceViewCommand);
 		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=packageCommand)
+	public ModelAndView packageView(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="detailSpaceNum")int detailSpaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "DetailPackage";
+		List<PackagePriceBean> packageBeanList = detailSpaceDao.getPackageListByDetailSpaceNum(detailSpaceNum);
+		mav.addObject("packageBeanList", packageBeanList);
+		mav.addObject("getPage", getPage);
+		mav.addObject("detailSpaceNum", detailSpaceNum);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=packageInsertCommand, method=RequestMethod.GET)
+	public ModelAndView packageInsert(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="detailSpaceNum")int detailSpaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "DetailPackageInsert";
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		List<PackagePriceBean> packageBeanList = detailSpaceDao.getPackageListByDetailSpaceNum(detailSpaceNum);
+		mav.addObject("spaceBean", spaceBean);
+		mav.addObject("getPage", getPage);
+		mav.addObject("detailSpaceNum", detailSpaceNum);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=packageInsertCommand, method=RequestMethod.POST)
+	public ModelAndView packageInsertProc(@Valid PackagePriceBean packagePriceBean, BindingResult result,
+			HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		System.out.println(packagePriceBean);
+		int spaceNum = Integer.parseInt(request.getParameter("spacenum"));
+		int detailSpaceNum = packagePriceBean.getDetailspacenum();
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		if(result.hasErrors()) {
+			getPage = "DetailPackageInsert";
+			mav.addObject("getPage", getPage);
+			mav.addObject("spaceNum", spaceNum);
+			mav.addObject("detailSpaceNum", detailSpaceNum);
+			mav.addObject("spaceBean", spaceBean);
+			return mav;
+		}
+		int cnt = detailSpaceDao.insertDPackage(packagePriceBean);
+		getPage = "DetailPackage";
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		mav.setViewName("redirect:/"+packageCommand);
 		return mav;
 	}
 }

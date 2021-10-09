@@ -38,7 +38,7 @@ text-overflow:ellipsis; white-space: nowrap; overflow: hidden;
 							class="card-footer d-flex justify-content-between bg-light p-2 px-3">
 							<div class="left-side">
 								<button class="btn btn-sm btn-light-primary"
-									onClick="viewDSpace('${dsp.num}')">상세보기</button>
+									onClick="location.href='spaceManageDetailPackage.ho?spaceNum=${spaceNum}&detailSpaceNum=${dsp.num }'">패키지 관리</button>
 							</div>
 							<div class="right-side">
 								<button class="btn btn-sm btn-primary"
