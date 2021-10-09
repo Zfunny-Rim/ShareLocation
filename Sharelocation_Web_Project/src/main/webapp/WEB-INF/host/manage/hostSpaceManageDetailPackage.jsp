@@ -31,8 +31,8 @@
 					<div class="d-flex justify-content-between">
 						<div class="left-side">
 							<p class="card-text">
-							<b>시간 : </b>${packageBean.checkintime }시 ~ ${packageBean.checkouttime }시<br>
-							<b>가격 : </b>${packageBean.price }원</p>
+								<b>시간 : </b>${packageBean.checkintime }시 ~ ${packageBean.checkouttime }시<br>
+								<b>가격 : </b>${packageBean.price }원</p>
 						</div>
 						<div class="right-side">
 							<button class="btn btn-sm btn-danger"

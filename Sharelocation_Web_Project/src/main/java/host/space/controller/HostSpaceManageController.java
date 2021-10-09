@@ -502,10 +502,44 @@ public class HostSpaceManageController {
 			mav.addObject("spaceBean", spaceBean);
 			return mav;
 		}
+		//패키지 시간 중첩되는지 확인해야함
+		List<PackagePriceBean> packageBeanList = detailSpaceDao.getPackageListByDetailSpaceNum(detailSpaceNum);
+		int check_in = packagePriceBean.getCheckintime();
+		int check_out = packagePriceBean.getCheckouttime();
+		boolean isInvalid = false;
+		int invalid_index = -1;
+		for(int i=0;i<packageBeanList.size();i++) {
+			PackagePriceBean ppBean = packageBeanList.get(i);
+			int p_check_in = ppBean.getCheckintime();
+			int p_check_out = ppBean.getCheckintime();
+			if(p_check_in <= check_in && check_in < p_check_out) {
+				isInvalid = true;
+				invalid_index = i;
+				break;
+			}else if(check_in <= p_check_in) {
+				if(check_out > p_check_in) {
+					isInvalid = true;
+					invalid_index = i;
+					break;
+				}
+			}
+		}
+		if(isInvalid) {
+			PackagePriceBean ppBean = packageBeanList.get(invalid_index);
+			System.out.println("패키지 시간이 "+ppBean.getTitle()+" 패키지와 중복됩니다.");
+			System.out.println("입력 시간 : "+check_in+"~"+check_out);
+			System.out.println(ppBean.getTitle()+" 시간 : "+ppBean.getCheckintime()+"~"+ppBean.getCheckouttime());
+			getPage = "DetailPackageInsert";
+			mav.addObject("getPage", getPage);
+			mav.addObject("spaceNum", spaceNum);
+			mav.addObject("detailSpaceNum", detailSpaceNum);
+			mav.addObject("spaceBean", spaceBean);
+			return mav;
+		}
+		//
 		int cnt = detailSpaceDao.insertDPackage(packagePriceBean);
-		getPage = "DetailPackage";
-		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("detailSpaceNum", detailSpaceNum);
 		mav.setViewName("redirect:/"+packageCommand);
 		return mav;
 	}

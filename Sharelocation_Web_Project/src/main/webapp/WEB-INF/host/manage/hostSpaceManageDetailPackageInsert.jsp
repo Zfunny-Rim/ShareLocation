@@ -55,7 +55,7 @@
 				<label>가격 <span class="required">*</span></label>
 			</div>
 			<div class="col-md-8 form-group">
-				<input type="text" class="form-control" name="price" value="${packagePriceBean.title }">
+				<input type="text" class="form-control" name="price" value="${packagePriceBean.price }">
 				<p><small class="text-muted"> <form:errors cssClass="err" path="price" />
 				</small></p>
 			</div>
@@ -74,7 +74,11 @@
 	function processing(){
 		var start_time = $('select[name="checkintime"]').val();
 		var end_time = $('select[name="checkouttime"]').val();
-		if(start_time == end_time){
+		if(start_time > end_time){
+			alert("시작시간은 종료시간보다 빨라야 합니다.");
+			return false;
+		}
+		else if(start_time == end_time){
 			alert("시작시간과 종료시간이 같을 수 없습니다.");
 			return false;
 		}
