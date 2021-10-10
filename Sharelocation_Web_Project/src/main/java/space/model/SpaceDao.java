@@ -111,5 +111,8 @@ public class SpaceDao {
 	public int deleteSpace(int spaceNum) {
 		return sqlSessionTemplate.delete(namespace+".deleteSpace", spaceNum);
 	}
+	public int requestApproval(int spaceNum) {
+		return sqlSessionTemplate.update(namespace+".requestApproval", spaceNum);
+	}
 }
 

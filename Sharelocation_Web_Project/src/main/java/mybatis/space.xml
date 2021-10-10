@@ -85,4 +85,7 @@
 	<delete id="deleteSpace">
 		delete space where num=#{spaceNum}
 	</delete>
+	<update id="requestApproval">
+		update space set status='검수대기' where num=#{spaceNum}
+	</update>
 </mapper>

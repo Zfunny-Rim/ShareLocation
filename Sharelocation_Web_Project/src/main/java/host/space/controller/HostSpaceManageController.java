@@ -47,6 +47,8 @@ public class HostSpaceManageController {
 	private final String packageCommand = "spaceManageDetailPackage.ho";
 	private final String packageInsertCommand = "spaceManageDetailPackageInsert.ho";
 	private final String packageDeleteCommand = "spaceManageDetailPackageDelete.ho";
+	private final String approvalCommand = "spaceManageApproval.ho";
+	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
 	
@@ -553,6 +555,24 @@ public class HostSpaceManageController {
 		mav.setViewName("redirect:/"+packageCommand);
 		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("detailSpaceNum", detailSpaceNum);
+		return mav;
+	}
+
+	
+	@RequestMapping(value=approvalCommand)
+	public ModelAndView approvalSpace(@RequestParam(value="spaceNum")int spaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		int dspCount = detailSpaceDao.getDetailSpaceCountBySpaceNum(spaceNum);
+		BalanceBean balanceBean = balanceDao.getBalance(1);
+		if(dspCount > 0 && balanceBean != null) {
+			spaceDao.requestApproval(spaceNum);
+		}else if(dspCount <= 0) {
+			System.out.println("등록된 세부공간이 없다.");
+		}else if(balanceBean == null) {
+			System.out.println("등록된 정산 정보가 없다.");
+		}
+		mav.setViewName("redirect:/"+homeCommand);
+		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}
 }

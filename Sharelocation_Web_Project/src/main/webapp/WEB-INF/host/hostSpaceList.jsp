@@ -55,7 +55,17 @@
 								                                    <div class="card-body">
 								                                    	<div class="row">
 								                                    		<div class="col-md-8"><h4 class="card-title">${space.name }</h4></div>
-								                                    		<div class="col-md-4" style="text-align:right;"><span class="badge bg-warning m-0">${space.status }</span></div>
+								                                    		<div class="col-md-4" style="text-align:right;">
+								                                    			<c:if test="${space.status eq '등록대기'}">
+									                                    			<span class="badge bg-warning m-0">${space.status }</span>
+								                                    			</c:if>
+								                                    			<c:if test="${space.status eq '검수대기'}">
+									                                    			<span class="badge bg-info m-0">${space.status }</span>
+								                                    			</c:if>
+								                                    			<c:if test="${(space.status ne '등록대기') and (space.status ne '검수대기')}">
+									                                    			<span class="badge bg-success m-0">${space.status }</span>
+								                                    			</c:if>
+								                                    		</div>
 								                                    	</div>
 								                                        <p class="card-text">
 								                                          	<c:set var="tagList" value="${fn:split(space.tag, ',')}"/>
