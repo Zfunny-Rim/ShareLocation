@@ -15,11 +15,29 @@
 	</insert>
 
 	<select id="getSpaceList" resultType="MySpace">
-	select * from space
-	where name like #{keyword}
-	order by num desc
+		select * from space
+		where name like #{keyword}
+		<if test="whatColumn!=null">
+  		and type like #{whatColumn}
+  		</if> 
+  		<if test="area!=null">
+  		and address like #{area}
+  		</if>
+		order by num desc
 	</select>
 	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from space
+		where name like #{keyword}
+		<if test="whatColumn!=null">
+  		and type like #{whatColumn}
+  		</if>
+  		<if test="area!=null">
+  		and address like #{area}
+  		</if>
+	</select>
+
+
 
 	<delete id="delFavorite">
 	delete from favorite
@@ -53,7 +71,7 @@
 		select * from spaceimage where spacenum = #{spaceNum} order by rownum
 		
 	</select>
-		<select id="getTotalCount" resultType="int">
+	<select id="getTotalCount" resultType="int">
 		select count(*) from space
 		where name like #{keyword}
 	</select>
@@ -65,6 +83,21 @@
 	<select id="getFacility" resultType="MySpaceFacility">
 		select * from spacefacility where spacenum=#{num}
 	</select>
+
+	<select id="getPowerSpaceList" resultType="MySpace" >
+		select * from space
+		where name like #{keyword} 
+		<if test="status!=null">
+  		and status like #{status}
+  		</if>
+		<if test="whatColumn!=null">
+  		and type like #{whatColumn}
+  		</if>
+  		<if test="area!=null">
+  		and address like #{area}
+  		</if>
+  	</select>
+  	
 	<update id="updateSpace">
 		update space set name=#{name}, type=#{type}, contentssim=#{contentssim}, contentscom=#{contentscom}, tag=#{tag}, warning=#{warning}, site=#{site},
 		mainimage=#{mainimage}, address=#{address}, email=#{email}, hp=#{hp}, operatingtime=#{operatingtime}, operatingendtime=#{operatingendtime}, holiday=#{holiday} 

@@ -2,6 +2,7 @@ package space.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,8 +16,6 @@ import utility.Paging;
 public class SpaceDao {
 
 	private String namespace = "space.model.SpaceBean";
-	private String namespace2 = "detailspace.model.DetailSpaceBean";
-	private String namespace1 = "reviewBoard.model.ReviewBoardBean";
 
 
 	
@@ -83,13 +82,7 @@ public class SpaceDao {
 		return spaceFacility;
 	}
 
-	public List<ReviewBoardBean> getReview(int num) {
 
-		List<ReviewBoardBean> reviewBoard =	sqlSessionTemplate.selectList(namespace1+".getReview", num);
-
-		return reviewBoard; 
-		
-	}
 	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
 	}
@@ -113,6 +106,12 @@ public class SpaceDao {
 	}
 	public int requestApproval(int spaceNum) {
 		return sqlSessionTemplate.update(namespace+".requestApproval", spaceNum);
+	}
+	public List<SpaceBean> getPowerSpaceList(Map<String, String> map) {
+		List<SpaceBean> spacePowertLists = new ArrayList<SpaceBean>();
+		spacePowertLists = sqlSessionTemplate.selectList(namespace+".getPowerSpaceList", map);
+		return spacePowertLists;
+		
 	}
 }
 

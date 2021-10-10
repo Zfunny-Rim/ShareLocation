@@ -61,4 +61,8 @@ public class DetailSpaceDao {
 	public int deleteDPackage(int num) {
 		return sqlSessionTemplate.delete(namespace+".deleteDPackage", num);
 	}
+	
+	public List<DetailSpaceBean> getListDetailSpace(int spacenum) {
+		return sqlSessionTemplate.selectList(namespace+".getDetailSpace", spacenum);
+	}
 }
