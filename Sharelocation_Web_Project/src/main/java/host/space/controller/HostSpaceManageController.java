@@ -48,6 +48,7 @@ public class HostSpaceManageController {
 	private final String packageInsertCommand = "spaceManageDetailPackageInsert.ho";
 	private final String packageDeleteCommand = "spaceManageDetailPackageDelete.ho";
 	private final String approvalCommand = "spaceManageApproval.ho";
+	private final String reviewCommand = "spacemanageReview.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -572,6 +573,15 @@ public class HostSpaceManageController {
 			System.out.println("등록된 정산 정보가 없다.");
 		}
 		mav.setViewName("redirect:/"+homeCommand);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=reviewCommand, method=RequestMethod.GET)
+	public ModelAndView reviewList(@RequestParam(value="spaceNum")int spaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "Review";
+		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}

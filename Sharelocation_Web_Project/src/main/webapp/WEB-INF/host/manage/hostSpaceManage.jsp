@@ -37,7 +37,7 @@
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Balance"
 											   href="spaceManageBalance.ho?spaceNum=${spaceNum }">정산정보 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Review"
-											   href="#">후기 관리</a>
+											   href="spacemanageReview.ho?spaceNum=${spaceNum }">후기 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Statistics"
 											   href="#">통계</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Reservation"
