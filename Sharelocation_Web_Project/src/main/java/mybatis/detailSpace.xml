@@ -20,7 +20,9 @@
 	<select id="getDetailSpaceBySpaceNum" resultType="MyDetailSpace">
 		select * from detailspace where spacenum=#{spaceNum}
 	</select>
-	
+	<select id="getDetailSpace" resultType="MyDetailSpace">
+		select * from detailspace where spacenum=#{spaceNum}
+	</select>
 	<select id="getdetailspace" resultType="MyDetailSpace">
 		select * from
 		detailspace

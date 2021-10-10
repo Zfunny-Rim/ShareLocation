@@ -61,15 +61,15 @@ public class SpaceDao {
 		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
 		return cnt;
 	}
-	public int getTotalCount(String keyword) {
-		int cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCount",keyword);
+	public int getTotalCount(Map<String, String> map) {
+		int cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCount",map);
 		return cnt;
 	}
-	public List<SpaceBean> getSpaceList(Paging pageInfo, String keyword) {
+	public List<SpaceBean> getSpaceList(Paging pageInfo, Map<String, String> map) {
 
 		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
-		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword,rowBounds);
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", map,rowBounds);
 
 		return spaceLists;
 	}
