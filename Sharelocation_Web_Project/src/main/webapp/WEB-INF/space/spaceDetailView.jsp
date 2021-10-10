@@ -85,6 +85,11 @@ element.style {
 }
 
 /* 별 스타일 끝*/
+.col1 {
+	border: solid;
+	border-collapse: collapse;
+	border-radius: 8px;
+}
 </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -163,6 +168,8 @@ element.style {
 													${space.contentssim}
 													<h4 class="card-title">공간소개</h4>
 													${space.contentscom}
+													<h4 class="card-title">주의 사항</h4>
+													${space.warning}
 													<h4 class="card-title">지도</h4>
 													<h4 class="card-title">사용자 후기</h4>
 													<!-- 후기	시작 -->
@@ -197,50 +204,70 @@ element.style {
 
 												<!-- 	  접히는거 시작 -->
 
-												<div class="col" style="align-content: center;">
+												<div class="col1" style="align-content: center;">
 													<!-- reservation 넘어가기 -->
-													<h4 class="card-title">예약하기</h4>
-
-													<form action="detailView.sp">
+													<h4 class="text-bold-500">예약하기</h4>
+													<h4 class="card-title">장소 선택</h4>
+													<h4 class="card-title">
 														<c:forEach var="spacename" items="${detailspace}">
-
 															<input type="radio" value="${spacename.name}" name="name"
 																onclick="selectunit(${spacename.spacenum} ,${spacename.num})">${spacename.name}
 														</c:forEach>
-														<h4>${space.num}</h4>
-														<br> <input type="submit" value="확인">
-													</form>
-
+													</h4>
 
 													<form
 														action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
 														method="post">
 
+														<c:if test="${not empty detailSpaceBean.num}">
+															<table class="table table-lg"
+																style="border: thick; border-radius: 8px;">
+																<tbody>
+																	<tr>
+																		<td class="text-bold-500">이름</td>
+																		<td>${detailSpaceBean.name}</td>
+																	</tr>
+																	<tr>
+																		<td align="center" colspan="2"><img
+																			src="<%=request.getContextPath()%>/resources/spaceimage/${detailSpaceBean.mainimage}"
+																			alt="숙박이미지" width="200px" height="200px"></td>
+																	</tr>
+																	<tr>
+																		<td class="text-bold-500">가격</td>
+																		<td>${detailSpaceBean.price}/${detailSpaceBean.priceunit} </td>
+																	</tr>
+																	<tr>
+																		<td class="text-bold-500">인원</td>
+																		<td>최소${detailSpaceBean.minperson}명~최대${detailSpaceBean.maxperson}명</td>
+																	</tr>
+																	<tr>
+																		<td colspan="2">${detailSpaceBean.contents}</td>
+																	</tr>
+																	<tr>
+																		<td class="text-bold-500">날짜 선택</td>
+																		<td><input type="date" name="date"></td>
+																	</tr>
+																	<tr>
+																		<td class="text-bold-500">시간선택</td>
+																		<td>
+																		<select name="checkin">
+																				<c:forEach begin="1" end="${space.operatingendtime-space.operatingtime}" var="i">
+																					<option  value="${space.operatingtime+i-1}">${space.operatingtime+i-1} ~ ${space.operatingtime+i} </option>
+																				</c:forEach>
+																		</select>
+																		</td>
+																	</tr>
 
 
-														<table class="table table-lg"
-															style="border: thick; border-radius: 8px;">
-															<tbody>
-																<tr>
-																	<td class="text-bold-500">장소 선택</td>
-																	<td align="center"></td>
-																</tr>
-																<tr>
-																	<td class="text-bold-500">이름</td>
-																	<td align="center">${detailSpaceBean.name}</td>
-																</tr>
-																<tr>
-																	<td class="text-bold-500">가격</td>
-																	<td align="center"><input name = "price" value="${detailSpaceBean.price}"> ${detailSpaceBean.price}</td>
-																</tr>
+																	<tr>
+																		<td colspan="2" class="text-bold-500" align="center"><input
+																			type="submit" class="btn btn-secondary" value="예약하기"></td>
+																	</tr>
 
-																<tr>
-																	<td colspan="2" class="text-bold-500" align="center"><input
-																		type="submit" class="btn btn-secondary" value="예약하기"></td>
-																</tr>
+																</tbody>
+															</table>
+														</c:if>
 
-															</tbody>
-														</table>
 													</form>
 
 												</div>

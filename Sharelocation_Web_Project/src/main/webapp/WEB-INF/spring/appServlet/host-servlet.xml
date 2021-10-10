@@ -15,7 +15,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="host, space, detailspace" />
+	<context:component-scan base-package="host, space, detailspace, reviewBoard" />
     
     <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
