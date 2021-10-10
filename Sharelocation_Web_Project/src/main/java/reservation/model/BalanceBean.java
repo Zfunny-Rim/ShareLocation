@@ -1,14 +1,25 @@
 package reservation.model;
 
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class BalanceBean {
 	private int num;
 	private int membernum;
+	@NotBlank(message="상호명을 입력하세요.")
 	private String company;
+	@NotBlank(message="대표자명을 입력하세요.")
 	private String name;
+	@NotBlank(message="사업장 주소를 입력하세요.")
 	private String address;
+	@NotBlank(message="이메일을 입력하세요.")
 	private String email;
+	@NotBlank(message="은행을 선택하세요.")
 	private String bank;
+	@NotBlank(message="계좌번호를 입력하세요.")
 	private String account;
+	@NotBlank(message="연락처를 입력하세요.")
+	private String call;
 	
 	public BalanceBean() {
 		super();
@@ -73,5 +84,16 @@ public class BalanceBean {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	
+	public String getCall() {
+		return call;
+	}
+	public void setCall(String call) {
+		this.call = call;
+	}
+	@Override
+	public String toString() {
+		return "BalanceBean [num=" + num + ", membernum=" + membernum + ", company=" + company + ", name=" + name
+				+ ", address=" + address + ", email=" + email + ", bank=" + bank + ", account=" + account + ", call="
+				+ call + "]";
+	}
 }

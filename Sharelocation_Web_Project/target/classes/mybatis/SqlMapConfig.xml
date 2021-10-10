@@ -3,6 +3,9 @@
 			"http://mybatis.org/dtd/mybatis-3-config.dtd">
 			
 <configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 	<typeAliases>
 		<typeAlias alias="MySpace" type="space.model.SpaceBean"/>
 		<typeAlias alias="MyReview" type="reviewBoard.model.ReviewBoardBean"/>
@@ -12,6 +15,7 @@
 		<typeAlias alias="MySpaceImage" type="space.model.SpaceImageBean"/>
 		<typeAlias alias="MySpaceFacility" type="space.model.SpaceFacilityBean"/>
 		<typeAlias alias="MyBalance" type="reservation.model.BalanceBean"/>
+		<typeAlias alias="MyPackage" type="detailspace.model.PackagePriceBean"/>
 	</typeAliases>
 	
 	<mappers>

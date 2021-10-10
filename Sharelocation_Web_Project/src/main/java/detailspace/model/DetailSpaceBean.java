@@ -17,10 +17,13 @@ public class DetailSpaceBean {
 	private String type;
 	@NotBlank(message="이미지를 등록해주세요")
 	private String mainimage;
+	@NotNull(message="최소 예약시간을 입력해주세요.")
 	@Min(value=1, message="최소 예약시간은 1시간 이상으로 설정해주세요.")
 	private Integer mintime;
+	@NotNull(message="최소 인원을 입력해주세요.")
 	@Min(value=1, message="최소 인원은 1명 이상으로 설정해주세요.")
 	private Integer minperson;
+	@NotNull(message="최대 인원을 입력해주세요.")
 	@Min(value=1, message="최대 인원은 1명 이상으로 설정해주세요.")
 	private Integer maxperson;
 	private String priceunit;
@@ -28,6 +31,8 @@ public class DetailSpaceBean {
 	private Integer price;
 	//
 	private MultipartFile mainimagefile;
+	private MultipartFile mainimageupdatefile;
+	private String mainimageOrigin;
 	public MultipartFile getMainimagefile() {
 		return mainimagefile;
 	}
@@ -35,7 +40,25 @@ public class DetailSpaceBean {
 		this.mainimagefile = mainimagefile;
 		this.setMainimage(mainimagefile.getOriginalFilename());
 	}
-	
+	public MultipartFile getMainimageupdatefile() {
+		return mainimageupdatefile;
+	}
+	public void setMainimageupdatefile(MultipartFile mainimageupdatefile) {
+		this.mainimageupdatefile = mainimageupdatefile;
+		String updateFileName = mainimageupdatefile.getOriginalFilename();
+		if(updateFileName.equals("")) {
+			this.setMainimage(this.getMainimageOrigin());
+			System.out.println("setMainImage : " + this.getMainimageOrigin());
+		}else {
+			this.setMainimage(updateFileName);
+		}
+	}
+	public String getMainimageOrigin() {
+		return mainimageOrigin;
+	}
+	public void setMainimageOrigin(String mainimageOrigin) {
+		this.mainimageOrigin = mainimageOrigin;
+	}
 	public DetailSpaceBean() {
 		super();
 	}
@@ -110,10 +133,7 @@ public class DetailSpaceBean {
 		return "DetailSpaceBean [num=" + num + ", spacenum=" + spacenum + ", name=" + name + ", contents=" + contents
 				+ ", type=" + type + ", mainimage=" + mainimage + ", mintime=" + mintime + ", minperson=" + minperson
 				+ ", maxperson=" + maxperson + ", priceunit=" + priceunit + ", price=" + price + ", mainimagefile="
-				+ mainimagefile + "]";
+				+ mainimagefile + ", mainimageupdatefile=" + mainimageupdatefile + ", mainimageOrigin="
+				+ mainimageOrigin + "]";
 	}
-	
-	
-	
-	
 }

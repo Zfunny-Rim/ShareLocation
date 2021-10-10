@@ -66,12 +66,6 @@ public class HostSpaceInsertController {
 		//set grade (기본 - 기본/사이트추천)
 		spaceBean.setGrade("기본");
 		
-		//operatingtime 처리
-		String operatingtime = request.getParameter("starttime");
-		String operatingendtime = request.getParameter("endtime");
-		spaceBean.setOperatingtime(operatingtime);
-		spaceBean.setOperatingendtime(operatingendtime);
-		
 		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		session.setAttribute("uploadPath", uploadPath);
@@ -81,8 +75,6 @@ public class HostSpaceInsertController {
 		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		spaceBean.setMainimage(safeFileName); 
-		
-	  
 		
 		System.out.println("test1");
 		System.out.println(spaceBean);

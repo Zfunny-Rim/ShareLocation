@@ -17,16 +17,16 @@ public class DetailSpaceDao {
 		return sqlSessionTemplate.selectList(namespace+".getDetailSpaceListBySpaceNum", spacenum);
 	}
 	
-	public int getDetailSpaceCountBySpaceNum(int spacenum) {
-		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceCountBySpaceNum", spacenum);
+	public int getDetailSpaceCountBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceCountBySpaceNum", spaceNum);
 	}
 
 	public int insertDSpace(DetailSpaceBean detailSpaceBean) {
 		return sqlSessionTemplate.insert(namespace+".insertDSpace", detailSpaceBean);
 	}
 
-	public List<DetailSpaceBean> getDetailSpace(int spacenum) {
-		return sqlSessionTemplate.selectOne(namespace+".getDetailSpace", spacenum);
+	public List<DetailSpaceBean> getDetailSpaceBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getDetailSpaceBySpaceNum", spaceNum);
 	}
 
 	public DetailSpaceBean getdetailspace(int detailspacenum) {
@@ -34,9 +34,35 @@ public class DetailSpaceDao {
 		return detailSpaceBean;
 	}
 
+	public int updateDSpace(DetailSpaceBean detailSpaceBean) {
+		return sqlSessionTemplate.update(namespace+".updateDSpace", detailSpaceBean);
+	}
+
+	public int deleteDSpace(int detailSpaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteDSpace", detailSpaceNum);
+	}
+
+	public String getDetailSpaceImage(int detailSpaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceImage", detailSpaceNum);
+	}
+
+	public List<String> getSpaceImageBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceImageBySpaceNum", spaceNum);
+	}
+
+	public List<PackagePriceBean> getPackageListByDetailSpaceNum(int detailSpaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getPackageListByDetailSpaceNum", detailSpaceNum);
+	}
+
+	public int insertDPackage(PackagePriceBean packagePriceBean) {
+		return sqlSessionTemplate.insert(namespace+".insertDPackage", packagePriceBean);
+	}
+
+	public int deleteDPackage(int num) {
+		return sqlSessionTemplate.delete(namespace+".deleteDPackage", num);
+	}
+	
 	public List<DetailSpaceBean> getListDetailSpace(int spacenum) {
 		return sqlSessionTemplate.selectList(namespace+".getDetailSpace", spacenum);
 	}
-
-
 }

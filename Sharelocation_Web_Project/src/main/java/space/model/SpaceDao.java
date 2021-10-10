@@ -86,6 +86,27 @@ public class SpaceDao {
 	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
 	}
+	public int updateSpace(SpaceBean spaceBean) {
+		return sqlSessionTemplate.update(namespace+".updateSpace", spaceBean);
+	}
+	public int deleteFacility(int spaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteFacility", spaceNum);
+	}
+	public int deleteSpaceImageBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteSpaceImageBySpaceNum", spaceNum);
+	}
+	public List<String> getSpaceImageFileListBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceImageFileListBySpaceNum", spaceNum);
+	}
+	public String getspaceMainImage(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getspaceMainImage", spaceNum);
+	}
+	public int deleteSpace(int spaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteSpace", spaceNum);
+	}
+	public int requestApproval(int spaceNum) {
+		return sqlSessionTemplate.update(namespace+".requestApproval", spaceNum);
+	}
 	public List<SpaceBean> getPowerSpaceList(Map<String, String> map) {
 		List<SpaceBean> spacePowertLists = new ArrayList<SpaceBean>();
 		spacePowertLists = sqlSessionTemplate.selectList(namespace+".getPowerSpaceList", map);
