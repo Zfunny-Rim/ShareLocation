@@ -234,7 +234,8 @@ element.style {
 																	</tr>
 																	<tr>
 																		<td class="text-bold-500">가격</td>
-																		<td>${detailSpaceBean.price}/${detailSpaceBean.priceunit} </td>
+																		<td>${detailSpaceBean.price}/${detailSpaceBean.priceunit}
+																		</td>
 																	</tr>
 																	<tr>
 																		<td class="text-bold-500">인원</td>
@@ -250,11 +251,41 @@ element.style {
 																	<tr>
 																		<td class="text-bold-500">시간선택</td>
 																		<td>
-																		<select name="checkin">
-																				<c:forEach begin="1" end="${space.operatingendtime-space.operatingtime}" var="i">
-																					<option  value="${space.operatingtime+i-1}">${space.operatingtime+i-1} ~ ${space.operatingtime+i} </option>
-																				</c:forEach>
-																		</select>
+																			<!-- 시간 설정 시작 -->
+
+																			<div class="col-md-8 form-group">
+																				<div class="input-group">
+																					<select class="form-control" name="checkintime">
+																						<c:forEach var="i"
+																							begin="${space.operatingtime }"
+																							end="${space.operatingendtime }">
+																							<fmt:formatNumber var="hourStr" value="${i }"
+																								pattern="00" />
+																							<c:set var="timeStr" value="${hourStr }:00" />
+																							<option value="${i }"
+																								<c:if test="${i eq packagePriceBean.checkintime }">selected</c:if>>${timeStr }</option>
+																						</c:forEach>
+																					</select> <span class="input-group-text"> ~ </span> <select
+																						class="form-control" name="checkouttime">
+																						<c:forEach var="i"
+																							begin="${space.operatingtime}"
+																							end="${space.operatingendtime }">
+																							<fmt:formatNumber var="hourStr" value="${i }"
+																								pattern="00" />
+																							<c:set var="timeStr" value="${hourStr }:00" />
+																							<option value="${i }"
+																								<c:if test="${i eq packagePriceBean.checkouttime }">selected</c:if>>${timeStr }</option>
+																						</c:forEach>
+																					</select>
+																				</div>
+																				<p>
+																					<small class="text-muted"> <form:errors
+																							cssClass="err" path="checkintime" /> <form:errors
+																							cssClass="err" path="checkouttime" />
+																					</small>
+																				</p>
+
+																			</div> <!-- 시간 설정 끝 -->
 																		</td>
 																	</tr>
 

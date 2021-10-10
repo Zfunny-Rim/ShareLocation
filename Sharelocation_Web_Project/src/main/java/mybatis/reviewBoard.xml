@@ -6,7 +6,35 @@
 	<select id="getReview" resultType="MyReview">
 		select * from reviewboard
 		where spacenum = #{num}
+		order by ref desc, restep asc
 	</select>
+
+	<select id="getArticleTotalCount" resultType="int">
+		select count(*)
+		from reviewboard
+	</select>
+	<select id="getArticleOne" resultType="MyReview">
+		select * from reviewboard
+		where num = #{num}
+	</select>
+	<update id="increaseReadcount">
+		update reviewboard set readcount = readcount+1 where
+		num = #{num}
+	</update>
+	<!-- 확인 -->
+	<insert id="insertArticle">
+		insert into
+		reviewboard(num,writer,email,subject,passwd,regdate,readcount,ref,restep,relevel,content)
+		values(board_seq.nextval,#{writer},#{email},#{subject},#{passwd},sysdate,0,board_seq.currval,0,0,#{content})
+	</insert>
+	<!-- 확인 -->
+	<update id="updateRestep">
+		update reviewboard set restep=restep+1 where ref=#{ref} and restep > #{restep}
+	</update>
+		<insert id="insertReplyArticle">
+		insert into reviewboard(num,writer,email,subject,passwd,regdate,readcount,ref,restep,relevel,content,ip)
+		values(board_seq.nextval,#{writer},#{email},#{subject},#{passwd},sysdate,0,#{ref},#{restep}+1,#{relevel}+1,#{content},#{ip})
+	</insert>
 
 </mapper>
 			
