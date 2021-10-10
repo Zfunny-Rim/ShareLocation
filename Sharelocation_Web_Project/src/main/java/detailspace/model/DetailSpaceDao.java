@@ -37,4 +37,6 @@ public class DetailSpaceDao {
 	public List<DetailSpaceBean> getListDetailSpace(int spacenum) {
 		return sqlSessionTemplate.selectList(namespace+".getDetailSpace", spacenum);
 	}
+
+
 }

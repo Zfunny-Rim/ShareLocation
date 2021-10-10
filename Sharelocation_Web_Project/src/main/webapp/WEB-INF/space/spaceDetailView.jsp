@@ -204,10 +204,9 @@ element.style {
 													<form action="detailView.sp">
 														<c:forEach var="spacename" items="${detailspace}">
 
-															<input type="radio" value="${spacename.name}" name="name">${spacename.name}
-															<h4>${spacename.num}</h4>
+															<input type="radio" value="${spacename.name}" name="name"
+																onclick="selectunit(${spacename.spacenum} ,${spacename.num})">${spacename.name}
 														</c:forEach>
-														<input type="hidden" value="${space.num}" name="num">
 														<h4>${space.num}</h4>
 														<br> <input type="submit" value="확인">
 													</form>
@@ -225,6 +224,14 @@ element.style {
 																<tr>
 																	<td class="text-bold-500">장소 선택</td>
 																	<td align="center"></td>
+																</tr>
+																<tr>
+																	<td class="text-bold-500">이름</td>
+																	<td align="center">${detailSpaceBean.name}</td>
+																</tr>
+																<tr>
+																	<td class="text-bold-500">가격</td>
+																	<td align="center"><input name = "price" value="${detailSpaceBean.price}"> ${detailSpaceBean.price}</td>
 																</tr>
 
 																<tr>
@@ -265,6 +272,12 @@ element.style {
 	function detailView(spacenum){
 		alert("세부 사진 보기");
 		window.open("spaceImage.sp?spacenum="+spacenum, "imageView", "width=400, height=300, left=100, top=50")
+	}
+	
+	function selectunit(num, detailspacenum){
+		var detailspacenum = String(detailspacenum);
+		location.href="detailView.sp?num="+num+"&detailspacenum="+detailspacenum;
+		
 	}
 	
 /*  TOSTRING SPECATDETAIL NUM 변경 */

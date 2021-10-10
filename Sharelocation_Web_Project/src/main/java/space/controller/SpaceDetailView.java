@@ -40,13 +40,16 @@ public class SpaceDetailView {
 	@Autowired
 	ReviewBoardDao reviewBoardDao;
 	
+	
+	
 
 	@RequestMapping(value= command)
 	public ModelAndView doAction(@RequestParam(value = "num") int num,
 				@RequestParam(value ="detailspacenum", required = false) String detailspacenum ,
 			   ModelAndView mav) {
 		System.out.println("spaceDetailView");
-
+		System.out.println("넘어왔냐"+detailspacenum);
+ 
 		SpaceBean space = spaceDao.getSpace(num);
 		System.out.println("space"+space);
 		mav.addObject("space",space);
@@ -65,6 +68,17 @@ public class SpaceDetailView {
 		List<ReviewBoardBean> reviewBoard = reviewBoardDao.getReview(num);
 		System.out.println("reviewBoard"+reviewBoard);
 		mav.addObject("reviewBoard",reviewBoard);
+		
+		
+		if(detailspacenum != null)
+		{
+		int num1  =  Integer.parseInt(detailspacenum);  
+		 
+		DetailSpaceBean detailSpaceBean =  detailSpaceDao.getdetailspace(num1);
+		System.out.println("detailSpaceBean"+detailSpaceBean);
+		mav.addObject("detailSpaceBean",detailSpaceBean);	
+		
+		}
 		mav.setViewName(getPage);
 		return mav;
 	}
