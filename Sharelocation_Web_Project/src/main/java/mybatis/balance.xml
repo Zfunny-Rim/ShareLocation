@@ -11,4 +11,13 @@
 		from space
 		where num=#{num})
 	</select>
+	
+	<insert id="insertBalance">
+		insert into balance(num, membernum, company, name, address, email, call, bank, account)
+		values(balance_seq.nextval, #{membernum}, #{company}, #{name}, #{address}, #{email}, #{call}, #{bank}, #{account})
+	</insert>
+	<update id="updateBalance">
+		update balance set company=#{company}, name=#{name}, address=#{address}, email=#{email}, 
+		call=#{call}, bank=#{bank}, account=#{account} where num=#{num}
+	</update>
 </mapper>

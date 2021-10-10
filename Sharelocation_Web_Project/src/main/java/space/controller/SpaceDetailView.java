@@ -74,7 +74,7 @@ public class SpaceDetailView {
 		{
 		int num1  =  Integer.parseInt(detailspacenum);  
 		 
-		DetailSpaceBean detailSpaceBean =  detailSpaceDao.getdetailspace(num1);
+		DetailSpaceBean detailSpaceBean =  detailSpaceDao.getselectdetailspace(num1);
 		System.out.println("detailSpaceBean"+detailSpaceBean);
 		mav.addObject("detailSpaceBean",detailSpaceBean);	
 		
