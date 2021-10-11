@@ -132,14 +132,20 @@
 						<button class="btn btn-outline-success" type="button"
 						 onClick="goList('${spaceNum}', '${pageNumber }', '${whatColumn}', '${keyword }')">목록보기</button>
 						<c:if test="${reservationBean.status eq '예약대기' }">
-							<button class="btn btn-outline-primary" type="button">예약확인</button>
+							<button class="btn btn-outline-primary" type="button"
+								onClick="checkReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								예약확인</button>
 							<button class="btn btn-outline-danger" type="button" 
-							onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">예약취소</button>
+								onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								예약취소</button>
 						</c:if>
 						<c:if test="${reservationBean.status eq '입금대기' }">
-							<button class="btn btn-outline-primary" type="button">예약확정</button>
+							<button class="btn btn-outline-primary" type="button"
+								onClick="confirmReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								예약확정</button>
 							<button class="btn btn-outline-danger" type="button" 
-							onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">예약취소</button>
+								onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								예약취소</button>
 						</c:if>
 					</td>
 				</tr>
@@ -165,6 +171,28 @@
 			}else{
 				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
 				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=예약취소";
+			}
+		}
+	}
+	function checkReservation(spaceNum, pageNum, whatColumn, keyword, num){
+		result = confirm("예약을 확인하시겠습니까? 예약자에게 입금요청을 하게 됩니다.");
+		if(result){
+			if(keyword == ""){
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+"&status=입금대기";
+			}else{
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
+				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=입금대기";
+			}
+		}
+	}
+	function confirmReservation(spaceNum, pageNum, whatColumn, keyword, num){
+		result = confirm("예약을 확정하시겠습니까? 예약자에게 입금을 확인한 이후에 확정하십시오.");
+		if(result){
+			if(keyword == ""){
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+"&status=예약확정";
+			}else{
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
+				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=예약확정";
 			}
 		}
 	}
