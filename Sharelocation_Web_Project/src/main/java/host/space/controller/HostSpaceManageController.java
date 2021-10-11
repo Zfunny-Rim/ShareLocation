@@ -2,6 +2,7 @@ package host.space.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -356,17 +358,27 @@ public class HostSpaceManageController {
 	
 	@RequestMapping(value=balanceCommand)
 	public ModelAndView balanceManage(@RequestParam(value="spaceNum")int spaceNum, 
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView();
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		int memberNum = 0;
 		if(loginInfo == null) {
-			System.out.println("로그인 안되어있음. 임시 번호 사용.");
-			memberNum = 1;
-		}else {
-			memberNum = loginInfo.getNum();
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
 		}
-		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
+		int memberNum = 0;
+		memberNum = loginInfo.getNum();
+		BalanceBean balanceBean = balanceDao.getBalanceByMemberNum(memberNum);
 		if(balanceBean == null) {
 			//정산정보 입력으로 이동
 			mav.setViewName("redirect:/spaceManageBalanceInsert.ho");
@@ -389,19 +401,27 @@ public class HostSpaceManageController {
 	
 	@RequestMapping(value=balanceInsertCommand, method=RequestMethod.POST)
 	public ModelAndView balanceInsertProc(@Valid BalanceBean balanceBean, BindingResult result, 
-			HttpServletRequest request, HttpSession session) {
+			HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		int spaceNum = Integer.parseInt(request.getParameter("spacenum"));
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		int memberNum = 0;
 		if(loginInfo == null) {
-			System.out.println("로그인 안되어있음. 임시 번호 사용.");
-			memberNum = 1;
-		}else {
-			memberNum = loginInfo.getNum();
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
 		}
-		
-		System.out.println(balanceBean);
+		int memberNum = 0;
+		memberNum = loginInfo.getNum();
+		int spaceNum = Integer.parseInt(request.getParameter("spacenum"));
 		if(result.hasErrors()) {
 			getPage = "BalanceInsert";
 			mav.addObject("getPage", getPage);
@@ -409,6 +429,7 @@ public class HostSpaceManageController {
 			return mav;
 		}
 		balanceBean.setMembernum(memberNum);
+		System.out.println(balanceBean);
 		int cnt = balanceDao.insertBalance(balanceBean);
 		mav.setViewName("redirect:/"+balanceViewCommand);
 		mav.addObject("spaceNum", spaceNum);
@@ -417,18 +438,29 @@ public class HostSpaceManageController {
 	
 	@RequestMapping(value=balanceViewCommand, method=RequestMethod.GET)
 	public ModelAndView balanceView(@RequestParam(value="spaceNum")int spaceNum,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		getPage = "BalanceView";
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		int memberNum = 0;
 		if(loginInfo == null) {
-			System.out.println("로그인 안되어있음. 임시 번호 사용.");
-			memberNum = 1;
-		}else {
-			memberNum = loginInfo.getNum();
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
 		}
-		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
+		int memberNum = 0;
+		memberNum = loginInfo.getNum();
+
+		BalanceBean balanceBean = balanceDao.getBalanceByMemberNum(memberNum);
+		getPage = "BalanceView";
 		mav.addObject("balanceBean", balanceBean);
 		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);
@@ -437,18 +469,28 @@ public class HostSpaceManageController {
 
 	@RequestMapping(value=balanceModifyCommand, method=RequestMethod.GET)
 	public ModelAndView balanceModifyForm(@RequestParam(value="spaceNum")int spaceNum,
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		int memberNum = 0;
 		if(loginInfo == null) {
-			System.out.println("로그인 안되어있음. 임시 번호 사용.");
-			memberNum = 1;
-		}else {
-			memberNum = loginInfo.getNum();
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
 		}
+		int memberNum = 0;
+		memberNum = loginInfo.getNum();
 		getPage = "BalanceModify";
-		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
+		BalanceBean balanceBean = balanceDao.getBalanceByMemberNum(memberNum);
 		mav.addObject("balanceBean", balanceBean);
 		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);
@@ -457,17 +499,27 @@ public class HostSpaceManageController {
 	
 	@RequestMapping(value=balanceModifyCommand, method=RequestMethod.POST)
 	public ModelAndView balanceModifyProc(@Valid BalanceBean balanceBean, BindingResult result, 
-			HttpServletRequest request, HttpSession session) {
+			HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		int spaceNum = Integer.parseInt(request.getParameter("spacenum"));
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		int memberNum = 0;
 		if(loginInfo == null) {
-			System.out.println("로그인 안되어있음. 임시 번호 사용.");
-			memberNum = 1;
-		}else {
-			memberNum = loginInfo.getNum();
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
 		}
+		int memberNum = 0;
+		memberNum = loginInfo.getNum();
+		int spaceNum = Integer.parseInt(request.getParameter("spacenum"));
 		System.out.println(balanceBean);
 		if(result.hasErrors()) {
 			getPage = "BalanceModify";
@@ -580,16 +632,51 @@ public class HostSpaceManageController {
 	}
 	
 	@RequestMapping(value=approvalCommand)
-	public ModelAndView approvalSpace(@RequestParam(value="spaceNum")int spaceNum) {
+	public ModelAndView approvalSpace(@RequestParam(value="spaceNum")int spaceNum, HttpServletResponse response,
+			HttpSession session) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
+		
 		int dspCount = detailSpaceDao.getDetailSpaceCountBySpaceNum(spaceNum);
-		BalanceBean balanceBean = balanceDao.getBalance(1);
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}
+		int memberNum = loginInfo.getNum();
+		BalanceBean balanceBean = balanceDao.getBalanceByMemberNum(memberNum);
 		if(dspCount > 0 && balanceBean != null) {
-			spaceDao.requestApproval(spaceNum);
+			int cnt = -1;
+			cnt = spaceDao.requestApproval(spaceNum);
+			if(cnt != -1) {
+				pw.println("<script>");
+				pw.println("alert('검수 신청이 완료되었습니다. 운영진의 검토 후에 공간 운영이 시작됩니다.');");
+				pw.println("location.href='"+homeCommand+"?spaceNum="+spaceNum+"'");
+				pw.println("</script>");
+				return null;
+			}
 		}else if(dspCount <= 0) {
-			System.out.println("등록된 세부공간이 없다.");
+			pw.println("<script>");
+			pw.println("alert('등록된 세부 공간이 없습니다.');");
+			pw.println("location.href='spaceManageDetailSpace.ho?spaceNum="+spaceNum+"'");
+			pw.println("</script>");
+			return null;
 		}else if(balanceBean == null) {
-			System.out.println("등록된 정산 정보가 없다.");
+			pw.println("<script>");
+			pw.println("alert('등록된 정산 정보가 없습니다.');");
+			pw.println("location.href='spaceManageBalanceInsert.ho?spaceNum="+spaceNum+"'");
+			pw.println("</script>");
+			return null;
 		}
 		mav.setViewName("redirect:/"+homeCommand);
 		mav.addObject("spaceNum", spaceNum);
@@ -634,18 +721,27 @@ public class HostSpaceManageController {
 	
 	@RequestMapping(value=reviewReplyCommand, method=RequestMethod.POST)
 	public ModelAndView reviewReply(ReviewBoardBean reviewBoardBean, HttpSession session,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		int spaceNum = reviewBoardBean.getSpacenum();
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		int memberNum;
-		if(loginInfo != null) {
-			memberNum = loginInfo.getNum();
-		}else {
-			System.out.println("로그인 해야함. 임시번호 사용.");
-			memberNum = 1;
-			loginInfo = memberDao.getMemberByNum(memberNum);
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
 		}
+		int spaceNum = reviewBoardBean.getSpacenum();
+		int memberNum;
+		memberNum = loginInfo.getNum();
 		reviewBoardBean.setMembernum(memberNum);
 		reviewBoardBean.setWrite(loginInfo.getNickname());
 		reviewBoardBean.setRef(reviewBoardBean.getNum());

@@ -25,4 +25,8 @@ public class BalanceDao {
 		return sqlSessionTemplate.update(namespace+".updateBalance", balanceBean);
 		
 	}
+
+	public BalanceBean getBalanceByMemberNum(int memberNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getBalanceByMemberNum", memberNum);
+	}
 }

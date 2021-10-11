@@ -173,7 +173,7 @@ function processing(){
 	}
 	var addr_detail = document.getElementById("address_detail").value
 	var addr = addr_search+","+addr_detail;
-	${'input[name="address"]'}.val(addr);
+	$('input[name="address"]').val(addr);
 }
 </script>
 <!-- 우편번호검색 API -->
