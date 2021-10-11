@@ -152,7 +152,7 @@ dl, ol, ul {
 																						<button type="button" class="btn btn-primary ml-1"
 																							data-bs-dismiss="modal" onClick="deleteReserv(${reservation.num})">
 																							<i class="bx bx-check d-block d-sm-none"></i> <span
-																								class="d-none d-sm-block">Accept</span>
+																								class="d-none d-sm-block">Accept</span> <!-- 확인누를시 예약취소됌 -->
 																						</button>
 																					</div>
 																				</div>

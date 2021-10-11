@@ -185,7 +185,6 @@ element.style {
 														</div>
 													</div>
 												</div>
-
 											</c:forEach>
 											<!-- 후기	끝 -->
 										</div>
