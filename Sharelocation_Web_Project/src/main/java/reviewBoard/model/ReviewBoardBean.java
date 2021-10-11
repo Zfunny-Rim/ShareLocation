@@ -3,15 +3,39 @@ package reviewBoard.model;
 public class ReviewBoardBean {
 	private int num;
 	private int spacenum;
+	private int membernum;
 	private String write;
 	private String regdate;
 	private String content;
+	private int ref;
 	private int restep;
 	private int relevel;
 	private int servicerating;
 	private int pricevalueration;
 	private int cleanrating;
 	private int totalrating;
+	
+	private ReviewBoardBean reviewReply;
+	
+	public ReviewBoardBean getReviewReply() {
+		return reviewReply;
+	}
+	public void setReviewReply(ReviewBoardBean reviewReply) {
+		this.reviewReply = reviewReply;
+	}
+	
+	public int getMembernum() {
+		return membernum;
+	}
+	public void setMembernum(int membernum) {
+		this.membernum = membernum;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -96,7 +120,13 @@ public class ReviewBoardBean {
 	public ReviewBoardBean() {
 		super();
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "ReviewBoardBean [num=" + num + ", spacenum=" + spacenum + ", membernum=" + membernum + ", write="
+				+ write + ", regdate=" + regdate + ", content=" + content + ", ref=" + ref + ", restep=" + restep
+				+ ", relevel=" + relevel + ", servicerating=" + servicerating + ", pricevalueration=" + pricevalueration
+				+ ", cleanrating=" + cleanrating + ", totalrating=" + totalrating + ", reviewReply=" + reviewReply
+				+ "]";
+	}
 	
 }

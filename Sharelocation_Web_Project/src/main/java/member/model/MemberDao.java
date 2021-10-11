@@ -46,4 +46,8 @@ public class MemberDao {
 		
 		return cnt;
 	}
+
+	public MemberBean getMemberByNum(int memberNum) {
+		return sqlSessionTemplate.selectOne(namespace+"getMemberByNum", memberNum);
+	}
 }

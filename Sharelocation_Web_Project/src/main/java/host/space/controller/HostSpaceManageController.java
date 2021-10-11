@@ -3,7 +3,9 @@ package host.space.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +27,16 @@ import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import detailspace.model.PackagePriceBean;
 import member.model.MemberBean;
+import member.model.MemberDao;
 import reservation.model.BalanceBean;
 import reservation.model.BalanceDao;
+import reviewBoard.model.ReviewBoardBean;
+import reviewBoard.model.ReviewBoardDao;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
 import space.model.SpaceImageBean;
+import utility.Paging;
 
 @Controller
 public class HostSpaceManageController {
@@ -49,6 +55,8 @@ public class HostSpaceManageController {
 	private final String packageDeleteCommand = "spaceManageDetailPackageDelete.ho";
 	private final String approvalCommand = "spaceManageApproval.ho";
 	private final String reviewCommand = "spacemanageReview.ho";
+	private final String reviewReplyCommand = "spacemanageReviewReply.ho";
+	private final String reviewReplyDeleteCommand = "spaceManagerReviewReplyDelete.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -59,6 +67,10 @@ public class HostSpaceManageController {
 	DetailSpaceDao detailSpaceDao;
 	@Autowired
 	BalanceDao balanceDao;
+	@Autowired
+	ReviewBoardDao reviewBoardDao;
+	@Autowired
+	MemberDao memberDao;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -578,10 +590,69 @@ public class HostSpaceManageController {
 	}
 	
 	@RequestMapping(value=reviewCommand, method=RequestMethod.GET)
-	public ModelAndView reviewList(@RequestParam(value="spaceNum")int spaceNum) {
+	public ModelAndView reviewList(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="whatColumn", required =false) String whatColumn,
+			@RequestParam(value="keyword", required =false) String keyword,
+			@RequestParam(value="pageNumber", required =false) String pageNumber,
+			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(viewPage);
 		getPage = "Review";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("whatColumn", whatColumn);
+		map.put("keyword", keyword);
+		map.put("spaceNum", Integer.toString(spaceNum));
+		int allCount = reviewBoardDao.getOriginReviewAllCountBySpaceNum(spaceNum);
+		int totalCount = reviewBoardDao.getOriginReviewTotalCountBySpaceNum(map);
+		String url = request.getContextPath() + "/" + reviewCommand;
+		
+		Paging pageInfo = new Paging(pageNumber, "2", totalCount, url, whatColumn, keyword, null);
+		List<ReviewBoardBean> reviewList = reviewBoardDao.getOriginReviewListByMap(pageInfo, map);
+//		List<ReviewBoardBean> reviewList = reviewBoardDao.getOriginReviewListBySpaceNum(spaceNum);
+		for(ReviewBoardBean rbBean:reviewList) {
+			ReviewBoardBean replyBean = reviewBoardDao.getReviewReplyByNum(rbBean.getNum());
+			rbBean.setReviewReply(replyBean);
+		}
 		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("reviewList",reviewList);
+		mav.addObject("allCount",allCount);
+		mav.addObject("pageInfo",pageInfo);
+		return mav;
+	}
+	
+	@RequestMapping(value=reviewReplyCommand, method=RequestMethod.POST)
+	public ModelAndView reviewReply(ReviewBoardBean reviewBoardBean, HttpSession session) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		int spaceNum = reviewBoardBean.getSpacenum();
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int memberNum;
+		if(loginInfo != null) {
+			memberNum = loginInfo.getNum();
+		}else {
+			System.out.println("로그인 해야함. 임시번호 사용.");
+			memberNum = 1;
+			loginInfo = memberDao.getMemberByNum(memberNum);
+		}
+		reviewBoardBean.setMembernum(memberNum);
+		reviewBoardBean.setWrite(loginInfo.getNickname());
+		reviewBoardBean.setRef(reviewBoardBean.getNum());
+		reviewBoardBean.setRestep(1);
+		reviewBoardBean.setRelevel(1);
+		System.out.println(reviewBoardBean);
+		int cnt = -1;
+		cnt = reviewBoardDao.insertReply(reviewBoardBean); 
+		mav.addObject("spaceNum", spaceNum);
+		mav.setViewName("redirect:/"+reviewCommand);
+		return mav;
+	}
+	
+	@RequestMapping(value=reviewReplyDeleteCommand)
+	public ModelAndView reviewReplyDelete(@RequestParam(value="spaceNum")int spaceNum,
+		@RequestParam(value="num")int num, HttpSession session) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		int cnt = -1;
+		cnt = reviewBoardDao.deleteReviewByNum(num);
+		mav.setViewName("redirect:/"+reviewCommand);
 		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}

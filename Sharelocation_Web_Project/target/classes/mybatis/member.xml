@@ -56,4 +56,7 @@
 		where id = #{id}
 	</select>
 
+	<select id="getMemberByNum" resultType="MyMember">
+		select * from members where num = #{memberNum}
+	</select>
 </mapper>
