@@ -78,6 +78,7 @@
 										<div class="accordion-body">
 											<input type="hidden" name="num" value="${review.num }"/>
 											<input type="hidden" name="spacenum" value="${spaceNum }"/>
+											<input type="hidden" name="pageNumber" value="${param.pageNumber }"/>
 											<textarea class="form-control" name="content" rows="3" style="resize: none;"></textarea>
 											<div class="d-flex justify-content-end py-3">
 												<button class="btn btn-sm btn-outline-success" type="submit">등록</button>
@@ -128,10 +129,10 @@
 		    	</c:if>
 		    	<c:forEach var="i" begin="${pageInfo.beginPage }" end="${pageInfo.endPage }">
 		    	<c:set var="url" value="${pageInfo.url }?pageNumber=${i }&spaceNum=${spaceNum }"/>
-		    		<c:if test="${i eq param.pageNumber }">
+		    		<c:if test="${i eq pageNumber }">
 			    		<li class="page-item active"><a class="page-link">${i }</a></li>
 		    		</c:if>
-		    		<c:if test="${i ne param.pageNumber }">
+		    		<c:if test="${i ne pageNumber }">
 			    		<li class="page-item"><a class="page-link" href="${url }">${i }</a></li>
 		    		</c:if>
 		    	</c:forEach>

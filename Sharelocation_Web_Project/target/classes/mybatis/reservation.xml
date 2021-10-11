@@ -3,7 +3,7 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="reservation.model.ReservationBean">
-	<select id="getReserv" resultType="MyRerservation">
+	<select id="getReserv" resultType="MyReservation">
 		select * from reservation
 		where spacenum = #{spacenum}
 		order by num
@@ -11,4 +11,24 @@
 	
 	<insert id="reservInsert">
 	</insert>
+	
+	<select id="getReservationTotalCountByMap" resultType="int">
+		select count(*) from reservation where spacenum = #{spaceNum}
+		<if test="whatColumn == 'status'">
+			and status like #{keyword}
+		</if>
+	</select>
+	<select id="getReservationListByMap" resultType="MyReservation">
+		select * from reservation where spacenum = #{spaceNum}
+		<if test="whatColumn == 'status'">
+			and status like #{keyword}
+		</if>
+		order by applicationdate desc
+	</select>
+	<select id="getReservationByNum" resultType="MyReservation">
+		select * from reservation where num=#{num}
+	</select>
+	<update id="updateStatus">
+		update reservation set status=#{status} where num=#{num}
+	</update>
 </mapper>

@@ -30,6 +30,8 @@ import member.model.MemberBean;
 import member.model.MemberDao;
 import reservation.model.BalanceBean;
 import reservation.model.BalanceDao;
+import reservation.model.ReservationBean;
+import reservation.model.ReservationDao;
 import reviewBoard.model.ReviewBoardBean;
 import reviewBoard.model.ReviewBoardDao;
 import space.model.SpaceBean;
@@ -54,9 +56,12 @@ public class HostSpaceManageController {
 	private final String packageInsertCommand = "spaceManageDetailPackageInsert.ho";
 	private final String packageDeleteCommand = "spaceManageDetailPackageDelete.ho";
 	private final String approvalCommand = "spaceManageApproval.ho";
-	private final String reviewCommand = "spacemanageReview.ho";
+	private final String reviewCommand = "spaceManageReview.ho";
 	private final String reviewReplyCommand = "spacemanageReviewReply.ho";
 	private final String reviewReplyDeleteCommand = "spaceManagerReviewReplyDelete.ho";
+	private final String reservationCommand = "spaceManageReservation.ho";
+	private final String reservationViewCommand = "spaceManageReservationView.ho";
+	private final String reservationStatusUpdateCommand = "spaceManageReservationStatusUpdate.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -71,6 +76,9 @@ public class HostSpaceManageController {
 	ReviewBoardDao reviewBoardDao;
 	@Autowired
 	MemberDao memberDao;
+	@Autowired
+	ReservationDao reservationDao;
+	
 	
 	@Autowired
 	ServletContext servletContext;
@@ -570,7 +578,6 @@ public class HostSpaceManageController {
 		mav.addObject("detailSpaceNum", detailSpaceNum);
 		return mav;
 	}
-
 	
 	@RequestMapping(value=approvalCommand)
 	public ModelAndView approvalSpace(@RequestParam(value="spaceNum")int spaceNum) {
@@ -597,6 +604,9 @@ public class HostSpaceManageController {
 			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(viewPage);
 		getPage = "Review";
+		if(pageNumber == null) {
+			pageNumber = "1";
+		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", keyword);
@@ -610,10 +620,12 @@ public class HostSpaceManageController {
 //		List<ReviewBoardBean> reviewList = reviewBoardDao.getOriginReviewListBySpaceNum(spaceNum);
 		for(ReviewBoardBean rbBean:reviewList) {
 			ReviewBoardBean replyBean = reviewBoardDao.getReviewReplyByNum(rbBean.getNum());
+			System.out.println(replyBean);
 			rbBean.setReviewReply(replyBean);
 		}
 		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("reviewList",reviewList);
 		mav.addObject("allCount",allCount);
 		mav.addObject("pageInfo",pageInfo);
@@ -621,7 +633,8 @@ public class HostSpaceManageController {
 	}
 	
 	@RequestMapping(value=reviewReplyCommand, method=RequestMethod.POST)
-	public ModelAndView reviewReply(ReviewBoardBean reviewBoardBean, HttpSession session) {
+	public ModelAndView reviewReply(ReviewBoardBean reviewBoardBean, HttpSession session,
+			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(viewPage);
 		int spaceNum = reviewBoardBean.getSpacenum();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
@@ -642,6 +655,7 @@ public class HostSpaceManageController {
 		int cnt = -1;
 		cnt = reviewBoardDao.insertReply(reviewBoardBean); 
 		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("pageNumber", request.getParameter("pageNumber"));
 		mav.setViewName("redirect:/"+reviewCommand);
 		return mav;
 	}
@@ -656,4 +670,81 @@ public class HostSpaceManageController {
 		mav.addObject("spaceNum", spaceNum);
 		return mav;
 	}
+	
+	@RequestMapping(value=reservationCommand, method=RequestMethod.GET)
+	public ModelAndView reservationList(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="whatColumn", required =false) String whatColumn,
+			@RequestParam(value="keyword", required =false) String keyword,
+			@RequestParam(value="pageNumber", required =false) String pageNumber,
+			HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "Reservation";
+		if(pageNumber == null) {
+			pageNumber = "1";
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("whatColumn", whatColumn);
+		map.put("keyword", keyword);
+		map.put("spaceNum", Integer.toString(spaceNum));
+		String url = request.getContextPath() + "/" + reservationCommand;
+		int totalCount = reservationDao.getReservationTotalCountByMap(map);
+		Paging pageInfo = new Paging(pageNumber, "5", totalCount, url, whatColumn, keyword, null);
+		List<ReservationBean> reservationList = reservationDao.getReservationListByMap(pageInfo, map);
+		for(ReservationBean rBean:reservationList) {
+			rBean.setMemberBean(memberDao.getMemberByNum(rBean.getMembernum()));
+			rBean.setDetailSpaceBean(detailSpaceDao.getDetailSpaceByNum(rBean.getDetailspacenum()));
+		}
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("totalCount", totalCount);
+		mav.addObject("reservationList", reservationList);
+		mav.addObject("pageInfo", pageInfo);
+		return mav;
+	}
+//	
+	@RequestMapping(value=reservationViewCommand, method=RequestMethod.GET)
+	public ModelAndView reservationView(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="num")int num,
+			@RequestParam(value="whatColumn", required =false) String whatColumn,
+			@RequestParam(value="keyword", required =false) String keyword,
+			@RequestParam(value="pageNumber", required =false) String pageNumber,
+			HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "ReservationView";
+		ReservationBean reservationBean = reservationDao.getReservationByNum(num);
+		reservationBean.setMemberBean(memberDao.getMemberByNum(reservationBean.getMembernum()));
+		reservationBean.setDetailSpaceBean(detailSpaceDao.getDetailSpaceByNum(reservationBean.getDetailspacenum()));
+		
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("whatColumn", whatColumn);
+		mav.addObject("keyword", keyword);
+		mav.addObject("reservationBean", reservationBean);
+		return mav;
+	}
+	
+	@RequestMapping(value=reservationStatusUpdateCommand, method=RequestMethod.GET)
+	public ModelAndView reservationStatusUpdate(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="num")int num,
+			@RequestParam(value="status")String status,
+			@RequestParam(value="whatColumn", required =false) String whatColumn,
+			@RequestParam(value="keyword", required =false) String keyword,
+			@RequestParam(value="pageNumber", required =false) String pageNumber,
+			HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		ReservationBean reservationBean = new ReservationBean();
+		reservationBean.setNum(num);
+		reservationBean.setStatus(status);
+		int cnt = reservationDao.updateStatus(reservationBean);
+		mav.setViewName("redirect:/"+reservationViewCommand);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("num", num);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("whatColumn", whatColumn);
+		mav.addObject("keyword", keyword);
+		return mav;
+	}
 }
+

@@ -1,5 +1,8 @@
 package reservation.model;
 
+import detailspace.model.DetailSpaceBean;
+import member.model.MemberBean;
+
 public class ReservationBean {
 	private int num;
 	private int membernum;
@@ -12,6 +15,9 @@ public class ReservationBean {
 	private String cusrequest;
 	private String applicationdate;
 	private String status;
+	//
+	MemberBean memberBean;
+	DetailSpaceBean detailSpaceBean;
 	
 	public ReservationBean() {
 		super();
@@ -119,6 +125,22 @@ public class ReservationBean {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
+
+	public DetailSpaceBean getDetailSpaceBean() {
+		return detailSpaceBean;
+	}
+
+	public void setDetailSpaceBean(DetailSpaceBean detailSpaceBean) {
+		this.detailSpaceBean = detailSpaceBean;
 	}
 
 	@Override
