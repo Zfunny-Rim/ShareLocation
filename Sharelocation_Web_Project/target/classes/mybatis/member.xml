@@ -28,6 +28,16 @@
 		select * from members 
 		where id = #{id}
 	</select>
+	
+	<select id="getLoginData" resultType="MyMember">
+		select * from members 
+		where id = #{id} and password = #{password}
+	</select>
+	
+	<select id="getNickname" resultType="MyMember">
+		select * from members 
+		where nickname = #{nickname}
+	</select>
 
 	
 	<select id="getIdPw" resultType="MyMember">
@@ -35,18 +45,22 @@
 		where email=#{email} and hp=#{hp}
 	</select>
 	
-
 	<insert id="insertMember">
 		insert into members values
-		(members_seq.nextval,#{id},#{password},#{nickname},#{email},#{address},#{hp},#{birth},#{gender},#{type},0,sysdate)
+		(members_seq.nextval,#{id},#{password},#{nickname},#{name},#{email},#{address},#{hp},#{birth},#{gender},#{type},0,sysdate)
 	</insert>
 	<update id="updateMember">
 		update members set  
-		nickname=#{nickname}, email=#{email}, address=#{address}, hp=#{hp}, birth=#{birth}, gender=#{gender}, type=#{type} where id=#{id}
+		nickname=#{nickname},name=#{name}, email=#{email}, address=#{address}, hp=#{hp}, birth=#{birth}, gender=#{gender}, type=#{type} where id=#{id}
 	</update>
 	
-	<select id="getId" resultType="MyMember">
-		select id from members
+	<!-- 필요한건가? -->
+	<select id="getId" resultType="Integer">
+		select count(*) from members where id=#{id}
 	</select>
+	
+	<delete id="deleteMember">
+		delete from members where id=#{id} and password=#{password}
+	</delete>
 	
 </mapper>
