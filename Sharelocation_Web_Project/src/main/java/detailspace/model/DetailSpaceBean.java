@@ -11,20 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 public class DetailSpaceBean {
 	private int num;
 	private int spacenum;
-	@Length(min=2, max=10, message="ÀÌ¸§Àº 2~10ÀÚ·Î ÀÔ·ÂÇÏ¼¼¿ä")
+	@Length(min=2, max=10, message="ì´ë¦„ì€ 2ìì—ì„œ 10ì ì‚¬ì´ë¡œ ì…ë ¥í•˜ì„¸ìš”.")
 	private String name;
 	private String contents;
 	private String type;
-	@NotBlank(message="ÀÌ¹ÌÁö¸¦ µî·ÏÇØÁÖ¼¼¿ä")
+	@NotBlank(message="ì´ë¯¸ì§€ë¥¼ ë“±ë¡í•´ì£¼ì„¸ìš”.")
 	private String mainimage;
-	@Min(value=1, message="ÃÖ¼Ò ¿¹¾à½Ã°£Àº 1½Ã°£ ÀÌ»óÀ¸·Î ¼³Á¤ÇØÁÖ¼¼¿ä.")
+	@Min(value=1, message="ìµœì†Œ ì˜ˆì•½ì‹œê°„ì€ 1ì‹œê°„ ì´ìƒìœ¼ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.")
 	private Integer mintime;
-	@Min(value=1, message="ÃÖ¼Ò ÀÎ¿øÀº 1¸í ÀÌ»óÀ¸·Î ¼³Á¤ÇØÁÖ¼¼¿ä.")
+	@Min(value=1, message="ìµœì†Œ ì¸ì›ì€ 1ëª… ì´ìƒìœ¼ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.")
 	private Integer minperson;
-	@Min(value=1, message="ÃÖ´ë ÀÎ¿øÀº 1¸í ÀÌ»óÀ¸·Î ¼³Á¤ÇØÁÖ¼¼¿ä.")
+	@Min(value=1, message="ìµœëŒ€ ì¸ì›ì€ 1ëª… ì´ìƒìœ¼ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.")
 	private Integer maxperson;
 	private String priceunit;
-	@NotNull(message="°¡°İÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotNull(message="ê°€ê²©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 	private Integer price;
 	//
 	private MultipartFile mainimagefile;
