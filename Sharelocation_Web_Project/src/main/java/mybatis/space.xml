@@ -29,14 +29,12 @@
 	</select>
 
 	<select id="getPowerSpaceList" resultType="MySpace">
-		<if test="gard==null">
 		select * from space
-		where name like upper(#{keyword}) or tag like upper(#{keyword})
+		where grade = '광고' 
+		<if test="grade!=null">
+		or name like upper(#{keyword}) or tag like upper(#{keyword})
 		</if>
 		
-		<if test="grade!=null">
-			and grade like #{grade}
-		</if>
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
@@ -50,7 +48,7 @@
 
 	<delete id="delFavorite">
 		delete from favorite
-		where spaceNum = #{spaceNum} and
+		where spacenum = #{spacenum} and
 		membernum = #{membernum}
 	</delete>
 

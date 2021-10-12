@@ -22,10 +22,10 @@ public class spaceListCmd {
 
 	private final String command = "/list.sp";	
 	private final String getPage = "spaceList";	
-		
+
 	@Autowired
 	SpaceDao spaceDao;
-	
+
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public ModelAndView doAction(ModelAndView mav,
 			@RequestParam(value ="whatColumn",required = false) String whatColumn,
@@ -33,8 +33,9 @@ public class spaceListCmd {
 			@RequestParam(value ="area",required = false) String area,
 			@RequestParam(value ="pageNumber",required = false) String pageNumber,
 			@RequestParam(value ="tag",required = false) String tag,
+			@RequestParam(value ="grade",required = false) String grade,
 			HttpServletRequest request
-						) {
+			) {
 		if(keyword==null) {
 			keyword = "";
 		}
@@ -44,39 +45,40 @@ public class spaceListCmd {
 		if(tag==null) {
 			tag = "";
 		}
-		
+	
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
 		map.put("area", area+"%");
 		map.put("keyword",("%"+keyword+"%") );
-		map.put("grade", "광고");
+		map.put("grade", grade );
 		map.put("tag", "%"+tag+"%");
+
 		
-		
-		
+
 		int totalCount = spaceDao.getTotalCount(map);
 		String url = request.getContextPath() + command;
 		System.out.println("url 확인해보자"+url);
-		
+
 		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, null);
-	
+
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,map);
+		
 		System.out.println("spaceLists"+spaceLists.size());
-		
+
 		List<SpaceBean> powerLink = spaceDao.getPowerSpaceList(map);
-		
-		if(powerLink.size() != 0) {
-			
-			System.out.println("powerLink"+powerLink.size());
-			mav.addObject("powerLink",powerLink);
-		}
-		
+
+
+
+		System.out.println("powerLink"+powerLink.size());
+		mav.addObject("powerLink",powerLink);
+
+
 		mav.addObject("spaceLists",spaceLists);
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
 		return mav;
 	}
-	
-	
+
+
 }
