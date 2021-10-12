@@ -1,70 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-			
+
 <mapper namespace="space.model.SpaceBean">
-	
+
 	<select id="getSpace" resultType="MySpace">
-	select * from space
-	where num = #{num}
+		select * from space
+		where num =
+		#{num}
 	</select>
-	
+
 	<insert id="addFavorite">
-	insert into favorite
-	values(favorite_seq.nextval, #{spacenum},#{membernum})
+		insert into favorite
+		values(favorite_seq.nextval,
+		#{spacenum},#{membernum})
 	</insert>
 
 	<select id="getSpaceList" resultType="MySpace">
-	select * from space
-	where name like #{keyword}
-	order by num desc
+		select * from space
+		where status = '운영중'
+		<if test="status!=null">
+		or name like upper(#{keyword}) or tag like upper(#{keyword})
+		</if>
+		<if test="whatColumn!=null">
+			and type like #{whatColumn}
+		</if>
+		<if test="area!=null">
+			and address like #{area}
+		</if>
+		order by num desc
 	</select>
-	
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from space
+			where status = '운영중'
+		<if test="status!=null">
+		or name like upper(#{keyword}) or tag like upper(#{keyword})
+		</if>
+		<if test="whatColumn!=null">
+			and type like #{whatColumn}
+		</if>
+		<if test="area!=null">
+			and address like #{area}
+		</if>
+		order by num desc
+	</select>
+
+	<select id="getPowerSpaceList" resultType="MySpace">
+		select * from space
+		where grade = '광고'
+		<if test="grade!=null">
+			or name like upper(#{keyword}) or tag like upper(#{keyword})
+		</if>
+
+		<if test="whatColumn!=null">
+			and type like #{whatColumn}
+		</if>
+		<if test="area!=null">
+			and address like #{area}
+		</if>
+
+
+	</select>
+
 
 	<delete id="delFavorite">
-	delete from favorite
-	where spaceNum = #{spaceNum} and membernum = #{membernum}
+		delete from favorite
+		where spacenum = #{spacenum} and
+		membernum = #{membernum}
 	</delete>
-	
+
+
+
 	<insert id="insertSpace">
-		insert into space(num, membernum, name, type, contentssim, contentscom, warning, mainimage,
-		site, address, email, hp, operatingtime, operatingendtime, holiday, grade, status, regdate) values 
-		(space_seq.nextval, #{membernum}, #{name}, #{type}, #{contentssim}, #{contentscom}, #{warning}, #{mainimage},
-		#{site}, #{address}, #{email}, #{hp}, #{operatingtime}, #{operatingendtime}, #{holiday,jdbcType=VARCHAR}, #{grade}, #{status}, sysdate)
+		insert into space(num, membernum, name, type,
+		contentssim, contentscom, warning, mainimage, tag,
+		site, address,
+		email, hp, operatingtime, operatingendtime, holiday, grade, status,
+		regdate) values
+		(space_seq.nextval, #{membernum}, #{name}, #{type},
+		#{contentssim}, #{contentscom},
+		#{warning}, #{mainimage}, #{tag},
+		#{site}, #{address}, #{email}, #{hp},
+		#{operatingtime},
+		#{operatingendtime}, #{holiday,jdbcType=VARCHAR},
+		#{grade}, #{status},
+		sysdate)
 	</insert>
-	
+
 	<select id="getRecentSpaceNum" resultType="int">
-		select num from (select * from space order by rownum desc) where rownum = 1
+		select num from
+		(select * from space order by rownum desc) where rownum = 1
 	</select>
-	
+
 	<insert id="insertSpaceImage">
-		insert into spaceimage values(spaceimage_seq.nextval, #{spacenum}, #{image})
+		insert into spaceimage values(spaceimage_seq.nextval,
+		#{spacenum}, #{image})
 	</insert>
-	
+
 	<insert id="insertSpaceFacility">
-		insert into spacefacility values(spacefacility_seq.nextval, #{spacenum}, #{facility})
+		insert into spacefacility
+		values(spacefacility_seq.nextval, #{spacenum}, #{facility})
 	</insert>
-	
+
 	<select id="getSpaceListByMemberNum" resultType="MySpace">
-		select * from space where membernum = #{memberNum} order by rownum
+		select * from
+		space where membernum = #{memberNum} order by rownum
 	</select>
-	
-	<select id="getSpaceImageListBySpaceNum" resultType="MySpaceImage">
-		select * from spaceimage where spacenum = #{spaceNum} order by rownum
-		
+
+	<select id="getSpaceImageListBySpaceNum"
+		resultType="MySpaceImage">
+		select * from spaceimage where spacenum = #{spaceNum} order
+		by rownum
+
 	</select>
-		<select id="getTotalCount" resultType="int">
-		select count(*) from space
-		where name like #{keyword}
-	</select>
+
 	<select id="getImage" resultType="MySpaceImage">
 		select * from spaceimage
 		where
 		spacenum = #{num}
 	</select>
 	<select id="getFacility" resultType="MySpaceFacility">
-		select * from spacefacility where spacenum=#{num}
+		select * from spacefacility
+		where spacenum=#{num}
 	</select>
-	
 
+
+
+	<update id="updateSpace">
+		update space set name=#{name}, type=#{type},
+		contentssim=#{contentssim}, contentscom=#{contentscom}, tag=#{tag},
+		warning=#{warning}, site=#{site},
+		mainimage=#{mainimage},
+		address=#{address}, email=#{email}, hp=#{hp},
+		operatingtime=#{operatingtime}, operatingendtime=#{operatingendtime},
+		holiday=#{holiday}
+		where num=#{num}
+	</update>
+	<delete id="deleteFacility">
+		delete spacefacility where spacenum=#{spaceNum}
+	</delete>
+	<delete id="deleteSpaceImageBySpaceNum">
+		delete spaceimage where spacenum=#{spaceNum}
+	</delete>
+	<select id="getSpaceImageFileListBySpaceNum" resultType="String">
+		select
+		image from spaceimage where spacenum=#{spaceNum}
+	</select>
+	<select id="getspaceMainImage" resultType="String">
+		select mainimage from
+		space where num=#{spaceNum}
+	</select>
+	<delete id="deleteSpace">
+		delete space where num=#{spaceNum}
+	</delete>
+	<update id="requestApproval">
+		update space set status='검수대기' where num=#{spaceNum}
+	</update>
 </mapper>

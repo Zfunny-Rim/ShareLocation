@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import member.model.MemberBean;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
@@ -39,8 +40,24 @@ public class HostSpaceInsertController {
 	SpaceDao spaceDao;
 	
 	@RequestMapping(value=command, method = RequestMethod.GET)
-	public ModelAndView doAction() {
+	public ModelAndView doAction(HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}else if(!loginInfo.getType().equals("host")) {
+			pw.println("<script>");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}
 		return mav;
 	}
 	
@@ -52,25 +69,25 @@ public class HostSpaceInsertController {
 		PrintWriter pw = response.getWriter();
 		ModelAndView mav = new ModelAndView(viewPage);
 		
-		System.out.println("TAG : " + spaceBean.getTag());
-		
 		if(result.hasErrors()) {
 			System.out.println("has Error");
 			return mav;
 		}
 		mav.setViewName(gotoPage);
 		//set memberNum (session 에서 가져와야함)
-		spaceBean.setMembernum(1); //임시
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인 세션이 만료되었습니다.');");
+			pw.println("location.href='main.ho'");
+			pw.println("</script>");
+			return null;
+		}
+		spaceBean.setMembernum(loginInfo.getNum()); //임시
 		//set Status (등록대기 - 검수대기/검수완료/운영중/비공개) 
 		spaceBean.setStatus("등록대기");
 		//set grade (기본 - 기본/사이트추천)
 		spaceBean.setGrade("기본");
-		
-		//operatingtime 처리
-		String operatingtime = request.getParameter("starttime");
-		String operatingendtime = request.getParameter("endtime");
-		spaceBean.setOperatingtime(operatingtime);
-		spaceBean.setOperatingendtime(operatingendtime);
 		
 		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
@@ -81,8 +98,6 @@ public class HostSpaceInsertController {
 		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		spaceBean.setMainimage(safeFileName); 
-		
-	  
 		
 		System.out.println("test1");
 		System.out.println(spaceBean);

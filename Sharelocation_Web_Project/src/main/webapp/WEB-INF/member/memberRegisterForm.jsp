@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/include/tagLib.jsp"%>
 <!DOCTYPE html>
@@ -20,7 +20,6 @@
 
 <body>
 	<div id="app">
-		<<<<<<< HEAD
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<div id="main" style="padding-top: 0px;">

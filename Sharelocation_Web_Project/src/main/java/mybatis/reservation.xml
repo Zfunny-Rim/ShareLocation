@@ -3,12 +3,46 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="reservation.model.ReservationBean">
-	<select id="getReserv" resultType="MyRerservation">
+	<select id="getReserv" resultType="MyReservation">
 		select * from reservation
 		where spacenum = #{spacenum}
 		order by num
 	</select>
 	
 	<insert id="reservInsert">
+		insert into reservation
+		(num,membernum,spacenum,detailspacenum,checkin,checkout,person,
+		amounts,cusrequest,paymenttype,applicationdate,status)values
+		(reservation_seq.nextval,#{membernum},#{spacenum},#{detailspacenum},#{checkin},#{checkout},#{person},
+		#{amounts},#{cusrequest},#{paymenttype},#{applicationdate},#{status})
 	</insert>
+	
+	<select id="getReservationTotalCountByMap" resultType="int">
+		select count(*) from reservation where spacenum = #{spaceNum}
+		<if test="whatColumn == 'status'">
+			and status like #{keyword}
+		</if>
+	</select>
+	<select id="getReservationListByMap" resultType="MyReservation">
+		select * from reservation where spacenum = #{spaceNum}
+		<if test="whatColumn == 'status'">
+			and status like #{keyword}
+		</if>
+		order by applicationdate desc
+	</select>
+	<select id="getReservationByNum" resultType="MyReservation">
+		select * from reservation where num=#{num}
+	</select>
+	<update id="updateStatus">
+		update reservation set status=#{status} where num=#{num}
+	</update>
+	<select id="getReservList" resultType="MyReservation">
+		select * from reservation
+		where membernum = #{membernum}
+	</select>
+	
+	<delete id="deleteReserv">
+		delete from reservation
+		where num=#{num}
+	</delete>
 </mapper>

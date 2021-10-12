@@ -2,6 +2,7 @@ package space.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,8 +16,6 @@ import utility.Paging;
 public class SpaceDao {
 
 	private String namespace = "space.model.SpaceBean";
-	private String namespace2 = "detailspace.model.DetailSpaceBean";
-	private String namespace1 = "reviewBoard.model.ReviewBoardBean";
 
 
 	
@@ -62,15 +61,15 @@ public class SpaceDao {
 		int cnt = sqlSessionTemplate.insert(namespace+".addFavorite",bean);
 		return cnt;
 	}
-	public int getTotalCount(String keyword) {
-		int cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCount",keyword);
+	public int getTotalCount(Map<String, String> map) {
+		int cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCount",map);
 		return cnt;
 	}
-	public List<SpaceBean> getSpaceList(Paging pageInfo, String keyword) {
+	public List<SpaceBean> getSpaceList(Paging pageInfo, Map<String, String> map) {
 
 		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
-		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", keyword,rowBounds);
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", map,rowBounds);
 
 		return spaceLists;
 	}
@@ -83,15 +82,36 @@ public class SpaceDao {
 		return spaceFacility;
 	}
 
-	public List<ReviewBoardBean> getReview(int num) {
 
-		List<ReviewBoardBean> reviewBoard =	sqlSessionTemplate.selectList(namespace1+".getReview", num);
-
-		return reviewBoard; 
-		
-	}
 	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
+	}
+	public int updateSpace(SpaceBean spaceBean) {
+		return sqlSessionTemplate.update(namespace+".updateSpace", spaceBean);
+	}
+	public int deleteFacility(int spaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteFacility", spaceNum);
+	}
+	public int deleteSpaceImageBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteSpaceImageBySpaceNum", spaceNum);
+	}
+	public List<String> getSpaceImageFileListBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceImageFileListBySpaceNum", spaceNum);
+	}
+	public String getspaceMainImage(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getspaceMainImage", spaceNum);
+	}
+	public int deleteSpace(int spaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteSpace", spaceNum);
+	}
+	public int requestApproval(int spaceNum) {
+		return sqlSessionTemplate.update(namespace+".requestApproval", spaceNum);
+	}
+	public List<SpaceBean> getPowerSpaceList(Map<String, String> map) {
+		List<SpaceBean> spacePowertLists = new ArrayList<SpaceBean>();
+		spacePowertLists = sqlSessionTemplate.selectList(namespace+".getPowerSpaceList", map);
+		return spacePowertLists;
+		
 	}
 }
 
