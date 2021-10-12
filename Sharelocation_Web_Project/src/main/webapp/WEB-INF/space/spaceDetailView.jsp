@@ -178,7 +178,7 @@ element.style {
 														<div class="col-12">
 															<div class="card">
 																<div class="card-header" style="font:">
-																	<h1 class="card-title" style="float: left;">${review.write}</h1>
+																	<h1 class="card-title" style="float: left;">${review.writer}</h1>
 																	<!-- 별점 별 그림 시작-->
 																	<div id="step" class="star-rating"
 																		style="width: 160px; height: 30px; background-size: 30px;"
@@ -197,6 +197,7 @@ element.style {
 														</div>
 
 													</c:forEach>
+												
 													<!-- 후기	끝 -->
 												</div>
 												<!-- 설명 끝1 -->
@@ -211,7 +212,8 @@ element.style {
 													<h4 class="card-title">
 														<c:forEach var="spacename" items="${detailspace}">
 															<input type="radio" value="${spacename.name}" name="name"
-																onclick="selectunit(${spacename.spacenum} ,${spacename.num})">${spacename.name}
+																onclick="selectunit(${spacename.spacenum} ,${spacename.num})"<%-- <c:if test="${eq spacename.num}">selected</c:if> --%>
+																>${spacename.name}
 														</c:forEach>
 													</h4>
 
@@ -234,7 +236,9 @@ element.style {
 																	</tr>
 																	<tr>
 																		<td class="text-bold-500">가격</td>
-																		<td>${detailSpaceBean.price}/${detailSpaceBean.priceunit}
+
+																		<td>&#8361;<fmt:formatNumber
+																				value="${detailSpaceBean.price}" pattern="#,###" />원/${detailSpaceBean.priceunit}
 																		</td>
 																	</tr>
 																	<tr>
@@ -256,8 +260,7 @@ element.style {
 																			<div class="col-md-8 form-group">
 																				<div class="input-group">
 																					<select class="form-control" name="checkintime">
-																						<c:forEach var="i"
-																							begin="${space.operatingtime }"
+																						<c:forEach var="i" begin="${space.operatingtime }"
 																							end="${space.operatingendtime }">
 																							<fmt:formatNumber var="hourStr" value="${i }"
 																								pattern="00" />
@@ -267,8 +270,7 @@ element.style {
 																						</c:forEach>
 																					</select> <span class="input-group-text"> ~ </span> <select
 																						class="form-control" name="checkouttime">
-																						<c:forEach var="i"
-																							begin="${space.operatingtime}"
+																						<c:forEach var="i" begin="${space.operatingtime}"
 																							end="${space.operatingendtime }">
 																							<fmt:formatNumber var="hourStr" value="${i }"
 																								pattern="00" />

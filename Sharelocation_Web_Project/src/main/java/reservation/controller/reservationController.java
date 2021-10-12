@@ -65,7 +65,7 @@ public class reservationController {
 			
 			SpaceBean spacebean = spaceDao.getSpace(reservationbean.getSpacenum());
 			
-			DetailSpaceBean detailSpacebean = detailSpaceDao.getdetailspace(reservationbean.getDetailspacenum());
+			DetailSpaceBean detailSpacebean = detailSpaceDao.getselectdetailspace(reservationbean.getDetailspacenum());
 			
 			mav.addObject("spacebean",spacebean);
 			mav.addObject("detailSpacebean",detailSpacebean);

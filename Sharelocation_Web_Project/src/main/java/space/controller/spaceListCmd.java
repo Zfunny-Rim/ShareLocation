@@ -32,6 +32,7 @@ public class spaceListCmd {
 			@RequestParam(value ="keyword",required = false) String keyword,
 			@RequestParam(value ="area",required = false) String area,
 			@RequestParam(value ="pageNumber",required = false) String pageNumber,
+			@RequestParam(value ="tag",required = false) String tag,
 			HttpServletRequest request
 						) {
 		if(keyword==null) {
@@ -42,9 +43,10 @@ public class spaceListCmd {
 		}		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
-		map.put("area", "%"+area+"%");
+		map.put("area", area+"%");
 		map.put("keyword", "%"+keyword+"%");
 		map.put("status", "%운영중%");
+		map.put("tag", "%"+tag+"%");
 		
 		int totalCount = spaceDao.getTotalCount(map);
 		String url = request.getContextPath() + command;

@@ -4,7 +4,8 @@ public class ReviewBoardBean {
 	private int num;
 	private int spacenum;
 	private int membernum;
-	private String write;
+	private int membernum;
+	private String writer;
 	private String regdate;
 	private String content;
 	private int ref;
@@ -48,11 +49,17 @@ public class ReviewBoardBean {
 	public void setSpacenum(int spacenum) {
 		this.spacenum = spacenum;
 	}
-	public String getWrite() {
-		return write;
+	public int getMembernum() {
+		return membernum;
 	}
-	public void setWrite(String write) {
-		this.write = write;
+	public void setMembernum(int membernum) {
+		this.membernum = membernum;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getRegdate() {
 		return regdate;
@@ -65,6 +72,12 @@ public class ReviewBoardBean {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
 	}
 	public int getRestep() {
 		return restep;
@@ -100,16 +113,18 @@ public class ReviewBoardBean {
 		return totalrating;
 	}
 	public void setTotalrating(int totalrating) {
-		this.totalrating = servicerating+pricevalueration+cleanrating;
+		this.totalrating = totalrating;
 	}
-	public ReviewBoardBean(int num, int spacenum, String write, String regdate, String content, int restep, int relevel,
-			int servicerating, int pricevalueration, int cleanrating, int totalrating) {
+	public ReviewBoardBean(int num, int spacenum, int membernum, String writer, String regdate, String content, int ref,
+			int restep, int relevel, int servicerating, int pricevalueration, int cleanrating, int totalrating) {
 		super();
 		this.num = num;
 		this.spacenum = spacenum;
-		this.write = write;
+		this.membernum = membernum;
+		this.writer = writer;
 		this.regdate = regdate;
 		this.content = content;
+		this.ref = ref;
 		this.restep = restep;
 		this.relevel = relevel;
 		this.servicerating = servicerating;
@@ -119,6 +134,7 @@ public class ReviewBoardBean {
 	}
 	public ReviewBoardBean() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
