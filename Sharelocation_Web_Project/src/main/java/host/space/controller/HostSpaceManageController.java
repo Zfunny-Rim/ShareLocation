@@ -259,7 +259,7 @@ public class HostSpaceManageController {
 		ModelAndView mav = new ModelAndView(viewPage);
 		getPage = "DetailModify";
 		
-		DetailSpaceBean detailSpaceBean = detailSpaceDao.getdetailspace(detailSpaceNum);
+		DetailSpaceBean detailSpaceBean = detailSpaceDao.getselectdetailspace(detailSpaceNum);
 		
 		mav.addObject("getPage", getPage);
 		mav.addObject("spaceNum", spaceNum);

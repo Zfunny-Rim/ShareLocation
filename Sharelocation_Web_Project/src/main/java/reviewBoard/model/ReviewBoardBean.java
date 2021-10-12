@@ -4,7 +4,7 @@ public class ReviewBoardBean {
 	private int num;
 	private int spacenum;
 	private int membernum;
-	private String write;
+	private String writer;
 	private String regdate;
 	private String content;
 	private int ref;
@@ -32,11 +32,11 @@ public class ReviewBoardBean {
 	public void setMembernum(int membernum) {
 		this.membernum = membernum;
 	}
-	public String getWrite() {
-		return write;
+	public String getWriter() {
+		return writer;
 	}
-	public void setWrite(String write) {
-		this.write = write;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getRegdate() {
 		return regdate;
@@ -92,13 +92,13 @@ public class ReviewBoardBean {
 	public void setTotalrating(int totalrating) {
 		this.totalrating = totalrating;
 	}
-	public ReviewBoardBean(int num, int spacenum, int membernum, String write, String regdate, String content, int ref,
+	public ReviewBoardBean(int num, int spacenum, int membernum, String writer, String regdate, String content, int ref,
 			int restep, int relevel, int servicerating, int pricevalueration, int cleanrating, int totalrating) {
 		super();
 		this.num = num;
 		this.spacenum = spacenum;
 		this.membernum = membernum;
-		this.write = write;
+		this.writer = writer;
 		this.regdate = regdate;
 		this.content = content;
 		this.ref = ref;

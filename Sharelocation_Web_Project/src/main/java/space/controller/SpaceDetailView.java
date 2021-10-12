@@ -46,6 +46,7 @@ public class SpaceDetailView {
 	@RequestMapping(value= command)
 	public ModelAndView doAction(@RequestParam(value = "num") int num,
 				@RequestParam(value ="detailspacenum", required = false) String detailspacenum ,
+				ReviewBoardBean boardBean,
 			   ModelAndView mav) {
 		System.out.println("spaceDetailView");
 		System.out.println("넘어왔냐"+detailspacenum);
@@ -79,7 +80,8 @@ public class SpaceDetailView {
 		mav.addObject("detailSpaceBean",detailSpaceBean);	
 		
 		}
-		mav.setViewName(getPage);
+				
+		mav.setViewName(getPage);	
 		return mav;
 	}
 

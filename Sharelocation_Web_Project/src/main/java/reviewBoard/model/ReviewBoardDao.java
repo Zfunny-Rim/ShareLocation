@@ -19,7 +19,6 @@ private String namespace = "reviewBoard.model.ReviewBoardBean";
 	public List<ReviewBoardBean> getReview(int num) {
 		return sqlSessionTemplate.selectList(namespace+".getReview", num);
 	}
-	
-	
+
 	
 }
