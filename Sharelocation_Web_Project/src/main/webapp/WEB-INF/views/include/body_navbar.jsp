@@ -4,7 +4,7 @@
 <header class='mb-3'>
 	<nav class="navbar navbar-expand navbar-light bg-light" id="navbar">
 		<div class="logo-image" style="width: 200px; margin-right: 50px;">
-			<a href="index.jsp"><img
+			<a href="start_page.jsp"><img
 				src="./resources/assets/images/logo/ips_logo.png" alt="Logo"
 				width="100%"></a>
 		</div>

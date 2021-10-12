@@ -1,6 +1,9 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,8 +19,8 @@ import member.model.MemberDao;
 
 @Controller
 public class MemberLoginCmd {
-	private final String command = "/login.member";
-	private final String hostPage = "redirect:/list.ho";
+	private final String command = "login.member";
+	private final String hostPage = "redirect:/main.ho";
 	private final String guestPage = "redirect:/list.sp";
 	private final String adminPage = "redirect:/list.admin";
 	private final String getPage = "loginForm";
@@ -31,18 +34,23 @@ public class MemberLoginCmd {
 			  HttpServletResponse response,
 			  HttpSession session
 			  ) throws IOException {
-		 MemberBean dbMember = mdao.getData(member.getId());
+		 
+		 Map<String, String> map = new HashMap<String, String>();
+		 map.put("id", member.getId());
+		 map.put("password", member.getPassword());
+		 MemberBean dbMember = mdao.getLoginData(map);
+		 System.out.println(dbMember);
 		 session.setAttribute("loginInfo", dbMember);
-		 //response.setContentType("text/html;charset=UTF-8");
-		 //PrintWriter pw = response.getWriter();
 		 
 		 ModelAndView mav = new ModelAndView();
+		 PrintWriter pw = response.getWriter();
+	     response.setContentType("text/html;charset=UTF-8");
 		 mav.addObject("loginInfo",dbMember);
 		 
 		 if(dbMember == null) {
-			// pw.println("<script>alert('æ∆¿Ãµ|∫Òπ–π¯»£∏¶ »Æ¿Œ«ÿ ¡÷ººø‰');</script>");
-			// pw.flush();
 			 mav.setViewName(getPage);
+			 pw.println("<script>alert('ÏïÑÏù¥Îîî ÎπÑÎ∞ÄÎ≤àÌò∏Î•º ÌôïÏù∏ÌïòÏÑ∏Ïöî.');</script>");
+	         pw.flush();
 			 return mav;
 		 }
 		 else {
@@ -60,4 +68,35 @@ public class MemberLoginCmd {
 			 }
 		 }
 	 }
+	 
+	 @RequestMapping(value = command,method = RequestMethod.GET)
+	 public ModelAndView doAction(
+			 MemberBean member,
+			 HttpSession session,
+			 ModelAndView mav
+			 ) {
+		 Map<String, String> map = new HashMap<String, String>();
+		 map.put("id", member.getId());
+		 map.put("password", member.getPassword());
+		 
+		 MemberBean dbMember = mdao.getLoginData(map);
+		 session.setAttribute("loginInfo", dbMember);
+		 
+		 mav = new ModelAndView();
+		 mav.addObject("loginInfo",dbMember);
+		 
+		 if(dbMember.getType().equals("admin")) {//adminLogin
+			 mav.setViewName(adminPage);
+			 return mav;
+		 }
+		 else if(dbMember.getType().equals("host")) {//hostLogin
+			 mav.setViewName(hostPage);
+			 return mav;
+		 }
+		 else {//guestLogin
+			 mav.setViewName(guestPage);
+			 return mav;
+		 }
+	 }
+	 
 }

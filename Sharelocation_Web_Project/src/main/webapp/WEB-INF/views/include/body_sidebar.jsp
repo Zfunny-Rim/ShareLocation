@@ -17,7 +17,7 @@
 		</div>
 		<div class="sidebar-menu">
 			<!-- ***** Login Card Start ***** -->
-	<%@include file="./../../common/common.jsp"%>
+	<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
 	<c:if test="${empty loginInfo }">
 			<div class="card bg-light">
 				<div class="card-header">
@@ -29,20 +29,18 @@
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" id="id">아이디</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" placeholder="ID" name="id">
-									<input type="hidden" id="id" value="${id }">
+									<input type="text" class="form-control" placeholder="ID" id="id_check" name="id">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" >비밀번호</label>
 								<div class="col-sm-8">
-									<input type="password" class="form-control" placeholder="Password" name="password">
-									<input type="hidden" id="password" value="${password }">
+									<input type="password" class="form-control" placeholder="Password" id="password_check" name="password">
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<button type="submit" class="btn btn-primary btn-block">로그인</button>
+									<input type="submit" class="btn btn-primary btn-block" onClick="return check()" value="로그인">
 								</div>
 							</div>
 						</form>
@@ -60,6 +58,7 @@
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">${loginInfo.nickname }</h4>
+					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
 				</div>
 				<div class="card-body">
 					<div class="basic-form">
