@@ -82,7 +82,6 @@ public class SpaceDao {
 		return spaceFacility;
 	}
 
-
 	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
 	}

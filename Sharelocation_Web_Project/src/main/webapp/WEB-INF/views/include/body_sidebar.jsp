@@ -5,7 +5,7 @@
 		<div class="sidebar-header">
 			<div class="d-flex justify-content-between">
 				<div class="logo">
-					<a href="index.jsp"><img
+					<a href="/sharelocation"><img
 						src="./resources/assets/images/logo/ips_logo.png"
 						style="width: 151px; height: 60px;"></a>
 				</div>

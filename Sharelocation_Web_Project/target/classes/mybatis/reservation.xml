@@ -45,4 +45,12 @@
 		delete from reservation
 		where num=#{num}
 	</delete>
+	<select id="getExpiredReservationList" resultType="MyReservation">
+		select * from
+		(select * from reservation where status='예약대기' or status='입금대기')
+		where <![CDATA[ checkout < sysdate ]]> 
+	</select>
+	<select id="getCompleteReservationList" resultType="MyReservation">
+		select * from reservation where status='예약확정' and <![CDATA[ checkout < sysdate ]]>
+	</select>
 </mapper>

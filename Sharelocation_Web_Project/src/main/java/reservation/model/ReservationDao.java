@@ -59,4 +59,12 @@ public class ReservationDao {
 	public int updateStatus(ReservationBean reservationBean) {
 		return sqlSessionTemplate.update(namespace+".updateStatus", reservationBean);
 	}
+
+	public List<ReservationBean> getExpiredReservationList() {
+		return sqlSessionTemplate.selectList(namespace+".getExpiredReservationList");
+	}
+
+	public List<ReservationBean> getCompleteReservationList() {
+		return sqlSessionTemplate.selectList(namespace+".getCompleteReservationList");
+	}
 }

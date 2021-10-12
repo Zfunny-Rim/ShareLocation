@@ -42,7 +42,7 @@ public class HostSpaceInsertController {
 	@RequestMapping(value=command, method = RequestMethod.GET)
 	public ModelAndView doAction(HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
