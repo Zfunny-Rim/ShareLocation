@@ -82,7 +82,7 @@
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-journal-text"></i> <span>예약리스트 보기</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="favoriteList.sp" class='sidebar-link'>
 						<i class="bi bi-bookmark-star-fill"></i> <span>찜한 공간</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
