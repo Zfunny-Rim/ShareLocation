@@ -41,8 +41,8 @@
 											<div class="card-body">
 												<form class="form form-vertical" action="findIdPw.member"
 													method="post">
-													<input type="hidden" id="hemail" name="email"> <input
-														type="hidden" id="hhp" name="hp">
+													<input type="hidden" id="hemail" name="email"> 
+													<input type="hidden" id="hhp" name="hp">
 													<div class="form-body">
 														<div class="row">
 															<div class="col-12">
@@ -82,7 +82,7 @@
 																style="color: red; font-weight: bold; font-size: 11px;"></span>
 															<div class="col-12 d-flex justify-content-end">
 																<input type="submit" class="btn btn-primary me-1 mb-1"
-																	onClick="return checkEP()" value="찾기">
+																	onClick="return checkEP(event)" value="찾기">
 																<input type="button"
 																	class="btn btn-light-secondary me-1 mb-1" onClick="javascript:history.back()" value="취소">
 															</div>
@@ -104,7 +104,7 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script>
-		async function checkEP(){
+		async function checkEP(e){
 			e.preventDefault();
 			//email
 			if($("#firstemail").val() == ""){
@@ -142,7 +142,7 @@
 			var hpStr = $('input[name="hp1"]').val() + "-" + $("#hp2").val() + "-" + $("#hp3").val();
 			$("#hhp").val(hpStr);
 			
-			await
+			await  
 			$.ajax({
 				url : "emailHpCheck.member",
 				type : "POST",
@@ -161,7 +161,6 @@
 					console.log("checkDuplicating error!");
 				}
 			});
-			
 		return true;
 		}
 		</script>

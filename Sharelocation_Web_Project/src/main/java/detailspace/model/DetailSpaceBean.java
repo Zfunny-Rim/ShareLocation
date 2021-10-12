@@ -11,23 +11,28 @@ import org.springframework.web.multipart.MultipartFile;
 public class DetailSpaceBean {
 	private int num;
 	private int spacenum;
-	@Length(min=2, max=10, message="ì´ë¦„ì€ 2ìì—ì„œ 10ì ì‚¬ì´ë¡œ ì…ë ¥í•˜ì„¸ìš”.")
+	@Length(min=2, max=10, message="ÀÌ¸§Àº 2~10ÀÚ·Î ÀÔ·ÂÇÏ¼¼¿ä")
 	private String name;
 	private String contents;
 	private String type;
-	@NotBlank(message="ì´ë¯¸ì§€ë¥¼ ë“±ë¡í•´ì£¼ì„¸ìš”.")
+	@NotBlank(message="ÀÌ¹ÌÁö¸¦ µî·ÏÇØÁÖ¼¼¿ä")
 	private String mainimage;
-	@Min(value=1, message="ìµœì†Œ ì˜ˆì•½ì‹œê°„ì€ 1ì‹œê°„ ì´ìƒìœ¼ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.")
+	@NotNull(message="ÃÖ¼Ò ¿¹¾à½Ã°£À» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Min(value=1, message="ÃÖ¼Ò ¿¹¾à½Ã°£Àº 1½Ã°£ ÀÌ»óÀ¸·Î ¼³Á¤ÇØÁÖ¼¼¿ä.")
 	private Integer mintime;
-	@Min(value=1, message="ìµœì†Œ ì¸ì›ì€ 1ëª… ì´ìƒìœ¼ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.")
+	@NotNull(message="ÃÖ¼Ò ÀÎ¿øÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Min(value=1, message="ÃÖ¼Ò ÀÎ¿øÀº 1¸í ÀÌ»óÀ¸·Î ¼³Á¤ÇØÁÖ¼¼¿ä.")
 	private Integer minperson;
-	@Min(value=1, message="ìµœëŒ€ ì¸ì›ì€ 1ëª… ì´ìƒìœ¼ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.")
+	@NotNull(message="ÃÖ´ë ÀÎ¿øÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Min(value=1, message="ÃÖ´ë ÀÎ¿øÀº 1¸í ÀÌ»óÀ¸·Î ¼³Á¤ÇØÁÖ¼¼¿ä.")
 	private Integer maxperson;
 	private String priceunit;
-	@NotNull(message="ê°€ê²©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
+	@NotNull(message="°¡°İÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
 	private Integer price;
 	//
 	private MultipartFile mainimagefile;
+	private MultipartFile mainimageupdatefile;
+	private String mainimageOrigin;
 	public MultipartFile getMainimagefile() {
 		return mainimagefile;
 	}
@@ -35,7 +40,25 @@ public class DetailSpaceBean {
 		this.mainimagefile = mainimagefile;
 		this.setMainimage(mainimagefile.getOriginalFilename());
 	}
-	
+	public MultipartFile getMainimageupdatefile() {
+		return mainimageupdatefile;
+	}
+	public void setMainimageupdatefile(MultipartFile mainimageupdatefile) {
+		this.mainimageupdatefile = mainimageupdatefile;
+		String updateFileName = mainimageupdatefile.getOriginalFilename();
+		if(updateFileName.equals("")) {
+			this.setMainimage(this.getMainimageOrigin());
+			System.out.println("setMainImage : " + this.getMainimageOrigin());
+		}else {
+			this.setMainimage(updateFileName);
+		}
+	}
+	public String getMainimageOrigin() {
+		return mainimageOrigin;
+	}
+	public void setMainimageOrigin(String mainimageOrigin) {
+		this.mainimageOrigin = mainimageOrigin;
+	}
 	public DetailSpaceBean() {
 		super();
 	}
@@ -110,10 +133,8 @@ public class DetailSpaceBean {
 		return "DetailSpaceBean [num=" + num + ", spacenum=" + spacenum + ", name=" + name + ", contents=" + contents
 				+ ", type=" + type + ", mainimage=" + mainimage + ", mintime=" + mintime + ", minperson=" + minperson
 				+ ", maxperson=" + maxperson + ", priceunit=" + priceunit + ", price=" + price + ", mainimagefile="
-				+ mainimagefile + "]";
+				+ mainimagefile + ", mainimageupdatefile=" + mainimageupdatefile + ", mainimageOrigin="
+				+ mainimageOrigin + "]";
 	}
-	
-	
-	
-	
 }
+

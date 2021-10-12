@@ -300,7 +300,6 @@ public class Paging {
 		// result2 : <a href='/ex/list.ab?pageNumber=1&pageSize=2'>맨 처음</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>이전</a>&nbsp;&nbsp;<font color='red'>4</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;
 		
 		return result ;
-	}	
-	
+	}
 }
 

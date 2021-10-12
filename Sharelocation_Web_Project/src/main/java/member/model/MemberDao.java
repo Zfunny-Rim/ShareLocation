@@ -49,4 +49,15 @@ public class MemberDao {
 		return member;
 	}
 
+	public int idCheck(String id) {
+		
+		int cnt = sqlSessionTemplate.selectOne(namespace+"idCheck",id);
+		
+		return cnt;
+	}
+
+	public MemberBean getMemberByNum(int memberNum) {
+		return sqlSessionTemplate.selectOne(namespace+"getMemberByNum", memberNum);
+	}
+
 }

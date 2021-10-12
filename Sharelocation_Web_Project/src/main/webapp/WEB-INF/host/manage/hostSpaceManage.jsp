@@ -23,25 +23,25 @@
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
                     	<div class="row justify-content-md-center">
-							<div class="col-12">
+							<div class="col-9">
 	                            <div class="card mb-2">
 	                            	<div class="card-content">
 	                            		<div class="card-body">
 		                            		<nav class="nav nav-pills flex-column flex-sm-row">
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Home"
-											   href="spaceManage.ho?spaceNum=${spaceBean.num }">관리 홈</a>
+											   href="spaceManage.ho?spaceNum=${spaceNum }">관리 홈</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Modify"
-											   href="spaceManageModify.ho?spaceNum=${spaceBean.num }">공간정보 수정</a>
+											   href="spaceManageModify.ho?spaceNum=${spaceNum }">공간정보 수정</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Detail"
-											   href="spaceManageDetailSpace.ho?spaceNum=${spaceBean.num }">세부공간 관리</a>
+											   href="spaceManageDetailSpace.ho?spaceNum=${spaceNum }">세부공간 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Balance"
-											   href="#">정산정보 수정</a>
+											   href="spaceManageBalance.ho?spaceNum=${spaceNum }">정산정보 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Review"
-											   href="#">후기 관리</a>
+											   href="spaceManageReview.ho?spaceNum=${spaceNum }">후기 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Statistics"
 											   href="#">통계</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Reservation"
-											   href="#">예약 관리</a>
+											   href="spaceManageReservation.ho?spaceNum=${spaceNum }">예약 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="AD"
 											   href="#">광고 관리</a>
 											</nav>
@@ -49,7 +49,7 @@
 	                            	</div>
 	                            </div>
 	                        </div>
-	                        <div class="col-12">
+	                        <div class="col-9">
 	                       		<div class="card">
 	                      	      	<div class="card-content">	
 	                            		<div class="card-body">
@@ -70,7 +70,19 @@
 		<script type="text/javascript">
 		 $(document).ready(function(){
 			var pageName = '<%=request.getAttribute("getPage")%>';
-			var nav = document.getElementById(pageName);
+			var nav;
+			if(pageName.startsWith('Detail')){
+				nav = document.getElementById('Detail');
+			}
+			else if(pageName.startsWith('Balance')){
+				nav = document.getElementById('Balance');
+			}
+			else if(pageName.startsWith('Reservation')){
+				nav = document.getElementById('Reservation');
+			}
+			else{
+				nav = document.getElementById(pageName);
+			}
 			nav.classList.remove('bg-light');
 			nav.classList.remove('border');
 			nav.classList.remove('border-white');

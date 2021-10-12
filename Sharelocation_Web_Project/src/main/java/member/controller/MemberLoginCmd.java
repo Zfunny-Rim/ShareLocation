@@ -39,11 +39,10 @@ public class MemberLoginCmd {
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
 		 MemberBean dbMember = mdao.getLoginData(map);
-		 System.out.println(dbMember);
 		 session.setAttribute("loginInfo", dbMember);
 		 
 		 ModelAndView mav = new ModelAndView();
-		 PrintWriter pw = response.getWriter();
+		 PrintWriter pw = response.getWriter();   
 	     response.setContentType("text/html;charset=UTF-8");
 		 mav.addObject("loginInfo",dbMember);
 		 
