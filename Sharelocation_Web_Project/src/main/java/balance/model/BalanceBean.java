@@ -1,4 +1,4 @@
-package reservation.model;
+package balance.model;
 
 public class BalanceBean {
 	private int num;

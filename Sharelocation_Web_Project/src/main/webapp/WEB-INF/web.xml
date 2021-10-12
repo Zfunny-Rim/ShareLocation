@@ -110,4 +110,20 @@
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.member</url-pattern>
 	</servlet-mapping>
+	
+	<!-- memeber -->	
+	<servlet>
+		<servlet-name>balance</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/balance-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>balance</servlet-name>
+		<url-pattern>*.balance</url-pattern>
+	</servlet-mapping>
 </web-app>
