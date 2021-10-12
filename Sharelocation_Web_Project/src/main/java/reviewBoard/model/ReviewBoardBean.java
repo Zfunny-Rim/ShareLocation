@@ -14,6 +14,15 @@ public class ReviewBoardBean {
 	private int pricevalueration;
 	private int cleanrating;
 	private int totalrating;
+	
+	private ReviewBoardBean reviewReply;
+	
+	public ReviewBoardBean getReviewReply() {
+		return reviewReply;
+	}
+	public void setReviewReply(ReviewBoardBean reviewReply) {
+		this.reviewReply = reviewReply;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -113,7 +122,13 @@ public class ReviewBoardBean {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "ReviewBoardBean [num=" + num + ", spacenum=" + spacenum + ", membernum=" + membernum + ", write="
+				+ writer + ", regdate=" + regdate + ", content=" + content + ", ref=" + ref + ", restep=" + restep
+				+ ", relevel=" + relevel + ", servicerating=" + servicerating + ", pricevalueration=" + pricevalueration
+				+ ", cleanrating=" + cleanrating + ", totalrating=" + totalrating + ", reviewReply=" + reviewReply
+				+ "]";
+	}
 	
 }

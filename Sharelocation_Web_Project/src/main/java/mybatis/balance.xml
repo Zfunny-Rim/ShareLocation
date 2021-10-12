@@ -20,4 +20,7 @@
 		update balance set company=#{company}, name=#{name}, address=#{address}, email=#{email}, 
 		call=#{call}, bank=#{bank}, account=#{account} where num=#{num}
 	</update>
+	<select id="getBalanceByMemberNum" resultType="MyBalance">
+		select * from balance where membernum=#{memberNum}
+	</select>
 </mapper>

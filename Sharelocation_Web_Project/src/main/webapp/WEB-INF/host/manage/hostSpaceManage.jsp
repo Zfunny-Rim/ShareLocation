@@ -37,11 +37,11 @@
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Balance"
 											   href="spaceManageBalance.ho?spaceNum=${spaceNum }">정산정보 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Review"
-											   href="spacemanageReview.ho?spaceNum=${spaceNum }">후기 관리</a>
+											   href="spaceManageReview.ho?spaceNum=${spaceNum }">후기 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Statistics"
 											   href="#">통계</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Reservation"
-											   href="#">예약 관리</a>
+											   href="spaceManageReservation.ho?spaceNum=${spaceNum }">예약 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="AD"
 											   href="#">광고 관리</a>
 											</nav>
@@ -76,7 +76,11 @@
 			}
 			else if(pageName.startsWith('Balance')){
 				nav = document.getElementById('Balance');
-			}else{
+			}
+			else if(pageName.startsWith('Reservation')){
+				nav = document.getElementById('Reservation');
+			}
+			else{
 				nav = document.getElementById(pageName);
 			}
 			nav.classList.remove('bg-light');

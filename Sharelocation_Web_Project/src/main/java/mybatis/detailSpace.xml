@@ -52,4 +52,7 @@
 	<delete id="deleteDPackage">
 		delete packageprice where num=#{num}
 	</delete>
+	<select id="getDetailSpaceByNum" resultType="MyDetailSpace">
+		select * from detailspace where num=#{detailSpaceNum}
+	</select>
 </mapper>

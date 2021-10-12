@@ -65,4 +65,12 @@ public class DetailSpaceDao {
 	public List<DetailSpaceBean> getListDetailSpace(int spacenum) {
 		return sqlSessionTemplate.selectList(namespace+".getDetailSpace", spacenum);
 	}
+
+	public DetailSpaceBean getDetailSpaceByNum(int detailSpaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceByNum", detailSpaceNum);
+	}
+	public DetailSpaceBean getdetailspace(int detailspacenum) {
+		DetailSpaceBean detailSpaceBean = sqlSessionTemplate.selectOne(namespace+".getdetailspace",detailspacenum);
+		return detailSpaceBean;
+	}
 }
