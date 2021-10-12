@@ -33,7 +33,17 @@
 
 	<select id="getTotalCount" resultType="int">
 		select count(*) from space
-		where name like #{keyword}
+			where status = '운영중'
+		<if test="status!=null">
+		or name like upper(#{keyword}) or tag like upper(#{keyword})
+		</if>
+		<if test="whatColumn!=null">
+			and type like #{whatColumn}
+		</if>
+		<if test="area!=null">
+			and address like #{area}
+		</if>
+		order by num desc
 	</select>
 
 	<select id="getPowerSpaceList" resultType="MySpace">
