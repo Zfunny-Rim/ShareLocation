@@ -33,7 +33,7 @@ public class spaceListCmd {
 			@RequestParam(value ="area",required = false) String area,
 			@RequestParam(value ="pageNumber",required = false) String pageNumber,
 			@RequestParam(value ="tag",required = false) String tag,
-			@RequestParam(value ="grade",required = false) String grade,
+			
 			HttpServletRequest request
 			) {
 		if(keyword==null) {
@@ -50,7 +50,6 @@ public class spaceListCmd {
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
 		map.put("area", area+"%");
 		map.put("keyword",("%"+keyword+"%") );
-		map.put("grade", grade );
 		map.put("tag", "%"+tag+"%");
 
 		

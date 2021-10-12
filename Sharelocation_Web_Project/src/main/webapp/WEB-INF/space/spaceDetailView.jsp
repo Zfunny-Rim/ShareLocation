@@ -114,7 +114,7 @@ element.style {
 											<!-- tag 넣기  시작-->
 											<br>
 											<c:forEach var="tag" items="${space.tag }">
-												${tag}										 
+												<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tag}	</span>
 										 </c:forEach>
 
 											<!-- tag 넣기  끝-->
