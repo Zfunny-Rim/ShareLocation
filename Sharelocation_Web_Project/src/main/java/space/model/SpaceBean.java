@@ -146,6 +146,7 @@ public class SpaceBean {
 		this.spaceimageOriginCount = spaceimageOriginCount;
 	}
 	
+	
 	public int getNum() {
 		return num;
 	}
