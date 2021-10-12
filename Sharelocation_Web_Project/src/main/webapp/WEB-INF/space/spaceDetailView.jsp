@@ -119,6 +119,7 @@ element.style {
 
 											<!-- tag 넣기  끝-->
 
+
 										</h3>
 									</div>
 									<div class="col-12 col-md-6 order-md-2 order-first">
@@ -217,10 +218,9 @@ element.style {
 														</c:forEach>
 													</h4>
 
-													<form
-														action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
-														method="post">
-
+													<form action="reserv.rv" method="post">           
+														<input type="hidden" name="spacenum" value="${space.num }">
+														<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
 														<c:if test="${not empty detailSpaceBean.num}">
 															<table class="table table-lg"
 																style="border: thick; border-radius: 8px;">

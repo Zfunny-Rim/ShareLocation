@@ -29,20 +29,18 @@
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" id="id">아이디</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" placeholder="ID" name="id">
-									<input type="hidden" id="id" value="${id }">
+									<input type="text" class="form-control" placeholder="ID" id="id_check" name="id">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" >비밀번호</label>
 								<div class="col-sm-8">
-									<input type="password" class="form-control" placeholder="Password" name="password">
-									<input type="hidden" id="password" value="${password }">
+									<input type="password" class="form-control" placeholder="Password" id="password_check" name="password">
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<button type="submit" class="btn btn-primary btn-block">로그인</button>
+									<input type="submit" class="btn btn-primary btn-block" value="로그인">
 								</div>
 							</div>
 						</form>
@@ -79,10 +77,11 @@
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-house-door-fill"></i> <span>홈</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+					<li class="sidebar-item">
+						<a href="reservList.rv" class='sidebar-link'>
 						<i class="bi bi-journal-text"></i> <span>예약리스트 보기</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="favoriteList.sp" class='sidebar-link'>
 						<i class="bi bi-bookmark-star-fill"></i> <span>찜한 공간</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>

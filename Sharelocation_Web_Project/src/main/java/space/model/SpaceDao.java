@@ -113,5 +113,14 @@ public class SpaceDao {
 		return spacePowertLists;
 		
 	}
+	public List<SpaceBean> getSpaceById(String id) {
+		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", id);
+		return spaceLists;
+	}
+	public List<FavoriteBean> getFavoriteList(int num) {
+		List<FavoriteBean> favoritBean = sqlSessionTemplate.selectList(namespace+".getFavoriteList", num);
+		return favoritBean;
+	}
 }
 

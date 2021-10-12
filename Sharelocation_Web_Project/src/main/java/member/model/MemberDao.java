@@ -1,7 +1,5 @@
 package member.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -34,10 +32,21 @@ public class MemberDao {
 		sqlSessionTemplate.update(namespace+"updateMember",member);
 	}
 
-	public List<MemberBean> getId() {
-		List<MemberBean> idLists = new ArrayList<MemberBean>();
-		idLists = sqlSessionTemplate.selectList(namespace+"getId");
-		return idLists;
+	public MemberBean getNickname(String problem_nickname) {
+		MemberBean member = sqlSessionTemplate.selectOne(namespace+"getNickname",problem_nickname);
+		return member;
+	}
+
+	public void deleteMember(String id, String password) {
+		MemberBean member = new MemberBean();
+		member.setId(id);
+		member.setPassword(password);
+		sqlSessionTemplate.delete(namespace+"deleteMember",member);
+	}
+
+	public MemberBean getLoginData(Map<String, String> map) {
+		MemberBean member = sqlSessionTemplate.selectOne(namespace+"getLoginData",map);
+		return member;
 	}
 
 	public int idCheck(String id) {
@@ -46,4 +55,9 @@ public class MemberDao {
 		
 		return cnt;
 	}
+
+	public MemberBean getMemberByNum(int memberNum) {
+		return sqlSessionTemplate.selectOne(namespace+"getMemberByNum", memberNum);
+	}
+
 }

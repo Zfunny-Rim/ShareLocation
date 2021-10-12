@@ -17,9 +17,33 @@
 		select * from reviewboard
 		where num = #{num}
 	</select>
-
-
-	
+	<select id="getReviewListBySpaceNum" resultType="MyReview">
+		select * from reviewboard where spacenum=#{spaceNum}
+	</select>
+	<select id="getOriginReviewListBySpaceNum" resultType="MyReview">
+		select * from reviewboard where spacenum=#{spaceNum} and relevel=0
+		order by regdate desc
+	</select>
+	<select id="getReviewReplyByNum" resultType="MyReview">
+		select * from reviewboard where ref=#{num} and relevel = 1
+	</select>
+	<insert id="insertReply">
+		insert into reviewboard(num, spacenum, membernum, writer, regdate, content, ref, restep, relevel)
+		values(review_board_seq.nextval, #{spacenum}, #{membernum}, #{writer}, sysdate, #{content}, #{ref}, #{restep}, #{relevel})
+	</insert>
+	<delete id="deleteReviewByNum">
+		delete reviewboard where num=#{num}
+	</delete>
+	<select id="getOriginReviewAllCountBySpaceNum" resultType="int">
+		select count(*) from reviewboard where spacenum=#{spaceNum} and relevel=0
+	</select>
+	<select id="getOriginReviewTotalCountBySpaceNum" resultType="int">
+		select count(*) from reviewboard where spacenum=#{spaceNum} and relevel=0
+	</select>
+	<select id="getOriginReviewListByMap" resultType="MyReview">
+		select * from reviewboard where spacenum=#{spaceNum} and relevel=0
+		order by regdate desc
+	</select>
 </mapper>
 			
 			
