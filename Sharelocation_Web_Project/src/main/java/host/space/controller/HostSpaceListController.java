@@ -32,7 +32,7 @@ public class HostSpaceListController {
 	
 	@RequestMapping(value=command)
 	public ModelAndView gotoList(HttpSession session, HttpServletResponse response) throws IOException {
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {

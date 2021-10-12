@@ -360,7 +360,7 @@ public class HostSpaceManageController {
 	public ModelAndView balanceManage(@RequestParam(value="spaceNum")int spaceNum, 
 			HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView();
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
@@ -403,7 +403,7 @@ public class HostSpaceManageController {
 	public ModelAndView balanceInsertProc(@Valid BalanceBean balanceBean, BindingResult result, 
 			HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
@@ -440,7 +440,7 @@ public class HostSpaceManageController {
 	public ModelAndView balanceView(@RequestParam(value="spaceNum")int spaceNum,
 			HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
@@ -471,7 +471,7 @@ public class HostSpaceManageController {
 	public ModelAndView balanceModifyForm(@RequestParam(value="spaceNum")int spaceNum,
 			HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
@@ -501,7 +501,7 @@ public class HostSpaceManageController {
 	public ModelAndView balanceModifyProc(@Valid BalanceBean balanceBean, BindingResult result, 
 			HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
@@ -635,7 +635,7 @@ public class HostSpaceManageController {
 	public ModelAndView approvalSpace(@RequestParam(value="spaceNum")int spaceNum, HttpServletResponse response,
 			HttpSession session) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		
 		int dspCount = detailSpaceDao.getDetailSpaceCountBySpaceNum(spaceNum);
@@ -723,7 +723,7 @@ public class HostSpaceManageController {
 	public ModelAndView reviewReply(ReviewBoardBean reviewBoardBean, HttpSession session,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView(viewPage);
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
