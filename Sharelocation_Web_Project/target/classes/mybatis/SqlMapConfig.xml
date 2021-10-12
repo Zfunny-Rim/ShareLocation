@@ -16,6 +16,7 @@
 		<typeAlias alias="MySpaceFacility" type="space.model.SpaceFacilityBean"/>
 		<typeAlias alias="MyBalance" type="reservation.model.BalanceBean"/>
 		<typeAlias alias="MyPackage" type="detailspace.model.PackagePriceBean"/>
+		<typeAlias alias="MyFavorite" type="space.model.FavoriteBean"/>
 	</typeAliases>
 	
 	<mappers>

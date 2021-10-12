@@ -32,10 +32,12 @@
                     			<div class="row">
 		                    		<div class="col-6 col-md-6 order-md-1 order-last">
 		                                <h3>찜한 내용</h3>
+		                               
 		                            </div>
 		                        </div>
 		                    </div>
 		                </div>
+		                
                     	<div class="row justify-content-md-center">
 							<div class="col-md-9 col-12">
 	                            <div class="card">
@@ -47,44 +49,27 @@
 											<div class="container">
 		                                   		 <div class="row row-cols-3">
 		                                   		 	
+		                <c:forEach var="favorit" items="${favoriteResult}">
 			                                   		 	<div class="col">
 				                                   		 	<div class="card bg-light">
 								                                <div class="card-content">
 								                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="/sharelocation/resources/spaceimage/1633240277767_1_IMG_486.JPG">
 								                                    <div class="card-body">
 								                                    	<div class="row">
-								                                    		<div class="col-md-8"><h4 class="card-title">TEST</h4></div>
-								                                    		<div class="col-md-4" style="text-align:right;">
-								                                    			
-								                                    			
-								                                    			
-									                                    			<span class="badge bg-success m-0">운영중</span>
-								                                    			
-								                                    		</div>
+								                                    		<div class="col-md-8"><h4 class="card-title">${favorit.name}</h4></div>
+								                                    		
 								                                    	</div>
 								                                        <p class="card-text">
-								                                          	
-								                                          	
-								                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#태그1</span>
-								                                          	
-								                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#태그2</span>
-								                                          	
-								                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#태그3</span>
-								                                          	
-								                                        </p>
-								                                        <p class="card-text">
-								                                        	<small class="text-muted">등록일 : 2021-10-09 00:46:43.0 </small>
+								                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">${favorit.tag}</span>
 								                                        </p>
 								                                    </div>
 								                                </div>
 								                                <div class="card-footer d-flex justify-content-between bg-light">
-								                                    <button class="btn btn-light-primary" onclick="location.href='spaceManage.ho?spaceNum=1'">공간 관리하기</button>
 								                                    <button class="btn btn-light-danger" onclick="deleteSpace(1, 'TEST')">삭제</button>
 								                                </div>
 								                            </div>
 			                                   		 	</div>
-		                                   		 	
-		                                   		 	
+		                </c:forEach>
 		                                   		 </div>
 		                                  	</div>
 										</div>
