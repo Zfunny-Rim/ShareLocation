@@ -36,7 +36,7 @@
 	<update id="updateStatus">
 		update reservation set status=#{status} where num=#{num}
 	</update>
-	<select id="getReservList" resultType="MyRerservation">
+	<select id="getReservList" resultType="MyReservation">
 		select * from reservation
 		where membernum = #{membernum}
 	</select>

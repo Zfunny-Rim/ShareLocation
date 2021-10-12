@@ -218,10 +218,9 @@ element.style {
 														</c:forEach>
 													</h4>
 
-													<form
-														action="<%=request.getContextPath()%>/reserv.rv?&spacenum=1&membernum=1"
-														method="post">
-
+													<form action="reserv.rv" method="post">           
+														<input type="hidden" name="spacenum" value="${space.num }">
+														<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
 														<c:if test="${not empty detailSpaceBean.num}">
 															<table class="table table-lg"
 																style="border: thick; border-radius: 8px;">

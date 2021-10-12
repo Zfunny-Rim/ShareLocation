@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import balance.model.BalanceBean;
-import balance.model.BalanceDao;
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import member.model.MemberBean;
@@ -65,7 +63,7 @@ public class reservationController {
 			
 			SpaceBean spacebean = spaceDao.getSpace(spacenum);
 			
-			DetailSpaceBean detailSpacebean = detailSpaceDao.getdetailspace(detailspacenum);
+			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
 			
 			ReservationBean reservationbean = new ReservationBean();
 			reservationbean.setMembernum(1);

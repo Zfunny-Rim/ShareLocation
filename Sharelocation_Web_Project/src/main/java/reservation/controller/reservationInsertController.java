@@ -46,7 +46,7 @@ public class reservationInsertController {
 		reservationbean.setMembernum(1); 
 		reservationbean.setSpacenum(spacenum);
 		reservationbean.setDetailspacenum(detailspacenum);
-		reservationbean.setStatus("예약확정");//임시
+		reservationbean.setStatus("예약대기");//임시
 		reservationbean.setApplicationdate("2021-10-12"); //임시
 		reservationbean.setPerson(2); //임시
 		reservationbean.setPaymenttype("현장결제"); //임시
@@ -55,7 +55,7 @@ public class reservationInsertController {
 		reservationbean.setCheckin("2021-10-12"); //임시
 		reservationbean.setCheckout("2021-10-13"); //임시
 		
-		DetailSpaceBean detailSpacebean = detailSpaceDao.getdetailspace(detailspacenum);
+		DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
 		reservationbean.setAmounts(detailSpacebean.getPrice());
 		
 		System.out.println("resevationbean InsertController:"+reservationbean);
