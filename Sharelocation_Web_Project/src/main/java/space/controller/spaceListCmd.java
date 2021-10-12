@@ -40,28 +40,38 @@ public class spaceListCmd {
 		}
 		if(area==null) {
 			area = "";
-		}		
+		}
+		if(tag==null) {
+			tag = "";
+		}
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn); // whatColumn=area,null
 		map.put("area", area+"%");
-		map.put("keyword", "%"+keyword+"%");
-		map.put("status", "%운영중%");
+		map.put("keyword",("%"+keyword+"%") );
+		map.put("grade", "광고");
 		map.put("tag", "%"+tag+"%");
+		
+		
 		
 		int totalCount = spaceDao.getTotalCount(map);
 		String url = request.getContextPath() + command;
 		System.out.println("url 확인해보자"+url);
 		
 		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, null);
-		keyword += "%"+keyword+"%";    
+	
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,map);
 		System.out.println("spaceLists"+spaceLists.size());
 		
 		List<SpaceBean> powerLink = spaceDao.getPowerSpaceList(map);
-		System.out.println("powerLink"+powerLink.size());
 		
-		mav.addObject("powerLink",powerLink);
+		if(powerLink.size() != 0) {
+			
+			System.out.println("powerLink"+powerLink.size());
+			mav.addObject("powerLink",powerLink);
+		}
+		
 		mav.addObject("spaceLists",spaceLists);
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
