@@ -40,7 +40,7 @@
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<input type="submit" class="btn btn-primary btn-block" onClick="return check()" value="로그인">
+									<input type="submit" class="btn btn-primary btn-block" value="로그인">
 								</div>
 							</div>
 						</form>

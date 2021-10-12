@@ -20,7 +20,7 @@
 
 <body>
 	<div id="app">
-<<<<<<< HEAD
+		<<<<<<< HEAD
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<div id="main" style="padding-top: 0px;">
@@ -39,8 +39,8 @@
 											<div class="card-body">
 												<form class="form form-vertical" action="register.member"
 													method="post">
-													<input type="hidden" id="hemail" name="email">
-													<input type="hidden" id="hhp" name="hp">
+													<input type="hidden" id="hemail" name="email"> <input
+														type="hidden" id="hhp" name="hp">
 													<div class="form-body">
 														<div class="row">
 															<label>아이디<span class="required">*</span></label>
@@ -57,8 +57,9 @@
 															<div class="col-12">
 																<div class="form-group">
 																	<label>비밀번호<span class="required">*</span></label> <input
-																		type="password" id="inputpassword" class="form-control"
-																		name="password" placeholder="Password">
+																		type="password" id="inputpassword"
+																		class="form-control" name="password"
+																		placeholder="Password">
 																</div>
 															</div>
 															<div class="col-12">
@@ -76,9 +77,6 @@
 																	class="form-control" name="nickname"
 																	placeholder="Nickname">
 															</div>
-															<div class="col-12">
-																<label>이름<span class="required">*</span></label>
-															</div>
 															<div class="col-md-2 form-group">
 																<input type="button" class="form-control"
 																	id="nickname_button" onclick="nickname_check(event)"
@@ -86,20 +84,23 @@
 															</div>
 															<span id="nickname_check_alert"
 																style="color: red; font-weight: bold; font-size: 11px;"></span>
+															<div class="col-12">
+																<label>이름<span class="required">*</span></label>
+															</div>
 															<div class="col-md-12 form-group">
 																<input type="text" id="problem_name"
-																	class="form-control" name="name"
-																	placeholder="name">
+																	class="form-control" name="name" placeholder="name">
 															</div>
 															<div class="col-12">
 																<label>이메일<span class="required">*</span></label>
 															</div>
 															<div class="form-group">
 																<div class="input-group mb-3">
-																	<input type="text" class="form-control" id="firstemail" name="email_id"
-																		placeholder="아이디"> <span
+																	<input type="text" class="form-control" id="firstemail"
+																		name="email_id" placeholder="아이디"> <span
 																		class="input-group-text">@</span> <select
-																		class="form-select" id="secondemail" name="domain_selector">
+																		class="form-select" id="secondemail"
+																		name="domain_selector">
 																		<option value="">선택</option>
 																		<option value="naver.com">naver.com</option>
 																		<option value="hanmail.net">hanmail.net</option>
@@ -111,9 +112,8 @@
 															<div class="col-12">
 																<div class="form-group">
 																	<label>주소<span class="required">*</span></label> <input
-																		type="text" id="address"
-																		class="form-control" name="address"
-																		placeholder="Address">
+																		type="text" id="address" class="form-control"
+																		name="address" placeholder="Address">
 																</div>
 															</div>
 															<div class="col-md-4">
@@ -121,20 +121,21 @@
 															</div>
 															<div class="col-md-8 form-group">
 																<div class="input-group">
-																	<input type="text" class="form-control" id="hp1" name="hp1"
-																		placeholder="010"> <span
+																	<input type="text" class="form-control" id="hp1"
+																		name="hp1" placeholder="010"> <span
 																		class="input-group-text">-</span> <input type="text"
-																		class="form-control" id="hp2" name="hp2" placeholder="1234">
-																	<span class="input-group-text">-</span> <input
-																		type="text" class="form-control" id="hp3"name="hp3"
+																		class="form-control" id="hp2" name="hp2"
+																		placeholder="1234"> <span
+																		class="input-group-text">-</span> <input type="text"
+																		class="form-control" id="hp3" name="hp3"
 																		placeholder="5678">
 																</div>
 															</div>
 															<div class="col-12">
 																<div class="form-group">
 																	<label>생일<span class="required">*</span></label> <input
-																		type="date" id="birth"
-																		class="form-control" name="birth">
+																		type="date" id="birth" class="form-control"
+																		name="birth">
 																</div>
 															</div>
 															<div class="col-12">
@@ -167,73 +168,11 @@
 															</div>
 															<div class="col-12 d-flex justify-content-end">
 																<input type="submit" class="btn btn-primary me-1 mb-1"
-																	onClick="return processing()" value="가입하기">
-																<input type="button"
-																	class="btn btn-light-secondary me-1 mb-1"
+																	onClick="return processing()" value="가입하기"> <input
+																	type="button" class="btn btn-light-secondary me-1 mb-1"
 																	onClick="javascript:history.back()" value="취소">
 															</div>
-=======
-		<%@ include file="/WEB-INF/views/include/body_navbar.jsp" %>
-		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp" %>
-        <div id="main" style="padding-top:0px;">
-            <div id="main-content">
-                <div class="page-heading">
-                    <section class="section">
-                    	<%-- ******* Main Code HERE ******* --%>
-					<section id="basic-vertical-layouts">
-	                    <div class="row justify-content-md-center">
-	                        <div class="col-md-8 col-12">
-	                            <div class="card">
-	                                <div class="card-header">
-	                                    <h4 class="card-title">회원가입</h4>
-	                                </div>
-	                                <div class="card-content">
-	                                    <div class="card-body">
-	                                    <%@include file="./../common/common.jsp"%>
-	                                        <form:form commandName="memberBean" class="form form-vertical" action="register.member" method="post">
-	                                            <div class="form-body">
-	                                                <div class="row">
-	                                                            <label>아이디<span class="required">*</span></label>
-	                                                        <div class="col-md-10 form-group">
-	                                                            <input type="text" class="form-control" name="id" placeholder="ID">
-	                                                        	<form:errors cssClass="err" path="id"/>
-	                                                        </div>
-	                                                        <div class="col-md-2 form-group">
-<<<<<<< HEAD
-	                                                        ${idLists }<br>
-	                                                        <c:forEach var="mbean" items="${idLists}" varStatus="vs">
-	                                                        	${vs.count}<br>
-	                                                        	${mbean.id }<br>
-	                                                        </c:forEach>
-	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck('${idLists }')">
-=======
-	                                                            <input type="button" class="form-control" value="중복체크" onClick="idCheck('${idLists}')">
->>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
-	                                                        </div>
-	                                                    <div class="col-12">
-	                                                        <div class="form-group">
-	                                                            <label>비밀번호<span class="required">*</span></label>
-	                                                            <input type="password" id="first-name-vertical" class="form-control" name="password" placeholder="Password">
-	                                                        	<form:errors cssClass="err" path="password"/>
-	                                                        </div>
-	                                                        <div class="form-group">
-	                                                            <label>비밀번호확인<span class="required">*</span></label>
-	                                                            <input type="password" id="first-name-vertical" class="form-control" name="repassword" placeholder="비밀번호확인">
-	                                                        	<form:errors cssClass="err" path="password"/>
-	                                                        </div>
-	                                                    </div>
-	                                                    <div class="col-12">
-	                                                        <div class="form-group">
-	                                                            <label>닉네임<span class="required">*</span></label>
-	                                                            <input type="text" id="first-name-vertical" class="form-control" name="nickname" placeholder="Nickname">
-	                                                        	<form:errors cssClass="err" path="nickname"/>
-	                                                        </div>
-	                                                    </div>
-	                                                    <div class="col-12">
-															<label>이메일<span class="required">*</span></label>
->>>>>>> refs/heads/SHINJOONHO
 														</div>
-<<<<<<< HEAD
 													</div>
 												</form>
 											</div>
@@ -249,97 +188,8 @@
 		</div>
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
-=======
-														<div class="form-group">
-		                                                    <div class="input-group mb-3">
-			                                                    <input type="text" class="form-control" name="email_id" placeholder="아이디">
-			                                                    <span class="input-group-text">@</span>
-			                                                    <input type="text" class="form-control" name="email_domain" placeholder="직접입력">
-			                                                    <select class="form-select" name="domain_selector">
-			                                                        <option value="">선택</option>
-			                                                        <option value="naver.com">naver.com</option>
-			                                                        <option value="hanmail.net">hanmail.net</option>
-			                                                        <option value="gmail.com">gmail.com</option>
-			                                                    </select>
-			                                                </div>
-														</div>
-	                                                    <div class="col-12">
-	                                                        <div class="form-group">
-	                                                            <label>주소<span class="required">*</span></label>
-	                                                            <input type="text" id="first-name-vertical" class="form-control" name="address" placeholder="Address">
-	                                                        	<form:errors cssClass="err" path="address"/>
-	                                                        </div>
-	                                                    </div>
-	                                                    <div class="col-md-4">
-															<label>연락처 <span class="required">*</span></label>
-														</div>
-														<div class="col-md-8 form-group">
-		                                                    <div class="input-group">
-			                                                    <input type="text" class="form-control" name="hp1" placeholder="010">
-			                                                    <span class="input-group-text">-</span>
-			                                                    <input type="text" class="form-control" name="hp2" placeholder="1234">
-			                                                    <span class="input-group-text">-</span>
-			                                                    <input type="text" class="form-control" name="hp3" placeholder="5678">
-			                                                </div>
-			                                                <p><small class="text-muted">
-		                                                        	<form:errors cssClass="err" path="hp"/>
-		                                                        </small></p>
-														</div>
-	                                                    <div class="col-12">
-	                                                        <div class="form-group">
-	                                                            <label>생일<span class="required">*</span></label>
-	                                                            <input type="date" id="first-name-vertical" class="form-control" name="birth">
-	                                                        	<form:errors cssClass="err" path="birth"/>
-	                                                        </div>
-	                                                    </div>
-	                                                    <div class="col-12" style="float:left;">
-	                                                        <div class="form-check">
-	                                                            <label>성별<span class="required">*</span></label>
-	                                                            <div class="checkbox">
-	                                                                <input type="checkbox" id="checkbox3" name="gender" value="남" class="form-check-input" checked>
-	                                                                <label for="checkbox3">Male</label>
-	                                                            </div>
-	                                                            <div>
-	                                                                <input type="checkbox" id="checkbox3" name="gender" value="여" class="form-check-input">
-	                                                                <label for="checkbox3">Female</label>
-	                                                            </div>
-	                                                        </div>
-	                                                    </div>
-	                                                    <div class="col-12">
-	                                                        <div class="form-check">
-	                                                            <label>방문목적<span class="required">*</span></label>
-	                                                            <div class="checkbox">
-	                                                                <input type="checkbox" id="checkbox3" name="type" value="guest" class="form-check-input" checked>Guest
-	                                                            </div>
-	                                                            <div class="checkbox">
-	                                                                <input type="checkbox" id="checkbox3" name="type" value="host" class="form-check-input">Host
-	                                                            </div>
-	                                                        </div>
-	                                                    </div>
-	                                                    <div class="col-12 d-flex justify-content-end">
-	                                                        <button type="submit" class="btn btn-primary me-1 mb-1" onClick="return processing()">가입하기</button>  
-	                                                        <button type="button" class="btn btn-light-secondary me-1 mb-1" onClick="javascript:history.back()">취소</button>
-	                                                    </div>
-	                                                </div>
-	                                            </div>
-	                                        </form:form>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </section>
-                    	<%-- ******* Main Code END ******* --%>
-                    </section>
-                </div>
-            </div>
-        </div>
-		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
-		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
->>>>>>> refs/heads/SHINJOONHO
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script>
-<<<<<<< HEAD
 			let checkId = false;
 			let checkNickName = false;
 
@@ -378,22 +228,6 @@
 						console.log("checkDuplicating error!");
 					}
 				});
-=======
-		
-		duplicate = false;
-		
-		function idCheck(idLists){
-<<<<<<< HEAD
-			alert(idLists);  
-=======
-			alert(idLists);
->>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
-			duplicate = true;
-			
-			if($('input[id="id"]').val().indexOf(idLists)){
-				alert("이미 사용중인 아이디입니다.");
-				$('input[id="id"]').val("");
->>>>>>> refs/heads/SHINJOONHO
 			}
 
 			//닉네임 중복체크
@@ -435,7 +269,6 @@
 							}
 						});
 			}
-<<<<<<< HEAD
 
 			async
 			function processing() {
@@ -516,21 +349,6 @@
 					return false;
 				}
 				return true;
-=======
-		}
-		
-		if($(input[name="password"]).val()!=$(input[name="repassword"]).val()){
-			alert("비번이 일치하지 않습니다.")
-			$(input[name="password"]).select();
-			return false;
-		}
-		
-		function processing(){
-			
-			if(duplicate == false){
-				alert("아이디 중복체크는 필수입니다.");
-				return false;
->>>>>>> refs/heads/SHINJOONHO
 			}
 				
 		</script>
