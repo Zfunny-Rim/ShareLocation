@@ -82,7 +82,7 @@
 																style="color: red; font-weight: bold; font-size: 11px;"></span>
 															<div class="col-12 d-flex justify-content-end">
 																<input type="submit" class="btn btn-primary me-1 mb-1"
-																	onClick="return checkEP(event)" value="찾기">
+																	onClick="return checkEP()" value="찾기">
 																<input type="button"
 																	class="btn btn-light-secondary me-1 mb-1" onClick="javascript:history.back()" value="취소">
 															</div>
@@ -104,8 +104,7 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script>
-		async function checkEP(e){
-			e.preventDefault();
+		    function checkEP(){
 			//email
 			if($("#firstemail").val() == ""){
 				alert("이메일을 입력하세요");
@@ -142,27 +141,9 @@
 			var hpStr = $('input[name="hp1"]').val() + "-" + $("#hp2").val() + "-" + $("#hp3").val();
 			$("#hhp").val(hpStr);
 			
-			await  
-			$.ajax({
-				url : "emailHpCheck.member",
-				type : "POST",
-				data : {
-					"email" : emailStr,
-					"hp" : hpStr
-				},
-				dataType : "text",
-				success : function(data){
-					if(data == "no"){
-						$("#check_alert").html("이메일과 연락처를 확인하세요.");
-						return false;
-					}
-				},
-				error : function() { /* 404, 415, 400등 이런 에러 발생 시 실행 */
-					console.log("checkDuplicating error!");
-				}
-			});
-		return true;
+			return true;
 		}
+		
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>

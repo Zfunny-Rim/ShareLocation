@@ -49,4 +49,8 @@ public class MemberDao {
 		return member;
 	}
 
+	public void updateFindMember(MemberBean member) {
+		sqlSessionTemplate.update(namespace+"updateFindMember",member);
+	}
+
 }
