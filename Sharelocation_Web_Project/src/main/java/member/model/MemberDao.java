@@ -49,8 +49,20 @@ public class MemberDao {
 		return member;
 	}
 
+<<<<<<< HEAD
 	public void updateFindMember(MemberBean member) {
 		sqlSessionTemplate.update(namespace+"updateFindMember",member);
+=======
+	public int idCheck(String id) {
+		
+		int cnt = sqlSessionTemplate.selectOne(namespace+"idCheck",id);
+		
+		return cnt;
+	}
+
+	public MemberBean getMemberByNum(int memberNum) {
+		return sqlSessionTemplate.selectOne(namespace+"getMemberByNum", memberNum);
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 	}
 
 }

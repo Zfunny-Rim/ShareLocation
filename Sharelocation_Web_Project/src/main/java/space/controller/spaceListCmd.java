@@ -1,6 +1,8 @@
 package space.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,36 +22,63 @@ public class spaceListCmd {
 
 	private final String command = "/list.sp";	
 	private final String getPage = "spaceList";	
-		
+
 	@Autowired
 	SpaceDao spaceDao;
-	
+
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public ModelAndView doAction(ModelAndView mav,
+			@RequestParam(value ="whatColumn",required = false) String whatColumn,
 			@RequestParam(value ="keyword",required = false) String keyword,
+			@RequestParam(value ="area",required = false) String area,
 			@RequestParam(value ="pageNumber",required = false) String pageNumber,
+			@RequestParam(value ="tag",required = false) String tag,
+			
 			HttpServletRequest request
-						) {
-
+			) {
 		if(keyword==null) {
 			keyword = "";
 		}
-		keyword = "%"+keyword+"%";
+		if(area==null) {
+			area = "";
+		}
+		if(tag==null) {
+			tag = "";
+		}
+	
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("whatColumn", whatColumn); // whatColumn=area,null
+		map.put("area", area+"%");
+		map.put("keyword",("%"+keyword+"%") );
+		map.put("tag", "%"+tag+"%");
+
 		
-		int totalCount = spaceDao.getTotalCount(keyword);
+
+		int totalCount = spaceDao.getTotalCount(map);
 		String url = request.getContextPath() + command;
 		System.out.println("url 확인해보자"+url);
-		
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, null, keyword, null);
-		keyword += "%"+keyword+"%";    
+
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, null);
+
 		System.out.println(keyword);
-		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,keyword);
+		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,map);
+		
 		System.out.println("spaceLists"+spaceLists.size());
-		mav.addObject("spaceLists",spaceLists);  
+
+		List<SpaceBean> powerLink = spaceDao.getPowerSpaceList(map);
+
+
+
+		System.out.println("powerLink"+powerLink.size());
+		mav.addObject("powerLink",powerLink);
+
+
+		mav.addObject("spaceLists",spaceLists);
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
 		return mav;
 	}
+
 	
-	
+
 }

@@ -51,15 +51,27 @@
 			                                   		 	<div class="col">
 				                                   		 	<div class="card bg-light">
 								                                <div class="card-content">
-								                                    <img class="img-fluid card-img-top w-100" src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}">
+								                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}">
 								                                    <div class="card-body">
 								                                    	<div class="row">
 								                                    		<div class="col-md-8"><h4 class="card-title">${space.name }</h4></div>
-								                                    		<div class="col-md-4" style="text-align:right;"><span class="badge bg-warning m-0">${space.status }</span></div>
+								                                    		<div class="col-md-4" style="text-align:right;">
+								                                    			<c:if test="${space.status eq '등록대기'}">
+									                                    			<span class="badge bg-warning m-0">${space.status }</span>
+								                                    			</c:if>
+								                                    			<c:if test="${space.status eq '검수대기'}">
+									                                    			<span class="badge bg-info m-0">${space.status }</span>
+								                                    			</c:if>
+								                                    			<c:if test="${(space.status ne '등록대기') and (space.status ne '검수대기')}">
+									                                    			<span class="badge bg-success m-0">${space.status }</span>
+								                                    			</c:if>
+								                                    		</div>
 								                                    	</div>
 								                                        <p class="card-text">
-								                                            <a href="detailSpaceList.ho?spaceNum=${space.num }">세부공간 등록하기 - ${dspCountMap[space.num] }</a><br>
-								                                            정산정보 등록하기<br>
+								                                          	<c:set var="tagList" value="${fn:split(space.tag, ',')}"/>
+								                                          	<c:forEach var="tagToken" items="${tagList }">
+								                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tagToken }</span>
+								                                          	</c:forEach>
 								                                        </p>
 								                                        <p class="card-text">
 								                                        	<small class="text-muted">등록일 : ${space.regdate } </small>
@@ -68,7 +80,7 @@
 								                                </div>
 								                                <div class="card-footer d-flex justify-content-between bg-light">
 								                                    <button class="btn btn-light-primary" onClick="location.href='spaceManage.ho?spaceNum=${space.num}'">공간 관리하기</button>
-								                                    <button class="btn btn-light-danger">삭제</button>
+								                                    <button class="btn btn-light-danger" onClick="deleteSpace(${space.num}, '${space.name }')">삭제</button>
 								                                </div>
 								                            </div>
 			                                   		 	</div>
@@ -89,7 +101,14 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		
+		<script type="text/javascript">
+			function deleteSpace(num, name){
+				result = confirm(name + " 공간을 삭제하시겠습니까? 관련된 모든 정보가 삭제됩니다.");
+				if(result){
+					location.href='spaceDelete.ho?spaceNum='+num
+				}
+			}
+		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>

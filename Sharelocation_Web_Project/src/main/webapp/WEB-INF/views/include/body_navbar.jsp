@@ -4,10 +4,11 @@
 <header class='mb-3'>
 	<nav class="navbar navbar-expand navbar-light bg-light" id="navbar">
 		<div class="logo-image" style="width: 200px; margin-right: 50px;">
-			<a href="start_page.jsp"><img
+			<a href="/sharelocation"><img
 				src="./resources/assets/images/logo/ips_logo.png" alt="Logo"
 				width="100%"></a>
 		</div>
+		
 		<a href="#" class="burger-btn d-block style="padding-top:10px;">
 			<i class="bi bi-justify fs-3"></i>
 		</a>
