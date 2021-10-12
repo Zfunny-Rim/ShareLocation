@@ -53,4 +53,8 @@ public class MemberDao {
 		sqlSessionTemplate.update(namespace+"updateFindMember",member);
 	}
 
+	public MemberBean getMemberByNum(int membernum) {
+		return sqlSessionTemplate.selectOne(namespace+"getMemberByNum", membernum);  
+	}
+
 }
