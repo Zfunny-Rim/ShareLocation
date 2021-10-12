@@ -13,6 +13,7 @@ public class ReservationBean {
 	private int person;
 	private int amounts;
 	private String cusrequest;
+	private String paymenttype;
 	private String applicationdate;
 	private String status;
 	//
@@ -24,7 +25,7 @@ public class ReservationBean {
 	}
 
 	public ReservationBean(int num, int membernum, int spacenum, int detailspacenum, String checkin, String checkout,
-			int person, int amounts, String cusrequest, String applicationdate, String status) {
+			int person, int amounts, String cusrequest, String paymenttype, String applicationdate, String status) {
 		super();
 		this.num = num;
 		this.membernum = membernum;
@@ -35,6 +36,7 @@ public class ReservationBean {
 		this.person = person;
 		this.amounts = amounts;
 		this.cusrequest = cusrequest;
+		this.paymenttype = paymenttype;
 		this.applicationdate = applicationdate;
 		this.status = status;
 	}
@@ -102,6 +104,14 @@ public class ReservationBean {
 	public void setAmounts(int amounts) {
 		this.amounts = amounts;
 	}
+	
+	public String getPaymenttype() {
+		return paymenttype;
+	}
+
+	public void setPaymenttype(String paymenttype) {
+		this.paymenttype = paymenttype;
+	}
 
 	public String getCusrequest() {
 		return cusrequest;
@@ -147,8 +157,8 @@ public class ReservationBean {
 	public String toString() {
 		return "ReservationBean [num=" + num + ", membernum=" + membernum + ", spacenum=" + spacenum
 				+ ", detailspacenum=" + detailspacenum + ", checkin=" + checkin + ", checkout=" + checkout + ", person="
-				+ person + ", amounts=" + amounts + ", cusrequest=" + cusrequest + ", applicationdate="
-				+ applicationdate + ", status=" + status + "]";
+				+ person + ", amounts=" + amounts + ", cusrequest=" + cusrequest + ", paymenttype=" + paymenttype
+				+ ", applicationdate=" + applicationdate + ", status=" + status + "]";
 	}
-	
+
 }
