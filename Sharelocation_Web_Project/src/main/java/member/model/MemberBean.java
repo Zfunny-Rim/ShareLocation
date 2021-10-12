@@ -1,23 +1,16 @@
 package member.model;
 
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 public class MemberBean {
 	private int num;
-	@NotBlank(message = "ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä")
 	private String id;
-	@NotBlank(message = "Password¸¦ ÀÔ·ÂÇÏ¼¼¿ä")
 	private String password;
-	@NotBlank(message = "Nickname¸¦ ÀÔ·ÂÇÏ¼¼¿ä")
 	private String nickname;
+	private String name;
 	private String email;
-	@NotBlank(message = "Address¸¦ ÀÔ·ÂÇÏ¼¼¿ä")
 	private String address;
-	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="¿Ã¹Ù¸¥ ÀüÈ­¹øÈ£ Çü½ÄÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
+	//@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="ì˜¬ë°”ë¥¸ ì „í™”ë²ˆí˜¸ í˜•ì‹ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private String hp;
-	@NotBlank(message = "»ıÀÏÀ» ¼±ÅÃ ÇÏ¼¼¿ä")
 	private String birth;
 	private String gender;
 	private String type;
@@ -26,13 +19,14 @@ public class MemberBean {
 	public MemberBean() {
 		super();
 	}
-	public MemberBean(int num, String id, String password, String nickname, String email, String address, String hp,
+	public MemberBean(int num, String id, String password, String nickname,String name, String email, String address, String hp,
 			String birth, String gender, String type, String joindate) {
 		super();
 		this.num = num;
 		this.id = id;
 		this.password = password;
 		this.nickname = nickname;
+		this.name = name;
 		this.email = email;
 		this.address = address;
 		this.hp = hp;
@@ -40,6 +34,12 @@ public class MemberBean {
 		this.gender = gender;
 		this.type = type;
 		this.joindate = joindate;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getNum() {
 		return num;

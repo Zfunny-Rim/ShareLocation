@@ -10,6 +10,11 @@
 	</select>
 	
 	<insert id="reservInsert">
+		insert into reservation
+		(num,membernum,spacenum,detailspacenum,checkin,checkout,person,
+		amounts,cusrequest,paymenttype,applicationdate,status)values
+		(reservation_seq.nextval,#{membernum},#{spacenum},#{detailspacenum},#{checkin},#{checkout},#{person},
+		#{amounts},#{cusrequest},#{paymenttype},#{applicationdate},#{status})
 	</insert>
 	
 	<select id="getReservationTotalCountByMap" resultType="int">
@@ -31,4 +36,21 @@
 	<update id="updateStatus">
 		update reservation set status=#{status} where num=#{num}
 	</update>
+	<select id="getReservList" resultType="MyReservation">
+		select * from reservation
+		where membernum = #{membernum}
+	</select>
+	
+	<delete id="deleteReserv">
+		delete from reservation
+		where num=#{num}
+	</delete>
+	<select id="getExpiredReservationList" resultType="MyReservation">
+		select * from
+		(select * from reservation where status='예약대기' or status='입금대기')
+		where <![CDATA[ checkout < sysdate ]]> 
+	</select>
+	<select id="getCompleteReservationList" resultType="MyReservation">
+		select * from reservation where status='예약확정' and <![CDATA[ checkout < sysdate ]]>
+	</select>
 </mapper>

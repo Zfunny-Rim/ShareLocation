@@ -8,6 +8,7 @@
 				src="./resources/assets/images/logo/ips_logo.png" alt="Logo"
 				width="100%"></a>
 		</div>
+		
 		<a href="#" class="burger-btn d-block style="padding-top:10px;">
 			<i class="bi bi-justify fs-3"></i>
 		</a>

@@ -82,7 +82,6 @@ public class SpaceDao {
 		return spaceFacility;
 	}
 
-
 	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
 	}
@@ -112,6 +111,15 @@ public class SpaceDao {
 		spacePowertLists = sqlSessionTemplate.selectList(namespace+".getPowerSpaceList", map);
 		return spacePowertLists;
 		
+	}
+	public List<SpaceBean> getSpaceById(String id) {
+		List<SpaceBean> spaceLists = new ArrayList<SpaceBean>();
+		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", id);
+		return spaceLists;
+	}
+	public List<FavoriteBean> getFavoriteList(int num) {
+		List<FavoriteBean> favoritBean = sqlSessionTemplate.selectList(namespace+".getFavoriteList", num);
+		return favoritBean;
 	}
 }
 

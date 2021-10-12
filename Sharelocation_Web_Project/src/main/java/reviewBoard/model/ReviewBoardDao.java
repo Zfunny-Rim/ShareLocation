@@ -24,9 +24,6 @@ private String namespace = "reviewBoard.model.ReviewBoardBean";
 		return sqlSessionTemplate.selectList(namespace+".getReview", num);
 	}
 
-	
-	
-	
 	public List<ReviewBoardBean> getReviewListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getReviewListBySpaceNum", spaceNum);
 	}
