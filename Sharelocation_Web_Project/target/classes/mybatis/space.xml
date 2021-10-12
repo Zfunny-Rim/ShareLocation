@@ -156,4 +156,10 @@
 	<update id="requestApproval">
 		update space set status='운영중' where num=#{spaceNum}
 	</update>
+	
+	<select id="getFavoriteList" resultType="MyFavorite">
+	 	select * from favorite
+	 	where membernum = #{num}	
+	</select> 
+	
 </mapper>
