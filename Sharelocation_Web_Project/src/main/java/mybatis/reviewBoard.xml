@@ -28,8 +28,8 @@
 		select * from reviewboard where ref=#{num} and relevel = 1
 	</select>
 	<insert id="insertReply">
-		insert into reviewboard(num, spacenum, membernum, write, regdate, content, ref, restep, relevel)
-		values(review_board_seq.nextval, #{spacenum}, #{membernum}, #{write}, sysdate, #{content}, #{ref}, #{restep}, #{relevel})
+		insert into reviewboard(num, spacenum, membernum, writer, regdate, content, ref, restep, relevel)
+		values(review_board_seq.nextval, #{spacenum}, #{membernum}, #{writer}, sysdate, #{content}, #{ref}, #{restep}, #{relevel})
 	</insert>
 	<delete id="deleteReviewByNum">
 		delete reviewboard where num=#{num}

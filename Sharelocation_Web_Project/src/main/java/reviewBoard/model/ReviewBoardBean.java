@@ -4,7 +4,6 @@ public class ReviewBoardBean {
 	private int num;
 	private int spacenum;
 	private int membernum;
-	private int membernum;
 	private String writer;
 	private String regdate;
 	private String content;
@@ -23,19 +22,6 @@ public class ReviewBoardBean {
 	}
 	public void setReviewReply(ReviewBoardBean reviewReply) {
 		this.reviewReply = reviewReply;
-	}
-	
-	public int getMembernum() {
-		return membernum;
-	}
-	public void setMembernum(int membernum) {
-		this.membernum = membernum;
-	}
-	public int getRef() {
-		return ref;
-	}
-	public void setRef(int ref) {
-		this.ref = ref;
 	}
 	public int getNum() {
 		return num;
@@ -139,7 +125,7 @@ public class ReviewBoardBean {
 	@Override
 	public String toString() {
 		return "ReviewBoardBean [num=" + num + ", spacenum=" + spacenum + ", membernum=" + membernum + ", write="
-				+ write + ", regdate=" + regdate + ", content=" + content + ", ref=" + ref + ", restep=" + restep
+				+ writer + ", regdate=" + regdate + ", content=" + content + ", ref=" + ref + ", restep=" + restep
 				+ ", relevel=" + relevel + ", servicerating=" + servicerating + ", pricevalueration=" + pricevalueration
 				+ ", cleanrating=" + cleanrating + ", totalrating=" + totalrating + ", reviewReply=" + reviewReply
 				+ "]";

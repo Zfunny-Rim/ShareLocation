@@ -743,7 +743,7 @@ public class HostSpaceManageController {
 		int memberNum;
 		memberNum = loginInfo.getNum();
 		reviewBoardBean.setMembernum(memberNum);
-		reviewBoardBean.setWrite(loginInfo.getNickname());
+		reviewBoardBean.setWriter(loginInfo.getNickname());
 		reviewBoardBean.setRef(reviewBoardBean.getNum());
 		reviewBoardBean.setRestep(1);
 		reviewBoardBean.setRelevel(1);

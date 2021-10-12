@@ -20,7 +20,7 @@
 							</div>
 						</div>
 						<div class="title py-2">
-							<b>${review.write }</b><br>
+							<b>${review.writer }</b><br>
 							<small class="text-muted">
 								<fmt:parseDate var="rDate" value="${review.regdate }" pattern="yyyy-MM-dd HH:mm"/>
 								<fmt:formatDate value="${rDate }" pattern="yyyy-MM-dd HH:mm"/>
