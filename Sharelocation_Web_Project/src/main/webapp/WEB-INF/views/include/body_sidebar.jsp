@@ -5,7 +5,7 @@
 		<div class="sidebar-header">
 			<div class="d-flex justify-content-between">
 				<div class="logo">
-					<a href="index.jsp"><img
+					<a href="/sharelocation"><img
 						src="./resources/assets/images/logo/ips_logo.png"
 						style="width: 151px; height: 60px;"></a>
 				</div>
@@ -92,9 +92,8 @@
 					<li class="sidebar-item">
 						<a href="reservList.rv" class='sidebar-link'>
 						<i class="bi bi-journal-text"></i> <span>예약리스트 보기</span>
-						</a>
-					</li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				</a></li>
+				<li class="sidebar-item"><a href="favoriteList.sp" class='sidebar-link'>
 						<i class="bi bi-bookmark-star-fill"></i> <span>찜한 공간</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>

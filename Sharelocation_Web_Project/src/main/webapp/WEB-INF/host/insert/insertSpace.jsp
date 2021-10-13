@@ -383,6 +383,7 @@
 		  				$('input[name="email_domain"]').attr('readonly', 'readonly');
 		  			}
 		  		});
+		  		
 		  	});
 		  	var target_opTime = document.getElementById('hr24');
 		  	target_opTime.addEventListener('change', function(event){
@@ -396,6 +397,7 @@
 		  			$('select[name="operatingendtime"]').removeAttr('disabled')
 		  		}
 		  	});
+		  	
     	</script>
     	<!-- 우편번호검색 API -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

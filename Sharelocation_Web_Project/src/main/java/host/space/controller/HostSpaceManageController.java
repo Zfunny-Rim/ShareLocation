@@ -108,11 +108,11 @@ public class HostSpaceManageController {
 		ModelAndView mav = new ModelAndView(viewPage);
 		getPage = "Modify";
 		mav.addObject("getPage", getPage);
-		
+
 		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
 		List<SpaceImageBean> spaceImageList = spaceDao.getImage(spaceNum);
 		List<SpaceFacilityBean> spaceFacilityList = spaceDao.getFacility(spaceNum);
-		
+		System.out.println("size : "+spaceFacilityList.size());
 		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("spaceBean", spaceBean);
 		mav.addObject("spaceImageList", spaceImageList);
