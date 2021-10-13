@@ -160,6 +160,22 @@
 	<select id="getFavoriteList" resultType="MyFavorite">
 	 	select * from favorite
 	 	where membernum = #{num}	
-	</select> 
+	</select>
 	
+	<insert id="addAdvertise">
+		insert into advertise 
+		values(advertise_seq.nextval, #{spacenum}, 
+		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'))
+	</insert>
+	<update id="updateGrade">
+		update space set grade=#{grade} where num=#{num}
+	</update>
+	<select id="getAdvertiseBySpaceNum" resultType="MyAdvertise">
+		select * from advertise where spacenum=#{spaceNum}
+	</select>
+	<update id="updateAdvertise">
+		update advertise set 
+		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi') 
+		where num=#{num}
+	</update>
 </mapper>

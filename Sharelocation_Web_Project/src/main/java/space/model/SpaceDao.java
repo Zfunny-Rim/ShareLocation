@@ -121,5 +121,17 @@ public class SpaceDao {
 		List<FavoriteBean> favoritBean = sqlSessionTemplate.selectList(namespace+".getFavoriteList", num);
 		return favoritBean;
 	}
+	public int addAdvertise(AdvertiseBean adBean) {
+		return sqlSessionTemplate.insert(namespace+".addAdvertise", adBean);
+	}
+	public int updateGrade(SpaceBean sBean) {
+		return sqlSessionTemplate.update(namespace+".updateGrade", sBean);
+	}
+	public AdvertiseBean getAdvertiseBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getAdvertiseBySpaceNum", spaceNum);
+	}
+	public int updateAdvertise(AdvertiseBean advertiseBean) {
+		return sqlSessionTemplate.update(namespace+".updateAdvertise", advertiseBean);
+	}
 }
 
