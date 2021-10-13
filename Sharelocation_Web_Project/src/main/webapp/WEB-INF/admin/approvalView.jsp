@@ -114,6 +114,10 @@
 							</div>
 						</div>
 						<hr>
+						<div class="d-flex justify-content-end">
+							<button class="btn btn-outline-success mx-2">검수완료</button>
+							<button class="btn btn-outline-danger">검수반려</button>
+						</div>
 					</div>
 					<div class="col-7 my-2 py-2">
 						<h4>상세 설명</h4>
