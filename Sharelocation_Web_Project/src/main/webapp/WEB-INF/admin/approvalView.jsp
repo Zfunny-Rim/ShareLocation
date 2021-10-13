@@ -124,6 +124,14 @@
 						</c:forEach>
 						<h4>사용 시 주의사항</h4>
 						<p class="card-text">${spaceBean.warning }</p>
+						<h4>주소</h4>
+						<p class="card-text">
+							<c:set var="addrArr" value="${fn:split(spaceBean.address, ',') }"/>
+							<c:set var="addr" value="${addrArr[0] }"/>
+							<c:set var="addrDetail" value="${addrArr[1] }"/>
+							${addr } ${addrDetail }
+						</p>
+						<div id="map" class="p-2" style="width:100%; height: 400px;"></div>
 					</div>
 					<div class="col-5 my-2 py-2 border rounded-3 border-secondary">
 					<h5>세부공간 리스트 (${dspList.size()}개)</h5>
@@ -175,7 +183,28 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6a5567b90a1de962f1fcd120b45bd86&libraries=services"></script>
 		<script type="text/javascript">
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		var geocoder = new kakao.maps.services.Geocoder();
+		geocoder.addressSearch('${addr}',
+			function(result, status) {
+				if (status === kakao.maps.services.Status.OK) {
+					var coords = new kakao.maps.LatLng(result[0].y,
+							result[0].x);
+					var marker = new kakao.maps.Marker({
+						map : map,
+						position : coords
+					});
+					map.setCenter(coords);
+				}
+			}
+		);
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
