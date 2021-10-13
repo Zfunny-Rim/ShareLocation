@@ -27,11 +27,11 @@
 	                        <div class="col-md-6 col-12">
 	                            <div class="card">
 	                                <div class="card-header">
-	                                    <h4 class="card-title">회원탈퇴</h4>
+	                                    <h4 class="card-title">Login</h4>
 	                                </div>
 	                                <div class="card-content">
 	                                    <div class="card-body">
-	                                        <form class="form form-vertical" action="delete.member" method="post">
+	                                        <form class="form form-vertical" action="miniLogin.member" method="post">
 	                                            <div class="form-body">
 	                                                <div class="row">
 	                                                    <div class="col-12">
@@ -67,7 +67,7 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-		
+
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>

@@ -32,18 +32,18 @@ public class HostSpaceListController {
 	
 	@RequestMapping(value=command)
 	public ModelAndView gotoList(HttpSession session, HttpServletResponse response) throws IOException {
-		response.setContentType("text/html; charset=euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
 			pw.println("location.href='main.ho'");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
 			pw.println("location.href='main.ho'");
 			pw.println("</script>");
 			return null;
