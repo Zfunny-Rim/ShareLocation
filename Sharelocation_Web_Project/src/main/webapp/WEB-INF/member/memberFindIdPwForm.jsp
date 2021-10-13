@@ -41,8 +41,8 @@
 											<div class="card-body">
 												<form class="form form-vertical" action="findIdPw.member"
 													method="post">
-													<input type="hidden" id="hemail" name="email"> <input
-														type="hidden" id="hhp" name="hp">
+													<input type="hidden" id="hemail" name="email"> 
+													<input type="hidden" id="hhp" name="hp">
 													<div class="form-body">
 														<div class="row">
 															<div class="col-12">
@@ -104,8 +104,7 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script>
-		async function checkEP(){
-			e.preventDefault();
+		    function checkEP(){
 			//email
 			if($("#firstemail").val() == ""){
 				alert("이메일을 입력하세요");
@@ -142,28 +141,9 @@
 			var hpStr = $('input[name="hp1"]').val() + "-" + $("#hp2").val() + "-" + $("#hp3").val();
 			$("#hhp").val(hpStr);
 			
-			await
-			$.ajax({
-				url : "emailHpCheck.member",
-				type : "POST",
-				data : {
-					"email" : emailStr,
-					"hp" : hpStr
-				},
-				dataType : "text",
-				success : function(data){
-					if(data == "no"){
-						$("#check_alert").html("이메일과 연락처를 확인하세요.");
-						return false;
-					}
-				},
-				error : function() { /* 404, 415, 400등 이런 에러 발생 시 실행 */
-					console.log("checkDuplicating error!");
-				}
-			});
-			
-		return true;
+			return true;
 		}
+		
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>

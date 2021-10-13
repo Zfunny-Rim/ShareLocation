@@ -17,13 +17,42 @@
 		select count(*) from detailspace where spacenum = #{spaceNum}
 	</select>
 	
+	<select id="getDetailSpaceBySpaceNum" resultType="MyDetailSpace">
+		select * from detailspace where spacenum=#{spaceNum}
+	</select>
 	<select id="getDetailSpace" resultType="MyDetailSpace">
 		select * from detailspace where spacenum=#{spaceNum}
 	</select>
-	
-	<select id="getdetailspace" resultType="MyDetailSpace">
+	<select id="getselectdetailspace" resultType="MyDetailSpace">
 		select * from
 		detailspace
 		where num=#{detailspacenum}
+	</select>
+	<update id="updateDSpace">
+		update detailspace set name=#{name}, contents=#{contents}, mainimage=#{mainimage},
+		mintime=#{mintime}, minperson=#{minperson}, maxperson=#{maxperson}, priceunit=#{priceunit}, price=#{price}
+		where num=#{num}
+	</update>
+	<delete id="deleteDSpace">
+		delete detailspace where num=#{detailSpaceNum}
+	</delete>
+	<select id="getDetailSpaceImage" resultType="String">
+		select mainimage from detailspace where num=#{detailSpaceNum}
+	</select>
+	<select id="getSpaceImageBySpaceNum" resultType="String">
+		select mainimage from detailspace where spacenum=#{spaceNum}
+	</select>
+	<select id="getPackageListByDetailSpaceNum" resultType="MyPackage">
+		select * from packageprice where detailspacenum=#{detailSpaceNum}
+	</select>
+	<insert id="insertDPackage">
+		insert into packageprice(num, detailspacenum, title, checkintime, checkouttime, price)
+		values(packageprice_seq.nextval, #{detailspacenum}, #{title}, #{checkintime}, #{checkouttime}, #{price})
+	</insert>
+	<delete id="deleteDPackage">
+		delete packageprice where num=#{num}
+	</delete>
+	<select id="getDetailSpaceByNum" resultType="MyDetailSpace">
+		select * from detailspace where num=#{detailSpaceNum}
 	</select>
 </mapper>

@@ -25,10 +25,50 @@ public class DetailSpaceDao {
 		return sqlSessionTemplate.insert(namespace+".insertDSpace", detailSpaceBean);
 	}
 
-	public DetailSpaceBean getDetailSpace(int spaceNum) {
-		return sqlSessionTemplate.selectOne(namespace+".getDetailSpace", spaceNum);
+	public List<DetailSpaceBean> getDetailSpaceBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getDetailSpaceBySpaceNum", spaceNum);
 	}
 
+	public DetailSpaceBean getselectdetailspace(int detailspacenum) {
+		DetailSpaceBean detailSpaceBean = sqlSessionTemplate.selectOne(namespace+".getselectdetailspace",detailspacenum);
+		return detailSpaceBean;
+	}
+
+	public int updateDSpace(DetailSpaceBean detailSpaceBean) {
+		return sqlSessionTemplate.update(namespace+".updateDSpace", detailSpaceBean);
+	}
+
+	public int deleteDSpace(int detailSpaceNum) {
+		return sqlSessionTemplate.delete(namespace+".deleteDSpace", detailSpaceNum);
+	}
+
+	public String getDetailSpaceImage(int detailSpaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceImage", detailSpaceNum);
+	}
+
+	public List<String> getSpaceImageBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceImageBySpaceNum", spaceNum);
+	}
+
+	public List<PackagePriceBean> getPackageListByDetailSpaceNum(int detailSpaceNum) {
+		return sqlSessionTemplate.selectList(namespace+".getPackageListByDetailSpaceNum", detailSpaceNum);
+	}
+
+	public int insertDPackage(PackagePriceBean packagePriceBean) {
+		return sqlSessionTemplate.insert(namespace+".insertDPackage", packagePriceBean);
+	}
+
+	public int deleteDPackage(int num) {
+		return sqlSessionTemplate.delete(namespace+".deleteDPackage", num);
+	}
+	
+	public List<DetailSpaceBean> getListDetailSpace(int spacenum) {
+		return sqlSessionTemplate.selectList(namespace+".getDetailSpace", spacenum);
+	}
+
+	public DetailSpaceBean getDetailSpaceByNum(int detailSpaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getDetailSpaceByNum", detailSpaceNum);
+	}
 	public DetailSpaceBean getdetailspace(int detailspacenum) {
 		DetailSpaceBean detailSpaceBean = sqlSessionTemplate.selectOne(namespace+".getdetailspace",detailspacenum);
 		return detailSpaceBean;

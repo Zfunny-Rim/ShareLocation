@@ -37,16 +37,24 @@ public class MemberDao {
 		return member;
 	}
 
-	public void deleteMember(String id, String password) {
+	public int deleteMember(String id, String password) {
 		MemberBean member = new MemberBean();
 		member.setId(id);
 		member.setPassword(password);
-		sqlSessionTemplate.delete(namespace+"deleteMember",member);
+		return sqlSessionTemplate.delete(namespace+"deleteMember",member);
 	}
 
 	public MemberBean getLoginData(Map<String, String> map) {
 		MemberBean member = sqlSessionTemplate.selectOne(namespace+"getLoginData",map);
 		return member;
+	}
+
+	public void updateFindMember(MemberBean member) {
+		sqlSessionTemplate.update(namespace+"updateFindMember",member);
+	}
+
+	public MemberBean getMemberByNum(int membernum) {
+		return sqlSessionTemplate.selectOne(namespace+"getMemberByNum", membernum);  
 	}
 
 }

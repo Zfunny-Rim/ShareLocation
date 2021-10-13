@@ -40,7 +40,7 @@
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<input type="submit" class="btn btn-primary btn-block" onClick="return check()" value="로그인">
+									<input type="submit" class="btn btn-primary btn-block" value="로그인">
 								</div>
 							</div>
 						</form>
@@ -58,12 +58,24 @@
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">${loginInfo.nickname }</h4>
+							<div class="user-img d-flex align-items-center">
+								<div class="avatar avatar-md">
+									<c:if test="${loginInfo.gender eq '남' }">
+										<img src="./resources/assets/images/faces/1.jpg">
+										<span class="avatar-status bg-danger"></span>
+									</c:if>
+									<c:if test="${loginInfo.gender eq '여' }">
+										<img src="./resources/assets/images/faces/3.jpg">
+										<span class="avatar-status bg-danger"></span>
+									</c:if>
+								</div>
+							</div>
 					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
 				</div>
 				<div class="card-body">
 					<div class="basic-form">
 							<div class="form-group row">
-								<div class="col-sm-12">
+								<div class="col-sm-6">
 									<button type="button" class="btn btn-primary btn-block" onClick="location.href='mypage.member?id=${loginInfo.id}'">MyPage</button>
 								</div>
 							</div>
@@ -77,9 +89,11 @@
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-house-door-fill"></i> <span>홈</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+					<li class="sidebar-item">
+						<a href="reservList.rv" class='sidebar-link'>
 						<i class="bi bi-journal-text"></i> <span>예약리스트 보기</span>
-				</a></li>
+						</a>
+					</li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-bookmark-star-fill"></i> <span>찜한 공간</span>
 				</a></li>

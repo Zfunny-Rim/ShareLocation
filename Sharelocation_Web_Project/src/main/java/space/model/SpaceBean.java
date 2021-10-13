@@ -14,23 +14,23 @@ public class SpaceBean {
 
 	private int num;
 	private int membernum;
-	@NotBlank(message="ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.")
+	@NotBlank(message="ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.")
 	private String name;
-	@NotBlank(message="ë¶„ë¥˜ë¥¼ ì„ íƒí•˜ì„¸ìš”.")
+	@NotBlank(message="ºĞ·ù¸¦ ¼±ÅÃÇÏ¼¼¿ä.")
 	private String type;
-	@NotBlank(message="í•œì¤„ì†Œê°œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
+	@NotBlank(message="ÇÑÁÙ¼Ò°³¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
 	private String contentssim;
-	@NotBlank(message="ê³µê°„ì†Œê°œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
-	private String contentscom;     
-	@NotBlank(message="ëŒ€í‘œ ì´ë¯¸ì§€ë¥¼ ì„ íƒí•˜ì„¸ìš”.")
+	@NotBlank(message="°ø°£¼Ò°³¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
+	private String contentscom;  
+	@NotBlank(message="´ëÇ¥ ÀÌ¹ÌÁö¸¦ ¼±ÅÃÇÏ¼¼¿ä.")
 	private String mainimage;
-	@NotBlank(message="ì£¼ì˜ì‚¬í•­ì„ ì…ë ¥í•˜ì„¸ìš”.")   
+	@NotBlank(message="ÁÖÀÇ»çÇ×À» ÀÔ·ÂÇÏ¼¼¿ä.")   
 	private String warning;
 	private String site;
-	@NotBlank(message="ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
+	@NotBlank(message="ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
 	private String address;
 	private String email;
-	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="ì˜¬ë°”ë¥¸ ì „í™”ë²ˆí˜¸ í˜•ì‹ì„ ì…ë ¥í•˜ì„¸ìš”.")
+	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="¿Ã¹Ù¸¥ ÀüÈ­¹øÈ£ Çü½ÄÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
 	private String hp;
 	private String operatingtime;
 	private String operatingendtime;
@@ -41,18 +41,24 @@ public class SpaceBean {
 	private String tag;
 	
 	
-	//ìƒì„±ì
+	//»ı¼ºÀÚ
 	public SpaceBean() {
 		super();
 	}
 
-	//DBì— ì €ì¥ë˜ì§€ ì•ŠëŠ” ê°’ë“¤
+	//DB¿¡ ÀúÀåµÇÁö ¾Ê´Â °ªµé
 	private MultipartFile mainimagefile;
+	private MultipartFile mainimageupdatefile;
+	private String mainimageOrigin;
 	private List<MultipartFile> spaceimagefile;
+	private List<MultipartFile> spaceimageupdatefile;
 	private List<String> spaceimage;
-	@Min(value = 1, message="ì´ë¯¸ì§€ë¥¼ ìµœì†Œ í•œê°œ ì„ íƒí•´ì£¼ì„¸ìš”.")
-	@Max(value = 5, message="ì´ë¯¸ì§€ëŠ” ìµœëŒ€ 5ì¥ê¹Œì§€ ì„ íƒ ê°€ëŠ¥í•©ë‹ˆë‹¤.")
+	private List<String> spaceimageupdate;
+	
+	@Min(value = 1, message="ÀÌ¹ÌÁö¸¦ ÃÖ¼Ò ÇÑ°³ ¼±ÅÃÇØÁÖ¼¼¿ä.")
+	@Max(value = 5, message="ÀÌ¹ÌÁö´Â ÃÖ´ë 5Àå±îÁö ¼±ÅÃ °¡´ÉÇÕ´Ï´Ù.")
 	private int spaceimageCount;
+	private int spaceimageOriginCount;
 	
 	public MultipartFile getMainimagefile() {
 		return mainimagefile;
@@ -90,6 +96,55 @@ public class SpaceBean {
 		System.out.println("spaceimageCount : " + spaceimageCount);
 	}
 	
+	//update null issue
+	public MultipartFile getMainimageupdatefile() {
+		return mainimageupdatefile;
+	}
+	public void setMainimageupdatefile(MultipartFile mainimageupdatefile) {
+		this.mainimageupdatefile = mainimageupdatefile;
+		if(mainimageupdatefile.getOriginalFilename().equals("")) {
+			this.setMainimage(this.getMainimageOrigin());
+		}else {
+			this.setMainimage(mainimageupdatefile.getOriginalFilename());
+		}
+	}
+	public List<MultipartFile> getSpaceimageupdatefile() {
+		return spaceimageupdatefile;
+	}
+	public void setSpaceimageupdatefile(List<MultipartFile> spaceimageupdatefile) {
+		this.spaceimageupdatefile = spaceimageupdatefile;
+		//
+		List<String> sImg = new ArrayList<String>();
+		for(MultipartFile mpf:spaceimageupdatefile) {
+			if(mpf.getOriginalFilename().length() != 0)
+				sImg.add(mpf.getOriginalFilename());
+		}
+		this.setSpaceimageupdate(sImg);
+	}
+	public List<String> getSpaceimageupdate() {
+		return spaceimageupdate;
+	}
+	public void setSpaceimageupdate(List<String> spaceimageupdate) {
+		this.spaceimageupdate = spaceimageupdate;
+		//
+		if(this.spaceimageupdate.size() == 0) {
+			this.setSpaceimageCount(this.getSpaceimageOriginCount());
+		}else {
+			this.setSpaceimageCount(this.spaceimageupdate.size());
+		}
+	}
+	public String getMainimageOrigin() {
+		return mainimageOrigin;
+	}
+	public void setMainimageOrigin(String mainimageOrigin) {
+		this.mainimageOrigin = mainimageOrigin;
+	}
+	public int getSpaceimageOriginCount() {
+		return spaceimageOriginCount;
+	}
+	public void setSpaceimageOriginCount(int spaceimageOriginCount) {
+		this.spaceimageOriginCount = spaceimageOriginCount;
+	}
 	
 	
 	public int getNum() {
@@ -200,16 +255,14 @@ public class SpaceBean {
 	public void setOperatingendtime(String operatingendtime) {
 		this.operatingendtime = operatingendtime;
 	}
-	
 	@Override
 	public String toString() {
-		return "SpaceBean [num=" + num + ", membernum=" + membernum + ", name=" + name + ", type=" + type
-				+ ", contentssim=" + contentssim + ", contentscom=" + contentscom + ", mainimage=" + mainimage
-				+ ", warning=" + warning + ", site=" + site + ", address=" + address + ", email=" + email + ", hp=" + hp
-				+ ", operatingtime=" + operatingtime + ", operatingendtime=" + operatingendtime + ", holiday=" + holiday
-				+ ", grade=" + grade + ", status=" + status + ", regdate=" + regdate + ", mainimagefile="
-				+ mainimagefile + ", spaceimagefile=" + spaceimagefile + ", spaceimage=" + spaceimage
-				+ ", spaceimageCount=" + spaceimageCount + "]";
+		return "SpaceBean \n[num=" + num + ", membernum=" + membernum + ", name=" + name + ", type=" + type
+				+ ",\n contentssim=" + contentssim + ", contentscom=" + contentscom + ", mainimage=" + mainimage
+				+ ",\n warning=" + warning + ", site=" + site + ", address=" + address + ", email=" + email + ", hp=" + hp
+				+ ",\n operatingtime=" + operatingtime + ", operatingendtime=" + operatingendtime + ", holiday=" + holiday
+				+ ",\n grade=" + grade + ", status=" + status + ", regdate=" + regdate + ", tag=" + tag
+				+ ",\n spaceimageCount=" + spaceimageCount + "]";
 	}
 	public String getTag() {
 		return tag;
