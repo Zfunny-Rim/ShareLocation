@@ -57,4 +57,8 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne(namespace+"getMemberByNum", membernum);  
 	}
 
+	public String getMemberNickNameByNum(int membernum) {
+		return sqlSessionTemplate.selectOne(namespace+"getMemberNickNameByNum", membernum);
+	}
+
 }

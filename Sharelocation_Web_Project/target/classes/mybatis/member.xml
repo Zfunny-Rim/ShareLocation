@@ -75,5 +75,8 @@
 	<update id="updateFindMember">
 		update members set password=#{password} where id=#{id}
 	</update>
+	<select id="getMemberNickNameByNum" resultType="String">
+		select nickname from members where num=#{membernum}
+	</select>
 	
 </mapper>

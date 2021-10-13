@@ -178,4 +178,7 @@
 		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi') 
 		where num=#{num}
 	</update>
+	<select id="getSpaceApprovalWaitingList" resultType="MySpace">
+		select * from space where status='검수대기'
+	</select>
 </mapper>

@@ -39,7 +39,8 @@ public class SpaceBean {
 	private String status;
 	private String regdate;
 	private String tag;
-	
+	//
+	private String mnickname;
 	
 	//»ý¼ºÀÚ
 	public SpaceBean() {
@@ -269,6 +270,12 @@ public class SpaceBean {
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	public String getMnickname() {
+		return mnickname;
+	}
+	public void setMnickname(String mnickname) {
+		this.mnickname = mnickname;
 	}
 	
 }
