@@ -104,6 +104,9 @@ element.style {
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
+						<form action="reserv.rv" method="post">           
+								<input type="hidden" name="spacenum" value="${space.num }">
+								<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
 						<div class="page-heading">
 							<div class="page-title">
 								<div class="row">
@@ -217,10 +220,6 @@ element.style {
 																>${spacename.name}
 														</c:forEach>
 													</h4>
-
-													<form action="reserv.rv" method="post">           
-														<input type="hidden" name="spacenum" value="${space.num }">
-														<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
 														<c:if test="${not empty detailSpaceBean.num}">
 															<table class="table table-lg"
 																style="border: thick; border-radius: 8px;">
@@ -248,15 +247,16 @@ element.style {
 																	<tr>
 																		<td colspan="2">${detailSpaceBean.contents}</td>
 																	</tr>
+																	<!--  
 																	<tr>
 																		<td class="text-bold-500">날짜 선택</td>
 																		<td><input type="date" name="date"></td>
 																	</tr>
+																	-->
+																	<!--
 																	<tr>
 																		<td class="text-bold-500">시간선택</td>
 																		<td>
-																			<!-- 시간 설정 시작 -->
-
 																			<div class="col-md-8 form-group">
 																				<div class="input-group">
 																					<select class="form-control" name="checkintime">
@@ -287,10 +287,10 @@ element.style {
 																					</small>
 																				</p>
 
-																			</div> <!-- 시간 설정 끝 -->
+																			</div> 
 																		</td>
 																	</tr>
-
+																	  -->
 
 																	<tr>
 																		<td colspan="2" class="text-bold-500" align="center"><input
@@ -300,9 +300,6 @@ element.style {
 																</tbody>
 															</table>
 														</c:if>
-
-													</form>
-
 												</div>
 											</div>
 										</div>
@@ -313,7 +310,7 @@ element.style {
 								</div>
 							</section>
 						</div>
-
+						</form>
 						<%-- ******* Main Code END ******* --%>
 					</section>
 				</div>

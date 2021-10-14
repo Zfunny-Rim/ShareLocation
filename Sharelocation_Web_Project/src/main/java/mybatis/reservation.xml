@@ -41,10 +41,6 @@
 		where membernum = #{membernum}
 	</select>
 	
-	<delete id="deleteReserv">
-		delete from reservation
-		where num=#{num}
-	</delete>
 	<select id="getExpiredReservationList" resultType="MyReservation">
 		select * from
 		(select * from reservation where status='예약대기' or status='입금대기')
@@ -53,4 +49,8 @@
 	<select id="getCompleteReservationList" resultType="MyReservation">
 		select * from reservation where status='예약확정' and <![CDATA[ checkout < sysdate ]]>
 	</select>
+	
+	<update id="reservationCancel">
+		update reservation set status='예약취소' where num=#{num}
+	</update>
 </mapper>

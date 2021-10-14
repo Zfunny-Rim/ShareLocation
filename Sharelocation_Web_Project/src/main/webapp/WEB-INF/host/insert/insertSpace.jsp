@@ -173,7 +173,7 @@
 														</div>
 														<div class="col-md-8 form-group">
 															<div class="input-group mb-2">
-																<c:set var="addrStr" value="${fn:split(spaceBean.address, ',')}"/>
+																<c:set var="addrStr" value="${fn:split(spaceBean.address, ',')}"/> 
 												                <input type="text" class="form-control" name="address_search" id="address_search" 
 												                 value="${addrStr[0] }" readonly="readonly">
 												                <button class="btn btn-primary" type="button" id="address_button"
