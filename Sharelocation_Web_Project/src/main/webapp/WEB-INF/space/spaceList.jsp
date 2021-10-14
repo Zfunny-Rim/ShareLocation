@@ -121,6 +121,7 @@ request.setAttribute("area", area);
 												</p>
 												
 													<input type = "hidden" name ="spacenum" value="${space.num}">
+													
 												<button onclick="viewDetail(${space.num})"
 													class="btn btn-light-primary">detail</button>
 											</div>

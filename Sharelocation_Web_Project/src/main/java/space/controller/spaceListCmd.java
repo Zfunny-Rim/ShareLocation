@@ -82,7 +82,6 @@ public class spaceListCmd {
 		mav.addObject("totalCount", totalCount);
 		mav.addObject("pagenumber", pagenumber);
 		mav.addObject("spacenum",spacenum);
-		mav.addObject("pageInfo",pageInfo);
 		
 		mav.setViewName(getPage);
 		return mav;

@@ -18,19 +18,20 @@ import space.model.FavoriteBean;
 public class SpaceFavoriteCmd {
 
 	private final String command = "/favorite.sp";
-	private final String getPage = "redirect:/detailView.sp";
+	private final String getPage = "/detailView.sp";
 	private boolean flag = false;
 
 	@Autowired
 	SpaceDao spaceDao;
 
 	@RequestMapping(value= command)
-	public String doAction(@RequestParam(value = "spacenum") int spacenum,
+	public ModelAndView doAction(@RequestParam(value = "spacenum") int spacenum,
 			@RequestParam(value = "membernum") int membernum, 
 			FavoriteBean bean, HttpServletResponse response,
 			ModelAndView mav
 			) throws IOException {
 		System.out.println("spaceDetailView");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();	
 		bean.setMembernum(membernum); 
 		bean.setSpacenum(spacenum);
@@ -41,9 +42,11 @@ public class SpaceFavoriteCmd {
 			flag = false;
 			if(cnt != 0) {
 				System.out.println(" 좋아요삭제성공");
-				/* 찜하기 메세지 설정 */
-
-			//	pw.println("<script>alert('찜하기 해제 되었습니다');</script>"); pw.flush(); // 화면 출력
+				pw.println("<script>");
+				pw.println("alert('좋아요 해제 되었습니다');");
+				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
+				pw.println("</script>");
+				return null;
 			}
 		}
 		else {	
@@ -52,13 +55,15 @@ public class SpaceFavoriteCmd {
 			flag = true;
 			if(cnt != 0) {
 				System.out.println(" 좋아요입력성공");
-				/* 찜하기 메세지 설정 */
-				/*
-				 * pw.println("<script>alert('찜하기 설정 되었습니다');</script>"); pw.flush(); // 화면 출력
-				 * 부분
-				 */			}
+				pw.println("<script>");
+				pw.println("alert('좋아요 설정 되었습니다');");
+				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
+				pw.println("</script>");
+				return null;
+			}
 		}
 
-		return getPage+"?num="+spacenum;
+		mav.setViewName(getPage);	
+		return mav;
 	}
 }
