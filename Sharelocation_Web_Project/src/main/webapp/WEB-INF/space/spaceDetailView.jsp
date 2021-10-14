@@ -177,13 +177,13 @@ element.style {
 
 													<h4 class="card-title">사용자 후기</h4>
 													<!-- 후기	시작 -->
-													<c:if test="${empty reviewBoard }">
+													<c:if test="${empty reviewList }">
 	등록된 후기가 없습니다.
 </c:if>
-													<c:if test="${not empty reviewBoard }">
+													<c:if test="${not empty reviewList }">
 	등록된 후기가 총 ${allCount }개 있습니다.
 </c:if>
-													<c:forEach var="review" items="${reviewBoard }"
+													<c:forEach var="review" items="${reviewList }"
 														varStatus="vs">
 														<div class="row justify-content-center">
 															<div class="col-12">
@@ -271,17 +271,13 @@ element.style {
 																	</div>
 																	<c:set var="replyBean" value="${review.reviewReply }" />
 																	<hr class="my-0">
-																	
+
 																	<c:if test="${not empty replyBean }">
 																		<div class="card-body">
 																			<div class="card-title"
 																				style="font-weight: bold; color: #6d3afb;">
 																				<div class="d-flex justify-content-between">
 																					<div class="title my-auto">호스트님의 답글</div>
-																					<div class="del-btn">
-																						<button class="btn btn-sm btn-outline-danger"
-																							onClick="replyDel('${spacenum}', '${replyBean.num }')">삭제</button>
-																					</div>
 																				</div>
 																			</div>
 																			<div class="card-text">
@@ -299,6 +295,7 @@ element.style {
 															</div>
 														</div>
 													</c:forEach>
+													<!-- 페이징 시작 -->
 													<c:if test="${not empty reviewList }">
 														<div class="page-nav d-flex justify-content-center">
 															<nav>
@@ -309,14 +306,14 @@ element.style {
 																	</c:if>
 																	<c:if test="${pageInfo.beginPage ne 1 }">
 																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }" />
+																			value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }&num=${spacenum }" />
 																		<li class="page-item"><a class="page-link"
 																			href="${url }">이전</a></li>
 																	</c:if>
 																	<c:forEach var="i" begin="${pageInfo.beginPage }"
 																		end="${pageInfo.endPage }">
 																		<c:set var="url"
-																			value="${pageInfo.url }?pageNumber=${i }&spacenum=${spacenum }" />
+																			value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }&num=${spacenum }" />
 																		<c:if test="${i eq pagenumber }">
 																			<li class="page-item active"><a
 																				class="page-link">${i }</a></li>
@@ -332,7 +329,7 @@ element.style {
 																	</c:if>
 																	<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
 																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum }" />
+																			value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}&num=${spacenum }" />
 																		<li class="page-item"><a class="page-link"
 																			href="${url }">다음</a></li>
 																	</c:if>
@@ -340,52 +337,9 @@ element.style {
 															</nav>
 														</div>
 													</c:if>
-													<!-- 끝 -->
+													<!--페이징 끝 -->
 
-													<!-- 페이징 -->
-													<c:if test="${not empty reviewList }">
-														<div class="page-nav d-flex justify-content-center">
-															<nav>
-																<ul class="pagination pagination-primary">
-																	<c:if test="${pageInfo.beginPage eq 1 }">
-																		<li class="page-item disabled"><a
-																			class="page-link">이전</a></li>
-																	</c:if>
-																	<c:if test="${pageInfo.beginPage ne 1 }">
-																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }" />
-																		<li class="page-item"><a class="page-link"
-																			href="${url }">이전</a></li>
-																	</c:if>
-																	<c:forEach var="i" begin="${pageInfo.beginPage }"
-																		end="${pageInfo.endPage }">
-																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }" />
-																		<c:if test="${i eq pagenumber }">
-																			<li class="page-item active"><a
-																				class="page-link">${i }</a></li>
-																		</c:if>
-																		<c:if test="${i ne pagenumber }">
-																			<li class="page-item"><a class="page-link"
-																				href="${url }">${i }</a></li>
-																		</c:if>
-																	</c:forEach>
-																	<c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
-																		<li class="page-item disabled"><a
-																			class="page-link">다음</a></li>
-																	</c:if>
-																	<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
-																		<c:set var="url"
-																			value="${pageInfo.url }?pagenmber=${pageInfo.endPage +1 }&spacenum=${spacenum }" />
-																		<li class="page-item"><a class="page-link"
-																			href="${url }">다음</a></li>
-																	</c:if>
-																</ul>
-															</nav>
-														</div>
-													</c:if>
 
-													<!-- 페이징 끝-->
 													<!-- 후기	끝 -->
 												</div>
 												<!-- 설명 끝1 -->
@@ -436,49 +390,6 @@ element.style {
 																	<tr>
 																		<td colspan="2">${detailSpaceBean.contents}</td>
 																	</tr>
-																	<tr>
-																		<td class="text-bold-500">날짜 선택</td>
-																		<td><input type="date" name="date"></td>
-																	</tr>
-																	<tr>
-																		<td class="text-bold-500">시간선택</td>
-																		<td>
-																			<!-- 시간 설정 시작 -->
-
-																			<div class="col-md-8 form-group">
-																				<div class="input-group">
-																					<select class="form-control" name="checkintime">
-																						<c:forEach var="i" begin="${space.operatingtime }"
-																							end="${space.operatingendtime }">
-																							<fmt:formatNumber var="hourStr" value="${i }"
-																								pattern="00" />
-																							<c:set var="timeStr" value="${hourStr }:00" />
-																							<option value="${i }"
-																								<c:if test="${i eq packagePriceBean.checkintime }">selected</c:if>>${timeStr }</option>
-																						</c:forEach>
-																					</select> <span class="input-group-text"> ~ </span> <select
-																						class="form-control" name="checkouttime">
-																						<c:forEach var="i" begin="${space.operatingtime}"
-																							end="${space.operatingendtime }">
-																							<fmt:formatNumber var="hourStr" value="${i }"
-																								pattern="00" />
-																							<c:set var="timeStr" value="${hourStr }:00" />
-																							<option value="${i }"
-																								<c:if test="${i eq packagePriceBean.checkouttime }">selected</c:if>>${timeStr }</option>
-																						</c:forEach>
-																					</select>
-																				</div>
-																				<p>
-																					<small class="text-muted"> <form:errors
-																							cssClass="err" path="checkintime" /> <form:errors
-																							cssClass="err" path="checkouttime" />
-																					</small>
-																				</p>
-
-																			</div> <!-- 시간 설정 끝 -->
-																		</td>
-																	</tr>
-
 
 																	<tr>
 																		<td colspan="2" class="text-bold-500" align="center"><input

@@ -86,18 +86,19 @@ public class SpaceDetailView {
 		mav.addObject("detailspace",detailspace);
 		
 		
-		List<ReviewBoardBean> reviewBoard = reviewBoardDao.getReview(num);
-		mav.addObject("reviewBoard",reviewBoard);
+		
+		
 		
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("whatColumn", whatColumn);
-		map.put("keyword", keyword);
 		map.put("spacenum", Integer.toString(num));
+		map.put("spaceNum", Integer.toString(num));
 		int allCount = reviewBoardDao.getOriginReviewAllCountBySpaceNum(num);
 		int totalCount = reviewBoardDao.getOriginReviewTotalCountBySpaceNum(map);
 		String url = request.getContextPath() + "/" + command;
+		System.out.println("count 확인"+allCount);
+		System.out.println("count ㅇ 확인"+totalCount);
 		
-		Paging pageInfo = new Paging(pagenumber, "5", totalCount, url, whatColumn, keyword, null);
+		Paging pageInfo = new Paging(pagenumber, "3", totalCount, url, null, null, null);
 		List<ReviewBoardBean> reviewList = reviewBoardDao.getOriginReviewListByMap(pageInfo, map);
 		System.out.println("리뷰 확인:"+reviewList.size());
 		for(ReviewBoardBean rbBean:reviewList) {
@@ -107,6 +108,8 @@ public class SpaceDetailView {
 		}
 		mav.addObject("getPage", getPage);
 		mav.addObject("spacenum", num);
+		mav.addObject("num", num);
+		mav.addObject("pagenumber", pagenumber);
 		mav.addObject("pagenumber", pagenumber);
 		mav.addObject("reviewList",reviewList);
 		mav.addObject("allCount",allCount);
