@@ -48,6 +48,7 @@ public class HostSpaceListController {
 			pw.println("</script>");
 			return null;
 		}
+		
 		ModelAndView mav = new ModelAndView(viewPage);
 		List<SpaceBean> spaceList = spaceDao.getSpaceListByMemberNum(loginInfo.getNum());
 		Map<Integer, Integer> dspCountMap = new HashMap<Integer, Integer>();

@@ -61,6 +61,7 @@ public class HostSpaceInsertController {
 		return mav;
 	}
 	
+
 	@RequestMapping(value=command, method = RequestMethod.POST)
 	public ModelAndView insert_tier1(@Valid SpaceBean spaceBean, BindingResult result,
 			HttpServletRequest request, MultipartHttpServletRequest mtfRequest,

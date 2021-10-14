@@ -166,6 +166,7 @@ public class HostSpaceManageController {
 		int cnt = -1;
 		cnt = spaceDao.updateSpace(spaceBean);
 		
+		
 		if(cnt != -1) {
 			if(mpfMainImage != null && mainimage_File != null) {
 				mpfMainImage.transferTo(mainimage_File);
