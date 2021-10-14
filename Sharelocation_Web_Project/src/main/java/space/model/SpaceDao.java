@@ -139,5 +139,8 @@ public class SpaceDao {
 	public int updateSpaceStatus(SpaceBean spaceBean) {
 		return sqlSessionTemplate.update(namespace+".updateSpaceStatus", spaceBean);
 	}
+	public int getAllSpaceCount() {
+		return sqlSessionTemplate.selectOne(namespace+".getAllSpaceCount");
+	}
 }
 
