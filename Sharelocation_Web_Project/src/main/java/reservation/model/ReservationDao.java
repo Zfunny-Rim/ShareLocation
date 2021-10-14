@@ -79,4 +79,7 @@ public class ReservationDao {
 	public List<DayOfWeekCountBean> getDayOfWeekCount() {
 		return sqlSessionTemplate.selectList(namespace+".getDayOfWeekCount", "dayOfWeek");
 	}
+	public int reservationCancel(int num) {
+		return sqlSessionTemplate.update(namespace+".reservationCancel",num);
+	}
 }

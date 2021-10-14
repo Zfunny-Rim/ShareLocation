@@ -9,7 +9,7 @@
     <title>IPS partagé</title>
     <%@ include file="/WEB-INF/views/include/head_css.jsp" %>
     <%-- ******* CUSTOM CSS Link HERE ******* --%>
-    
+     
     <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 

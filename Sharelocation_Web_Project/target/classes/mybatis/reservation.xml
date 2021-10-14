@@ -71,4 +71,7 @@
 			(select num, to_char(checkin, 'dy') as dayofweek from reservation where status='예약확정' or status='이용완료')
 		group by dayofweek order by dayofweek
 	</select>
+	<update id="reservationCancel">
+		update reservation set status='예약취소' where num=#{num}
+	</update>
 </mapper>
