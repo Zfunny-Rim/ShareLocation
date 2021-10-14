@@ -62,7 +62,10 @@
 								                                    			<c:if test="${space.status eq '검수대기'}">
 									                                    			<span class="badge bg-info m-0">${space.status }</span>
 								                                    			</c:if>
-								                                    			<c:if test="${(space.status ne '등록대기') and (space.status ne '검수대기')}">
+								                                    			<c:if test="${space.status eq '검수반려'}">
+									                                    			<span class="badge bg-danger m-0">${space.status }</span>
+								                                    			</c:if>
+								                                    			<c:if test="${(space.status eq '운영중')}">
 									                                    			<span class="badge bg-success m-0">${space.status }</span>
 								                                    			</c:if>
 								                                    		</div>

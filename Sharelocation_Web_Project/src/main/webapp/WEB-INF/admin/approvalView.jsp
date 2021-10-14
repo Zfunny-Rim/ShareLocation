@@ -9,7 +9,7 @@
     <%@ include file="/WEB-INF/views/include/head_css.jsp" %>
     <%-- ******* CUSTOM CSS Link HERE ******* --%>
     <style type="text/css">
-    .accordion-item:hover{
+    .list-title:hover{
     	cursor: pointer;
     }
 	</style>
@@ -68,16 +68,12 @@
 					</div>
 					<div class="col-5 py-2 border rounded-3 border-secondary">
 						<div class="row mb-3">
+	 						<div class="divider my-2"><div class="divider-text">공간 정보</div></div>
 							<div class="col-6">
 								<h5>현재 상태</h5>
 								<p class="card-text">
 									${spaceBean.status }
-									<c:if test="${spaceBean.status eq '등록대기' }">
-										<small class="text-muted link-class" onclick="approval(${spaceBean.num})">검수신청하기</small>
-									</c:if>
 								</p>
-								<h5>주소</h5>
-								<p class="card-text">${spaceBean.address }</p>
 								<h5>영업 시간</h5>
 								<p class="card-text">
 								<c:set var="isAllTime" value="${false }"/>
@@ -104,19 +100,33 @@
 								<p class="card-text">${spaceBean.type }</p>
 								<h5>연락처</h5>
 								<p class="card-text">${spaceBean.hp }</p>
-								<h5>등급</h5>
-								<p class="card-text">${spaceBean.grade }</p>
 								<h5>등록일</h5>
 								<p class="card-text">
 								<fmt:parseDate var="parseRegDate" value="${spaceBean.regdate }" pattern="yyyy-MM-dd"/>
 								<fmt:formatDate value="${parseRegDate }" pattern="yyyy/MM/dd"/>
 								</p>
 							</div>
+							<div class="divider my-2"><div class="divider-text">호스트 정보</div></div>
+							<div class="col-6">
+								<h5>상호명</h5>
+								<p class="card-text">${balanceBean.company }</p>
+								<h5>이메일</h5>
+								<p class="card-text">${balanceBean.email }</p>
+							</div>
+							<div class="col-6">
+								<h5>대표자명</h5>
+								<p class="card-text">${balanceBean.name }</p>
+								<h5>연락처</h5>
+								<p class="card-text">${balanceBean.call }</p>
+							</div>
+							<h5 style="margin-top:16px;">사업장 주소</h5>
+							<p class="card-text">${balanceBean.address }</p>
 						</div>
 						<hr>
 						<div class="d-flex justify-content-end">
-							<button class="btn btn-outline-success mx-2">검수완료</button>
-							<button class="btn btn-outline-danger">검수반려</button>
+							<button class="btn btn-outline-primary"  onClick="location.href='approvalList.admin'">목록보기</button>
+							<button class="btn btn-outline-success mx-2" onClick="approval('${spaceBean.num}')">검수완료</button>
+							<button class="btn btn-outline-danger"  onClick="reject('${spaceBean.num}')">검수반려</button>
 						</div>
 					</div>
 					<div class="col-7 my-2 py-2">
@@ -146,7 +156,7 @@
 						<div class="accordion" id="accordionDSP">
 						<c:forEach var="dspBean" items="${dspList }" varStatus="vs">
 							<div class="accordion-item">
-								<div class="list-group-item list-group-item-success" data-bs-toggle="collapse" data-bs-target="#collapse${vs.count }">${dspBean.name }</div>
+								<div class="list-title list-group-item list-group-item-success" data-bs-toggle="collapse" data-bs-target="#collapse${vs.count }">${dspBean.name }</div>
 								<div id="collapse${vs.count }" class="accordion-collapse collapse" data-bs-parent="accordionDSP"
 								 style="text-decoration: none; background-color:#fff; border: 1px solid rgba(0,0,0,0.125);">
 									<div class="accordion-body p-3">
@@ -209,6 +219,19 @@
 				}
 			}
 		);
+		
+		function approval(num){
+			result = confirm('검수를 완료하시겠습니까? 해당 공간이 영업을 시작합니다.');
+			if(result){
+				location.href='approvalProc.admin?spaceNum='+num+'&flag=true';
+			}
+		}
+		function reject(num){
+			result = confirm('검수를 반려하시겠습니까?');
+			if(result){
+				location.href='approvalProc.admin?spaceNum='+num+'&flag=false';
+			}
+		}
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>

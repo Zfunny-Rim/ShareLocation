@@ -136,5 +136,8 @@ public class SpaceDao {
 	public List<SpaceBean> getSpaceApprovalWaitingList() {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceApprovalWaitingList");
 	}
+	public int updateSpaceStatus(SpaceBean spaceBean) {
+		return sqlSessionTemplate.update(namespace+".updateSpaceStatus", spaceBean);
+	}
 }
 
