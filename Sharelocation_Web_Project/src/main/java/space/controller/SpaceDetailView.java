@@ -108,7 +108,6 @@ public class SpaceDetailView {
 		}
 		mav.addObject("getPage", getPage);
 		mav.addObject("spacenum", num);
-		mav.addObject("num", num);
 		mav.addObject("pagenumber", pagenumber);
 		mav.addObject("pagenumber", pagenumber);
 		mav.addObject("reviewList",reviewList);

@@ -266,31 +266,33 @@ element.style {
 																			</div>
 																		</div>
 																	</div>
-																	<div class="card-body p-3">
-																		${review.content }<br>
-																	</div>
-																	<c:set var="replyBean" value="${review.reviewReply }" />
-																	<hr class="my-0">
-
-																	<c:if test="${not empty replyBean }">
-																		<div class="card-body">
-																			<div class="card-title"
-																				style="font-weight: bold; color: #6d3afb;">
-																				<div class="d-flex justify-content-between">
-																					<div class="title my-auto">호스트님의 답글</div>
-																				</div>
-																			</div>
-																			<div class="card-text">
-																				${replyBean.content }<br>
-																			</div>
-																			<span class="text-muted" style="font-size: 12px;">
-																				<fmt:parseDate var="replyDate"
-																					value="${replyBean.regdate }"
-																					pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
-																					value="${replyDate }" pattern="yyyy-MM-dd HH:mm" />
-																			</span>
-																		</div>
-																	</c:if>
+				<div class="card-body p-3">
+					${review.content }<br>
+				</div>
+				<c:set var="replyBean" value="${review.reviewReply }"/>
+				
+				<c:if test="${not empty replyBean }">
+					<div class="card-body">
+						<div class="card-title" style="font-weight: bold; color:#6d3afb;">
+							<div class="d-flex justify-content-between">
+								<div class="title my-auto">
+									호스트님의 답글
+								</div>
+								<div class="del-btn">
+									<button class="btn btn-sm btn-outline-danger" 
+										onClick="replyDel('${spaceNum}', '${replyBean.num }')">삭제</button>
+								</div>
+							</div>
+						</div>
+						<div class="card-text">
+							${replyBean.content }<br>
+						</div>
+						<span class="text-muted" style="font-size: 12px;">
+							<fmt:parseDate var="replyDate" value="${replyBean.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+							<fmt:formatDate value="${replyDate }" pattern="yyyy-MM-dd HH:mm"/>
+						</span>
+					</div>
+				</c:if>
 																</div>
 															</div>
 														</div>
@@ -439,6 +441,14 @@ element.style {
 		
 	}
 	
+
+	function replyDel(spaceNum, num){
+		result = confirm('답글을 삭제하시겠습니까?');
+		if(result){
+			location.href='spaceManagerReviewReplyDelete.ho?spaceNum='+spaceNum+'&num='+num;
+		}
+	}
+
 /*  TOSTRING SPECATDETAIL NUM 변경 */
 	
 	
