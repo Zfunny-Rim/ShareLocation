@@ -1,7 +1,10 @@
 package reservation.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import member.model.MemberBean;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
+import space.model.SpaceBean;
 import space.model.SpaceDao;
 import utility.Paging;
 
@@ -26,16 +31,21 @@ public class reservationListController {
 	@Autowired
 	ReservationDao reservationDao;
 	
-	//@Autowired
-	//SpaceDao spaceDao;
+	@Autowired
+	SpaceDao spaceDao;
 	
 	@RequestMapping(value=command,method = RequestMethod.GET)
 	public ModelAndView doAction(
 			@RequestParam(value = "pageNumber",required=false) String pageNumber,
-			//@RequestParam(value = "membernum",required=false) int membernum,
-			Model model,ModelAndView mav,HttpSession session
+			@RequestParam(value="whatColumn", required =false) String whatColumn,
+			@RequestParam(value="keyword", required =false) String keyword,
+			Model model,ModelAndView mav,HttpSession session,ReservationBean reservationbean,
+			HttpServletRequest request
 			) {
 		
+		reservationbean.setSpacenum(4); // 임시
+		
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		//로그인 안했다면
 		if(session.getAttribute("loginInfo")==null) { 
 
@@ -44,13 +54,25 @@ public class reservationListController {
 			mav.setViewName("redirect");
 			return mav;
 		}
-		Paging pageInfo = new Paging(pageNumber, null, 0, null, null, null, null);
+		if(pageNumber == null) {
+			pageNumber = "1";
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("whatColumn", whatColumn);
+		map.put("keyword", keyword);
 		
-		List<ReservationBean> reservationLists = reservationDao.getReservList(1,pageInfo);  //membernum값 1 임시
+		String url = request.getContextPath() + "/" + command;
+		int totalCount = reservationDao.getReservationTotalCountByMap(map);
+		Paging pageInfo = new Paging(pageNumber, "5", totalCount, url, whatColumn, keyword, null);
+		List<ReservationBean> reservationLists = reservationDao.getReservList(loginInfo.getNum(),pageInfo);  //membernum값 1 임시
 		System.out.println("reservationbean.List:"+reservationLists.size());
+		
+		SpaceBean spacebean = spaceDao.getSpace(reservationbean.getSpacenum());
 		
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
+		mav.addObject("totalCount", totalCount);
+		mav.addObject("spacebean",spacebean);
 		mav.addObject("reservationLists",reservationLists);
 		return mav;
 	}

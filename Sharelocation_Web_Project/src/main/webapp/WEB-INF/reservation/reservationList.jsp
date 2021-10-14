@@ -28,9 +28,10 @@ dl, ol, ul {
 .justify-content-center {
 	justify-content: center !important;
 }
+
 .btn-outline-primary {
-    color: #fff;
-    border-color: #fff;
+	color: #fff;
+	border-color: #fff;
 }
 </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
@@ -54,16 +55,40 @@ dl, ol, ul {
 									<div class="col-6 col-md-6 order-md-2 order-first">
 										<div
 											class="btn-group dropdown me-1 mb-1 breadcrumb-header float-start float-lg-end">
-											<button type="button"
-												class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"
-												data-bs-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false">
-												<span class="sr-only">전체&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-											</button>
-											<div class="dropdown-menu" style="margin: 0px;">
-												<a class="dropdown-item" href="#">취소환불</a> <a
-													class="dropdown-item" href="#">예약확정</a> <a
-													class="dropdown-item" href="#">Option 3</a>
+											<div class="d-flex justify-content-end">
+												<div class="d-flex filter">
+													<form action="reservList.rv" method="get">
+														<input type="hidden" name="whatColumn" value="status">
+														<input type="hidden" name="spaceNum" value="${spaceNum }">
+														<div class="input-group">
+															<select class="form-control" name="keyword"
+																style="font-size: 12px;">
+																<option value="%">전체보기</option>
+																<option value="예약대기"
+																	<c:if test="${param.keyword eq '예약대기'}">
+									selected
+								</c:if>>예약대기</option>
+																<option value="입금대기"
+																	<c:if test="${param.keyword eq '입금대기'}">
+									selected
+								</c:if>>입금대기</option>
+																<option value="예약확정"
+																	<c:if test="${param.keyword eq '예약확정'}">
+									selected
+								</c:if>>예약확정</option>
+																<option value="이용완료"
+																	<c:if test="${param.keyword eq '이용완료'}">
+									selected
+								</c:if>>이용완료</option>
+																<option value="예약취소"
+																	<c:if test="${param.keyword eq '예약취소'}">
+									selected
+								</c:if>>예약취소</option>
+															</select>
+															<button class="btn btn-sm btn-primary" type="submit">검색</button>
+														</div>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -94,20 +119,30 @@ dl, ol, ul {
 															<div class="row g-0">
 																<div class="col-md-4">
 																	<img
-																		src="<%=request.getContextPath()%>/resources/spaceimage/${dsp.mainimage}"
+																		src="<%=request.getContextPath()%>/resources/spaceimage/${spacebean.mainimage}"
 																		class="img-fluid h-100 rounded-start">
 																</div>
 																<div class="col-md-8">
 																	<div class="card-body">
 																		<c:if test="${reservation.status eq '예약대기' }">
-																			<span class="badge bg-primary">${reservation.status }</span>
+																			<span class="badge bg-warning res-stat">${reservation.status }</span>
+																		</c:if>
+																		<c:if test="${reservation.status eq '입금대기' }">
+																			<span class="badge bg-info res-stat">${reservation.status }</span>
 																		</c:if>
 																		<c:if test="${reservation.status eq '예약확정' }">
-																			<span class="badge bg-primary">${reservation.status }</span>
+																			<span class="badge bg-success res-stat">${reservation.status }</span>
 																		</c:if>
-																		<c:if test="${reservation.status eq '취소환불' }">
+																		<c:if test="${reservation.status eq '이용완료' }">
+																			<span class="badge bg-primary res-stat">${reservation.status }</span>
+																		</c:if>
+																		<c:if test="${reservation.status eq '예약취소' }">
 																			<span class="badge bg-danger">${reservation.status }</span>
 																		</c:if>
+																		<p></p>
+																		<h5>
+																		${spacebean.name}
+																		</h5>
 																		<p class="card-text">${reservation.applicationdate }
 																			${reservation.checkin}시~${reservation.checkout}시</p>
 																	</div>
@@ -119,6 +154,9 @@ dl, ol, ul {
 																					pattern="###,###" />
 																				원
 																			</button>
+																			<button class="btn btn-sm btn-light-primary"
+																				onClick="reservView(${reservation.num})">
+																				예약보기</button>
 																		</div>
 																		<button type="button"
 																			class="btn btn-outline-primary block bg-danger"
@@ -133,17 +171,14 @@ dl, ol, ul {
 																				<div class="modal-content">
 																					<div class="modal-header">
 																						<h4 class="modal-title" id="myModalLabel4">
-																							예약 취소
-																						</h4>
+																							예약 취소</h4>
 																						<button type="button" class="close"
 																							data-bs-dismiss="modal" aria-label="Close">
 																							<i data-feather="x"></i>
 																						</button>
 																					</div>
 																					<div class="modal-body">
-																						<p>
-																							예약을 취소하시겠습니까?
-																						</p>
+																						<p>예약을 취소하시겠습니까?</p>
 																					</div>
 																					<div class="modal-footer">
 																						<button type="button"
@@ -153,9 +188,11 @@ dl, ol, ul {
 																								class="d-none d-sm-block">Close</span>
 																						</button>
 																						<button type="button" class="btn btn-primary ml-1"
-																							data-bs-dismiss="modal" onClick="deleteReserv(${reservation.num})">
+																							data-bs-dismiss="modal"
+																							onClick="deleteReserv(${reservation.num})">
 																							<i class="bx bx-check d-block d-sm-none"></i> <span
-																								class="d-none d-sm-block">Accept</span> <!-- 확인누를시 예약취소됌 -->
+																								class="d-none d-sm-block">Accept</span>
+																							<!-- 확인누를시 예약취소됌 -->
 																						</button>
 																					</div>
 																				</div>
@@ -171,23 +208,44 @@ dl, ol, ul {
 										</div>
 										<!--  페이지 -->
 
-										<nav aria-label="Page navigation example">
-											<ul
-												class="pagination pagination-primary justify-content-center">
-												<li class="page-item"><a class="page-link" href="#">
-														<span aria-hidden="true"><i
-															class="bi bi-chevron-left"></i></span>
-												</a></li>
-												<li class="page-item"><a class="page-link" href="#">1</a></li>
-												<li class="page-item active"><a class="page-link"
-													href="#">2</a></li>
-												<li class="page-item"><a class="page-link" href="#">3</a></li>
-												<li class="page-item"><a class="page-link" href="#">
-														<span aria-hidden="true"><i
-															class="bi bi-chevron-right"></i></span>
-												</a></li>
-											</ul>
-										</nav>
+										<c:if test="${not empty reservationList }">
+											<div class="page-nav d-flex justify-content-center">
+												<nav>
+													<ul class="pagination pagination-primary">
+														<c:if test="${pageInfo.beginPage eq 1 }">
+															<li class="page-item disabled"><a class="page-link">이전</a></li>
+														</c:if>
+														<c:if test="${pageInfo.beginPage ne 1 }">
+															<c:set var="url"
+																value="${pageInfo.url }?pageNumber=${pageInfo.beginPage -1 }&spaceNum=${spaceNum }" />
+															<li class="page-item"><a class="page-link"
+																href="${url }">이전</a></li>
+														</c:if>
+														<c:forEach var="i" begin="${pageInfo.beginPage }"
+															end="${pageInfo.endPage }">
+															<c:set var="url"
+																value="${pageInfo.url }?pageNumber=${i }&spaceNum=${spaceNum }" />
+															<c:if test="${i eq pageNumber }">
+																<li class="page-item active"><a class="page-link">${i }</a></li>
+															</c:if>
+															<c:if test="${i ne pageNumber }">
+																<li class="page-item"><a class="page-link"
+																	href="${url }">${i }</a></li>
+															</c:if>
+														</c:forEach>
+														<c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
+															<li class="page-item disabled"><a class="page-link">다음</a></li>
+														</c:if>
+														<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
+															<c:set var="url"
+																value="${pageInfo.url }?pageNumber=${pageInfo.endPage +1 }&spaceNum=${spaceNum }" />
+															<li class="page-item"><a class="page-link"
+																href="${url }">다음</a></li>
+														</c:if>
+													</ul>
+												</nav>
+											</div>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -205,6 +263,10 @@ dl, ol, ul {
 			function deleteReserv(num){
 				//alert(num);
  				location.href="reservationdelete.rv?num="+num;
+			}
+			function reservView(num){
+				//alert(num);
+ 				location.href="reservView.rv?num="+num;
 			}
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>

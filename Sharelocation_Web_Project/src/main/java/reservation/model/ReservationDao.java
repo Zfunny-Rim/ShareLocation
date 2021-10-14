@@ -38,11 +38,6 @@ public class ReservationDao {
 		return reservationLists;
 	}
 
-	public int deleteReserv(int num) {
-		int cnt= sqlSessionTemplate.delete(namespace+".deleteReserv",num);
-		return cnt;
-	}
-
 	public int getReservationTotalCountByMap(Map<String, String> map) {
 		return sqlSessionTemplate.selectOne(namespace+".getReservationTotalCountByMap", map);
 	}
@@ -63,8 +58,12 @@ public class ReservationDao {
 	public List<ReservationBean> getExpiredReservationList() {
 		return sqlSessionTemplate.selectList(namespace+".getExpiredReservationList");
 	}
-
+	
 	public List<ReservationBean> getCompleteReservationList() {
 		return sqlSessionTemplate.selectList(namespace+".getCompleteReservationList");
+	}
+
+	public int reservationCancel(int num) {
+		return sqlSessionTemplate.update(namespace+".reservationCancel",num);
 	}
 }
