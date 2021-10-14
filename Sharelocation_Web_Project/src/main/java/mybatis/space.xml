@@ -163,4 +163,10 @@
 	 	where membernum = #{num}	
 	</select> 
 	
+	<select id="getSpaceBySpaceNum" resultType="MySpace">
+		select * from space
+		where num = #{num}
+	
+	</select>
+	
 </mapper>

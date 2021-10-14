@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import detailspace.model.DetailSpaceBean;
+import detailspace.model.DetailSpaceDao;
 import member.model.MemberBean;
 import member.model.MemberDao;
 import space.model.FavoriteBean;
@@ -31,6 +33,8 @@ public class SpaceFavoriteListCmd {
 	SpaceDao spaceDao;	
 	@Autowired
 	MemberDao memberDao;
+	@Autowired
+	DetailSpaceDao detailSpaceDao;
 	
 	
 	@RequestMapping(value= command)
@@ -59,23 +63,28 @@ public class SpaceFavoriteListCmd {
 		
 		
 		
-		System.out.println("길이"+ loginInfo.getAddress());
+		
 		System.out.println("확읺:"+loginInfo.getId());
 		
 		MemberBean member = memberDao.getData(loginInfo.getId());
 		
+		
 		List<FavoriteBean> favoriteBean  = spaceDao.getFavoriteList(member.getNum());
 		List<SpaceBean> favoriteResult = new ArrayList<SpaceBean>();
+		
 		for(FavoriteBean i: favoriteBean) {
 			
-			SpaceBean bean= spaceDao.getSpace(i.getSpacenum());
+			SpaceBean bean= spaceDao.getSpaceBySpaceNum(i.getNum());
 			favoriteResult.add(bean);
+			
+			System.out.println("확인중12:"+bean);
 		}
 		
 		mav.addObject("favoriteResult",favoriteResult);	
-		mav.addObject("favoriteBean",favoriteBean);	
-		System.out.println(favoriteBean.size());
+		System.out.println(favoriteBean);
+		System.out.println(favoriteResult);
 	
+
 		
 		mav.setViewName(getPage);	
 		return mav;
