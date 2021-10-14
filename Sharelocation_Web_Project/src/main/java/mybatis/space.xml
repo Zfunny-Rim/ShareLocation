@@ -90,7 +90,7 @@
 
 	<select id="getRecentSpaceNum" resultType="int">
 		select num from
-		(select * from space order by regdate desc) where rownum = 1
+		(select * from space order by regdate desc) where rownum = 1	
 	</select>
 
 	<insert id="insertSpaceImage">
@@ -187,4 +187,5 @@
 	<select id="getAllSpaceCount" resultType="int">
 		select count(*) from space
 	</select>
+	
 </mapper>

@@ -121,6 +121,10 @@ public class SpaceDao {
 		List<FavoriteBean> favoritBean = sqlSessionTemplate.selectList(namespace+".getFavoriteList", num);
 		return favoritBean;
 	}
+	public SpaceBean getSpaceBySpaceNum(int num) {
+		SpaceBean space = sqlSessionTemplate.selectOne(namespace+".getSpaceBySpaceNum", num);
+		return space;
+	}
 	public int addAdvertise(AdvertiseBean adBean) {
 		return sqlSessionTemplate.insert(namespace+".addAdvertise", adBean);
 	}
