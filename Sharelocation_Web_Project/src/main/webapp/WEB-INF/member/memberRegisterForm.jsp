@@ -210,7 +210,7 @@
 
 				$.ajax({
 					url : "idcheck.member",
-					type : "POST",
+					type : "GET",
 					data : {
 						"problem_id" : problem_id
 					},

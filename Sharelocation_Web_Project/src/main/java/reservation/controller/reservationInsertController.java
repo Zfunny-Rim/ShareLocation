@@ -1,5 +1,6 @@
 package reservation.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +40,18 @@ public class reservationInsertController {
 	public ModelAndView reservationInsert(
 			@RequestParam(value = "spacenum",required=false) int spacenum,
 			@RequestParam(value = "detailspacenum",required=false) int detailspacenum,
-			@Valid ReservationBean reservationbean,BindingResult result,
-			ModelAndView mav
+			@RequestParam(value = "operatingtime",required=false) int operatingtime,
+			@RequestParam(value = "operatingendtime",required=false) int operatingendtime,
+			ReservationBean reservationbean,BindingResult result,
+			ModelAndView mav, HttpSession session
 			) {
+		
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		//set member session요청
-		reservationbean.setMembernum(1); 
+		reservationbean.setMembernum(loginInfo.getNum()); 
 		reservationbean.setSpacenum(spacenum);
 		reservationbean.setDetailspacenum(detailspacenum);
 		reservationbean.setStatus("예약대기");//임시
-		reservationbean.setApplicationdate("2021-10-12"); //임시
-		reservationbean.setPerson(2); //임시
 		reservationbean.setPaymenttype("현장결제"); //임시
 		
 		SpaceBean spacebean = spaceDao.getSpace(spacenum);
@@ -73,6 +76,7 @@ public class reservationInsertController {
 				System.out.println("저장 살패");
 			}
 			
+			mav.addObject("spacenum",spacenum);
 			mav.addObject("spacebean",spacebean);
 			mav.addObject("detailSpacebean",detailSpacebean);
 			mav.addObject("reservationbean",reservationbean);

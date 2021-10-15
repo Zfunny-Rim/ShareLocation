@@ -3,6 +3,7 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="reservation.model.ReservationBean">
+
 	<select id="getReserv" resultType="MyReservation">
 		select * from reservation
 		where spacenum = #{spacenum}
@@ -53,4 +54,24 @@
 	<select id="getCompleteReservationList" resultType="MyReservation">
 		select * from reservation where status='예약확정' and <![CDATA[ checkout < sysdate ]]>
 	</select>
+	<select id="getCompleteReservationCount" resultType="int">
+		select count(*) from reservation where status='예약확정' or status='이용완료'
+	</select>
+	<select id="getTypeRankingBest" resultType="reservation.model.TypeRankingBean">
+		select type, count 
+		from (select type, count(rstatus) as count, rank() over (order by count(rstatus) desc, type asc) as rank
+			  from (select type, res.status as rstatus
+				    from reservation res, space sp
+				    where res.spacenum = sp.num)
+			  where rstatus = '이용완료' or rstatus = '예약확정' group by type)
+		where rank = 1
+	</select>
+	<select id="getDayOfWeekCount" resultType="reservation.model.DayOfWeekCountBean">
+		select dayofweek, count(dayofweek) as count from
+			(select num, to_char(checkin, 'dy') as dayofweek from reservation where status='예약확정' or status='이용완료')
+		group by dayofweek order by dayofweek
+	</select>
+	<update id="reservationCancel">
+		update reservation set status='예약취소' where num=#{num}
+	</update>
 </mapper>

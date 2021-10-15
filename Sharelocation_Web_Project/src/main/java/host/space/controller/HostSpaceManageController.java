@@ -3,7 +3,11 @@ package host.space.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +40,7 @@ import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
 import reviewBoard.model.ReviewBoardBean;
 import reviewBoard.model.ReviewBoardDao;
+import space.model.AdvertiseBean;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
@@ -64,6 +69,8 @@ public class HostSpaceManageController {
 	private final String reservationCommand = "spaceManageReservation.ho";
 	private final String reservationViewCommand = "spaceManageReservationView.ho";
 	private final String reservationStatusUpdateCommand = "spaceManageReservationStatusUpdate.ho";
+	private final String advertiseCommand = "spaceManagerAdvertise.ho";
+	private final String advertisePurchaseCommand = "spaceManagerAdvertisePurchase.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -142,16 +149,16 @@ public class HostSpaceManageController {
 		}
 		
 		
-		//mainimage ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+		//mainimage ÆÄÀÏ Ã³¸®
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		File mainimage_File = null;
 		MultipartFile mpfMainImage = null;
 		
 		if(!spaceBean.getMainimage().equals(spaceBean.getMainimageOrigin())) {
-			//Originï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³ªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			//Origin°ú ÀÌ¸§ÀÌ °°´Ù¸é ¼öÁ¤ÀÌ ÀÏ¾î³ªÁö ¾ÊÀ½.
 			mpfMainImage = mtfRequest.getFile("mainimageupdatefile");
 			String originFileName = mpfMainImage.getOriginalFilename();
-			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
+			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ÆÄÀÏ¸í Áßº¹ ¸·±â
 			mainimage_File = new File(uploadPath+"\\"+safeFileName);
 			spaceBean.setMainimage(safeFileName); 
 			System.out.println("mainimage : " + spaceBean.getMainimage());
@@ -159,10 +166,11 @@ public class HostSpaceManageController {
 		int cnt = -1;
 		cnt = spaceDao.updateSpace(spaceBean);
 		
+		
 		if(cnt != -1) {
 			if(mpfMainImage != null && mainimage_File != null) {
 				mpfMainImage.transferTo(mainimage_File);
-				//TODO: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½
+				//TODO: ±âÁ¸ ¸ÞÀÎÀÌ¹ÌÁö ÆÄÀÏ »èÁ¦ ÀÛ¾÷
 				File dFile = new File(uploadPath+"\\"+spaceBean.getMainimageOrigin());
 				System.out.println(dFile.getPath());
 				if(dFile.exists()) {
@@ -170,12 +178,12 @@ public class HostSpaceManageController {
 				}
 			}
 		}
-		//spaceimage (ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½) Ã³ï¿½ï¿½
+		//spaceimage (´ÙÁßÀÌ¹ÌÁö) Ã³¸®
 		//
 		if(spaceBean.getSpaceimageupdate().size() != 0) {
-			//modify Formï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³ªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
-			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³µï¿½Ù¸ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
-			//TODO: ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½
+			//modify Form¿¡¼­ ¾÷·ÎµåÇÑ ÀÌ¹ÌÁö°¡ 0°³¸é ¼öÁ¤ÀÌ ÀÏ¾î³ªÁö ¾ÊÀ½.
+			//¼öÁ¤ÀÌ ÀÏ¾î³µ´Ù¸é ¿ì¼± ¸ðµç ÀÌ¹ÌÁö¸¦ Áö¿î´Ù.
+			//TODO: ±âÁ¸ ÀÌ¹ÌÁö ÆÄÀÏµé »èÁ¦ ÀÛ¾÷
 			List<SpaceImageBean> spaceImageList = spaceDao.getImage(spaceBean.getNum());
 			for(SpaceImageBean siBean:spaceImageList) {
 				String imageFileName = siBean.getImage();
@@ -185,27 +193,27 @@ public class HostSpaceManageController {
 					dFile.delete();
 				}
 			}
-			//DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			//DB¿¡¼­µµ »èÁ¦
 			spaceDao.deleteSpaceImageBySpaceNum(spaceBean.getNum());
 			
-			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½Ñ´ï¿½.
+			//¼öÁ¤µÈ ÆÄÀÏÀ» ¾÷·ÎµåÇÑ´Ù.
 			List<MultipartFile> spImageList = mtfRequest.getFiles("spaceimageupdatefile");
 			for(int i=0;i<spImageList.size();i++) {
 				MultipartFile mpfSpaceImage = spImageList.get(i);
 				String spOriginFileName = mpfSpaceImage.getOriginalFilename();
-				String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
+				String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // ÆÄÀÏ¸í Áßº¹ ¸·±â
 				File spaceImage_File = new File(uploadPath+"\\"+spSafeFileName);
 				cnt = -1;
 				SpaceImageBean spaceImageBean = new SpaceImageBean(0, spaceBean.getNum(), spSafeFileName);
 				cnt = spaceDao.insertSpaceImage(spaceImageBean);
 				if(cnt != -1) {
-					//DBï¿½ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
+					//DBÀúÀå¿¡ ¼º°øÇßÀ¸¸é ÀÌ¹ÌÁöµµ ¼­¹ö¿¡ ¾÷·Îµå
 					mpfSpaceImage.transferTo(spaceImage_File);
 				}
 			}
 		}
 		
-		//facility Ã³ï¿½ï¿½
+		//facility Ã³¸®
 		spaceDao.deleteFacility(spaceBean.getNum());
 		String[] facilityList = request.getParameterValues("facility");
 		for(String facStr:facilityList) {
@@ -256,11 +264,11 @@ public class HostSpaceManageController {
 			return mav;
 		}
 		
-		//mainimage ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+		//mainimage ÆÄÀÏ Ã³¸®
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		MultipartFile mpfMainImage = mtfRequest.getFile("mainimagefile");
 		String originFileName = mpfMainImage.getOriginalFilename();
-		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
+		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ÆÄÀÏ¸í Áßº¹ ¸·±â
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		detailSpaceBean.setMainimage(safeFileName);
 		
@@ -304,16 +312,16 @@ public class HostSpaceManageController {
 			mav.addObject("getPage", getPage);
 			return mav;
 		}
-		//mainimage ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+		//mainimage ÆÄÀÏ Ã³¸®
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		File mainimage_File = null;
 		MultipartFile mpfMainImage = null;
 		
 		if(!detailSpaceBean.getMainimage().equals(detailSpaceBean.getMainimageOrigin())) {
-			//Originï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³ªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			//Origin°ú ÀÌ¸§ÀÌ °°´Ù¸é ¼öÁ¤ÀÌ ÀÏ¾î³ªÁö ¾ÊÀ½.
 			mpfMainImage = mtfRequest.getFile("mainimageupdatefile");
 			String originFileName = mpfMainImage.getOriginalFilename();
-			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
+			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ÆÄÀÏ¸í Áßº¹ ¸·±â
 			mainimage_File = new File(uploadPath+"\\"+safeFileName);
 			detailSpaceBean.setMainimage(safeFileName); 
 		}		
@@ -322,7 +330,7 @@ public class HostSpaceManageController {
 		if(cnt != -1) {
 			if(mainimage_File != null && mpfMainImage != null) {
 				mpfMainImage.transferTo(mainimage_File);
-				//TODO: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½
+				//TODO: ±âÁ¸ ¸ÞÀÎÀÌ¹ÌÁö ÆÄÀÏ »èÁ¦ ÀÛ¾÷
 				File dFile = new File(uploadPath+"\\"+detailSpaceBean.getMainimageOrigin());
 				if(dFile.exists()) {
 					dFile.delete();
@@ -365,25 +373,27 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
 		memberNum = loginInfo.getNum();
 		BalanceBean balanceBean = balanceDao.getBalanceByMemberNum(memberNum);
 		if(balanceBean == null) {
-			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+			//Á¤»êÁ¤º¸ ÀÔ·ÂÀ¸·Î ÀÌµ¿
 			mav.setViewName("redirect:/spaceManageBalanceInsert.ho");
 		}else {
-			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+			//Á¤»êÁ¤º¸ »ó¼¼º¸±â·Î ÀÌµ¿
 			mav.setViewName("redirect:/spaceManageBalanceView.ho");
 		}
 		mav.addObject("spaceNum", spaceNum);
@@ -408,15 +418,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
@@ -445,15 +457,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
@@ -476,16 +490,19 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
+			
 		}
 		int memberNum = 0;
 		memberNum = loginInfo.getNum();
@@ -506,15 +523,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
@@ -577,7 +596,7 @@ public class HostSpaceManageController {
 			mav.addObject("spaceBean", spaceBean);
 			return mav;
 		}
-		//ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½Ã¸ï¿½Ç´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+		//ÆÐÅ°Áö ½Ã°£ ÁßÃ¸µÇ´ÂÁö È®ÀÎÇØ¾ßÇÔ
 		List<PackagePriceBean> packageBeanList = detailSpaceDao.getPackageListByDetailSpaceNum(detailSpaceNum);
 		int check_in = packagePriceBean.getCheckintime();
 		int check_out = packagePriceBean.getCheckouttime();
@@ -601,9 +620,9 @@ public class HostSpaceManageController {
 		}
 		if(isInvalid) {
 			PackagePriceBean ppBean = packageBeanList.get(invalid_index);
-			System.out.println("ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ "+ppBean.getTitle()+" ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½Ë´Ï´ï¿½.");
-			System.out.println("ï¿½Ô·ï¿½ ï¿½Ã°ï¿½ : "+check_in+"~"+check_out);
-			System.out.println(ppBean.getTitle()+" ï¿½Ã°ï¿½ : "+ppBean.getCheckintime()+"~"+ppBean.getCheckouttime());
+			System.out.println("ÆÐÅ°Áö ½Ã°£ÀÌ "+ppBean.getTitle()+" ÆÐÅ°Áö¿Í Áßº¹µË´Ï´Ù.");
+			System.out.println("ÀÔ·Â ½Ã°£ : "+check_in+"~"+check_out);
+			System.out.println(ppBean.getTitle()+" ½Ã°£ : "+ppBean.getCheckintime()+"~"+ppBean.getCheckouttime());
 			getPage = "DetailPackageInsert";
 			mav.addObject("getPage", getPage);
 			mav.addObject("spaceNum", spaceNum);
@@ -642,15 +661,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = loginInfo.getNum();
@@ -660,22 +681,25 @@ public class HostSpaceManageController {
 			cnt = spaceDao.requestApproval(spaceNum);
 			if(cnt != -1) {
 				pw.println("<script>");
-				pw.println("alert('ï¿½Ë¼ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½î¿µï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½î¿µï¿½ï¿½ ï¿½ï¿½ï¿½ÛµË´Ï´ï¿½.');");
+				pw.println("alert('°Ë¼ö ½ÅÃ»ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù. ¿î¿µÁøÀÇ °ËÅä ÈÄ¿¡ °ø°£ ¿î¿µÀÌ ½ÃÀÛµË´Ï´Ù.');");
 				pw.println("location.href='"+homeCommand+"?spaceNum="+spaceNum+"'");
 				pw.println("</script>");
+				pw.flush();
 				return null;
 			}
 		}else if(dspCount <= 0) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');");
+			pw.println("alert('µî·ÏµÈ ¼¼ºÎ °ø°£ÀÌ ¾ø½À´Ï´Ù.');");
 			pw.println("location.href='spaceManageDetailSpace.ho?spaceNum="+spaceNum+"'");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(balanceBean == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');");
+			pw.println("alert('µî·ÏµÈ Á¤»ê Á¤º¸°¡ ¾ø½À´Ï´Ù.');");
 			pw.println("location.href='spaceManageBalanceInsert.ho?spaceNum="+spaceNum+"'");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		mav.setViewName("redirect:/"+homeCommand);
@@ -728,15 +752,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int spaceNum = reviewBoardBean.getSpacenum();
@@ -841,6 +867,77 @@ public class HostSpaceManageController {
 		mav.addObject("whatColumn", whatColumn);
 		mav.addObject("keyword", keyword);
 		return mav;
+	}
+
+	@RequestMapping(value=advertiseCommand)
+	public ModelAndView advertiseView(@RequestParam(value="spaceNum")int spaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "Advertise";
+		AdvertiseBean advertiseBean = spaceDao.getAdvertiseBySpaceNum(spaceNum);
+		mav.addObject("advertiseBean", advertiseBean);
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=advertisePurchaseCommand)
+	public ModelAndView advertisePurchase(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="plan")int plan, HttpServletResponse response) throws IOException, ParseException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		ModelAndView mav = new ModelAndView(viewPage);
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		AdvertiseBean advertiseBean = spaceDao.getAdvertiseBySpaceNum(spaceNum);
+		Date curDate;
+		if(advertiseBean == null) {
+			//½Å±Ô°¡ÀÔ
+			curDate = new Date();
+		}else {
+			//Ãß°¡¿¬Àå
+			curDate = sdf.parse(advertiseBean.getExpiredate());
+		}
+		cal.setTime(curDate);
+		cal.add(Calendar.MONTH, plan);
+        String expireDate = sdf.format(cal.getTime());
+		System.out.println(expireDate);
+		int cnt = -1;
+		String msg = null;
+		if(advertiseBean == null) {
+			//½Å±Ô°¡ÀÔ
+			advertiseBean = new AdvertiseBean();
+			advertiseBean.setSpacenum(spaceNum);
+			advertiseBean.setExpiredate(expireDate);
+			cnt = spaceDao.addAdvertise(advertiseBean);
+			if(cnt != -1) {
+				SpaceBean sBean = new SpaceBean();
+				sBean.setNum(spaceNum);
+				sBean.setGrade("±¤°í");
+				spaceDao.updateGrade(sBean);
+			}
+			msg = "±¤°í µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù. ¸¸·áÀÏÀº "+expireDate+"ÀÔ´Ï´Ù.";
+		}else {
+			//Ãß°¡¿¬Àå
+			advertiseBean.setExpiredate(expireDate);
+			cnt = spaceDao.updateAdvertise(advertiseBean);
+			msg = "±¤°íÀÏÀÌ ¿¬ÀåµÇ¾ú½À´Ï´Ù. ¸¸·áÀÏÀº "+expireDate+"ÀÔ´Ï´Ù.";
+		}
+		if(cnt != -1) {
+			System.out.println("In Script");
+			pw.println("<script>");
+			pw.println("alert('"+msg+"');");
+			pw.println("location.href='"+advertiseCommand+"?spaceNum="+spaceNum+"'");
+			pw.println("</script>");
+			pw.flush();
+			return null;
+		}
+		else {
+			getPage = "Advertise";
+			mav.addObject("getPage", getPage);
+			mav.addObject("spaceNum", spaceNum);
+			return mav;
+		}
 	}
 }
 

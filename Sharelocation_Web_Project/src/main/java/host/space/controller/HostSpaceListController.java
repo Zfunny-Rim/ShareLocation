@@ -37,17 +37,18 @@ public class HostSpaceListController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}
+		
 		ModelAndView mav = new ModelAndView(viewPage);
 		List<SpaceBean> spaceList = spaceDao.getSpaceListByMemberNum(loginInfo.getNum());
 		Map<Integer, Integer> dspCountMap = new HashMap<Integer, Integer>();

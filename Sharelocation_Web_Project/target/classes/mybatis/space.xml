@@ -90,7 +90,7 @@
 
 	<select id="getRecentSpaceNum" resultType="int">
 		select num from
-		(select * from space order by regdate desc) where rownum = 1
+		(select * from space order by regdate desc) where rownum = 1	
 	</select>
 
 	<insert id="insertSpaceImage">
@@ -154,12 +154,38 @@
 		delete space where num=#{spaceNum}
 	</delete>
 	<update id="requestApproval">
-		update space set status='운영중' where num=#{spaceNum}
+		update space set status='검수대기' where num=#{spaceNum}
 	</update>
 	
 	<select id="getFavoriteList" resultType="MyFavorite">
 	 	select * from favorite
 	 	where membernum = #{num}	
-	</select> 
+	</select>
+	
+	<insert id="addAdvertise">
+		insert into advertise 
+		values(advertise_seq.nextval, #{spacenum}, 
+		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'))
+	</insert>
+	<update id="updateGrade">
+		update space set grade=#{grade} where num=#{num}
+	</update>
+	<select id="getAdvertiseBySpaceNum" resultType="MyAdvertise">
+		select * from advertise where spacenum=#{spaceNum}
+	</select>
+	<update id="updateAdvertise">
+		update advertise set 
+		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi') 
+		where num=#{num}
+	</update>
+	<select id="getSpaceApprovalWaitingList" resultType="MySpace">
+		select * from space where status='검수대기'
+	</select>
+	<update id="updateSpaceStatus">
+		update space set status=#{status} where num = #{num}
+	</update>
+	<select id="getAllSpaceCount" resultType="int">
+		select count(*) from space
+	</select>
 	
 </mapper>
