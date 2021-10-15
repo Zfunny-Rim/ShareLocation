@@ -20,7 +20,7 @@
 		select * from space
 		where status = '운영중'
 		<if test="status!=null">
-		or name like upper(#{keyword}) or tag like upper(#{keyword})
+			or name like upper(#{keyword}) or tag like upper(#{keyword})
 		</if>
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
@@ -33,9 +33,9 @@
 
 	<select id="getTotalCount" resultType="int">
 		select count(*) from space
-			where status = '운영중'
+		where status = '운영중'
 		<if test="status!=null">
-		or name like upper(#{keyword}) or tag like upper(#{keyword})
+			or name like upper(#{keyword}) or tag like upper(#{keyword})
 		</if>
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
@@ -50,7 +50,8 @@
 		select * from space
 		where grade = '광고'
 		<if test="grade!=null">
-			or name like upper(#{keyword}) or tag like upper(#{keyword})
+			or name like upper(#{keyword}) or tag like
+			upper(#{keyword})
 		</if>
 
 		<if test="whatColumn!=null">
@@ -90,7 +91,7 @@
 
 	<select id="getRecentSpaceNum" resultType="int">
 		select num from
-		(select * from space order by regdate desc) where rownum = 1	
+		(select * from space order by regdate desc) where rownum = 1
 	</select>
 
 	<insert id="insertSpaceImage">
@@ -156,36 +157,44 @@
 	<update id="requestApproval">
 		update space set status='검수대기' where num=#{spaceNum}
 	</update>
-	
+
 	<select id="getFavoriteList" resultType="MyFavorite">
-	 	select * from favorite
-	 	where membernum = #{num}	
+		select * from favorite
+		where membernum = #{num}
 	</select>
-	
+
 	<insert id="addAdvertise">
-		insert into advertise 
-		values(advertise_seq.nextval, #{spacenum}, 
+		insert into advertise
+		values(advertise_seq.nextval, #{spacenum},
 		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'))
 	</insert>
 	<update id="updateGrade">
 		update space set grade=#{grade} where num=#{num}
 	</update>
 	<select id="getAdvertiseBySpaceNum" resultType="MyAdvertise">
-		select * from advertise where spacenum=#{spaceNum}
+		select * from
+		advertise where spacenum=#{spaceNum}
 	</select>
 	<update id="updateAdvertise">
-		update advertise set 
-		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi') 
+		update advertise set
+		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi')
 		where num=#{num}
 	</update>
 	<select id="getSpaceApprovalWaitingList" resultType="MySpace">
-		select * from space where status='검수대기'
+		select *
+		from space where status='검수대기'
 	</select>
 	<update id="updateSpaceStatus">
 		update space set status=#{status} where num = #{num}
 	</update>
 	<select id="getAllSpaceCount" resultType="int">
-		select count(*) from space
+		select count(*) from
+		space
 	</select>
-	
+	<select id="getSpaceBySpaceNum" resultType="MySpace">
+		select * from space
+		where num = #{num}
+	</select>
+
+
 </mapper>

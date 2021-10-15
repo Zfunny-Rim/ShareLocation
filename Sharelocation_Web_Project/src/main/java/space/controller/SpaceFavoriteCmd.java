@@ -41,9 +41,8 @@ public class SpaceFavoriteCmd {
 			int cnt = spaceDao.delFavorite(bean);
 			flag = false;
 			if(cnt != 0) {
-				System.out.println(" ÁÁ¾Æ¿ä»èÁ¦¼º°ø");
 				pw.println("<script>");
-				pw.println("alert('ÁÁ¾Æ¿ä ÇØÁ¦ µÇ¾ú½À´Ï´Ù');");
+				pw.println("alert('ì¢‹ì•„ìš”ê°€ í•´ì œ ë˜ì—ˆìŠµë‹ˆë‹¤');");
 				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
 				pw.println("</script>");
 				return null;
@@ -54,9 +53,8 @@ public class SpaceFavoriteCmd {
 			int cnt = spaceDao.addFavorite(bean);
 			flag = true;
 			if(cnt != 0) {
-				System.out.println(" ÁÁ¾Æ¿äÀÔ·Â¼º°ø");
 				pw.println("<script>");
-				pw.println("alert('ÁÁ¾Æ¿ä ¼³Á¤ µÇ¾ú½À´Ï´Ù');");
+				pw.println("alert('ì¢‹ì•„ìš”ê°€ ì„¤ì • ë˜ì—ˆìŠµë‹ˆë‹¤');");
 				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
 				pw.println("</script>");
 				return null;
