@@ -67,4 +67,19 @@ public class ReservationDao {
 	public List<ReservationBean> getCompleteReservationList() {
 		return sqlSessionTemplate.selectList(namespace+".getCompleteReservationList");
 	}
+
+	public int getCompleteReservationCount() {
+		return sqlSessionTemplate.selectOne(namespace+".getCompleteReservationCount");
+	}
+
+	public TypeRankingBean getTypeRankingBest() {
+		return sqlSessionTemplate.selectOne(namespace+".getTypeRankingBest");
+	}
+
+	public List<DayOfWeekCountBean> getDayOfWeekCount() {
+		return sqlSessionTemplate.selectList(namespace+".getDayOfWeekCount", "dayOfWeek");
+	}
+	public int reservationCancel(int num) {
+		return sqlSessionTemplate.update(namespace+".reservationCancel",num);
+	}
 }

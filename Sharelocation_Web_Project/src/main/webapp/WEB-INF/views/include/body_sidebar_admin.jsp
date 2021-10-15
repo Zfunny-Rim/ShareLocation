@@ -17,8 +17,8 @@
 		</div>
 		<div class="sidebar-menu">
 			<!-- ***** Login Card Start ***** -->
-		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
-		<c:if test="${empty loginInfo }">
+	<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
+	<c:if test="${empty loginInfo }">
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">Login</h4>
@@ -29,20 +29,18 @@
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" id="id">아이디</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" placeholder="ID" name="id">
-									<input type="hidden" id="id" value="${id }">
+									<input type="text" class="form-control" placeholder="ID" id="id_check" name="id">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" >비밀번호</label>
 								<div class="col-sm-8">
-									<input type="password" class="form-control" placeholder="Password" name="password">
-									<input type="hidden" id="password" value="${password }">
+									<input type="password" class="form-control" placeholder="Password" id="password_check" name="password">
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<button type="submit" class="btn btn-primary btn-block">로그인</button>
+									<input type="submit" class="btn btn-primary btn-block" value="로그인">
 								</div>
 							</div>
 						</form>
@@ -60,18 +58,6 @@
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">${loginInfo.nickname }</h4>
-						<div class="user-img d-flex align-items-center">
-								<div class="avatar avatar-md">
-									<c:if test="${loginInfo.gender eq '남' }">
-										<img src="./resources/assets/images/faces/1.jpg">
-										<span class="avatar-status bg-danger"></span>
-									</c:if>
-									<c:if test="${loginInfo.gender eq '여' }">
-										<img src="./resources/assets/images/faces/3.jpg">
-										<span class="avatar-status bg-danger"></span>
-									</c:if>
-								</div>
-							</div>
 					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
 				</div>
 				<div class="card-body">
@@ -88,17 +74,18 @@
 			<!-- ***** Login Card END ***** -->
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>
-				<li class="sidebar-item"><a href="main.ho" class='sidebar-link'>
+				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-house-door-fill"></i> <span>홈</span>
 				</a></li>
-				<li class="sidebar-item"><a href="insertSpace.ho" class='sidebar-link'>
-						<i class="bi bi-journal-text"></i> <span>공간 등록하기</span>
+					<li class="sidebar-item">
+						<a href="approvalList.admin" class='sidebar-link'>
+						<i class="bi bi-journal-text"></i> <span>검수신청 리스트</span>
+				</a></li>
+				<li class="sidebar-item"><a href="favoriteList.sp" class='sidebar-link'>
+						<i class="bi bi-bookmark-star-fill"></i> <span>등록된 공간 관리</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
-						<i class="bi bi-book-half"></i> <span>공간 등록 메뉴얼</span>
-				</a></li>
-				<li class="sidebar-item"><a href="spaceList.ho" class='sidebar-link'>
-						<i class="bi bi-gear"></i> <span>내 공간 관리하기</span>
+						<i class="bi bi-blockquote-left"></i> <span>광고 관리하기</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-exclamation-diamond-fill"></i> <span>공지사항</span>

@@ -14,21 +14,21 @@ public class QueryScheduler {
 	@Autowired
 	ReservationDao reservationDao;
 	
-	//0 0 0/1 * * ? : ÇÑ½Ã°£¿¡ ÇÑ¹ø¾¿ ¸¸·á Ã¼Å©
+	//0 0 0/1 * * ? : í•œì‹œê°„ì— í•œë²ˆì”© ë§Œë£Œ ì²´í¬
 	@Scheduled(cron = "0 0 0/1 * * ?")
 	public void expireSchduler() {
-		System.out.println("½ºÄÉÁì·¯ Å×½ºÆ®!");
+		System.out.println("ìŠ¤ì¼€ì¥´ëŸ¬ í…ŒìŠ¤íŠ¸!");
 		List<ReservationBean> exResList = reservationDao.getExpiredReservationList();
 		if(exResList.size() != 0) {
 			for(ReservationBean resBean:exResList) {
-				resBean.setStatus("¿¹¾àÃë¼Ò");
+				resBean.setStatus("ì˜ˆì•½ì·¨ì†Œ");
 				reservationDao.updateStatus(resBean);
 			}
 		}
 		List<ReservationBean> comResList = reservationDao.getCompleteReservationList();
 		if(comResList.size() != 0) {
 			for(ReservationBean resBean:comResList) {
-				resBean.setStatus("ÀÌ¿ë¿Ï·á");
+				resBean.setStatus("ì´ìš©ì™„ë£Œ");
 				reservationDao.updateStatus(resBean);
 			}
 		}

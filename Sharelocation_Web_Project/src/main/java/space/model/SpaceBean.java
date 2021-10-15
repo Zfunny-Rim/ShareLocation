@@ -14,23 +14,23 @@ public class SpaceBean {
 
 	private int num;
 	private int membernum;
-	@NotBlank(message="ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private String name;
-	@NotBlank(message="ºĞ·ù¸¦ ¼±ÅÃÇÏ¼¼¿ä.")
+	@NotBlank(message="ë¶„ë¥˜ë¥¼ ì„ íƒí•˜ì„¸ìš”.")
 	private String type;
-	@NotBlank(message="ÇÑÁÙ¼Ò°³¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="í•œì¤„ì†Œê°œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
 	private String contentssim;
-	@NotBlank(message="°ø°£¼Ò°³¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ê³µê°„ì†Œê°œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
 	private String contentscom;  
-	@NotBlank(message="´ëÇ¥ ÀÌ¹ÌÁö¸¦ ¼±ÅÃÇÏ¼¼¿ä.")
+	@NotBlank(message="ëŒ€í‘œ ì´ë¯¸ì§€ë¥¼ ì„ íƒí•˜ì„¸ìš”.")
 	private String mainimage;
-	@NotBlank(message="ÁÖÀÇ»çÇ×À» ÀÔ·ÂÇÏ¼¼¿ä.")   
+	@NotBlank(message="ì£¼ì˜ì‚¬í•­ì„ ì…ë ¥í•˜ì„¸ìš”.")   
 	private String warning;
 	private String site;
-	@NotBlank(message="ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
 	private String address;
 	private String email;
-	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="¿Ã¹Ù¸¥ ÀüÈ­¹øÈ£ Çü½ÄÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="ì˜¬ë°”ë¥¸ ì „í™”ë²ˆí˜¸ í˜•ì‹ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private String hp;
 	private String operatingtime;
 	private String operatingendtime;
@@ -39,14 +39,15 @@ public class SpaceBean {
 	private String status;
 	private String regdate;
 	private String tag;
+	//
+	private String mnickname;
 	
-	
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public SpaceBean() {
 		super();
 	}
 
-	//DB¿¡ ÀúÀåµÇÁö ¾Ê´Â °ªµé
+	//DBì— ì €ì¥ë˜ì§€ ì•ŠëŠ” ê°’ë“¤
 	private MultipartFile mainimagefile;
 	private MultipartFile mainimageupdatefile;
 	private String mainimageOrigin;
@@ -55,8 +56,8 @@ public class SpaceBean {
 	private List<String> spaceimage;
 	private List<String> spaceimageupdate;
 	
-	@Min(value = 1, message="ÀÌ¹ÌÁö¸¦ ÃÖ¼Ò ÇÑ°³ ¼±ÅÃÇØÁÖ¼¼¿ä.")
-	@Max(value = 5, message="ÀÌ¹ÌÁö´Â ÃÖ´ë 5Àå±îÁö ¼±ÅÃ °¡´ÉÇÕ´Ï´Ù.")
+	@Min(value = 1, message="ì´ë¯¸ì§€ë¥¼ ìµœì†Œ í•œê°œ ì„ íƒí•´ì£¼ì„¸ìš”.")
+	@Max(value = 5, message="ì´ë¯¸ì§€ëŠ” ìµœëŒ€ 5ì¥ê¹Œì§€ ì„ íƒ ê°€ëŠ¥í•©ë‹ˆë‹¤.")
 	private int spaceimageCount;
 	private int spaceimageOriginCount;
 	
@@ -269,6 +270,12 @@ public class SpaceBean {
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	public String getMnickname() {
+		return mnickname;
+	}
+	public void setMnickname(String mnickname) {
+		this.mnickname = mnickname;
 	}
 	
 }

@@ -7,9 +7,7 @@
 	<select id="getBalance" resultType="MyBalance">
 		select *
 		from balance
-		where num=(select membernum
-		from space
-		where num=#{num})
+		where membernum=#{membernum}
 	</select>
 	
 	<insert id="insertBalance">

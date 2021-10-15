@@ -11,9 +11,9 @@
 
 	<bean id ="internalResourceViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/balance/" />
+		<property name="prefix" value="/WEB-INF/admin/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="balance,space,detailspace, reviewBoard"/>
+	<context:component-scan base-package="admin, member, space, detailspace, reservation, balance, reviewBoard"/>
 </beans>

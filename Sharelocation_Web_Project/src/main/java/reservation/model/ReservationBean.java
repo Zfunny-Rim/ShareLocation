@@ -1,5 +1,7 @@
 package reservation.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import detailspace.model.DetailSpaceBean;
 import member.model.MemberBean;
 
@@ -8,8 +10,11 @@ public class ReservationBean {
 	private int membernum;
 	private int spacenum;
 	private int detailspacenum;
+	@NotEmpty(message = "체크인 선택해주세요")
 	private String checkin;
+	@NotEmpty(message = "체크아웃 선택해주세요")
 	private String checkout;
+	@NotEmpty(message = "예약인원 최소 1명이상입니다.")
 	private int person;
 	private int amounts;
 	private String cusrequest;

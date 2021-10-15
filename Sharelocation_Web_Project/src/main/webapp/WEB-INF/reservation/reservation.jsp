@@ -67,25 +67,29 @@
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
-						<form action="reservInsert.rv" method="post">
+						<form:form commandName="" action="reservInsert.rv" method="post">
+							<input type="hidden" name="spacenum" value="${spacebean.num}"> 
+							<input type="hidden" name="detailspacenum" value="${detailSpacebean.num}">
 							<h2 data-v-744e58ae="" class="heading--new" align="center">예약하기</h2>
 							<!-- 예약 공간 시작-->
 							<p class="text-subtitle text-muted">예약 공간</p>
 							<div class="card">
-								<div class="card-content">
-									<img src="assets/images/samples/motorcycle.jpg"
-										class="card-img-top img-fluid" alt="singleminded">
-									<div class="card-body">
-										<h5 class="card-title">${spacebean.name }</h5>
-										<p class="card-text">${spacebean.contentscom }</p>
-									</div>
-								</div>
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">공간유형 : ${spacebean.type }</li>
+                                <div class="card-content">
+                                   <img src="<%=request.getContextPath()%>/resources/spaceimage/${spacebean.mainimage}"
+										class="img-fluid1, first" alt="singleminded">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${spacebean.name }</h5>
+                                        <p class="card-text">
+                                           ${spacebean.contentscom }
+                                        </p>
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">공간유형 : ${spacebean.type }</li>
 									<li class="list-group-item">예약인원 :
 										최소${detailSpacebean.minperson }명~최대${detailSpacebean.maxperson }명</li>
-								</ul>
-							</div>
+                                </ul>
+                            </div>
 							<!-- 예약 공간 끜-->
 
 							<!-- 접히는거 시작 -->
@@ -107,10 +111,6 @@
 												<div class="card-body" style="width: auto">
 													<!-- Table with outer spacing -->
 													<div class="table-responsive">
-
-														<input type="hidden" name="spacenum"
-															value="${spacebean.num}"> <input type="hidden"
-															name="detailspacenum" value="${detailSpacebean.num}">
 														<table class="table table-lg" style="width: auto;">
 															<tbody>
 																<tr>
@@ -239,7 +239,9 @@
 																</tr>
 																<tr>
 																	<td class="text-bold-500" align="center" colspan="2" >
-																		총 가격:<span id="priceText">${detailSpacebean.price}</span> </td>
+																		총 가격:<span id="priceText">
+																		${detailSpacebean.price}
+																		</span> </td>
 																</tr>
 																<tr>
 																	<td colspan="2" class="text-bold-500" align="center"><input
@@ -282,8 +284,8 @@
 														<td class="text-bold-500">예약시간</td>
 														<td>
 															<div class="input-group mb-3">
-																<input type="hidden" name="checkin" value="${reservationbean.checkin }">
-																<select class="form-select" name="operatingtime" id="selectText" >
+																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
+																<select class="form-select" name="checkin" id="selectTextTime1" >
 
 																	<option value="0">00</option>
 
@@ -336,8 +338,8 @@
 																	<option value="24">24</option>
 
 																</select> <span class="input-group-text">시 부터</span> 
-																<input type="hidden" name="checkin" value="${reservationbean.checkout }">
-																<select class="form-select" name="operatingendtime" id="selectBox">
+																<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
+																<select class="form-select" name="checkout" id="selectTextTime2">
 
 																	<option value="0">00</option>
 
@@ -512,11 +514,11 @@
 														</tr>
 														<tr>
 															<td class="text-bold-500">사업자번호</td>
-															<td>${balance.call }</td>
+															<td>${balance.account }</td>
 														</tr>
 														<tr>
 															<td class="text-bold-500">연락처</td>
-															<td>${balance.hp }</td>
+															<td>${balance.call }</td>
 														</tr>
 													</tbody>
 												</table>
@@ -526,7 +528,7 @@
 								</div>
 							</div>
 							<!-- 호스트 정보 끝-->
-						</form>
+						</form:form>
 					</section>
 				</div>
 			</div>
@@ -536,6 +538,15 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
+		
+		var intValprice;
+		var checkoutTime;
+		var checkinTime;
+		var priceVal;
+		var intAmount;
+		var cTime;
+		var intcheckinTime;
+		var intcheckoutTime;
 		$(function(){
 			$('#textdate').change(function(){
 				//alert(1);
@@ -543,26 +554,35 @@
 				$('#textbox').val(dateVal);
 			});
 			$('#testperson').change(function(){
-				var dateVal = $(this).val();
-				$('#textboxperson').val(dateVal);
-				var intValperson = parseInt(dateVal);
+				var personVal = $(this).val();
+				$('#textboxperson').val(personVal);
+				 intValperson = parseInt(personVal);
 				
-				var priceVal = "${detailSpacebean.price}";
-				var intValprice = parseInt(priceVal);
+				 priceVal = "${detailSpacebean.price}";
+				intValprice = parseInt(priceVal);
 				
-				alert(intValperson*intValprice);
-				
-				$('#priceText').text(intValperson*intValprice);
+				 intAmount = intValperson*intValprice;
+				//alert(intAmount);
+				// alert(intAmount+cTime);
+				$('#priceText').text(intAmount+cTime);
 				
 			});
-			$('#selectText').change(function(){
-				var dateVal = $(this).val();
-				$('#selectText1').val(dateVal);
+			$('#selectTextTime1').change(function(){
+				var checkinTime = $(this).val();
+				$('#selectText1').val(checkinTime);
+				 intcheckinTime = parseInt(checkinTime);
+				//alert(intcheckinTime);
+				
 			});
-			$('#selectBox').change(function(){
-				var dateVal = $(this).val();
-				$('#selectText2').val(dateVal);
+			$('#selectTextTime2').change(function(){
+				var checkoutTime = $(this).val();
+				$('#selectText2').val(checkoutTime);
+				 intcheckoutTime = parseInt(checkoutTime);
+				 cTime=(intcheckoutTime-intcheckinTime)*intValprice;
+				// alert(parseInt(intAmount+cTime));
+				 $('#priceText').text(intAmount+cTime);
 			});
+			
 		});
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>

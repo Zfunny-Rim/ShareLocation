@@ -3,7 +3,11 @@ package host.space.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +40,7 @@ import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
 import reviewBoard.model.ReviewBoardBean;
 import reviewBoard.model.ReviewBoardDao;
+import space.model.AdvertiseBean;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
@@ -64,6 +69,8 @@ public class HostSpaceManageController {
 	private final String reservationCommand = "spaceManageReservation.ho";
 	private final String reservationViewCommand = "spaceManageReservationView.ho";
 	private final String reservationStatusUpdateCommand = "spaceManageReservationStatusUpdate.ho";
+	private final String advertiseCommand = "spaceManagerAdvertise.ho";
+	private final String advertisePurchaseCommand = "spaceManagerAdvertisePurchase.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -142,16 +149,16 @@ public class HostSpaceManageController {
 		}
 		
 		
-		//mainimage ���� ó��
+		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		File mainimage_File = null;
 		MultipartFile mpfMainImage = null;
 		
 		if(!spaceBean.getMainimage().equals(spaceBean.getMainimageOrigin())) {
-			//Origin�� �̸��� ���ٸ� ������ �Ͼ�� ����.
+			//Origin과 이름이 같다면 수정이 일어나지 않음.
 			mpfMainImage = mtfRequest.getFile("mainimageupdatefile");
 			String originFileName = mpfMainImage.getOriginalFilename();
-			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ���ϸ� �ߺ� ����
+			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 			mainimage_File = new File(uploadPath+"\\"+safeFileName);
 			spaceBean.setMainimage(safeFileName); 
 			System.out.println("mainimage : " + spaceBean.getMainimage());
@@ -159,10 +166,11 @@ public class HostSpaceManageController {
 		int cnt = -1;
 		cnt = spaceDao.updateSpace(spaceBean);
 		
+		
 		if(cnt != -1) {
 			if(mpfMainImage != null && mainimage_File != null) {
 				mpfMainImage.transferTo(mainimage_File);
-				//TODO: ���� �����̹��� ���� ���� �۾�
+				//TODO: 기존 메인이미지 파일 삭제 작업
 				File dFile = new File(uploadPath+"\\"+spaceBean.getMainimageOrigin());
 				System.out.println(dFile.getPath());
 				if(dFile.exists()) {
@@ -170,12 +178,12 @@ public class HostSpaceManageController {
 				}
 			}
 		}
-		//spaceimage (�����̹���) ó��
+		//spaceimage (다중이미지) 처리
 		//
 		if(spaceBean.getSpaceimageupdate().size() != 0) {
-			//modify Form���� ���ε��� �̹����� 0���� ������ �Ͼ�� ����.
-			//������ �Ͼ�ٸ� �켱 ��� �̹����� �����.
-			//TODO: ���� �̹��� ���ϵ� ���� �۾�
+			//modify Form에서 업로드한 이미지가 0개면 수정이 일어나지 않음.
+			//수정이 일어났다면 우선 모든 이미지를 지운다.
+			//TODO: 기존 이미지 파일들 삭제 작업
 			List<SpaceImageBean> spaceImageList = spaceDao.getImage(spaceBean.getNum());
 			for(SpaceImageBean siBean:spaceImageList) {
 				String imageFileName = siBean.getImage();
@@ -185,27 +193,27 @@ public class HostSpaceManageController {
 					dFile.delete();
 				}
 			}
-			//DB������ ����
+			//DB에서도 삭제
 			spaceDao.deleteSpaceImageBySpaceNum(spaceBean.getNum());
 			
-			//������ ������ ���ε��Ѵ�.
+			//수정된 파일을 업로드한다.
 			List<MultipartFile> spImageList = mtfRequest.getFiles("spaceimageupdatefile");
 			for(int i=0;i<spImageList.size();i++) {
 				MultipartFile mpfSpaceImage = spImageList.get(i);
 				String spOriginFileName = mpfSpaceImage.getOriginalFilename();
-				String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // ���ϸ� �ߺ� ����
+				String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // 파일명 중복 막기
 				File spaceImage_File = new File(uploadPath+"\\"+spSafeFileName);
 				cnt = -1;
 				SpaceImageBean spaceImageBean = new SpaceImageBean(0, spaceBean.getNum(), spSafeFileName);
 				cnt = spaceDao.insertSpaceImage(spaceImageBean);
 				if(cnt != -1) {
-					//DB���忡 ���������� �̹����� ������ ���ε�
+					//DB저장에 성공했으면 이미지도 서버에 업로드
 					mpfSpaceImage.transferTo(spaceImage_File);
 				}
 			}
 		}
 		
-		//facility ó��
+		//facility 처리
 		spaceDao.deleteFacility(spaceBean.getNum());
 		String[] facilityList = request.getParameterValues("facility");
 		for(String facStr:facilityList) {
@@ -256,11 +264,11 @@ public class HostSpaceManageController {
 			return mav;
 		}
 		
-		//mainimage ���� ó��
+		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		MultipartFile mpfMainImage = mtfRequest.getFile("mainimagefile");
 		String originFileName = mpfMainImage.getOriginalFilename();
-		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ���ϸ� �ߺ� ����
+		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		detailSpaceBean.setMainimage(safeFileName);
 		
@@ -304,16 +312,16 @@ public class HostSpaceManageController {
 			mav.addObject("getPage", getPage);
 			return mav;
 		}
-		//mainimage ���� ó��
+		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		File mainimage_File = null;
 		MultipartFile mpfMainImage = null;
 		
 		if(!detailSpaceBean.getMainimage().equals(detailSpaceBean.getMainimageOrigin())) {
-			//Origin�� �̸��� ���ٸ� ������ �Ͼ�� ����.
+			//Origin과 이름이 같다면 수정이 일어나지 않음.
 			mpfMainImage = mtfRequest.getFile("mainimageupdatefile");
 			String originFileName = mpfMainImage.getOriginalFilename();
-			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ���ϸ� �ߺ� ����
+			String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 			mainimage_File = new File(uploadPath+"\\"+safeFileName);
 			detailSpaceBean.setMainimage(safeFileName); 
 		}		
@@ -322,7 +330,7 @@ public class HostSpaceManageController {
 		if(cnt != -1) {
 			if(mainimage_File != null && mpfMainImage != null) {
 				mpfMainImage.transferTo(mainimage_File);
-				//TODO: ���� �����̹��� ���� ���� �۾�
+				//TODO: 기존 메인이미지 파일 삭제 작업
 				File dFile = new File(uploadPath+"\\"+detailSpaceBean.getMainimageOrigin());
 				if(dFile.exists()) {
 					dFile.delete();
@@ -365,25 +373,27 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
 		memberNum = loginInfo.getNum();
 		BalanceBean balanceBean = balanceDao.getBalanceByMemberNum(memberNum);
 		if(balanceBean == null) {
-			//�������� �Է����� �̵�
+			//정산정보 입력으로 이동
 			mav.setViewName("redirect:/spaceManageBalanceInsert.ho");
 		}else {
-			//�������� �󼼺���� �̵�
+			//정산정보 상세보기로 이동
 			mav.setViewName("redirect:/spaceManageBalanceView.ho");
 		}
 		mav.addObject("spaceNum", spaceNum);
@@ -408,15 +418,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
@@ -445,15 +457,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
@@ -476,16 +490,19 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
+			
 		}
 		int memberNum = 0;
 		memberNum = loginInfo.getNum();
@@ -506,15 +523,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = 0;
@@ -577,7 +596,7 @@ public class HostSpaceManageController {
 			mav.addObject("spaceBean", spaceBean);
 			return mav;
 		}
-		//��Ű�� �ð� ��ø�Ǵ��� Ȯ���ؾ���
+		//패키지 시간 중첩되는지 확인해야함
 		List<PackagePriceBean> packageBeanList = detailSpaceDao.getPackageListByDetailSpaceNum(detailSpaceNum);
 		int check_in = packagePriceBean.getCheckintime();
 		int check_out = packagePriceBean.getCheckouttime();
@@ -601,9 +620,9 @@ public class HostSpaceManageController {
 		}
 		if(isInvalid) {
 			PackagePriceBean ppBean = packageBeanList.get(invalid_index);
-			System.out.println("��Ű�� �ð��� "+ppBean.getTitle()+" ��Ű���� �ߺ��˴ϴ�.");
-			System.out.println("�Է� �ð� : "+check_in+"~"+check_out);
-			System.out.println(ppBean.getTitle()+" �ð� : "+ppBean.getCheckintime()+"~"+ppBean.getCheckouttime());
+			System.out.println("패키지 시간이 "+ppBean.getTitle()+" 패키지와 중복됩니다.");
+			System.out.println("입력 시간 : "+check_in+"~"+check_out);
+			System.out.println(ppBean.getTitle()+" 시간 : "+ppBean.getCheckintime()+"~"+ppBean.getCheckouttime());
 			getPage = "DetailPackageInsert";
 			mav.addObject("getPage", getPage);
 			mav.addObject("spaceNum", spaceNum);
@@ -642,15 +661,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int memberNum = loginInfo.getNum();
@@ -660,22 +681,25 @@ public class HostSpaceManageController {
 			cnt = spaceDao.requestApproval(spaceNum);
 			if(cnt != -1) {
 				pw.println("<script>");
-				pw.println("alert('�˼� ��û�� �Ϸ�Ǿ����ϴ�. ����� ���� �Ŀ� ���� ��� ���۵˴ϴ�.');");
+				pw.println("alert('검수 신청이 완료되었습니다. 운영진의 검토 후에 공간 운영이 시작됩니다.');");
 				pw.println("location.href='"+homeCommand+"?spaceNum="+spaceNum+"'");
 				pw.println("</script>");
+				pw.flush();
 				return null;
 			}
 		}else if(dspCount <= 0) {
 			pw.println("<script>");
-			pw.println("alert('��ϵ� ���� ������ �����ϴ�.');");
+			pw.println("alert('등록된 세부 공간이 없습니다.');");
 			pw.println("location.href='spaceManageDetailSpace.ho?spaceNum="+spaceNum+"'");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(balanceBean == null) {
 			pw.println("<script>");
-			pw.println("alert('��ϵ� ���� ������ �����ϴ�.');");
+			pw.println("alert('등록된 정산 정보가 없습니다.');");
 			pw.println("location.href='spaceManageBalanceInsert.ho?spaceNum="+spaceNum+"'");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		mav.setViewName("redirect:/"+homeCommand);
@@ -728,15 +752,17 @@ public class HostSpaceManageController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
+			pw.flush();
 			return null;
 		}
 		int spaceNum = reviewBoardBean.getSpacenum();
@@ -842,5 +868,75 @@ public class HostSpaceManageController {
 		mav.addObject("keyword", keyword);
 		return mav;
 	}
-}
 
+	@RequestMapping(value=advertiseCommand)
+	public ModelAndView advertiseView(@RequestParam(value="spaceNum")int spaceNum) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "Advertise";
+		AdvertiseBean advertiseBean = spaceDao.getAdvertiseBySpaceNum(spaceNum);
+		mav.addObject("advertiseBean", advertiseBean);
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=advertisePurchaseCommand)
+	public ModelAndView advertisePurchase(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="plan")int plan, HttpServletResponse response) throws IOException, ParseException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		ModelAndView mav = new ModelAndView(viewPage);
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		AdvertiseBean advertiseBean = spaceDao.getAdvertiseBySpaceNum(spaceNum);
+		Date curDate;
+		if(advertiseBean == null) {
+			//신규가입
+			curDate = new Date();
+		}else {
+			//추가연장
+			curDate = sdf.parse(advertiseBean.getExpiredate());
+		}
+		cal.setTime(curDate);
+		cal.add(Calendar.MONTH, plan);
+        String expireDate = sdf.format(cal.getTime());
+		System.out.println(expireDate);
+		int cnt = -1;
+		String msg = null;
+		if(advertiseBean == null) {
+			//신규가입
+			advertiseBean = new AdvertiseBean();
+			advertiseBean.setSpacenum(spaceNum);
+			advertiseBean.setExpiredate(expireDate);
+			cnt = spaceDao.addAdvertise(advertiseBean);
+			if(cnt != -1) {
+				SpaceBean sBean = new SpaceBean();
+				sBean.setNum(spaceNum);
+				sBean.setGrade("광고");
+				spaceDao.updateGrade(sBean);
+			}
+			msg = "광고 등록이 완료되었습니다. 만료일은 "+expireDate+"입니다.";
+		}else {
+			//추가연장
+			advertiseBean.setExpiredate(expireDate);
+			cnt = spaceDao.updateAdvertise(advertiseBean);
+			msg = "광고일이 연장되었습니다. 만료일은 "+expireDate+"입니다.";
+		}
+		if(cnt != -1) {
+			System.out.println("In Script");
+			pw.println("<script>");
+			pw.println("alert('"+msg+"');");
+			pw.println("location.href='"+advertiseCommand+"?spaceNum="+spaceNum+"'");
+			pw.println("</script>");
+			pw.flush();
+			return null;
+		}
+		else {
+			getPage = "Advertise";
+			mav.addObject("getPage", getPage);
+			mav.addObject("spaceNum", spaceNum);
+			return mav;
+		}
+	}
+}

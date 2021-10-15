@@ -37,17 +37,18 @@ public class HostSpaceListController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
-			pw.println("location.href='main.ho'");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}
+		
 		ModelAndView mav = new ModelAndView(viewPage);
 		List<SpaceBean> spaceList = spaceDao.getSpaceListByMemberNum(loginInfo.getNum());
 		Map<Integer, Integer> dspCountMap = new HashMap<Integer, Integer>();

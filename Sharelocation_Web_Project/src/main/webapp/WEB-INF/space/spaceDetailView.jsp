@@ -104,6 +104,9 @@ element.style {
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
+						<form action="reserv.rv" method="post">           
+								<input type="hidden" name="spacenum" value="${space.num }">
+								<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
 						<div class="page-heading">
 							<div class="page-title">
 								<div class="row">
@@ -114,8 +117,10 @@ element.style {
 											<!-- tag 넣기  시작-->
 											<br>
 											<c:forEach var="tag" items="${space.tag }">
-												<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tag}	</span>
-										 </c:forEach>
+												<span class="badge bg-light-info"
+													style="font-weight: normal; font-size: 12px;">#${tag}
+												</span>
+											</c:forEach>
 
 											<!-- tag 넣기  끝-->
 
@@ -130,7 +135,6 @@ element.style {
 							</div>
 							<section class="section">
 								<div class="card">
-
 									<div class="card-body">
 										<!-- 기본 틀 -->
 
@@ -172,33 +176,175 @@ element.style {
 													<h4 class="card-title">주의 사항</h4>
 													${space.warning}
 													<h4 class="card-title">지도</h4>
+
+
 													<h4 class="card-title">사용자 후기</h4>
 													<!-- 후기	시작 -->
-
-													<c:forEach var="review" items="${reviewBoard}">
-														<div class="col-12">
-															<div class="card">
-																<div class="card-header" style="font:">
-																	<h1 class="card-title" style="float: left;">${review.writer}</h1>
-																	<!-- 별점 별 그림 시작-->
-																	<div id="step" class="star-rating"
-																		style="width: 160px; height: 30px; background-size: 30px;"
-																		data-rating="5" title="${review.totalrating/3}/5">
-																		<div class="star-value"
-																			style="background-size: 32px; width: ${review.totalrating/3/5*100}%;"></div>
+													<c:if test="${empty reviewList }">
+	등록된 후기가 없습니다.
+</c:if>
+													<c:if test="${not empty reviewList }">
+	등록된 후기가 총 ${allCount }개 있습니다.
+</c:if>
+													<c:forEach var="review" items="${reviewList }"
+														varStatus="vs">
+														<div class="row justify-content-center">
+															<div class="col-12">
+																<div class="card bg-light">
+																	<div class="d-flex justify-content-between p-2">
+																		<div class="d-flex Writer-Info">
+																			<div class="img px-2">
+																				<div class="avatar avatar-xl me-3">
+																					<img src="./resources/assets/images/faces/none.jpg">
+																				</div>
+																			</div>
+																			<div class="title py-2">
+																				<b>${review.writer }</b><br> <small
+																					class="text-muted"> <fmt:parseDate
+																						var="rDate" value="${review.regdate }"
+																						pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
+																						value="${rDate }" pattern="yyyy-MM-dd HH:mm" />
+																				</small><br>
+																			</div>
+																		</div>
+																		<div class="d-flex Rating">
+																			<div class="totalRating p-3 my-auto">
+																				<span class="badge bg-success"
+																					style="width: 75px; font-size: 20px;"> <fmt:formatNumber
+																						value="${review.totalrating / 3}" pattern=".0" />
+																					<i class="bi bi-star align-middle"></i></span>
+																			</div>
+																			<div class="detailRating">
+																				<div class="d-flex justify-content-start">
+																					<div class="">
+																						<small class="text-muted">서비스 </small>
+																					</div>
+																					<c:set var="service_score"
+																						value="${(review.servicerating / 5)*100 }" />
+																					<div
+																						class="progress progress-warning progress-sm mx-1 my-auto d-flex"
+																						style="width: 100px;">
+																						<div class="progress-bar" role="progressbar"
+																							style="width: ${service_score}%"></div>
+																					</div>
+																					<div class="">
+																						<small class="text-muted">
+																							${review.servicerating } </small>
+																					</div>
+																				</div>
+																				<div class="d-flex justify-content-start">
+																					<div class="">
+																						<small class="text-muted">가성비 </small>
+																					</div>
+																					<c:set var="pricevalue_score"
+																						value="${(review.pricevalueration / 5)*100 }" />
+																					<div
+																						class="progress progress-warning progress-sm mx-1 my-auto d-flex"
+																						style="width: 100px;">
+																						<div class="progress-bar" role="progressbar"
+																							style="width: ${pricevalue_score}%"></div>
+																					</div>
+																					<div class="">
+																						<small class="text-muted">
+																							${review.pricevalueration } </small>
+																					</div>
+																				</div>
+																				<div class="d-flex justify-content-start">
+																					<div class="">
+																						<small class="text-muted">청결도 </small>
+																					</div>
+																					<c:set var="clean_score"
+																						value="${(review.cleanrating / 5)*100 }" />
+																					<div
+																						class="progress progress-warning progress-sm mx-1 my-auto d-flex"
+																						style="width: 100px;">
+																						<div class="progress-bar" role="progressbar"
+																							style="width: ${clean_score}%"></div>
+																					</div>
+																					<div class="">
+																						<small class="text-muted">
+																							${review.cleanrating } </small>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
 																	</div>
-																	<!-- 별점 별 그림 끝 -->
-
-																</div>
-																<div class="card-body">
-																	<p>${review.content}</p>
-																	<p>${review.regdate}</p>
+				<div class="card-body p-3">
+					${review.content }<br>
+				</div>
+				<c:set var="replyBean" value="${review.reviewReply }"/>
+				
+				<c:if test="${not empty replyBean }">
+					<div class="card-body">
+						<div class="card-title" style="font-weight: bold; color:#6d3afb;">
+							<div class="d-flex justify-content-between">
+								<div class="title my-auto">
+									호스트님의 답글
+								</div>
+								<div class="del-btn">
+									<button class="btn btn-sm btn-outline-danger" 
+										onClick="replyDel('${spaceNum}', '${replyBean.num }')">삭제</button>
+								</div>
+							</div>
+						</div>
+						<div class="card-text">
+							${replyBean.content }<br>
+						</div>
+						<span class="text-muted" style="font-size: 12px;">
+							<fmt:parseDate var="replyDate" value="${replyBean.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+							<fmt:formatDate value="${replyDate }" pattern="yyyy-MM-dd HH:mm"/>
+						</span>
+					</div>
+				</c:if>
 																</div>
 															</div>
 														</div>
-
 													</c:forEach>
-												
+													<!-- 페이징 시작 -->
+													<c:if test="${not empty reviewList }">
+														<div class="page-nav d-flex justify-content-center">
+															<nav>
+																<ul class="pagination pagination-primary">
+																	<c:if test="${pageInfo.beginPage eq 1 }">
+																		<li class="page-item disabled"><a
+																			class="page-link">이전</a></li>
+																	</c:if>
+																	<c:if test="${pageInfo.beginPage ne 1 }">
+																		<c:set var="url"
+																			value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }&num=${spacenum }" />
+																		<li class="page-item"><a class="page-link"
+																			href="${url }">이전</a></li>
+																	</c:if>
+																	<c:forEach var="i" begin="${pageInfo.beginPage }"
+																		end="${pageInfo.endPage }">
+																		<c:set var="url"
+																			value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }&num=${spacenum }" />
+																		<c:if test="${i eq pagenumber }">
+																			<li class="page-item active"><a
+																				class="page-link">${i }</a></li>
+																		</c:if>
+																		<c:if test="${i ne pagenumber }">
+																			<li class="page-item"><a class="page-link"
+																				href="${url }">${i }</a></li>
+																		</c:if>
+																	</c:forEach>
+																	<c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
+																		<li class="page-item disabled"><a
+																			class="page-link">다음</a></li>
+																	</c:if>
+																	<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
+																		<c:set var="url"
+																			value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}&num=${spacenum }" />
+																		<li class="page-item"><a class="page-link"
+																			href="${url }">다음</a></li>
+																	</c:if>
+																</ul>
+															</nav>
+														</div>
+													</c:if>
+													<!--페이징 끝 -->
+
+
 													<!-- 후기	끝 -->
 												</div>
 												<!-- 설명 끝1 -->
@@ -218,9 +364,10 @@ element.style {
 														</c:forEach>
 													</h4>
 
-													<form action="reserv.rv" method="post">           
+													<form action="reserv.rv" method="post">
 														<input type="hidden" name="spacenum" value="${space.num }">
-														<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
+														<input type="hidden" name="detailspacenum"
+															value="${detailSpaceBean.num }">
 														<c:if test="${not empty detailSpaceBean.num}">
 															<table class="table table-lg"
 																style="border: thick; border-radius: 8px;">
@@ -248,14 +395,17 @@ element.style {
 																	<tr>
 																		<td colspan="2">${detailSpaceBean.contents}</td>
 																	</tr>
+																	<!--  
+
 																	<tr>
 																		<td class="text-bold-500">날짜 선택</td>
 																		<td><input type="date" name="date"></td>
 																	</tr>
+																	-->
+																	<!--
 																	<tr>
 																		<td class="text-bold-500">시간선택</td>
 																		<td>
-																			<!-- 시간 설정 시작 -->
 
 																			<div class="col-md-8 form-group">
 																				<div class="input-group">
@@ -287,10 +437,10 @@ element.style {
 																					</small>
 																				</p>
 
-																			</div> <!-- 시간 설정 끝 -->
+																			</div> 
 																		</td>
 																	</tr>
-
+																	  -->
 
 																	<tr>
 																		<td colspan="2" class="text-bold-500" align="center"><input
@@ -300,9 +450,6 @@ element.style {
 																</tbody>
 															</table>
 														</c:if>
-
-													</form>
-
 												</div>
 											</div>
 										</div>
@@ -313,7 +460,7 @@ element.style {
 								</div>
 							</section>
 						</div>
-
+						</form>
 						<%-- ******* Main Code END ******* --%>
 					</section>
 				</div>
@@ -340,6 +487,14 @@ element.style {
 		
 	}
 	
+
+	function replyDel(spaceNum, num){
+		result = confirm('답글을 삭제하시겠습니까?');
+		if(result){
+			location.href='spaceManagerReviewReplyDelete.ho?spaceNum='+spaceNum+'&num='+num;
+		}
+	}
+
 /*  TOSTRING SPECATDETAIL NUM 변경 */
 	
 	
