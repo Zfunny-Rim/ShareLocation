@@ -82,4 +82,8 @@ public class ReservationDao {
 	public int reservationCancel(int num) {
 		return sqlSessionTemplate.update(namespace+".reservationCancel",num);
 	}
+
+	public int getReservtionCountByMonth(String monthStr) {
+		return sqlSessionTemplate.selectOne(namespace+".getReservtionCountByMonth", monthStr);
+	}
 }
