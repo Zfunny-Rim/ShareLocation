@@ -22,7 +22,7 @@ public class MemberLoginCmd {
 	private final String command = "login.member";
 	private final String hostPage = "redirect:/main.ho";
 	private final String guestPage = "redirect:/list.sp";
-	private final String adminPage = "redirect:/list.admin";
+	private final String adminPage = "redirect:/main.admin";
 	private final String getPage = "loginForm";
 	
 	@Autowired

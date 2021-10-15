@@ -42,8 +42,8 @@
 											   href="#">통계</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Reservation"
 											   href="spaceManageReservation.ho?spaceNum=${spaceNum }">예약 관리</a>
-											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="AD"
-											   href="#">광고 관리</a>
+											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Advertise"
+											   href="spaceManagerAdvertise.ho?spaceNum=${spaceNum }">광고 관리</a>
 											</nav>
 	                            		</div>
 	                            	</div>

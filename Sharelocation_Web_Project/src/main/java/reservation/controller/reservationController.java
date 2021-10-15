@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import member.model.MemberBean;
+import reservation.model.BalanceBean;
+import reservation.model.BalanceDao;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
 import space.model.SpaceBean;
@@ -37,8 +39,8 @@ public class reservationController {
 	@Autowired
 	DetailSpaceDao detailSpaceDao;
 	
-	//@Autowired
-	//BalanceDao balanceDao;
+	@Autowired
+	BalanceDao balanceDao;
 	
 	@RequestMapping(value=command)
 	public ModelAndView reservation(HttpServletRequest request,ModelAndView mav,
@@ -47,7 +49,7 @@ public class reservationController {
 			Model model,
 			HttpSession session ) throws IOException {
 			 
-		
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		//로그인 안했다면
 		if(session.getAttribute("loginInfo")==null) { 
 						
@@ -65,23 +67,11 @@ public class reservationController {
 			
 			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
 			
-			ReservationBean reservationbean = new ReservationBean();
-			reservationbean.setMembernum(1);
-			reservationbean.setSpacenum(spacenum);
-			reservationbean.setDetailspacenum(detailspacenum);
-			reservationbean.setCheckin(spacebean.getOperatingtime()); //임시
-			reservationbean.setCheckout(spacebean.getOperatingendtime()); //임시
-			reservationbean.setPerson(2);  //임시
-			reservationbean.setAmounts(detailSpacebean.getPrice());
-			reservationbean.setApplicationdate("2021-10-20");  //임시
-			 
-			System.out.println(reservationbean.toString());
-			//BalanceBean balance = balanceDao.getBalance(spacebean.getMembernum());
-			//mav.addObject("balance",balance);
+			BalanceBean balance = balanceDao.getBalance(loginInfo.getNum());
 			
+			mav.addObject("balance",balance);
 			mav.addObject("spacebean",spacebean);
 			mav.addObject("detailSpacebean",detailSpacebean);
-			mav.addObject("reservationbean",reservationbean);
 			mav.setViewName(getPage);
 			return mav;
 		}

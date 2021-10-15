@@ -5,7 +5,7 @@
 		<div class="sidebar-header">
 			<div class="d-flex justify-content-between">
 				<div class="logo">
-					<a href="index.jsp"><img
+					<a href="/sharelocation"><img
 						src="./resources/assets/images/logo/ips_logo.png"
 						style="width: 151px; height: 60px;"></a>
 				</div>
@@ -60,6 +60,18 @@
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">${loginInfo.nickname }</h4>
+						<div class="user-img d-flex align-items-center">
+								<div class="avatar avatar-md">
+									<c:if test="${loginInfo.gender eq '남' }">
+										<img src="./resources/assets/images/faces/1.jpg">
+										<span class="avatar-status bg-danger"></span>
+									</c:if>
+									<c:if test="${loginInfo.gender eq '여' }">
+										<img src="./resources/assets/images/faces/3.jpg">
+										<span class="avatar-status bg-danger"></span>
+									</c:if>
+								</div>
+							</div>
 					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
 				</div>
 				<div class="card-body">

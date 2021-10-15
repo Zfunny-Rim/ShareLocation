@@ -48,19 +48,20 @@ public class HostSpaceInsertController {
 		if(loginInfo == null) {
 			pw.println("<script>");
 			pw.println("alert('로그인이 필요한 서비스입니다.');");
-			pw.println("location.href='main.ho'");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
 			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
-			pw.println("location.href='main.ho'");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}
 		return mav;
 	}
 	
+
 	@RequestMapping(value=command, method = RequestMethod.POST)
 	public ModelAndView insert_tier1(@Valid SpaceBean spaceBean, BindingResult result,
 			HttpServletRequest request, MultipartHttpServletRequest mtfRequest,
@@ -79,7 +80,7 @@ public class HostSpaceInsertController {
 		if(loginInfo == null) {
 			pw.println("<script>");
 			pw.println("alert('로그인 세션이 만료되었습니다.');");
-			pw.println("location.href='main.ho'");
+			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}

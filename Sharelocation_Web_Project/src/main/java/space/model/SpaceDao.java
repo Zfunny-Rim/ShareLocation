@@ -82,7 +82,6 @@ public class SpaceDao {
 		return spaceFacility;
 	}
 
-
 	public List<SpaceImageBean> getSpaceImageListBySpaceNum(int spaceNum) {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceImageListBySpaceNum", spaceNum);
 	}
@@ -125,6 +124,27 @@ public class SpaceDao {
 	public SpaceBean getSpaceBySpaceNum(int num) {
 		SpaceBean space = sqlSessionTemplate.selectOne(namespace+".getSpaceBySpaceNum", num);
 		return space;
+	}
+	public int addAdvertise(AdvertiseBean adBean) {
+		return sqlSessionTemplate.insert(namespace+".addAdvertise", adBean);
+	}
+	public int updateGrade(SpaceBean sBean) {
+		return sqlSessionTemplate.update(namespace+".updateGrade", sBean);
+	}
+	public AdvertiseBean getAdvertiseBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getAdvertiseBySpaceNum", spaceNum);
+	}
+	public int updateAdvertise(AdvertiseBean advertiseBean) {
+		return sqlSessionTemplate.update(namespace+".updateAdvertise", advertiseBean);
+	}
+	public List<SpaceBean> getSpaceApprovalWaitingList() {
+		return sqlSessionTemplate.selectList(namespace+".getSpaceApprovalWaitingList");
+	}
+	public int updateSpaceStatus(SpaceBean spaceBean) {
+		return sqlSessionTemplate.update(namespace+".updateSpaceStatus", spaceBean);
+	}
+	public int getAllSpaceCount() {
+		return sqlSessionTemplate.selectOne(namespace+".getAllSpaceCount");
 	}
 }
 

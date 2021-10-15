@@ -50,6 +50,9 @@ ${spaceBean.contentssim }
 						<c:if test="${spaceBean.status eq '등록대기' }">
 							<small class="text-muted link-class" onclick="approval(${spaceBean.num})">검수신청하기</small>
 						</c:if>
+						<c:if test="${spaceBean.status eq '검수반려' }">
+							<small class="text-muted link-class" onclick="approval(${spaceBean.num})">검수 재신청하기</small>
+						</c:if>
 					</p>
 					<h5>주소</h5>
 					<p class="card-text">${spaceBean.address }</p>

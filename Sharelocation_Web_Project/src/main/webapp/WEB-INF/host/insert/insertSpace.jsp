@@ -173,7 +173,7 @@
 														</div>
 														<div class="col-md-8 form-group">
 															<div class="input-group mb-2">
-																<c:set var="addrStr" value="${fn:split(spaceBean.address, ',')}"/>
+																<c:set var="addrStr" value="${fn:split(spaceBean.address, ',')}"/> 
 												                <input type="text" class="form-control" name="address_search" id="address_search" 
 												                 value="${addrStr[0] }" readonly="readonly">
 												                <button class="btn btn-primary" type="button" id="address_button"
@@ -383,6 +383,7 @@
 		  				$('input[name="email_domain"]').attr('readonly', 'readonly');
 		  			}
 		  		});
+		  		
 		  	});
 		  	var target_opTime = document.getElementById('hr24');
 		  	target_opTime.addEventListener('change', function(event){
@@ -396,6 +397,7 @@
 		  			$('select[name="operatingendtime"]').removeAttr('disabled')
 		  		}
 		  	});
+		  	
     	</script>
     	<!-- 우편번호검색 API -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
-
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -46,7 +43,7 @@
 	                                                    <div class="col-12">
 	                                                        <div class="form-group">
 	                                                            <label for="contact-info-vertical">Password</label>
-	                                                            <input type="text" class="form-control" name="password" placeholder="Password">
+	                                                            <input type="password" class="form-control" name="password" placeholder="Password">
 	                                                        </div>
 	                                                    </div>
 	                                                    <div class="col-12 d-flex justify-content-end">
@@ -70,7 +67,7 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-
+		
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>
