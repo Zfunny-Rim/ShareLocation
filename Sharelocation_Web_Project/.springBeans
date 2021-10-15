@@ -10,6 +10,7 @@
 		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/member-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/balance-servlet.xml</config>
+		<config>src/main/java/mybatis/noticeBoard.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

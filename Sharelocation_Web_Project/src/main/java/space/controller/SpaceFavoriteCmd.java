@@ -41,16 +41,9 @@ public class SpaceFavoriteCmd {
 			int cnt = spaceDao.delFavorite(bean);
 			flag = false;
 			if(cnt != 0) {
-<<<<<<< HEAD
-=======
 				System.out.println(" 좋아요삭제성공");
->>>>>>> branch 'Zfunny-Branch3' of https://github.com/Zfunny-Rim/ShareLocation.git
 				pw.println("<script>");
-<<<<<<< HEAD
 				pw.println("alert('좋아요가 해제 되었습니다');");
-=======
-				pw.println("alert('좋아요 해제 되었습니다');");
->>>>>>> branch 'Zfunny-Branch3' of https://github.com/Zfunny-Rim/ShareLocation.git
 				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
 				pw.println("</script>");
 				return null;
@@ -61,16 +54,9 @@ public class SpaceFavoriteCmd {
 			int cnt = spaceDao.addFavorite(bean);
 			flag = true;
 			if(cnt != 0) {
-<<<<<<< HEAD
-=======
 				System.out.println(" 좋아요입력성공");
->>>>>>> branch 'Zfunny-Branch3' of https://github.com/Zfunny-Rim/ShareLocation.git
 				pw.println("<script>");
-<<<<<<< HEAD
 				pw.println("alert('좋아요가 설정 되었습니다');");
-=======
-				pw.println("alert('좋아요 설정 되었습니다');");
->>>>>>> branch 'Zfunny-Branch3' of https://github.com/Zfunny-Rim/ShareLocation.git
 				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
 				pw.println("</script>");
 				return null;
