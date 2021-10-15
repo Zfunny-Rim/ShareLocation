@@ -10,11 +10,11 @@ public class ReservationBean {
 	private int membernum;
 	private int spacenum;
 	private int detailspacenum;
-	@NotEmpty(message = "Ã¼Å©ÀÎ ¼±ÅÃÇØÁÖ¼¼¿ä")
+	@NotEmpty(message = "ì²´í¬ì¸ ì„ íƒí•´ì£¼ì„¸ìš”")
 	private String checkin;
-	@NotEmpty(message = "Ã¼Å©¾Æ¿ô ¼±ÅÃÇØÁÖ¼¼¿ä")
+	@NotEmpty(message = "ì²´í¬ì•„ì›ƒ ì„ íƒí•´ì£¼ì„¸ìš”")
 	private String checkout;
-	@NotEmpty(message = "¿¹¾àÀÎ¿ø ÃÖ¼Ò 1¸íÀÌ»óÀÔ´Ï´Ù.")
+	@NotEmpty(message = "ì˜ˆì•½ì¸ì› ìµœì†Œ 1ëª…ì´ìƒì…ë‹ˆë‹¤.")
 	private int person;
 	private int amounts;
 	private String cusrequest;

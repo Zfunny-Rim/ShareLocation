@@ -37,13 +37,13 @@ public class HostSpaceListController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('ë¡œê·¸ì¸ì´ í•„ìš”í•œ ì„œë¹„ìŠ¤ì…ë‹ˆë‹¤.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('í˜¸ìŠ¤íŠ¸ë§Œ ì´ìš©ê°€ëŠ¥í•œ ì„œë¹„ìŠ¤ì…ë‹ˆë‹¤.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;

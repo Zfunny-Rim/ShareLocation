@@ -6,4 +6,5 @@
 
 	response.sendRedirect(viewPage);
 	
+	
 %>

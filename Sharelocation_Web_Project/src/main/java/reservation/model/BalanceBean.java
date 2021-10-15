@@ -6,19 +6,19 @@ import org.hibernate.validator.constraints.NotBlank;
 public class BalanceBean {
 	private int num;
 	private int membernum;
-	@NotBlank(message="»óÈ£¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ìƒí˜¸ëª…ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private String company;
-	@NotBlank(message="´ëÇ¥ÀÚ¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ëŒ€í‘œìëª…ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private String name;
-	@NotBlank(message="»ç¾÷Àå ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ì‚¬ì—…ì¥ ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
 	private String address;
-	@NotBlank(message="ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ì´ë©”ì¼ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private String email;
-	@NotBlank(message="ÀºÇàÀ» ¼±ÅÃÇÏ¼¼¿ä.")
+	@NotBlank(message="ì€í–‰ì„ ì„ íƒí•˜ì„¸ìš”.")
 	private String bank;
-	@NotBlank(message="°èÁÂ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ê³„ì¢Œë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
 	private String account;
-	@NotBlank(message="¿¬¶ôÃ³¸¦ ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="ì—°ë½ì²˜ë¥¼ ì…ë ¥í•˜ì„¸ìš”.")
 	private String call;
 	
 	public BalanceBean() {
