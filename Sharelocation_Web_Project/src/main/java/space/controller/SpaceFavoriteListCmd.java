@@ -49,13 +49,13 @@ public class SpaceFavoriteListCmd {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('ë¡œê·¸ì¸ì´ í•„ìš”í•œ ì„œë¹„ìŠ¤ì…ë‹ˆë‹¤.');");
 			pw.println("location.href='main.ho'");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('í˜¸ìŠ¤íŠ¸ë§Œ ì´ìš©ê°€ëŠ¥í•œ ì„œë¹„ìŠ¤ì…ë‹ˆë‹¤.');");
 			pw.println("location.href='main.ho'");
 			pw.println("</script>");
 			return null;
@@ -64,7 +64,7 @@ public class SpaceFavoriteListCmd {
 		
 		
 		
-		System.out.println("È®Ÿİ:"+loginInfo.getId());
+		System.out.println("í™•ÂŸ:"+loginInfo.getId());
 		
 		MemberBean member = memberDao.getData(loginInfo.getId());
 		
@@ -77,7 +77,7 @@ public class SpaceFavoriteListCmd {
 			SpaceBean bean= spaceDao.getSpaceBySpaceNum(i.getNum());
 			favoriteResult.add(bean);
 			
-			System.out.println("È®ÀÎÁß12:"+bean);
+			System.out.println("í™•ì¸ì¤‘12:"+bean);
 		}
 		
 		mav.addObject("favoriteResult",favoriteResult);	

@@ -50,18 +50,18 @@ public class reservationController {
 			HttpSession session ) throws IOException {
 			 
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		//·Î±×ÀÎ ¾ÈÇß´Ù¸é
+		//ë¡œê·¸ì¸ ì•ˆí–ˆë‹¤ë©´
 		if(session.getAttribute("loginInfo")==null) { 
 						
-			model.addAttribute("msg", "·Î±×ÀÎ ÇØÁÖ¼¼¿ä~!");
+			model.addAttribute("msg", "ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”~!");
 			model.addAttribute("url", "/sharelocation/#");
 			mav.setViewName("redirect");
 			return mav;
 		}
-		//·Î±×ÀÎ ÇßÀ¸¸é
+		//ë¡œê·¸ì¸ í–ˆìœ¼ë©´
 		else {
-			//spaceNum°ª ¹Ş¾Æ¼­ bean ¹­±â
-			//È£½ºÆ®Á¤º¸°¡Á®¿À·Á¸é È£½ºÆ®memberNum°ª beanÀ¸·Î ¹­±â
+			//spaceNumê°’ ë°›ì•„ì„œ bean ë¬¶ê¸°
+			//í˜¸ìŠ¤íŠ¸ì •ë³´ê°€ì ¸ì˜¤ë ¤ë©´ í˜¸ìŠ¤íŠ¸memberNumê°’ beanìœ¼ë¡œ ë¬¶ê¸°
 			
 			SpaceBean spacebean = spaceDao.getSpace(spacenum);
 			

@@ -5,7 +5,6 @@ public class SpaceFacilityBean {
 	private int spacenum;
 	private String facility;
 	
-	//»ý¼ºÀÚ
 	public SpaceFacilityBean() {
 		super();
 	}
@@ -34,6 +33,4 @@ public class SpaceFacilityBean {
 	public void setFacility(String facility) {
 		this.facility = facility;
 	}
-	
-	
 }

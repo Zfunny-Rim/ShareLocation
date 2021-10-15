@@ -47,13 +47,13 @@ public class HostSpaceInsertController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α����� �ʿ��� �����Դϴ�.');");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('ȣ��Ʈ�� �̿밡���� �����Դϴ�.');");
+			pw.println("alert('호스트만 이용가능한 서비스입니다.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");  
 			return null;
@@ -75,28 +75,28 @@ public class HostSpaceInsertController {
 			return mav;
 		}
 		mav.setViewName(gotoPage);
-		//set memberNum (session ���� �����;���)
+		//set memberNum (session 에서 가져와야함)
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('�α��� ������ ����Ǿ����ϴ�.');");
+			pw.println("alert('로그인 세션이 만료되었습니다.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}
-		spaceBean.setMembernum(loginInfo.getNum()); //�ӽ�
-		//set Status (��ϴ�� - �˼����/�˼��Ϸ�/���/�����) 
-		spaceBean.setStatus("��ϴ��");
-		//set grade (�⺻ - �⺻/����Ʈ��õ)
-		spaceBean.setGrade("�⺻");
+		spaceBean.setMembernum(loginInfo.getNum()); //임시
+		//set Status (등록대기 - 검수대기/검수완료/운영중/비공개) 
+		spaceBean.setStatus("등록대기");
+		//set grade (기본 - 기본/사이트추천)
+		spaceBean.setGrade("기본");
 		
-		//mainimage ���� ó��
+		//mainimage 파일 처리
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		session.setAttribute("uploadPath", uploadPath);
 		
 		MultipartFile mpfMainImage = mtfRequest.getFile("mainimagefile");
 		String originFileName = mpfMainImage.getOriginalFilename();
-		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ���ϸ� �ߺ� ����
+		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // 파일명 중복 막기
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		spaceBean.setMainimage(safeFileName); 
 		
@@ -104,34 +104,34 @@ public class HostSpaceInsertController {
 		System.out.println(spaceBean);
 		
 		
-		///DB�� ����
+		///DB에 저장
 		int cnt = -1;
 		cnt = spaceDao.insertSpace(spaceBean);
 		System.out.println("test2");
 		
-		//DB���忡 ���������� �̹����� ������ ���ε�
+		//DB저장에 성공했으면 이미지도 서버에 업로드
 		if(cnt != -1) {
 			mpfMainImage.transferTo(mainimage_File);
 		}
 		int spaceNum = spaceDao.getRecentSpaceNum();
 		
-		//spaceimage (�����̹���) ó��
+		//spaceimage (다중이미지) 처리
 		List<MultipartFile> spImageList = mtfRequest.getFiles("spaceimagefile");
 		for(int i=0;i<spImageList.size();i++) {
 			MultipartFile mpfSpaceImage = spImageList.get(i);
 			String spOriginFileName = mpfSpaceImage.getOriginalFilename();
-			String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // ���ϸ� �ߺ� ����
+			String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // 파일명 중복 막기
 			File spaceImage_File = new File(uploadPath+"\\"+spSafeFileName);
 			cnt = -1;
 			SpaceImageBean spaceImageBean = new SpaceImageBean(0, spaceNum, spSafeFileName);
 			cnt = spaceDao.insertSpaceImage(spaceImageBean);
 			if(cnt != -1) {
-				//DB���忡 ���������� �̹����� ������ ���ε�
+				//DB저장에 성공했으면 이미지도 서버에 업로드
 				mpfSpaceImage.transferTo(spaceImage_File);
 			}
 		}
 		
-		//facility ó��
+		//facility 처리
 		String[] facilityList = request.getParameterValues("facility");
 		for(String facStr:facilityList) {
 			SpaceFacilityBean sfBean = new SpaceFacilityBean(0, spaceNum, facStr);
@@ -139,7 +139,7 @@ public class HostSpaceInsertController {
 			cnt = spaceDao.insertSpaceFacility(sfBean);
 		}
 		
-//		pw.println("<script>alert('���������� ����Ǿ����ϴ�.');</script>");  
+//		pw.println("<script>alert('공간정보가 저장되었습니다.');</script>");
 //		pw.flush();
 		
 		return mav;

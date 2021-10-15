@@ -79,15 +79,15 @@ public class AdminApprovalController {
 			SpaceBean spaceBean = new SpaceBean();
 			spaceBean.setNum(spaceNum);
 			if(flag) {
-				spaceBean.setStatus("¿î¿µÁß");
+				spaceBean.setStatus("ìš´ì˜ì¤‘");
 			}else {
-				spaceBean.setStatus("°Ë¼ö¹İ·Á");
+				spaceBean.setStatus("ê²€ìˆ˜ë°˜ë ¤");
 			}
 			int cnt = -1;
 			cnt = spaceDao.updateSpaceStatus(spaceBean);
 			if(cnt != -1) {
 				pw.println("<script>");
-				pw.println("alert('°Ë¼ö°¡ Ã³¸®µÇ¾ú½À´Ï´Ù.');");
+				pw.println("alert('ê²€ìˆ˜ê°€ ì²˜ë¦¬ë˜ì—ˆìŠµë‹ˆë‹¤.');");
 				pw.println("location.href='"+listCommand+"';");
 				pw.println("</script>");
 				pw.flush();
