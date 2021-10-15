@@ -86,4 +86,12 @@ public class ReservationDao {
 	public int getReservtionCountByMonth(String monthStr) {
 		return sqlSessionTemplate.selectOne(namespace+".getReservtionCountByMonth", monthStr);
 	}
+
+	public int getReservtionCountByMonthAndSpaceNum(Map<String, Object> queryParam) {
+		return sqlSessionTemplate.selectOne(namespace+".getReservtionCountByMonthAndSpaceNum", queryParam);
+	}
+
+	public int getCompleteReservationCountBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getCompleteReservationCountBySpaceNum", spaceNum);
+	}
 }

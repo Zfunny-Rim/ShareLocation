@@ -19,6 +19,7 @@ import member.model.MemberDao;
 import reservation.model.DayOfWeekCountBean;
 import reservation.model.ReservationDao;
 import reservation.model.TypeRankingBean;
+import space.model.SpaceBean;
 import space.model.SpaceDao;
 
 @Controller
@@ -75,6 +76,13 @@ public class AdminMainController {
 		}
 		mapper = new ObjectMapper();
 		String dowJson = mapper.writeValueAsString(dowMap);
+		// 최근 4개의 검수 신청 리스트
+		List<SpaceBean> approvalList = spaceDao.getSpaceApprovalWaitingList(4);
+		for(SpaceBean sBean:approvalList) {
+			String mNick = memberDao.getMemberNickNameByNum(sBean.getMembernum());
+			sBean.setMnickname(mNick);
+		}
+		mav.addObject("approvalList", approvalList);
 		mav.addObject("totalMemberCount", totalMemberCount);
 		mav.addObject("hostMemberCount", hostMemberCount);
 		mav.addObject("totalSpaceCount", totalSpaceCount);

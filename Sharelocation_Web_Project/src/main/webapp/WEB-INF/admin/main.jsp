@@ -127,6 +127,47 @@
 								<div class="card">
 									<div class="card-header">
 										<h4>최근 검수 신청</h4>
+										<div class="card-body">
+											<c:if test="${empty approvalList }">
+												검수 신청한 공간이 없습니다.
+											</c:if>
+											<c:if test="${not empty approvalList }">
+												<b>최근 ${approvalList.size() }건의 검수신청 입니다.</b>
+											</c:if>
+											<div class="row justify-content-center my-3">
+											<div class="col-10">
+											<div class="table-responsive">
+												<table class="table table-hover mb-3">
+													<tr>
+														<th>번호</th>	
+														<th>호스트 이름</th>	
+														<th>분류</th>	
+														<th>공간명</th>	
+														<th>영업시간</th>	
+														<th>연락처</th>	
+														<th>등록일</th>	
+														<th>현재 상태</th>	
+													</tr>
+													<c:forEach var="appBean" items="${approvalList }">
+													<tr onClick="goViewPage('${appBean.num}')">
+														<td>${appBean.num }</td>
+														<td>${appBean.mnickname }</td>
+														<td>${appBean.type }</td>
+														<td>${appBean.name }</td>
+														<td>${appBean.operatingtime }~${appBean.operatingendtime }</td>
+														<td>${appBean.hp }</td>
+														<td>${appBean.regdate }</td>
+														<td>${appBean.status }</td>
+													</tr>
+													</c:forEach>
+												</table>
+											</div>
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-outline-success">검수신청 전체보기</button>
+											</div>
+											</div>
+											</div>
+										</div>
 									</div>
 									<div class="card-body">
 									</div>

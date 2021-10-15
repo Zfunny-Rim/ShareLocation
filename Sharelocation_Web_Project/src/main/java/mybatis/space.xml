@@ -180,6 +180,7 @@
 	</update>
 	<select id="getSpaceApprovalWaitingList" resultType="MySpace">
 		select * from space where status='검수대기'
+		order by regdate desc
 	</select>
 	<update id="updateSpaceStatus">
 		update space set status=#{status} where num = #{num}
@@ -187,5 +188,7 @@
 	<select id="getAllSpaceCount" resultType="int">
 		select count(*) from space
 	</select>
-	
+	<select id="getAllSpaceList" resultType="MySpace">
+		select * from space order by regdate desc
+	</select>
 </mapper>

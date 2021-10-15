@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="income.model.IncomeBean">
+	<insert id="insertIncome">
+		insert into income
+		values(income_seq.nextval, #{membernum}, #{spacenum}, #{type}, #{category},
+		${price}, sysdate, #{note}, #{reservationnum}, #{advertisenum})
+	</insert>
+</mapper>

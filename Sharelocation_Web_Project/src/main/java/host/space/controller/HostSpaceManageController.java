@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -32,6 +35,8 @@ import org.springframework.web.servlet.ModelAndView;
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import detailspace.model.PackagePriceBean;
+import income.model.IncomeBean;
+import income.model.IncomeDao;
 import member.model.MemberBean;
 import member.model.MemberDao;
 import reservation.model.BalanceBean;
@@ -71,6 +76,7 @@ public class HostSpaceManageController {
 	private final String reservationStatusUpdateCommand = "spaceManageReservationStatusUpdate.ho";
 	private final String advertiseCommand = "spaceManagerAdvertise.ho";
 	private final String advertisePurchaseCommand = "spaceManagerAdvertisePurchase.ho";
+	private final String statisticCommand = "spaceManageStatistic.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -87,7 +93,8 @@ public class HostSpaceManageController {
 	MemberDao memberDao;
 	@Autowired
 	ReservationDao reservationDao;
-	
+	@Autowired
+	IncomeDao incomeDao;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -860,6 +867,21 @@ public class HostSpaceManageController {
 		reservationBean.setNum(num);
 		reservationBean.setStatus(status);
 		int cnt = reservationDao.updateStatus(reservationBean);
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		if(status.equals("예약확정")) {
+			//수입이 발생함.
+			//spacenum
+			ReservationBean curResBean = reservationDao.getReservationByNum(num); 
+			IncomeBean incomeBean = new IncomeBean();
+			incomeBean.setSpacenum(spaceNum);
+			incomeBean.setMembernum(spaceBean.getMembernum());
+			incomeBean.setType("수입");
+			incomeBean.setCategory("대여");
+			incomeBean.setPrice(curResBean.getAmounts());
+			incomeBean.setNote("자동기입");
+			incomeBean.setReservationnum(num);
+			cnt = incomeDao.insertIncome(incomeBean);
+		}
 		mav.setViewName("redirect:/"+reservationViewCommand);
 		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("num", num);
@@ -938,5 +960,37 @@ public class HostSpaceManageController {
 			mav.addObject("spaceNum", spaceNum);
 			return mav;
 		}
+	}
+
+	@RequestMapping(value=statisticCommand)
+	public ModelAndView statisticView(@RequestParam(value="spaceNum")int spaceNum) throws JsonGenerationException, JsonMappingException, IOException {
+		ModelAndView mav = new ModelAndView(viewPage);
+		//공간별 - 총예약횟수 / 총수익 / 총지출 / 총이윤 
+		int comResCount = reservationDao.getCompleteReservationCountBySpaceNum(spaceNum);
+		//월별 예약횟수 - 공간별
+		//월별 예약회수
+		String[] monthWord = {"1월","2월","3월","4월","5월","6월",
+				"7월","8월","9월","10월","11월","12월"};
+		Map<String, Integer> monthlyCountMap = new HashMap<String, Integer>();
+		Map<String, Object> queryParam = new HashMap<String, Object>();
+		queryParam.put("spaceNum", String.valueOf(spaceNum));
+		for(int i=0;i<monthWord.length;i++) {
+			String monthStr = "2021-"+String.format("%02d", (i+1));
+			queryParam.put("monthStr", monthStr);
+			int mCount = reservationDao.getReservtionCountByMonthAndSpaceNum(queryParam);
+			if(mCount <= 0) {
+				monthlyCountMap.put(monthWord[i], 0);
+			}else {
+				monthlyCountMap.put(monthWord[i], mCount);
+			}
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String monthlyJson = mapper.writeValueAsString(monthlyCountMap);
+		System.out.println(monthlyJson);
+		getPage = "Statistic";
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("getPage", getPage);
+		mav.addObject("monthlyJson", monthlyJson);
+		return mav;
 	}
 }

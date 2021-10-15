@@ -79,4 +79,14 @@
 	  (select * from reservation where status='이용완료' or status = '예약확정')
 	where to_char(checkin, 'yyyy-mm') = #{monthStr}
 	</select>
+	<select id="getReservtionCountByMonthAndSpaceNum" resultType="int">
+	select count(*) from 
+	  (select * from reservation where spacenum=#{spaceNum} 
+	   and (status='이용완료' or status = '예약확정'))
+	where to_char(checkin, 'yyyy-mm') = #{monthStr}
+	</select>
+	<select id="getCompleteReservationCountBySpaceNum" resultType="int">
+		select count(*) from reservation where spacenum=#{spaceNum} 
+		and (status='예약확정' or status='이용완료')
+	</select>
 </mapper>
