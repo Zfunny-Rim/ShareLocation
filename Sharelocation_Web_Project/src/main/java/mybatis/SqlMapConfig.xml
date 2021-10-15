@@ -17,8 +17,8 @@
 		<typeAlias alias="MyBalance" type="reservation.model.BalanceBean"/>
 		<typeAlias alias="MyPackage" type="detailspace.model.PackagePriceBean"/>
 		<typeAlias alias="MyFavorite" type="space.model.FavoriteBean"/>
-		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>
 		<typeAlias alias="MyQnaBoard" type="qnaBoard.model.QnaBoardBean"/>
+		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>
 	</typeAliases>
 	
 	<mappers>
