@@ -5,7 +5,6 @@ public class SpaceImageBean {
 	private int spacenum;
 	private String image;
 	
-	//»ý¼ºÀÚ
 	public SpaceImageBean() {
 		super();
 	}

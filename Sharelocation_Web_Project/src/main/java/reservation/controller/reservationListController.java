@@ -43,13 +43,13 @@ public class reservationListController {
 			HttpServletRequest request
 			) {
 		
-		reservationbean.setSpacenum(4); // ÀÓ½Ã
+		reservationbean.setSpacenum(4); // ì„ì‹œ
 		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		//·Î±×ÀÎ ¾ÈÇß´Ù¸é
+		//ë¡œê·¸ì¸ ì•ˆí–ˆë‹¤ë©´
 		if(session.getAttribute("loginInfo")==null) { 
 
-			model.addAttribute("msg", "·Î±×ÀÎ ÇØÁÖ¼¼¿ä~!");
+			model.addAttribute("msg", "ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”~!");
 			model.addAttribute("url", "/sharelocation/#");
 			mav.setViewName("redirect");
 			return mav;
@@ -64,7 +64,7 @@ public class reservationListController {
 		String url = request.getContextPath() + "/" + command;
 		int totalCount = reservationDao.getReservationTotalCountByMap(map);
 		Paging pageInfo = new Paging(pageNumber, "5", totalCount, url, whatColumn, keyword, null);
-		List<ReservationBean> reservationLists = reservationDao.getReservList(loginInfo.getNum(),pageInfo);  //membernum°ª 1 ÀÓ½Ã
+		List<ReservationBean> reservationLists = reservationDao.getReservList(loginInfo.getNum(),pageInfo);  //membernumê°’ 1 ì„ì‹œ
 		System.out.println("reservationbean.List:"+reservationLists.size());
 		
 		SpaceBean spacebean = spaceDao.getSpace(reservationbean.getSpacenum());

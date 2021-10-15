@@ -36,7 +36,7 @@ public class AdminMainController {
 		int completeReservationCount = reservationDao.getCompleteReservationCount();
 		TypeRankingBean trBean = reservationDao.getTypeRankingBest();
 		List<DayOfWeekCountBean> dayOfWeekCountList = reservationDao.getDayOfWeekCount();
-		String[] dowWord = {"ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä"};
+		String[] dowWord = {"ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† ", "ì¼"};
 		Map<String, Integer> dowMap = new HashMap<String, Integer>();
 		boolean isFind = false;
 		for(String dowStr:dowWord) {

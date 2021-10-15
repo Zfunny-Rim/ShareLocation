@@ -47,13 +47,13 @@ public class HostSpaceInsertController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('ë¡œê·¸ì¸ì´ í•„ìš”í•œ ì„œë¹„ìŠ¤ì…ë‹ˆë‹¤.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}else if(!loginInfo.getType().equals("host")) {
 			pw.println("<script>");
-			pw.println("alert('È£½ºÆ®¸¸ ÀÌ¿ë°¡´ÉÇÑ ¼­ºñ½ºÀÔ´Ï´Ù.');");
+			pw.println("alert('í˜¸ìŠ¤íŠ¸ë§Œ ì´ìš©ê°€ëŠ¥í•œ ì„œë¹„ìŠ¤ì…ë‹ˆë‹¤.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
@@ -75,28 +75,28 @@ public class HostSpaceInsertController {
 			return mav;
 		}
 		mav.setViewName(gotoPage);
-		//set memberNum (session ¿¡¼­ °¡Á®¿Í¾ßÇÔ)
+		//set memberNum (session ì—ì„œ ê°€ì ¸ì™€ì•¼í•¨)
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		if(loginInfo == null) {
 			pw.println("<script>");
-			pw.println("alert('·Î±×ÀÎ ¼¼¼ÇÀÌ ¸¸·áµÇ¾ú½À´Ï´Ù.');");
+			pw.println("alert('ë¡œê·¸ì¸ ì„¸ì…˜ì´ ë§Œë£Œë˜ì—ˆìŠµë‹ˆë‹¤.');");
 			pw.println("location.href='main.ho';");
 			pw.println("</script>");
 			return null;
 		}
-		spaceBean.setMembernum(loginInfo.getNum()); //ÀÓ½Ã
-		//set Status (µî·Ï´ë±â - °Ë¼ö´ë±â/°Ë¼ö¿Ï·á/¿î¿µÁß/ºñ°ø°³) 
-		spaceBean.setStatus("µî·Ï´ë±â");
-		//set grade (±âº» - ±âº»/»çÀÌÆ®ÃßÃµ)
-		spaceBean.setGrade("±âº»");
+		spaceBean.setMembernum(loginInfo.getNum()); //ì„ì‹œ
+		//set Status (ë“±ë¡ëŒ€ê¸° - ê²€ìˆ˜ëŒ€ê¸°/ê²€ìˆ˜ì™„ë£Œ/ìš´ì˜ì¤‘/ë¹„ê³µê°œ) 
+		spaceBean.setStatus("ë“±ë¡ëŒ€ê¸°");
+		//set grade (ê¸°ë³¸ - ê¸°ë³¸/ì‚¬ì´íŠ¸ì¶”ì²œ)
+		spaceBean.setGrade("ê¸°ë³¸");
 		
-		//mainimage ÆÄÀÏ Ã³¸®
+		//mainimage íŒŒì¼ ì²˜ë¦¬
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		session.setAttribute("uploadPath", uploadPath);
 		
 		MultipartFile mpfMainImage = mtfRequest.getFile("mainimagefile");
 		String originFileName = mpfMainImage.getOriginalFilename();
-		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // ÆÄÀÏ¸í Áßº¹ ¸·±â
+		String safeFileName = System.currentTimeMillis()+"_"+originFileName; // íŒŒì¼ëª… ì¤‘ë³µ ë§‰ê¸°
 		File mainimage_File = new File(uploadPath+"\\"+safeFileName);
 		spaceBean.setMainimage(safeFileName); 
 		
@@ -104,34 +104,34 @@ public class HostSpaceInsertController {
 		System.out.println(spaceBean);
 		
 		
-		///DB¿¡ ÀúÀå
+		///DBì— ì €ì¥
 		int cnt = -1;
 		cnt = spaceDao.insertSpace(spaceBean);
 		System.out.println("test2");
 		
-		//DBÀúÀå¿¡ ¼º°øÇßÀ¸¸é ÀÌ¹ÌÁöµµ ¼­¹ö¿¡ ¾÷·Îµå
+		//DBì €ì¥ì— ì„±ê³µí–ˆìœ¼ë©´ ì´ë¯¸ì§€ë„ ì„œë²„ì— ì—…ë¡œë“œ
 		if(cnt != -1) {
 			mpfMainImage.transferTo(mainimage_File);
 		}
 		int spaceNum = spaceDao.getRecentSpaceNum();
 		
-		//spaceimage (´ÙÁßÀÌ¹ÌÁö) Ã³¸®
+		//spaceimage (ë‹¤ì¤‘ì´ë¯¸ì§€) ì²˜ë¦¬
 		List<MultipartFile> spImageList = mtfRequest.getFiles("spaceimagefile");
 		for(int i=0;i<spImageList.size();i++) {
 			MultipartFile mpfSpaceImage = spImageList.get(i);
 			String spOriginFileName = mpfSpaceImage.getOriginalFilename();
-			String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // ÆÄÀÏ¸í Áßº¹ ¸·±â
+			String spSafeFileName = System.currentTimeMillis()+"_"+(i+1)+"_"+spOriginFileName; // íŒŒì¼ëª… ì¤‘ë³µ ë§‰ê¸°
 			File spaceImage_File = new File(uploadPath+"\\"+spSafeFileName);
 			cnt = -1;
 			SpaceImageBean spaceImageBean = new SpaceImageBean(0, spaceNum, spSafeFileName);
 			cnt = spaceDao.insertSpaceImage(spaceImageBean);
 			if(cnt != -1) {
-				//DBÀúÀå¿¡ ¼º°øÇßÀ¸¸é ÀÌ¹ÌÁöµµ ¼­¹ö¿¡ ¾÷·Îµå
+				//DBì €ì¥ì— ì„±ê³µí–ˆìœ¼ë©´ ì´ë¯¸ì§€ë„ ì„œë²„ì— ì—…ë¡œë“œ
 				mpfSpaceImage.transferTo(spaceImage_File);
 			}
 		}
 		
-		//facility Ã³¸®
+		//facility ì²˜ë¦¬
 		String[] facilityList = request.getParameterValues("facility");
 		for(String facStr:facilityList) {
 			SpaceFacilityBean sfBean = new SpaceFacilityBean(0, spaceNum, facStr);
@@ -139,7 +139,7 @@ public class HostSpaceInsertController {
 			cnt = spaceDao.insertSpaceFacility(sfBean);
 		}
 		
-//		pw.println("<script>alert('°ø°£Á¤º¸°¡ ÀúÀåµÇ¾ú½À´Ï´Ù.');</script>");
+//		pw.println("<script>alert('ê³µê°„ì •ë³´ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.');</script>");
 //		pw.flush();
 		
 		return mav;

@@ -22,7 +22,7 @@ public class reservationCancelController {
 			@RequestParam(value = "pageNumber",required=false) String pageNumber,
 			@RequestParam(value = "num",required=false) int num) {
 		
-		int cnt = reservationDao.reservationCancel(num);  // form 예약취소 누르면 update
+		int cnt = reservationDao.reservationCancel(num); 
 		
 		mav.setViewName(getPage+"?pageNumber="+pageNumber);
 		return mav;
