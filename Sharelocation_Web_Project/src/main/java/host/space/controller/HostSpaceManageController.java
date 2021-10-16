@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +38,12 @@ import detailspace.model.DetailSpaceDao;
 import detailspace.model.PackagePriceBean;
 import income.model.IncomeBean;
 import income.model.IncomeDao;
+import income.model.IncomeDetailBean;
 import member.model.MemberBean;
 import member.model.MemberDao;
 import reservation.model.BalanceBean;
 import reservation.model.BalanceDao;
+import reservation.model.DayOfWeekCountBean;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
 import reviewBoard.model.ReviewBoardBean;
@@ -77,6 +80,7 @@ public class HostSpaceManageController {
 	private final String advertiseCommand = "spaceManagerAdvertise.ho";
 	private final String advertisePurchaseCommand = "spaceManagerAdvertisePurchase.ho";
 	private final String statisticCommand = "spaceManageStatistic.ho";
+	private final String statisticDetailCommand = "spaceManageStatisticDetail.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -963,10 +967,36 @@ public class HostSpaceManageController {
 	}
 
 	@RequestMapping(value=statisticCommand)
-	public ModelAndView statisticView(@RequestParam(value="spaceNum")int spaceNum) throws JsonGenerationException, JsonMappingException, IOException {
+	public ModelAndView statisticView(@RequestParam(value="spaceNum")int spaceNum,
+			HttpSession session, HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
 		ModelAndView mav = new ModelAndView(viewPage);
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			if(loginInfo == null) {
+				pw.println("<script>");
+				pw.println("alert('로그인이 필요한 서비스입니다.');");
+				pw.println("location.href='miniLogin.member';");
+				pw.println("</script>");
+				pw.flush();
+				return null;
+			}
+		}
 		//공간별 - 총예약횟수 / 총수익 / 총지출 / 총이윤 
 		int comResCount = reservationDao.getCompleteReservationCountBySpaceNum(spaceNum);
+		Integer totalIncomePrice = incomeDao.getTotalIncomePriceBySpaceNum(spaceNum);
+		if(totalIncomePrice == null)
+			totalIncomePrice = 0;
+		Integer totalExpensePrice = incomeDao.getTotalExpensePriceBySpaceNum(spaceNum);
+		if(totalExpensePrice == null)
+			totalExpensePrice = 0;
+		//고정지출액 제외
+		double fixedExpense = totalIncomePrice  * 0.1;
+		totalExpensePrice = (int) (totalExpensePrice + fixedExpense);
+		int profit = totalIncomePrice - totalExpensePrice;
+		
 		//월별 예약횟수 - 공간별
 		//월별 예약회수
 		String[] monthWord = {"1월","2월","3월","4월","5월","6월",
@@ -986,11 +1016,139 @@ public class HostSpaceManageController {
 		}
 		ObjectMapper mapper = new ObjectMapper();
 		String monthlyJson = mapper.writeValueAsString(monthlyCountMap);
-		System.out.println(monthlyJson);
+		//요일별 예약횟수
+		List<DayOfWeekCountBean> dayOfWeekCountList = reservationDao.getDayOfWeekCount();
+		String[] dowWord = {"월", "화", "수", "목", "금", "토", "일"};
+		Map<String, Integer> dowMap = new HashMap<String, Integer>();
+		boolean isFind = false;
+		for(String dowStr:dowWord) {
+			isFind = false;
+			for(DayOfWeekCountBean dowBean:dayOfWeekCountList) {
+				if(dowBean.getDayofweek().equals(dowStr)) {
+					dowMap.put(dowStr, dowBean.getCount());
+					isFind = true;
+					break;
+				}
+			}
+			if(!isFind) {
+				dowMap.put(dowStr, 0);
+			}
+		}
+		mapper = new ObjectMapper();
+		String dowJson = mapper.writeValueAsString(dowMap);
+		
+		//월별 이윤 
+		Map<String, Integer> monthlyProfitMap = new HashMap<String, Integer>();
+		queryParam = new HashMap<String, Object>();
+		queryParam.put("spaceNum", String.valueOf(spaceNum));
+		for(int i=0;i<monthWord.length;i++) {
+			String monthStr = "2021-"+String.format("%02d", (i+1));
+			queryParam.put("monthStr", monthStr);
+			
+			Integer iPrice = incomeDao.getIncomePriceByMonthAndSpaceNum(queryParam);
+			if(iPrice == null)
+				iPrice = 0;
+			Integer ePrice = incomeDao.getExpensePriceByMonthAndSpaceNum(queryParam);
+			if(ePrice == null)
+				ePrice = 0;
+			fixedExpense = iPrice * 0.1;
+			ePrice = (int) (ePrice + fixedExpense);
+			int mProfit = iPrice - ePrice;
+			monthlyProfitMap.put(monthWord[i], mProfit);
+		}
+		String monthlyProfitJson = mapper.writeValueAsString(monthlyProfitMap);
+		System.out.println(monthlyProfitJson);
 		getPage = "Statistic";
 		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("getPage", getPage);
+		mav.addObject("spaceName", spaceBean.getName());
+		mav.addObject("userName", loginInfo.getNickname());
 		mav.addObject("monthlyJson", monthlyJson);
+		mav.addObject("monthlyProfitJson", monthlyProfitJson);
+		
+		mav.addObject("comResCount", comResCount);
+		mav.addObject("totalIncomePrice", totalIncomePrice);
+		mav.addObject("totalExpensePrice", totalExpensePrice);
+		mav.addObject("profit", profit);
+		mav.addObject("dowJson", dowJson);
 		return mav;
+	}
+
+	@RequestMapping(value=statisticDetailCommand)
+	public ModelAndView statisticDetail(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="year")int year,
+			@RequestParam(value="month")int month) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		IncomeDetailBean idBean = new IncomeDetailBean();
+		idBean.setYear(year);
+		idBean.setMonth(month);
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		idBean.setSpaceBean(spaceBean);
+		
+		//해당 년 - 월의 income List
+		String monthStr = String.format("%d-%02d", year,month);
+		Map<String, Object> queryParam = new HashMap<String, Object>();
+		queryParam.put("monthStr", monthStr);
+		queryParam.put("spaceNum", spaceNum);
+		List<IncomeBean> incomeList = incomeDao.getIncomeListByMonth(queryParam);
+		List<IncomeBean> expenseList = new ArrayList<IncomeBean>();
+		Iterator<IncomeBean> iter = incomeList.iterator();
+		while(iter.hasNext()) {
+			IncomeBean iBean = iter.next();
+			if(iBean.getType().equals("지출")) {
+				iter.remove();
+				expenseList.add(iBean);
+			}
+		}
+		List<IncomeBean> etcIncomeList = new ArrayList<IncomeBean>();
+		iter = incomeList.iterator();
+		while(iter.hasNext()) {
+			IncomeBean iBean = iter.next();
+			if(iBean.getCategory().equals("기타")) {
+				iter.remove();
+				etcIncomeList.add(iBean);
+			}
+		}
+		int totalIncomePrice = 0;
+		int totalEtcIncomePrice = 0;
+		int totalExpensePrice = 0;
+		for(IncomeBean iBean:incomeList ) {
+			totalIncomePrice += iBean.getPrice();
+		}
+		for(IncomeBean iBean:etcIncomeList ) {
+			totalEtcIncomePrice += iBean.getPrice();
+		}
+		for(IncomeBean eBean:expenseList ) {
+			totalExpensePrice += eBean.getPrice();
+		}
+		idBean.setRentalIncomeList(incomeList);
+		idBean.setTotalRentalIncomePrice(totalIncomePrice);
+		idBean.setEtcIncomeList(etcIncomeList);
+		idBean.setTotalEtcIncomePrice(totalEtcIncomePrice);
+		idBean.setTotalIncomePrice(totalIncomePrice + totalEtcIncomePrice);
+		//
+		idBean.setCleanExpensePrice(totalIncomePrice); 
+		idBean.setMaintenanceExpensePrice(totalIncomePrice); 
+		idBean.setTaxExpensePrice(totalIncomePrice); 
+		idBean.setFeesExpensePrice(totalIncomePrice);
+		idBean.setTotalFixedExpensePrice();
+		//
+		AdvertiseBean advertiseBean = spaceDao.getAdvertiseBySpaceNum(spaceNum);
+		idBean.setAdvertiseBean(advertiseBean);
+		//
+		idBean.setEtcExpenseList(expenseList);
+		idBean.setTotalEtcExpensePrice(totalExpensePrice);
+		idBean.setTotalExpensePrice();
+		//
+		idBean.setTotalProfit(totalIncomePrice-totalExpensePrice);
+		idBean.setProfitPerRental();
+		
+		getPage = "StatisticDetail";
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("idBean", idBean);
+		return mav;
+		
+		
 	}
 }

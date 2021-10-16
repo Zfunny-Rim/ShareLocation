@@ -38,7 +38,7 @@
 											   href="spaceManageBalance.ho?spaceNum=${spaceNum }">정산정보 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Review"
 											   href="spaceManageReview.ho?spaceNum=${spaceNum }">후기 관리</a>
-											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Statistics"
+											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Statistic"
 											   href="spaceManageStatistic.ho?spaceNum=${spaceNum }">통계</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Reservation"
 											   href="spaceManageReservation.ho?spaceNum=${spaceNum }">예약 관리</a>
@@ -50,7 +50,7 @@
 	                            </div>
 	                        </div>
 	                        <div class="col-9">
-	                       		<div class="card">
+	                       		<div id="mainCard" class="card">
 	                      	      	<div class="card-content">	
 	                            		<div class="card-body">
 	                            			<jsp:include page="/WEB-INF/host/manage/hostSpaceManage${getPage }.jsp"/>
@@ -79,6 +79,9 @@
 			}
 			else if(pageName.startsWith('Reservation')){
 				nav = document.getElementById('Reservation');
+			}
+			else if(pageName.startsWith('Statistic')){
+				nav = document.getElementById('Statistic');
 			}
 			else{
 				nav = document.getElementById(pageName);

@@ -7,7 +7,7 @@ public class IncomeBean {
 	private String type;
 	private String category;
 	private int price;
-	private String incomdate;
+	private String incomedate;
 	private String note;
 	private int reservationnum;
 	private int advertisenum;
@@ -52,11 +52,11 @@ public class IncomeBean {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getIncomdate() {
-		return incomdate;
+	public String getIncomedate() {
+		return incomedate;
 	}
-	public void setIncomdate(String incomdate) {
-		this.incomdate = incomdate;
+	public void setIncomedate(String incomedate) {
+		this.incomedate = incomedate;
 	}
 	public String getNote() {
 		return note;
@@ -80,7 +80,7 @@ public class IncomeBean {
 	@Override
 	public String toString() {
 		return "IncomeBean [num=" + num + ", membernum=" + membernum + ", spacenum=" + spacenum + ", type=" + type
-				+ ", category=" + category + ", price=" + price + ", incomdate=" + incomdate + ", note=" + note
+				+ ", category=" + category + ", price=" + price + ", incomedate=" + incomedate + ", note=" + note
 				+ ", reservationnum=" + reservationnum + ", advertisenum=" + advertisenum + "]";
 	}
 	
