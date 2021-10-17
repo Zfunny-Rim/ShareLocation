@@ -2,5 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qnaBoard.model.QnaBoardBean">
-
+	<select id="getTotalCount" resultType="int">
+		select count(*) from qnaboard
+		<if test="whatColumn == 'subject'">
+		where subject like #{keyword}
+		</if>
+		<if test="whatColumn == 'writer'">
+		where writer like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getList" resultType="MyQnaBoard">
+		select * from qnaboard
+		<if test="whatColumn == 'subject'">
+		where subject like #{keyword}
+		</if>
+		<if test="whatColumn == 'writer'">
+		where writer like #{keyword}
+		</if>
+		order by ref desc, restep asc
+	</select>
+	
+	<select id="getOne" resultType="MyQnaBoard">
+		select * from qnaboard where num = #{num}
+	</select>
+	
+	<insert id="insert">
+		insert into qnaboard(num,membernum,subject,writer,type,content,regdate,ref,restep,relevel,readcount)
+		values(qnaboard_seq.nextval,#{membernum},#{subject},#{writer},#{type},#{content},sysdate,qnaboard_seq.currval,0,0,0)
+	</insert>
+	
+	<insert id="insertReply">
+		insert into qnaboard(num,membernum,subject,writer,type,content,regdate,ref,restep,relevel,readcount)
+		values(qnaboard_seq.nextval,#{membernum},#{subject},#{writer},#{type},#{content},sysdate,#{ref},#{restep}+1,#{relevel}+1,0)
+	</insert>
+	
+	<update id="addReadCount">
+		update qnaboard set readcount = readcount+1 where num = #{num}
+	</update>
+	
+	<update id="update">
+		update qnaboard set subject=#{subject},content=#{content} where num=#{num}
+	</update>
+	
+	<update id="updateRestep">
+		update qnaboard set restep=restep+1 where ref=#{ref} and restep > #{restep}
+	</update>
+	
+	<delete id="delete">
+		delete qnaboard where num = #{num}
+	</delete>
 </mapper>
