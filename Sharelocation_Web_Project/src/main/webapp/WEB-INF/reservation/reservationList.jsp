@@ -143,8 +143,13 @@ dl, ol, ul {
 																		<h5>
 																		${spacebean.name}
 																		</h5>
-																		<p class="card-text">${reservation.applicationdate }
-																			${reservation.checkin}시~${reservation.checkout}시</p>
+																		<p class="card-text">
+																			<fmt:parseDate var="ciDate" value="${reservation.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+																			<fmt:formatDate  value="${ciDate}" pattern="yyyy년 MM월 dd일 HH시"/>
+																			~ 
+																			<fmt:parseDate var="coDate" value="${reservation.checkout }" pattern="yyyy-MM-dd HH:mm"/>
+																			<fmt:formatDate  value="${coDate}" pattern="yyyy년 MM월 dd일 HH시"/>
+																		</p>
 																	</div>
 																	<div
 																		class="card-footer d-flex justify-content-between bg-light p-2 px-3">

@@ -238,10 +238,22 @@
 																		id="textboxperson" disabled>명</td>
 																</tr>
 																<tr>
+																	<td class="text-bold-500">결제방식</td>
+																	<td align="center">
+																		<select class="form-select" id="basicSelect" name="paymenttype">
+                                                        					<option value="">선택</option>
+                                                        					<option value="현장결제">현장결제</option>
+                                                        					<option value="무통장입금">무통장입금</option>
+                                                    					</select>
+																	</td>
+																</tr>
+																<tr>
 																	<td class="text-bold-500" align="center" colspan="2" >
-																		총 가격:<span id="priceText">
+																		총 가격:
+																		<span id="priceText">
 																		${detailSpacebean.price}
-																		</span> </td>
+																		</span>
+																	</td>
 																</tr>
 																<tr>
 																	<td colspan="2" class="text-bold-500" align="center"><input
@@ -277,15 +289,15 @@
 												<tbody>
 													<tr>
 														<td class="text-bold-500">예약 날짜</td>
-														<td align="center"><input type="date"
-															name="applicationdate" id="textdate"></td>
+														<td align="center">
+														<input type="date" name="reservationdate" id="textdate"></td>
 													</tr>
 													<tr>
 														<td class="text-bold-500">예약시간</td>
 														<td>
 															<div class="input-group mb-3">
 																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
-																<select class="form-select" name="checkin" id="selectTextTime1" >
+																<select class="form-select" name="checkintime" id="selectTextTime1" >
 
 																	<option value="0">00</option>
 
@@ -339,7 +351,7 @@
 
 																</select> <span class="input-group-text">시 부터</span> 
 																<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
-																<select class="form-select" name="checkout" id="selectTextTime2">
+																<select class="form-select" name="checkouttime" id="selectTextTime2">
 
 																	<option value="0">00</option>
 

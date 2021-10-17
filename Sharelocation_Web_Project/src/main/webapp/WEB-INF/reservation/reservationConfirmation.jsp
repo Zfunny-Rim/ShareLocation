@@ -106,7 +106,7 @@
 																<tbody>
 																	<tr>
 																		<td class="text-bold-500">예약날짜</td>
-																		<td align="center">${reservationbean.applicationdate}</td>
+																		<td align="center">${reservationdate}</td>
 																		<td rowspan="5">
 																			<fmt:formatNumber value="${reservationbean.amounts}" pattern="###,###"/>원
 																		</td>
@@ -115,7 +115,11 @@
 																		
 																		<td class="text-bold-500">예약시간</td>
 																		<td align="center">
-																		${reservationbean.checkin}시~${reservationbean.checkout}시
+																			<fmt:parseDate var="ciDate" value="${reservationBean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+																			<fmt:formatDate  value="${ciDate}" pattern="MM월 dd일 HH시"/>
+																			~ 
+																			<fmt:parseDate var="coDate" value="${reservationBean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
+																			<fmt:formatDate  value="${coDate}" pattern="dd일 HH시"/>
 																		</td>
 																	</tr>
 																	<tr>
@@ -176,7 +180,13 @@
 													</tr>
 													<tr>
 														<td class="text-bold-500">예약내용</td>
-														<td align="center">${reservationbean.applicationdate} ${reservationbean.checkin}시~${reservationbean.checkout}시</td>
+														<td align="center">
+															<fmt:parseDate var="ciDate" value="${reservationBean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+															<fmt:formatDate  value="${ciDate}" pattern="MM월 dd일 HH시"/>
+															~ 
+															<fmt:parseDate var="coDate" value="${reservationBean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
+															<fmt:formatDate  value="${coDate}" pattern="dd일 HH시"/>
+														</td>
 													</tr>
 													<tr>
 														<td class="text-bold-500">예약인원</td>

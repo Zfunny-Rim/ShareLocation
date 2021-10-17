@@ -14,8 +14,8 @@
 		insert into reservation
 		(num,membernum,spacenum,detailspacenum,checkin,checkout,person,
 		amounts,cusrequest,paymenttype,applicationdate,status)values
-		(reservation_seq.nextval,#{membernum},#{spacenum},#{detailspacenum},#{checkin},#{checkout},#{person},
-		#{amounts},#{cusrequest},#{paymenttype},#{applicationdate},#{status})
+		(reservation_seq.nextval,#{membernum},#{spacenum},#{detailspacenum},to_date(#{checkin},'yyyy-mm-dd hh24:mi'),to_date(#{checkout},'yyyy-mm-dd hh24:mi'),#{person},
+		#{amounts},#{cusrequest},#{paymenttype},sysdate,#{status})
 	</insert>
 	
 	<select id="getReservationTotalCountByMap" resultType="int">
