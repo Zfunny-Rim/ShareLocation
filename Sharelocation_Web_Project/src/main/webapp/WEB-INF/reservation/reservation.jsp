@@ -550,52 +550,49 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
-		
-		var intValprice;
-		var checkoutTime;
-		var checkinTime;
-		var priceVal;
-		var intAmount;
-		var cTime;
-		var intcheckinTime;
-		var intcheckoutTime;
-		$(function(){
-			$('#textdate').change(function(){
-				//alert(1);
-				var dateVal = $(this).val();
-				$('#textbox').val(dateVal);
-			});
-			$('#testperson').change(function(){
-				var personVal = $(this).val();
-				$('#textboxperson').val(personVal);
-				 intValperson = parseInt(personVal);
-				
-				 priceVal = "${detailSpacebean.price}";
-				intValprice = parseInt(priceVal);
-				
-				 intAmount = intValperson*intValprice;
-				//alert(intAmount);
-				// alert(intAmount+cTime);
-				$('#priceText').text(intAmount+cTime);
-				
-			});
-			$('#selectTextTime1').change(function(){
-				var checkinTime = $(this).val();
-				$('#selectText1').val(checkinTime);
-				 intcheckinTime = parseInt(checkinTime);
-				//alert(intcheckinTime);
-				
-			});
-			$('#selectTextTime2').change(function(){
-				var checkoutTime = $(this).val();
-				$('#selectText2').val(checkoutTime);
-				 intcheckoutTime = parseInt(checkoutTime);
-				 cTime=(intcheckoutTime-intcheckinTime)*intValprice;
-				// alert(parseInt(intAmount+cTime));
-				 $('#priceText').text(intAmount+cTime);
-			});
-			
-		});
+	    var intValprice;
+	      var checkoutTime;
+	      var checkinTime;
+	      var priceVal;
+	      var intAmount;
+	      var cTime;
+	      var intcheckinTime;
+	      var intcheckoutTime;
+	      $(function(){
+	         $('#textdate').change(function(){
+	            //alert(1);
+	            var dateVal = $(this).val();
+	            $('#textbox').val(dateVal);
+	         });
+	         $('#testperson').change(function(){
+	            var personVal = $(this).val();
+	            $('#textboxperson').val(personVal);
+	             intValperson = parseInt(personVal);
+	            
+	             priceVal = "${detailSpacebean.price}";
+	            intValprice = parseInt(priceVal);
+	            
+	             intAmount = intValperson*intValprice;
+	            //alert(intAmount);
+	            // alert(intAmount+cTime);
+	             $('#priceText').text(intAmount+cTime);
+	         });
+	         $('#selectTextTime1').change(function(){
+	            var checkinTime = $(this).val();
+	            $('#selectText1').val(checkinTime);
+	             intcheckinTime = parseInt(checkinTime);
+	            //alert(intcheckinTime);
+	         });
+	         $('#selectTextTime2').change(function(){
+	            var checkoutTime = $(this).val();
+	            $('#selectText2').val(checkoutTime);
+	             intcheckoutTime = parseInt(checkoutTime);
+	             cTime=(intcheckoutTime-intcheckinTime)*intValprice;
+	            // alert(parseInt(intAmount+cTime));
+	             $('#priceText').text(intAmount+cTime);
+	         });
+	         
+	      });
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
