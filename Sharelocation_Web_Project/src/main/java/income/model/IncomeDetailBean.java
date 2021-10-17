@@ -29,6 +29,7 @@ public class IncomeDetailBean {
 	//
 	private AdvertiseBean advertiseBean;
 	private int advertiseExpensePrice;
+	private int advertiseUseDay;
 	//
 	private List<IncomeBean> etcExpenseList;
 	private int totalEtcExpensePrice;
@@ -149,19 +150,30 @@ public class IncomeDetailBean {
 		return totalExpensePrice;
 	}
 	public void setTotalExpensePrice() {
-		this.totalExpensePrice = this.totalFixedExpensePrice + this.totalEtcExpensePrice;
+		this.totalExpensePrice = this.totalFixedExpensePrice + this.totalEtcExpensePrice
+				+ this.advertiseExpensePrice;
 	}
 	public int getTotalProfit() {
 		return totalProfit;
 	}
-	public void setTotalProfit(int totalProfit) {
-		this.totalProfit = totalProfit;
+	public void setTotalProfit() {
+		this.totalProfit = this.totalIncomePrice - this.totalExpensePrice;
 	}
 	public int getProfitPerRental() {
 		return profitPerRental;
 	}
 	public void setProfitPerRental() {
-		this.profitPerRental = this.totalProfit / this.rentalIncomeList.size();
+		if(this.rentalIncomeList.size() == 0) {
+			this.profitPerRental = 0;
+		}else {
+			this.profitPerRental = this.totalProfit / this.rentalIncomeList.size();
+		}
+	}
+	public int getAdvertiseUseDay() {
+		return advertiseUseDay;
+	}
+	public void setAdvertiseUseDay(int advertiseUseDay) {
+		this.advertiseUseDay = advertiseUseDay;
 	}
 	
 }

@@ -5,6 +5,13 @@
 table{
 	text-align: center;
 }
+.accordion-toggle{
+	background-color: #f2f7ff;
+}
+.accordion-toggle:hover{
+	background-color: #f0f0f0;
+	cursor: pointer;
+}
 </style>
 <h4 class="card-title">월별 수입 및 지출 내역</h4>
 <div class="row justify-content-center">
@@ -112,8 +119,22 @@ table{
 				</tr>
 				<tr style="font-weight: bold;">
 					<td>광고</td>
-					<td>180일 플랜</td>
-					<td><fmt:formatNumber value="${0 }" pattern="#,###"/>원</td>
+					<td>
+						<c:if test="${empty idBean.advertiseBean }">
+							<span class="text-muted">사용중이 아님</span>
+						</c:if>
+						<c:if test="${not empty idBean.advertiseBean }">
+							${idBean.advertiseUseDay }일 사용
+						</c:if>
+					</td>
+					<td>
+						<c:if test="${empty idBean.advertiseBean }">
+							0원
+						</c:if>
+						<c:if test="${not empty idBean.advertiseBean }">
+							<fmt:formatNumber value="${idBean.advertiseExpensePrice }" pattern="#,###"/>원
+						</c:if>
+					</td>
 				</tr>
 				<tr data-bs-toggle="collapse" data-bs-target="#etcExpenseList" class="accordion-toggle"
 				style="font-weight: bold;">
@@ -140,6 +161,9 @@ table{
 							</table>
 						</div>
 					</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="background-color: lightgray">총 합계</td>
 				</tr>
 				<tr>
 					<td colspan="2">지출 합계(B)</td>

@@ -163,9 +163,9 @@
 	</select>
 	
 	<insert id="addAdvertise">
-		insert into advertise 
+		insert into advertise(num, spacenum, applicationdate, expiredate, price)
 		values(advertise_seq.nextval, #{spacenum}, 
-		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'))
+		sysdate, to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'), #{price})
 	</insert>
 	<update id="updateGrade">
 		update space set grade=#{grade} where num=#{num}
@@ -174,7 +174,7 @@
 		select * from advertise where spacenum=#{spaceNum}
 	</select>
 	<update id="updateAdvertise">
-		update advertise set 
+		update advertise set price = #{price},
 		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi') 
 		where num=#{num}
 	</update>
@@ -190,5 +190,8 @@
 	</select>
 	<select id="getAllSpaceList" resultType="MySpace">
 		select * from space order by regdate desc
+	</select>
+	<select id="getExpiredAdvertiseList" resultType="MyAdvertise">
+		select * from advertise where <![CDATA[ expiredate < sysdate ]]> 
 	</select>
 </mapper>

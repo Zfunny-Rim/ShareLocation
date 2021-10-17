@@ -154,5 +154,8 @@ public class SpaceDao {
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 		return sqlSessionTemplate.selectList(namespace+".getAllSpaceList", null, rowBounds);
 	}
+	public List<AdvertiseBean> getExpiredAdvertiseList() {
+		return sqlSessionTemplate.selectList(namespace+".getExpiredAdvertiseList");
+	}
 }
 

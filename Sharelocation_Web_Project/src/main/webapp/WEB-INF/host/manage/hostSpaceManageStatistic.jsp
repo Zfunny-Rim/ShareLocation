@@ -6,11 +6,15 @@
     .cusBiPos{
    	 position: relative;top: -7px;left: -5px;
     }
-    .cusCard{
-    background-color: #e2e2ed;
+    #mainCardBody{
+    	padding-left: 0px;
+    	padding-right: 0px;
+    }
+    #mainCard{
+    background-color: #f2f7ff;
     }
 </style>
-<h3 class="card-title">통계</h3>
+<!-- <h3 class="card-title">통계</h3> -->
 <div class="row">
 <div class="col-12 col-lg-8">
 <div class="row">
@@ -153,7 +157,7 @@
 	</div>
 	<div class="card cusCard">
 		<div class="card-header cusCard">
-			<h4>월별 수입 내역</h4>
+			<h4 class="mb-0">월별 수입 내역</h4>
 		</div>
 		<div class="card-body pb-3" style="position: relative;">
 			<jsp:useBean id="now" class="java.util.Date"/>

@@ -52,7 +52,7 @@
 	                        <div class="col-9">
 	                       		<div id="mainCard" class="card">
 	                      	      	<div class="card-content">	
-	                            		<div class="card-body">
+	                            		<div id="mainCardBody" class="card-body">
 	                            			<jsp:include page="/WEB-INF/host/manage/hostSpaceManage${getPage }.jsp"/>
 	                            		</div>
 	                            	</div>
