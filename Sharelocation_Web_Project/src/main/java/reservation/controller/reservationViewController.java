@@ -94,7 +94,7 @@ public class reservationViewController {
 		else {
 			System.out.println("리뷰후기 실패");
 		}
-		mav.setViewName(getPage1);
+		mav.setViewName(getPage1+"?num="+reservnum);
 		return mav;
 	}
 }
