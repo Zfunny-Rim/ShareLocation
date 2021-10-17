@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import detailspace.model.DetailSpaceBean;
+import detailspace.model.DetailSpaceDao;
 import member.model.MemberBean;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
@@ -34,6 +36,9 @@ public class reservationListController {
 	@Autowired
 	SpaceDao spaceDao;
 	
+	@Autowired
+	DetailSpaceDao detailSpaceDao;
+	
 	@RequestMapping(value=command,method = RequestMethod.GET)
 	public ModelAndView doAction(
 			@RequestParam(value = "pageNumber",required=false) String pageNumber,
@@ -43,9 +48,8 @@ public class reservationListController {
 			HttpServletRequest request
 			) {
 		
-		reservationbean.setSpacenum(4); // 임시
-		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int membernum = loginInfo.getNum(); //로그인한 회원넘버
 		//로그인 안했다면
 		if(session.getAttribute("loginInfo")==null) { 
 
@@ -60,20 +64,25 @@ public class reservationListController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", keyword);
+		map.put("membernum", Integer.toString(membernum));
 		
 		String url = request.getContextPath() + "/" + command;
-		int totalCount = reservationDao.getReservationTotalCountByMap(map);
-		Paging pageInfo = new Paging(pageNumber, "5", totalCount, url, whatColumn, keyword, null);
-		List<ReservationBean> reservationLists = reservationDao.getReservList(loginInfo.getNum(),pageInfo);  //membernum값 1 임시
+		int totalCount = reservationDao.getReservationTotalCountByMapMembernum(map);
+		Paging pageInfo = new Paging(pageNumber, "4", totalCount, url, whatColumn, keyword, null);
+		List<ReservationBean> reservationLists = reservationDao.getReservList(pageInfo,map);
 		System.out.println("reservationbean.List:"+reservationLists.size());
-		
-		SpaceBean spacebean = spaceDao.getSpace(reservationbean.getSpacenum());
+		for(ReservationBean rBean : reservationLists) {
+			SpaceBean spacebean = spaceDao.getSpace(rBean.getSpacenum());
+			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(rBean.getDetailspacenum());
+			mav.addObject("spacebean",spacebean);
+			mav.addObject("detailSpacebean",detailSpacebean);
+		}
 		
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
 		mav.addObject("totalCount", totalCount);
-		mav.addObject("spacebean",spacebean);
 		mav.addObject("reservationLists",reservationLists);
+		mav.addObject("pageNumber", pageNumber);
 		return mav;
 	}
 }
