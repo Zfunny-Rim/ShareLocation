@@ -72,7 +72,23 @@
 							<div class="card-content">
 								<div class="card-body">
 									<h5 class="card-title" align="center">${spacebean.name },${detailSpacebean.name }</h5>
-									<p class="card-text" align="center">${reservationbean.status }</p>
+									<p class="card-text" align="center">
+									<c:if test="${reservationbean.status eq '예약대기' }">
+										<span class="badge bg-warning res-stat">${reservationbean.status }</span>
+									</c:if>
+									<c:if test="${reservationbean.status eq '입금대기' }">
+										<span class="badge bg-info res-stat">${reservationbean.status }</span>
+									</c:if>
+									<c:if test="${reservationbean.status eq '예약확정' }">
+										<span class="badge bg-success res-stat">${reservationbean.status }</span>
+									</c:if>
+									<c:if test="${reservationbean.status eq '이용완료' }">
+										<span class="badge bg-primary res-stat">${reservationbean.status }</span>
+									</c:if>
+									<c:if test="${reservationbean.status eq '예약취소' }">
+										<span class="badge bg-danger">${reservationbean.status }</span>
+									</c:if>
+									</p>
 									<c:if test="${reservationbean.status eq '이용완료' }">
 										<form action="reviewboardInsert.rv" method="get" id="reviewboardInsert">
 											<input type="hidden" name="spacenum" value="${spacebean.num}"> 
@@ -135,10 +151,7 @@
 																<div class="card-header">이용 후기</div>
 																<div class="card-body">
 																	<div class="form-floating">
-																		<textarea class="form-control"
-																			placeholder="Leave a comment here"
-																			id="floatingTextarea" name="content">
-																	</textarea>
+																		<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="content"></textarea>
 																		<label for="floatingTextarea">이용후기를 남겨주세요.</label>
 																	</div>
 																</div>
@@ -196,7 +209,10 @@
 														<tbody>
 															<tr>
 																<td class="text-bold-500">예약날짜</td>
-																<td align="center">${reservationbean.applicationdate}</td>
+																<td align="center">
+																	<fmt:parseDate var="ciDate" value="${reservationbean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+																	<fmt:formatDate  value="${ciDate}" pattern="yyyy.MM.dd (E)"/>
+																</td>
 																<td rowspan="5"><fmt:formatNumber
 																		value="${reservationbean.amounts}" pattern="###,###" />원
 																</td>
@@ -206,10 +222,10 @@
 																<td class="text-bold-500">예약시간</td>
 																<td align="center">
 																	<fmt:parseDate var="ciDate" value="${reservationbean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
-																	<fmt:formatDate  value="${ciDate}" pattern="MM월 dd일 HH시"/>
+																	<fmt:formatDate  value="${ciDate}" pattern="HH시"/>
 																	~ 
 																	<fmt:parseDate var="coDate" value="${reservationbean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
-																	<fmt:formatDate  value="${coDate}" pattern="dd일 HH시"/>
+																	<fmt:formatDate  value="${coDate}" pattern="HH시"/>
 																</td>
 															</tr>
 															<tr>
@@ -259,7 +275,7 @@
 													<td align="center"><c:set var="today"
 															value="<%=new java.util.Date()%>" /> <c:set var="date">
 															<fmt:formatDate value="${today}"
-																pattern="yyyy-MM-dd hh:mm:ss" />
+																pattern="yyyy.MM.dd (E)" />
 														</c:set> <c:out value="${date}" /></td>
 												</tr>
 												<tr>
@@ -270,10 +286,10 @@
 													<td class="text-bold-500">예약내용</td>
 													<td align="center">
 														<fmt:parseDate var="ciDate" value="${reservationbean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
-														<fmt:formatDate  value="${ciDate}" pattern="MM월 dd일 HH시"/>
+														<fmt:formatDate  value="${ciDate}" pattern="yyyy.MM.dd (E) HH시"/>
 														~ 
 														<fmt:parseDate var="coDate" value="${reservationbean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
-														<fmt:formatDate  value="${coDate}" pattern="dd일 HH시"/>
+											 			<fmt:formatDate  value="${coDate}" pattern="HH시"/>
 													</td>
 												</tr>
 												<tr>
