@@ -24,6 +24,12 @@
 			and status like #{keyword}
 		</if>
 	</select>
+	<select id="getReservationTotalCountByMapMembernum" resultType="int">
+		select count(*) from reservation where membernum = #{membernum}
+		<if test="whatColumn == 'status'">
+			and status like #{keyword}
+		</if>
+	</select>
 	<select id="getReservationListByMap" resultType="MyReservation">
 		select * from reservation where spacenum = #{spaceNum}
 		<if test="whatColumn == 'status'">
@@ -38,8 +44,11 @@
 		update reservation set status=#{status} where num=#{num}
 	</update>
 	<select id="getReservList" resultType="MyReservation">
-		select * from reservation
-		where membernum = #{membernum}
+		select * from reservation where membernum = #{membernum}
+		<if test="whatColumn == 'status'">
+			and status like #{keyword}
+		</if>
+		order by applicationdate desc
 	</select>
 	
 	<delete id="deleteReserv">
