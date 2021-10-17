@@ -48,7 +48,7 @@
 
 	<select id="getPowerSpaceList" resultType="MySpace">
 		select * from space
-		where grade = '광고'
+		where grade = '광고' and status = '운영중'
 		<if test="grade!=null">
 			or name like upper(#{keyword}) or tag like
 			upper(#{keyword})

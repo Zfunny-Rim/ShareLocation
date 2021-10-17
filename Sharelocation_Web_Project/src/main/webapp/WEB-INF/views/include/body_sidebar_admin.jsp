@@ -87,7 +87,7 @@
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-blockquote-left"></i> <span>광고 관리하기</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="noticeBoardList.nb" class='sidebar-link'>
 						<i class="bi bi-exclamation-diamond-fill"></i> <span>공지사항</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
