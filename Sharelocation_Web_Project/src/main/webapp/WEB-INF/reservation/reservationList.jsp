@@ -59,31 +59,31 @@ dl, ol, ul {
 												<div class="d-flex filter">
 													<form action="reservList.rv" method="get">
 														<input type="hidden" name="whatColumn" value="status">
-														<input type="hidden" name="spaceNum" value="${spaceNum }">
+														<input type="hidden" name="membernum" value="${loginInfo.num}">
 														<div class="input-group">
 															<select class="form-control" name="keyword"
 																style="font-size: 12px;">
 																<option value="%">전체보기</option>
 																<option value="예약대기"
 																	<c:if test="${param.keyword eq '예약대기'}">
-									selected
-								</c:if>>예약대기</option>
+																			selected
+																	</c:if>>예약대기</option>
 																<option value="입금대기"
 																	<c:if test="${param.keyword eq '입금대기'}">
-									selected
-								</c:if>>입금대기</option>
+																			selected
+																	</c:if>>입금대기</option>
 																<option value="예약확정"
 																	<c:if test="${param.keyword eq '예약확정'}">
-									selected
-								</c:if>>예약확정</option>
+																			selected
+																	</c:if>>예약확정</option>
 																<option value="이용완료"
 																	<c:if test="${param.keyword eq '이용완료'}">
-									selected
-								</c:if>>이용완료</option>
+																			selected
+																	</c:if>>이용완료</option>
 																<option value="예약취소"
 																	<c:if test="${param.keyword eq '예약취소'}">
-									selected
-								</c:if>>예약취소</option>
+																			selected
+																	</c:if>>예약취소</option>
 															</select>
 															<button class="btn btn-sm btn-primary" type="submit">검색</button>
 														</div>
@@ -103,11 +103,11 @@ dl, ol, ul {
 									</div>
 									<div class="card-content">
 										<div class="card-body">
-											<c:if test="${reservationLists.size() eq 0 }">
-												예약내역이 없습니다.
+											<c:if test="${empty reservationLists }">
+												예약이 없습니다.
 											</c:if>
-											<c:if test="${ reservationLists.size() ne 0 }">
-												예약내역이 ${reservationLists.size() }개 있습니다.
+											<c:if test="${not empty reservationLists }">
+												조회된 예약이 총 ${totalCount }개 있습니다.
 											</c:if>
 										</div>
 										<div class="container">
@@ -141,7 +141,7 @@ dl, ol, ul {
 																		</c:if>
 																		<p></p>
 																		<h5>
-																		${spacebean.name}
+																		${spacebean.name},${detailSpacebean.name}
 																		</h5>
 																		<p class="card-text">
 																			<fmt:parseDate var="ciDate" value="${reservation.checkin}" pattern="yyyy-MM-dd HH:mm"/>
@@ -213,7 +213,7 @@ dl, ol, ul {
 										</div>
 										<!--  페이지 -->
 
-										<c:if test="${not empty reservationList }">
+										<c:if test="${not empty reservationLists }">
 											<div class="page-nav d-flex justify-content-center">
 												<nav>
 													<ul class="pagination pagination-primary">
