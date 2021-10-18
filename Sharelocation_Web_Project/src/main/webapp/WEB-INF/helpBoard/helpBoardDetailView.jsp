@@ -24,7 +24,7 @@
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
-		<div id="" style="padding-top: 0px;">
+		<div id="main" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
@@ -37,19 +37,16 @@
 									<div class="card-content">
 										<div class="card-body">
 											<div class="col-12 py-2 border rounded-3 border-secondary">
-												<h3>${nbBean.subject}</h3>
+												<h3>${hbBean.category}</h3>
 												<hr>
-												${nbBean.content}
-								
+												${hbBean.content}
 											</div>
 											<div class="d-flex justify-content-end">
 											<c:if test="${id eq 'admin'}"> 
-											
-												<button class="btn btn-sm btn-outline-success" onclick="updateNotice(${nbBean.num})">수  정</button>
-											
-												<button class="btn btn-sm btn-outline-success" onclick="deleteNotice(${nbBean.num})">삭  제</button>
+												<button class="btn btn-sm btn-outline-success" onclick="updateHelp(${hbBean.num})">수  정</button>
+												<button class="btn btn-sm btn-outline-success" onclick="deleteHelp(${hbBean.num})">삭  제</button>
 											</c:if>
-												<button class="btn btn-sm btn-outline-success" onclick="listNotice()">목  록</button>
+												<button class="btn btn-sm btn-outline-success" onclick="listHelp()">목  록</button>
 											</div>
 										</div>
 									</div>
@@ -69,18 +66,18 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
-		function deleteNotice(num){
+		function deleteHelp(num){
 			//alert();
-			location.href="deleteNotice.nb?num="+num;
+			location.href="deleteHelp.hb?num="+num;
 		}
 		
-		function listNotice(){
+		function listHelp(){
 			//alert();
-			location.href="noticeBoardList.nb";
+			location.href="helpBoardList.hb";
 		}
 		
-		 function updateNotice(num){
-			location.href="updateNotice.nb?num="+num;
+		 function updateHelp(num){
+			location.href="updateHelp.hb?num="+num;
 		} 
 		
 		</script>

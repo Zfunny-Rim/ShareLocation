@@ -102,7 +102,7 @@
 				<li class="sidebar-item"><a href="noticeBoardList.nb" class='sidebar-link'>
 						<i class="bi bi-exclamation-diamond-fill"></i> <span>공지사항</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="helpBoardList.hb" class='sidebar-link'>
 						<i class="bi bi-question-circle-fill"></i> <span>도움말</span>
 				</a></li>
 				<li class="sidebar-item"><a href="list.qnaBoard" class='sidebar-link'>

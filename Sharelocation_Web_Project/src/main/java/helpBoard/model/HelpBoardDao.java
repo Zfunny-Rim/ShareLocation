@@ -1,4 +1,4 @@
-package noticeBoard.model;
+package helpBoard.model;
 
 import java.util.List;
 import java.util.Map;
@@ -8,27 +8,28 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import noticeBoard.model.NoticeBoardBean;
 import utility.Paging;
 
 @Component
-public class NoticeBoardDao {
+public class HelpBoardDao {
 
-	private String namespace = "noticeBoard.model.NoticeBoardBean";
+	private String namespace = "helpBoard.model.HelpBoardBean";
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 
-	public List<NoticeBoardBean> getNoticeBoardList(Paging pageInfo, Map<String, String> map) {
+	public List<HelpBoardBean> getHelpBoardList(Paging pageInfo, Map<String, String> map) {
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
-		 return  sqlSessionTemplate.selectList(namespace+".getNoticeBoardList",map,rowBounds);
+		 return  sqlSessionTemplate.selectList(namespace+".getHelpBoardList",map,rowBounds);
 	}
 
-	public NoticeBoardBean getNoticeBoardListbyNum(int num) {
+	public HelpBoardBean getHelpBoardListbyNum(int num) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(namespace+".getNoticeBoardListbyNum", num);
+		return sqlSessionTemplate.selectOne(namespace+".getHelpBoardListbyNum", num);
 	}
 
-	public int insertData(NoticeBoardBean bean) {
+	public int insertData(HelpBoardBean bean) {
 		
 		return sqlSessionTemplate.insert(namespace+".insertData", bean);
 	}
@@ -42,9 +43,9 @@ public class NoticeBoardDao {
 		return sqlSessionTemplate.selectOne(namespace+".getTotalCount", map);
 	}
 
-	public int updateNoticeBoard(NoticeBoardBean bean) {
-		
-		return sqlSessionTemplate.update(namespace+".updateNoticeBoard",bean);
+	public int updateHelpBoard(HelpBoardBean bean) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.update(namespace+".updateHelpBoard",bean);
 	}
 
 	

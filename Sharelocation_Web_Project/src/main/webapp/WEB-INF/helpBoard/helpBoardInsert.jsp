@@ -8,11 +8,24 @@
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
+<link rel="stylesheet"
+	href="./resources/assets/vendors/choices.js/choices.min.css">
 <style type="text/css">
 tr th {
 	align-items: center;
 }
+
+.err {
+	color: red;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.required {
+	color: red;
+}
 </style>
+
 
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -22,7 +35,7 @@ tr th {
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
-		<div id="" style="padding-top: 0px;">
+		<div id="main" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
@@ -38,8 +51,8 @@ tr th {
 										<div class="card mb-2">
 											<div class="card-content">
 												<div class="card-body">
-													<h4>공지사항 수정</h4>
-													<form action="updateNotice.nb?num=${noticeBoard.num}" method="post">
+													<h4>공지사항 입력</h4>
+													<form:form commandName="helpBoardBean" action="insertHelpBoard.hb" method="post">
 														<div class="form-body">
 															<div class="row">
 																<div class="divider">
@@ -52,22 +65,26 @@ tr th {
 																</div>
 																<div class="col-md-8 form-group">
 																	<input type="text" class="form-control" name="writer"
-																		value="${id}" > 
-																		<input type="hidden" class="form-control" name="membernum"
-																		value="${noticeBoard.membernum}">
+																		value="${id}"> <input type="text"
+																		class="form-control" name="membernum"
+																		value="${membernum}">
 																	<p>
 																		<small class="text-muted"> </small>
 																	</p>
 																</div>
 																<!-- 입력 1 end -->
 																<div class="col-md-4">
-																	<label>제목<span class="required">*</span>
+																	<label>종류<span class="required">*</span>
 																	</label>
+
 																</div>
 																<div class="col-md-8 form-group">
-																	<input type="text" class="form-control" name="subject" value="${noticeBoard.subject}">
+																	<input type="text" class="form-control" name="category">
+																	<form:errors cssClass="err" path="category"/>
 																	<p>
-																		<small class="text-muted"></small>
+																		<small class="text-muted"> 
+																		
+																		</small>
 																	</p>
 																</div>
 																<!-- 입력 2 start -->
@@ -76,9 +93,11 @@ tr th {
 																</div>
 																<div class="col-md-8 form-group">
 																	<textarea class="form-control" rows="3" name="content"
-																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">${noticeBoard.content}</textarea>
+																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;" placeholder="공지 내용 쓰기"></textarea>
 																	<p>
-																		<small class="text-muted"></small>
+																		<small class="text-muted"> 
+																		<form:errors cssClass="err" path="content" />
+																		</small>
 																	</p>
 																</div>
 																<!-- 입력 2 end -->
@@ -86,16 +105,16 @@ tr th {
 																<div class="d-flex justify-content-center">
 																	<div>
 																		<button class="btn btn-sm btn-outline-success"
-																			type="submit">수정</button>
+																			type="submit">삽입</button>
 																		<button class="btn btn-sm btn-outline-success"
 																			type="reset">취소</button>
-																		<button class="btn btn-sm btn-outline-success" onclick="listNotice()">목록</button>
+																		<button class="btn btn-sm btn-outline-success" onclick="listHelp()">목록</button>
 																	</div>
 																</div>
 
 															</div>
 														</div>
-													</form>
+													</form:form>
 												</div>
 											</div>
 										</div>
@@ -113,14 +132,13 @@ tr th {
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
 			function insert() {
-				location.href = "insertNoticeBoard.nb";
+				location.href = "insertHelpBoard.hb";
 			}
 			
-			function listNotice(){
+			function listHelp(){
 				//alert();
-				location.href="noticeBoardList.nb";
+				location.href="helpBoardList.hb";
 			}
-			
 		</script>
 
 		<%-- ******* CUSTOM Script END ******* --%>
