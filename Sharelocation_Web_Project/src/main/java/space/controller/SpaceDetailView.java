@@ -16,10 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
+import reservation.model.BalanceBean;
+import reservation.model.BalanceDao;
 import reviewBoard.model.ReviewBoardBean;
 import reviewBoard.model.ReviewBoardDao;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
+import space.model.SpaceFacilityBean;
 import space.model.SpaceImageBean;
 import utility.Paging;
 
@@ -42,6 +45,9 @@ public class SpaceDetailView {
 	
 	@Autowired
 	ReviewBoardDao reviewBoardDao;
+	
+	@Autowired
+	BalanceDao balanceDao;
 	
 	@RequestMapping(value= command)
 	public ModelAndView doAction(@RequestParam(value = "num") int num,
@@ -124,6 +130,18 @@ public class SpaceDetailView {
 		
 		}
 				
+		//spaceImageBean
+		List<SpaceImageBean> spImgList = spaceDao.getSpaceImageListBySpaceNum(num);
+		mav.addObject("spImgList",spImgList);
+		//balanceInfo
+		BalanceBean balanceBean = balanceDao.getBalance(space.getMembernum());
+		mav.addObject("balanceBean",balanceBean);
+		//facility
+		List<SpaceFacilityBean> spFacList = spaceDao.getFacility(num);
+		mav.addObject("spFacList",spFacList);
+		//dspList
+		List<DetailSpaceBean> dspList = detailSpaceDao.getDetailSpaceListBySpaceNum(num);
+		mav.addObject("dspList",dspList);
 		mav.setViewName(getPage);	
 		return mav;
 	}
