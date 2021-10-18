@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeBoard.model.NoticeBoardBean">
+
+	<select id="getNoticeBoardList" resultType="MyNotice">
+		select * from noticeboard
+		order by num desc
+	</select>
+
+	<select id="getNoticeBoardListbyNum" resultType="MyNotice">
+		select * from noticeboard
+		where num = #{num}
+	</select>
+
+	<insert id="insertData">
+
+		insert into noticeboard
+		values(notice_board_seq.nextval,#{membernum},#{subject},#{writer},sysdate,#{content})
+
+	</insert>
+
+	<delete id="deleteBoardData">
+		delete from noticeboard
+		where num = #{num}
+	</delete>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from noticeboard
+		order by num desc
+	</select>
+
+
+
+</mapper>			
+			
