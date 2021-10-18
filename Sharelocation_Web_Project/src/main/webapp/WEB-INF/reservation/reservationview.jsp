@@ -92,11 +92,20 @@
 										<span class="badge bg-danger">${reservationbean.status }</span>
 									</c:if>
 									</p>
+									<%
+									MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
+									String nickname = loginInfo.getNickname();
+									String hp = loginInfo.getHp();
+									String email = loginInfo.getEmail();
+									int membernum = loginInfo.getNum();
+													%>
 									<c:if test="${reservationbean.status eq '이용완료' }">
-										<form:form commandName="reviewBoardBean" action="reviewboardInsert.rv" method="get" id="reviewboardInsert">
+										<form action="reviewboardInsert.rv" method="get" id="reviewboardInsert">
 											<input type="hidden" name="spacenum" value="${spacebean.num}"> 
 											<input type="hidden" name="membernum" value="${reservationbean.membernum}">
 											<input type="hidden" name="reservnum" value="${reservationbean.num}">
+											<input type="hidden" name="writer" value="${loginInfo.nickname}">
+											<input type="hidden" name="detailspacenum" value="${reservationbean.detailspacenum}">
 											
 											<button type="button" class="btn btn-outline-success"
 											data-bs-toggle="modal" data-bs-target="#inlineForm">
@@ -111,15 +120,6 @@
 													<div class="modal-header">
 														<h4 class="modal-title" id="myModalLabel33">이용후기 작성</h4>
 													</div>
-														<div class="form-group row align-items-center">
-															<div class="col-lg-2 col-3">
-																<label class="col-form-label">작성자</label>
-															</div>
-															<div class="col-lg-10 col-9">
-																<input type="text" id="first-name" class="form-control"
-																	name="writer" placeholder="작성자를 입력해주세요.">
-															</div>
-														</div>
 														<div class="modal-body">
 															<label>서비스 </label>
 															<div>
@@ -154,7 +154,7 @@
 																<div class="card-header">이용 후기</div>
 																<div class="card-body">
 																	<div class="form-floating">
-																		<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="content"></textarea>
+																		<textarea class="form-control" placeholder="Leave a comment here" id="contentCheck" name="content"></textarea>
 																		<form:errors cssClass="err" path="content" />
 																		<label for="floatingTextarea">이용후기를 남겨주세요.</label>
 																	</div>
@@ -174,12 +174,12 @@
 																	class="d-none d-sm-block">등록</span>
 															</button>
 															 -->
-															 <input type="submit" value="등록">
+															 <input  type="submit" value="등록" onClick="return reviewcheck()">
 													</div>
 												</div>
 											</div>
 										</div>
-										</form:form>
+										</form>
 									</c:if>
 								</div>
 							</div>
@@ -339,13 +339,6 @@
 															style="vertical-align: inherit;">예약자</font></font></label>
 												</div>
 												<div class="col-md-8 form-group">
-													<%
-													MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
-													String nickname = loginInfo.getNickname();
-													String hp = loginInfo.getHp();
-													String email = loginInfo.getEmail();
-													int membernum = loginInfo.getNum();
-													%>
 													<%=nickname%>
 												</div>
 												<div class="col-md-4">
@@ -383,6 +376,14 @@
 				//alert(num);
 				location.href = "reservList.rv?spacenum=" + spacenum;
 			}
+			function reviewcheck(){
+				if($("#contentCheck").val() == ""){
+					alert("이용후기를 입력해주세요.");
+					$("#contentCheck").focus();    
+					return false;
+				}
+			}
+			
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
