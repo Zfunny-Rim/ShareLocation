@@ -40,12 +40,7 @@
 											<input type="submit" class="input-group-text" value="검색" >&nbsp;
 										</div>
 										<div class="buttons">
-										<c:if test="${not empty loginInfo}">
 											<a href="insert.qnaBoard" class="btn btn-outline-dark">글쓰기</a>
-										</c:if>
-										<c:if test="${empty loginInfo}">
-											<a href="miniLogin.member" class="btn btn-outline-dark">글쓰기</a>
-										</c:if>
 										</div>
 									</div>
 								</form>
