@@ -24,11 +24,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-<<<<<<< HEAD
-	<context:component-scan base-package="com.finalproject.sharelocation, scheduler, space, detailspace, reviewBoard, reservation, member,helpBoard" />
-=======
-	<context:component-scan base-package="com.finalproject.sharelocation, scheduler, space, detailspace, reviewBoard, reservation, member, qnaBoard" />
->>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
+	<context:component-scan base-package="com.finalproject.sharelocation, scheduler, space, detailspace, reviewBoard, reservation, member,helpBoard,qnaBoard" />
 	
 	
 </beans:beans>
