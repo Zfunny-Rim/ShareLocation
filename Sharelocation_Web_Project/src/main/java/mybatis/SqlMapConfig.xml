@@ -19,6 +19,7 @@
 		<typeAlias alias="MyFavorite" type="space.model.FavoriteBean"/>
 		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>
 		<typeAlias alias="MyNotice" type="noticeBoard.model.NoticeBoardBean"/>
+		<typeAlias alias="MyHelp" type="helpBoard.model.HelpBoardBean"/>
 	</typeAliases>
 	
 	<mappers>
@@ -29,5 +30,6 @@
 		<mapper resource="mybatis/member.xml"/>
 		<mapper resource="mybatis/reservation.xml"/>
 		<mapper resource="mybatis/noticeBoard.xml"/>
+		<mapper resource="mybatis/helpBoard.xml"/>
 	</mappers>
 </configuration>

@@ -21,12 +21,12 @@ import noticeBoard.model.NoticeBoardBean;
 import noticeBoard.model.NoticeBoardDao;
 
 @Controller
-public class noticeBoardControllerCmd {
+public class NoticeBoardControllerCmd {
 
 
 
 	private final String command = "/detailViewNoticeBoard.nb";
-	private final String command1 = "/insertNoticeBoard.nb";
+	private final String command1 = "/insertHelpBoard.nb";
 	private final String cmdDelete = "/deleteNotice.nb";
 	private final String cmdUpdate = "/updateNotice.nb";
 	private final String getPage = "noticeBoardDetailView";
@@ -112,7 +112,7 @@ public class noticeBoardControllerCmd {
 		return mav;
 	}
 	@RequestMapping(value= cmdUpdate, method = RequestMethod.GET)
-	public ModelAndView doUpdate(ModelAndView mav, NoticeBoardBean bean,
+	public ModelAndView doUpdateGET(ModelAndView mav, NoticeBoardBean bean,
 			HttpSession session,
 			@RequestParam(value ="num")  int num
 			) {
@@ -131,5 +131,21 @@ public class noticeBoardControllerCmd {
 
 		return mav;
 	}
+	
+	
+	  @RequestMapping(value= cmdUpdate, method = RequestMethod.POST) public
+	  ModelAndView doUpdatePOST(ModelAndView mav, NoticeBoardBean bean, HttpSession
+	  session,
+	  
+	  @RequestParam(value ="num") int num ) {
+	 
+	 
+	 int cnt = noticeBoardDao.updateNoticeBoard(bean);
+	  
+	  mav.setViewName(getPageList);
+	 
+	 return mav; 
+	 }
+	 
 
 }

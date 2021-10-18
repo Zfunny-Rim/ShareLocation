@@ -39,7 +39,7 @@ tr th {
 											<div class="card-content">
 												<div class="card-body">
 													<h4>공지사항 수정</h4>
-													<form action="insertNoticeBoard.nb" method="post">
+													<form action="updateNotice.nb?num=${noticeBoard.num}" method="post">
 														<div class="form-body">
 															<div class="row">
 																<div class="divider">

@@ -41,7 +41,7 @@ tr th {
 													<h4>공지 사항</h4>
 
 													<c:if test="${empty noticeBoard }"> 등록된 공지사항이 없습니다.</c:if>
-													<div class="col-12">
+													<div class="col-9">
 														<div class="card">
 															<div class="card-content">
 																<div class="card-body"></div>
@@ -68,10 +68,10 @@ tr th {
 																				<tr>
 																					<td class="text-bold-500" width="200px">${pageInfo.totalCount - ((pageInfo.pageNumber-1) * pageInfo.pageSize) - vs.count + 1}</td>
 																					<td class="text-bold-500" width="200px">${notice.writer }</td>
-																					<td width="600px"><a
+																					<td width="auto"><a
 																						href="detailViewNoticeBoard.nb?num=${notice.num}">${notice.subject }</a></td>
 																					<td>${notice.regdate }</td>
-																					<td><input type = "hidden" name ="spacenum" value="${notice.num}"></td>
+																					
 																				</tr>
 																			</c:forEach>
 																		</tbody>
