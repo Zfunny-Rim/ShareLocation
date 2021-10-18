@@ -8,7 +8,6 @@
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
-
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 
@@ -20,7 +19,7 @@
 		<%
 			MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		%>
-		<div id="main" style="padding-top: 0px;">
+		<div id="" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section"> 
@@ -29,8 +28,6 @@
 							<div class="card-header">
 								<h4 class="card-title">QnA Board(총게시물 &nbsp;
 									${pageInfo.totalCount })</h4>
-							</div>
-							<div>
 								<form action="list.qnaBoard" method="get">
 									<div class="col-md-3 mb-7 mb-2">
 										<div class="input-group mb-3">
@@ -43,12 +40,7 @@
 											<input type="submit" class="input-group-text" value="검색" >&nbsp;
 										</div>
 										<div class="buttons">
-										<c:if test="${not empty loginInfo}">
 											<a href="insert.qnaBoard" class="btn btn-outline-dark">글쓰기</a>
-										</c:if>
-										<c:if test="${empty loginInfo}">
-											<a href="miniLogin.member" class="btn btn-outline-dark">글쓰기</a>
-										</c:if>
 										</div>
 									</div>
 								</form>
@@ -90,13 +82,54 @@
 															value="${wiriteDate }" pattern="yyyy/MM/dd" /></td>
 													<td>${list.readcount }</td>
 												</tr>
+												<input type = "hidden" name ="num" value="${list.num}">
 											</c:forEach>
 										</tbody>
 									</table>
-									${pageInfo.pagingHtml }   
 								</div>
 							</div>
 						</div>
+						<c:if test="${not empty list }">
+                                          <div class="page-nav d-flex justify-content-center">
+                                             <nav>
+                                                <ul class="pagination pagination-primary">
+                                                   <c:if test="${pageInfo.beginPage eq 1 }">
+                                                      <li class="page-item disabled"><a
+                                                         class="page-link">이전</a></li>
+                                                   </c:if>
+                                                   <c:if test="${pageInfo.beginPage ne 1 }">
+                                                      <c:set var="url"
+                                                         value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }" />
+                                                      <li class="page-item"><a class="page-link"
+                                                         href="${url }">이전</a></li>
+                                                   </c:if>
+                                                   <c:forEach var="i" begin="${pageInfo.beginPage }"
+                                                      end="${pageInfo.endPage }">
+                                                      <c:set var="url"
+                                                         value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }" />
+                                                      <c:if test="${i eq pagenumber }">
+                                                         <li class="page-item active"><a
+                                                            class="page-link">${i }</a></li>
+                                                      </c:if>
+                                                      <c:if test="${i ne pagenumber }">
+                                                         <li class="page-item"><a class="page-link"
+                                                            href="${url }">${i }</a></li>
+                                                      </c:if>
+                                                   </c:forEach>
+                                                   <c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
+                                                      <li class="page-item disabled"><a
+                                                         class="page-link">다음</a></li>
+                                                   </c:if>
+                                                   <c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
+                                                      <c:set var="url"
+                                                         value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}" />
+                                                      <li class="page-item"><a class="page-link"
+                                                         href="${url }">다음</a></li>
+                                                   </c:if>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                       </c:if>
 						<%-- ******* Main Code END ******* --%>
 					</section>
 				</div>

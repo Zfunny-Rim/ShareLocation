@@ -95,12 +95,12 @@
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
-		<div id="main" style="padding-top: 0px;">
+		<div id="" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
-						<div id="main">
+						<div id="">
 							<header class="mb-3">
 								<a href="#" class="burger-btn d-block d-xl-none"> <i
 									class="bi bi-justify fs-3"></i>

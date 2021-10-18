@@ -47,8 +47,8 @@
 	</select>
 
 	<insert id="insertMember">
-		insert into members values
-		(members_seq.nextval,#{id},#{password},#{nickname},#{name},#{email},#{address},#{hp},#{birth},#{gender},#{type},0,sysdate)
+		insert into members(num,id,password,nickname,name,email,address,hp,birth,gender,type,joindate) 
+		values(members_seq.nextval,#{id},#{password},#{nickname},#{name},#{email},#{address},#{hp},#{birth},#{gender},#{type},sysdate)
 	</insert>
 	<update id="updateMember">
 		update members set

@@ -27,9 +27,10 @@ public class QnaBoardListCmd {
 	@RequestMapping(command)
 	public ModelAndView doAction(ModelAndView mav,
 			HttpServletRequest request,
-			@RequestParam(value="pageNumber", required=false)String pageNumber,
+			@RequestParam(value="pagenumber", required=false)String pagenumber,
 			@RequestParam(value="whatColumn", required=false)String whatColumn,
-			@RequestParam(value="keyword", required=false)String keyword
+			@RequestParam(value="keyword", required=false)String keyword,
+	        @RequestParam(value ="num",required = false) String spacenum
 			) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
@@ -38,10 +39,13 @@ public class QnaBoardListCmd {
 		String url = request.getContextPath()+command;  
 		
 		int totalCount = qdao.getTotalCount(map);
-		Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
+		Paging pageInfo = new Paging(pagenumber, pageSize, totalCount, url, whatColumn, keyword, null);
 		
 		List<QnaBoardBean> list = qdao.getList(map, pageInfo);
 		mav.addObject("pageInfo", pageInfo);
+		mav.addObject("totalCount", totalCount);
+		mav.addObject("pagenumber", pagenumber);
+		mav.addObject("spacenum", spacenum);
 		mav.addObject("list", list);
 		mav.setViewName(goToPage);
 		return mav;

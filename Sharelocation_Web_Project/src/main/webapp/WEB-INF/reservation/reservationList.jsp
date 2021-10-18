@@ -41,7 +41,7 @@ dl, ol, ul {
 	<div id="app">
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar_host.jsp"%>
-		<div id="main" style="padding-top: 0px;">
+		<div id="" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
@@ -160,13 +160,16 @@ dl, ol, ul {
 																				원
 																			</button>
 																			<button class="btn btn-sm btn-light-primary"
-																				onClick="reservView(${reservation.num})">
+																				onClick="reservView(${reservation.num},${reservation.detailspacenum})">
 																				예약보기</button>
 																		</div>
-																		<button type="button"
+																		<c:if test="${reservation.status != '예약취소' && reservation.status != '이용완료'}">
+																			<button type="button"
 																			class="btn btn-outline-primary block bg-danger"
 																			data-bs-toggle="modal" data-bs-backdrop="false"
-																			data-bs-target="#backdrop">예약취소</button>
+																			data-bs-target="#backdrop">예약취소
+																			</button>
+																		</c:if>
 																		<div class="modal fade text-left" id="backdrop"
 																			tabindex="-1" aria-labelledby="myModalLabel4"
 																			style="display: none;" aria-hidden="true">
@@ -194,7 +197,7 @@ dl, ol, ul {
 																						</button>
 																						<button type="button" class="btn btn-primary ml-1"
 																							data-bs-dismiss="modal"
-																							onClick="deleteReserv(${reservation.num})">
+																							onClick="deleteReserv(${reservation.num},${pageNumber})">
 																							<i class="bx bx-check d-block d-sm-none"></i> <span
 																								class="d-none d-sm-block">Accept</span>
 																							<!-- 확인누를시 예약취소됌 -->
@@ -265,13 +268,13 @@ dl, ol, ul {
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
-			function deleteReserv(num){
+			function deleteReserv(num,pageNumber){
 				//alert(num);
- 				location.href="reservationdelete.rv?num="+num;
+ 				location.href="reservationdelete.rv?num="+num+"&pageNumber="+pageNumber;
 			}
-			function reservView(num){
-				//alert(num);
- 				location.href="reservView.rv?num="+num;
+			function reservView(num,detailspacenum){
+				//alert(num,detailspacenum);
+ 				location.href="reservView.rv?num="+num+"&detailspacenum="+detailspacenum;
 			}
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>

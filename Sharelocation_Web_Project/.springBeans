@@ -10,17 +10,15 @@
 		<config>src/main/webapp/WEB-INF/spring/appServlet/space-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/member-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/balance-servlet.xml</config>
-<<<<<<< HEAD
 		<config>src/main/java/mybatis/noticeBoard.xml</config>
 		<config>src/main/java/mybatis/helpBoard.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
-=======
 		<config>src/main/webapp/WEB-INF/spring/appServlet/qnaBoard-servlet.xml</config>
->>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/host-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/reservation-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/admin-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
 	</autoconfigs>
