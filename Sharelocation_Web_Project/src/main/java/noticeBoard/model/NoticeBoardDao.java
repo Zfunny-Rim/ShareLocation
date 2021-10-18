@@ -42,5 +42,10 @@ public class NoticeBoardDao {
 		return sqlSessionTemplate.selectOne(namespace+".getTotalCount", map);
 	}
 
+	public int updateNoticeBoard(NoticeBoardBean bean) {
+		
+		return sqlSessionTemplate.update(namespace+".updateNoticeBoard",bean);
+	}
+
 	
 }

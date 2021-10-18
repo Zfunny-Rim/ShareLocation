@@ -22,7 +22,7 @@ tr th {
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
-		<div id="main" style="padding-top: 0px;">
+		<div id="" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
@@ -39,7 +39,7 @@ tr th {
 											<div class="card-content">
 												<div class="card-body">
 													<h4>공지사항 수정</h4>
-													<form action="insertNoticeBoard.nb" method="post">
+													<form action="updateNotice.nb?num=${noticeBoard.num}" method="post">
 														<div class="form-body">
 															<div class="row">
 																<div class="divider">
