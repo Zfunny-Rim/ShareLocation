@@ -43,7 +43,7 @@ public class SpaceFavoriteCmd {
 			if(cnt != 0) {
 				System.out.println(" 좋아요삭제성공");
 				pw.println("<script>");
-				pw.println("alert('좋아요 해제 되었습니다');");
+				pw.println("alert('좋아요가 해제 되었습니다');");
 				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
 				pw.println("</script>");
 				return null;
@@ -56,7 +56,7 @@ public class SpaceFavoriteCmd {
 			if(cnt != 0) {
 				System.out.println(" 좋아요입력성공");
 				pw.println("<script>");
-				pw.println("alert('좋아요 설정 되었습니다');");
+				pw.println("alert('좋아요가 설정 되었습니다');");
 				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
 				pw.println("</script>");
 				return null;

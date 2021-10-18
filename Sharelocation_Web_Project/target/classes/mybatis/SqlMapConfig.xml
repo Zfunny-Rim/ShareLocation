@@ -17,7 +17,10 @@
 		<typeAlias alias="MyBalance" type="reservation.model.BalanceBean"/>
 		<typeAlias alias="MyPackage" type="detailspace.model.PackagePriceBean"/>
 		<typeAlias alias="MyFavorite" type="space.model.FavoriteBean"/>
-		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>
+		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>		
+		<typeAlias alias="MyIncome" type="income.model.IncomeBean"/>
+		<typeAlias alias="MyNotice" type="noticeBoard.model.NoticeBoardBean"/>
+		<typeAlias alias="MyQnaBoard" type="qnaBoard.model.QnaBoardBean"/>
 	</typeAliases>
 	
 	<mappers>
@@ -27,5 +30,8 @@
 		<mapper resource="mybatis/reviewBoard.xml"/>     
 		<mapper resource="mybatis/member.xml"/>
 		<mapper resource="mybatis/reservation.xml"/>
+		<mapper resource="mybatis/income.xml"/>
+		<mapper resource="mybatis/noticeBoard.xml"/>
+		<mapper resource="mybatis/qnaBoard.xml"/>
 	</mappers>
 </configuration>

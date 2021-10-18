@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/host/space/controller=UTF-8
 encoding//src/main/java/member/controller/MemberLoginCmd.java=UTF-8
 encoding//src/main/java/space/controller/SpaceDetailView.java=UTF-8
 encoding//src/main/java/space/controller/spaceListCmd.java=UTF-8
@@ -9,3 +11,4 @@ encoding//src/main/webapp/WEB-INF/views/include/footer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/include/footer_script.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/include/head_css.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/index.jsp=UTF-8
+encoding/<project>=UTF-8

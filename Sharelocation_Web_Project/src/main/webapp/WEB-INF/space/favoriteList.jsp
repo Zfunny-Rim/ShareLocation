@@ -77,7 +77,7 @@
 																				<button onclick="viewDetail(${favorite.num})"
 																					class="btn btn-light-primary">detail</button>
 																				<button class="btn btn-light-danger"
-																					onclick="deleteSpace()">삭제</button>
+																					onclick="favorite(${favorite.num},${membernum})">삭제</button>
 																			</div>
 																		</div>
 																	</div>
@@ -110,6 +110,13 @@ function viewDetail(num){
 	//alert(1);
 	location.href="detailView.sp?num="+num;
 }
+
+function favorite(spacenum,membernum){
+	alert(membernum);
+	location.href="favorite.sp?spacenum="+spacenum+"&membernum="+membernum;
+}
+
+
 </script>
 
 		<%-- ******* CUSTOM Script END ******* --%>

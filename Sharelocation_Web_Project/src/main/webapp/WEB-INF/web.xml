@@ -142,4 +142,36 @@
 		<servlet-name>admin</servlet-name>
 		<url-pattern>*.admin</url-pattern>
 	</servlet-mapping>
+	
+		<!-- noticeBoard -->
+	<servlet>
+		<servlet-name>notice</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/notice-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>notice</servlet-name>
+		<url-pattern>*.nb</url-pattern>
+	</servlet-mapping>
+	
+	<!--  QnaBoard -->
+	<servlet>
+		<servlet-name>qnaBoard</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/qnaBoard-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>qnaBoard</servlet-name>
+		<url-pattern>*.qnaBoard</url-pattern>
+	</servlet-mapping>
 </web-app>

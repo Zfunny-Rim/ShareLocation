@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -32,10 +36,14 @@ import org.springframework.web.servlet.ModelAndView;
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import detailspace.model.PackagePriceBean;
+import income.model.IncomeBean;
+import income.model.IncomeDao;
+import income.model.IncomeDetailBean;
 import member.model.MemberBean;
 import member.model.MemberDao;
 import reservation.model.BalanceBean;
 import reservation.model.BalanceDao;
+import reservation.model.DayOfWeekCountBean;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
 import reviewBoard.model.ReviewBoardBean;
@@ -71,6 +79,8 @@ public class HostSpaceManageController {
 	private final String reservationStatusUpdateCommand = "spaceManageReservationStatusUpdate.ho";
 	private final String advertiseCommand = "spaceManagerAdvertise.ho";
 	private final String advertisePurchaseCommand = "spaceManagerAdvertisePurchase.ho";
+	private final String statisticCommand = "spaceManageStatistic.ho";
+	private final String statisticDetailCommand = "spaceManageStatisticDetail.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -87,7 +97,8 @@ public class HostSpaceManageController {
 	MemberDao memberDao;
 	@Autowired
 	ReservationDao reservationDao;
-	
+	@Autowired
+	IncomeDao incomeDao;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -860,6 +871,21 @@ public class HostSpaceManageController {
 		reservationBean.setNum(num);
 		reservationBean.setStatus(status);
 		int cnt = reservationDao.updateStatus(reservationBean);
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		if(status.equals("예약확정")) {
+			//수입이 발생함.
+			//spacenum
+			ReservationBean curResBean = reservationDao.getReservationByNum(num); 
+			IncomeBean incomeBean = new IncomeBean();
+			incomeBean.setSpacenum(spaceNum);
+			incomeBean.setMembernum(spaceBean.getMembernum());
+			incomeBean.setType("수입");
+			incomeBean.setCategory("대여");
+			incomeBean.setPrice(curResBean.getAmounts());
+			incomeBean.setNote("자동기입");
+			incomeBean.setReservationnum(num);
+			cnt = incomeDao.insertIncome(incomeBean);
+		}
 		mav.setViewName("redirect:/"+reservationViewCommand);
 		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("num", num);
@@ -882,7 +908,8 @@ public class HostSpaceManageController {
 	
 	@RequestMapping(value=advertisePurchaseCommand)
 	public ModelAndView advertisePurchase(@RequestParam(value="spaceNum")int spaceNum,
-			@RequestParam(value="plan")int plan, HttpServletResponse response) throws IOException, ParseException {
+			@RequestParam(value="plan")int plan, HttpServletResponse response,
+			HttpSession session) throws IOException, ParseException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		ModelAndView mav = new ModelAndView(viewPage);
@@ -904,11 +931,20 @@ public class HostSpaceManageController {
 		System.out.println(expireDate);
 		int cnt = -1;
 		String msg = null;
+		int price = 0;
+		if(plan == 1) {
+			price = 10000;
+		}else if(plan == 3) {
+			price = 27000;
+		}else if(plan == 6) {
+			price = 51000;
+		}
 		if(advertiseBean == null) {
 			//신규가입
 			advertiseBean = new AdvertiseBean();
 			advertiseBean.setSpacenum(spaceNum);
 			advertiseBean.setExpiredate(expireDate);
+			advertiseBean.setPrice(price);
 			cnt = spaceDao.addAdvertise(advertiseBean);
 			if(cnt != -1) {
 				SpaceBean sBean = new SpaceBean();
@@ -917,12 +953,28 @@ public class HostSpaceManageController {
 				spaceDao.updateGrade(sBean);
 			}
 			msg = "광고 등록이 완료되었습니다. 만료일은 "+expireDate+"입니다.";
+			
 		}else {
 			//추가연장
 			advertiseBean.setExpiredate(expireDate);
+			advertiseBean.setPrice(advertiseBean.getPrice()+price);
 			cnt = spaceDao.updateAdvertise(advertiseBean);
 			msg = "광고일이 연장되었습니다. 만료일은 "+expireDate+"입니다.";
 		}
+		//INCOME 
+		MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
+		
+		IncomeBean incomeBean = new IncomeBean();
+		incomeBean.setMembernum(loginInfo.getNum());
+		incomeBean.setSpacenum(spaceNum);
+		incomeBean.setType("지출");
+		incomeBean.setCategory("광고");
+		incomeBean.setPrice(price);
+		incomeBean.setNote(plan+"개월 플랜 신청");
+		AdvertiseBean adBean = spaceDao.getAdvertiseBySpaceNum(spaceNum);
+		incomeBean.setAdvertisenum(adBean.getNum());
+		
+		incomeDao.insertIncome(incomeBean);
 		if(cnt != -1) {
 			System.out.println("In Script");
 			pw.println("<script>");
@@ -938,5 +990,273 @@ public class HostSpaceManageController {
 			mav.addObject("spaceNum", spaceNum);
 			return mav;
 		}
+	}
+
+	@RequestMapping(value=statisticCommand)
+	public ModelAndView statisticView(@RequestParam(value="spaceNum")int spaceNum,
+			HttpSession session, HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		ModelAndView mav = new ModelAndView(viewPage);
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			if(loginInfo == null) {
+				pw.println("<script>");
+				pw.println("alert('로그인이 필요한 서비스입니다.');");
+				pw.println("location.href='miniLogin.member';");
+				pw.println("</script>");
+				pw.flush();
+				return null;
+			}
+		}
+		//공간별 - 총예약횟수 / 총수익 / 총지출 / 총이윤 
+		int comResCount = reservationDao.getCompleteReservationCountBySpaceNum(spaceNum);
+		Integer totalIncomePrice = incomeDao.getTotalIncomePriceBySpaceNum(spaceNum);
+		if(totalIncomePrice == null)
+			totalIncomePrice = 0;
+		Integer totalExpensePrice = incomeDao.getTotalExpensePriceBySpaceNum(spaceNum);
+		if(totalExpensePrice == null)
+			totalExpensePrice = 0;
+		//고정지출액 제외
+		double fixedExpense = totalIncomePrice  * 0.1;
+		totalExpensePrice = (int) (totalExpensePrice + fixedExpense);
+		int profit = totalIncomePrice - totalExpensePrice;
+		
+		//월별 예약횟수 - 공간별
+		//월별 예약회수
+		String[] monthWord = {"1월","2월","3월","4월","5월","6월",
+				"7월","8월","9월","10월","11월","12월"};
+		Map<String, Integer> monthlyCountMap = new HashMap<String, Integer>();
+		Map<String, Object> queryParam = new HashMap<String, Object>();
+		queryParam.put("spaceNum", String.valueOf(spaceNum));
+		for(int i=0;i<monthWord.length;i++) {
+			String monthStr = "2021-"+String.format("%02d", (i+1));
+			queryParam.put("monthStr", monthStr);
+			int mCount = reservationDao.getReservtionCountByMonthAndSpaceNum(queryParam);
+			if(mCount <= 0) {
+				monthlyCountMap.put(monthWord[i], 0);
+			}else {
+				monthlyCountMap.put(monthWord[i], mCount);
+			}
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String monthlyJson = mapper.writeValueAsString(monthlyCountMap);
+		//요일별 예약횟수
+		List<DayOfWeekCountBean> dayOfWeekCountList = reservationDao.getDayOfWeekCount();
+		String[] dowWord = {"월", "화", "수", "목", "금", "토", "일"};
+		Map<String, Integer> dowMap = new HashMap<String, Integer>();
+		boolean isFind = false;
+		for(String dowStr:dowWord) {
+			isFind = false;
+			for(DayOfWeekCountBean dowBean:dayOfWeekCountList) {
+				if(dowBean.getDayofweek().equals(dowStr)) {
+					dowMap.put(dowStr, dowBean.getCount());
+					isFind = true;
+					break;
+				}
+			}
+			if(!isFind) {
+				dowMap.put(dowStr, 0);
+			}
+		}
+		mapper = new ObjectMapper();
+		String dowJson = mapper.writeValueAsString(dowMap);
+		
+		//월별 이윤 
+		Map<String, Integer> monthlyProfitMap = new HashMap<String, Integer>();
+		queryParam = new HashMap<String, Object>();
+		queryParam.put("spaceNum", String.valueOf(spaceNum));
+		for(int i=0;i<monthWord.length;i++) {
+			String monthStr = "2021-"+String.format("%02d", (i+1));
+			queryParam.put("monthStr", monthStr);
+			
+			Integer iPrice = incomeDao.getIncomePriceByMonthAndSpaceNum(queryParam);
+			if(iPrice == null)
+				iPrice = 0;
+			Integer ePrice = incomeDao.getExpensePriceByMonthAndSpaceNum(queryParam);
+			if(ePrice == null)
+				ePrice = 0;
+			fixedExpense = iPrice * 0.1;
+			ePrice = (int) (ePrice + fixedExpense);
+			int mProfit = iPrice - ePrice;
+			monthlyProfitMap.put(monthWord[i], mProfit);
+		}
+		String monthlyProfitJson = mapper.writeValueAsString(monthlyProfitMap);
+		System.out.println(monthlyProfitJson);
+		getPage = "Statistic";
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceName", spaceBean.getName());
+		mav.addObject("userName", loginInfo.getNickname());
+		mav.addObject("monthlyJson", monthlyJson);
+		mav.addObject("monthlyProfitJson", monthlyProfitJson);
+		
+		mav.addObject("comResCount", comResCount);
+		mav.addObject("totalIncomePrice", totalIncomePrice);
+		mav.addObject("totalExpensePrice", totalExpensePrice);
+		mav.addObject("profit", profit);
+		mav.addObject("dowJson", dowJson);
+		return mav;
+	}
+
+	@RequestMapping(value=statisticDetailCommand)
+	public ModelAndView statisticDetail(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="year")int year,
+			@RequestParam(value="month")int month) throws ParseException {
+		ModelAndView mav = new ModelAndView(viewPage);
+		IncomeDetailBean idBean = new IncomeDetailBean();
+		idBean.setYear(year);
+		idBean.setMonth(month);
+		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
+		idBean.setSpaceBean(spaceBean);
+		
+		//해당 년 - 월의 income List
+		String monthStr = String.format("%d-%02d", year,month);
+		Map<String, Object> queryParam = new HashMap<String, Object>();
+		queryParam.put("monthStr", monthStr);
+		queryParam.put("spaceNum", spaceNum);
+		List<IncomeBean> incomeList = incomeDao.getIncomeListByMonth(queryParam);
+		List<IncomeBean> expenseList = new ArrayList<IncomeBean>();
+		Iterator<IncomeBean> iter = incomeList.iterator();
+		while(iter.hasNext()) {
+			IncomeBean iBean = iter.next();
+			if(iBean.getType().equals("지출")) {
+				iter.remove();
+				expenseList.add(iBean);
+			}
+		}
+		List<IncomeBean> etcIncomeList = new ArrayList<IncomeBean>();
+		iter = incomeList.iterator();
+		while(iter.hasNext()) {
+			IncomeBean iBean = iter.next();
+			if(iBean.getCategory().equals("기타")) {
+				iter.remove();
+				etcIncomeList.add(iBean);
+			}
+		}
+		List<IncomeBean> etcExpenseList = new ArrayList<IncomeBean>();
+		iter = expenseList.iterator();
+		while(iter.hasNext()) {
+			IncomeBean eBean = iter.next();
+			if(eBean.getCategory().equals("기타")) {
+				iter.remove();
+				etcExpenseList.add(eBean);
+			}
+		}
+		int totalIncomePrice = 0;
+		int totalEtcIncomePrice = 0;
+		int totalExpensePrice = 0;
+		for(IncomeBean iBean:incomeList ) {
+			totalIncomePrice += iBean.getPrice();
+		}
+		for(IncomeBean iBean:etcIncomeList ) {
+			totalEtcIncomePrice += iBean.getPrice();
+		}
+		for(IncomeBean eBean:etcExpenseList ) {
+			totalExpensePrice += eBean.getPrice();
+		}
+		idBean.setRentalIncomeList(incomeList);
+		idBean.setTotalRentalIncomePrice(totalIncomePrice);
+		idBean.setEtcIncomeList(etcIncomeList);
+		idBean.setTotalEtcIncomePrice(totalEtcIncomePrice);
+		idBean.setTotalIncomePrice(totalIncomePrice + totalEtcIncomePrice);
+		//
+		idBean.setCleanExpensePrice(totalIncomePrice); 
+		idBean.setMaintenanceExpensePrice(totalIncomePrice); 
+		idBean.setTaxExpensePrice(totalIncomePrice); 
+		idBean.setFeesExpensePrice(totalIncomePrice);
+		idBean.setTotalFixedExpensePrice();
+		//
+		Calendar cal = Calendar.getInstance();
+		AdvertiseBean advertiseBean = spaceDao.getAdvertiseBySpaceNum(spaceNum);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.s");
+		if(advertiseBean == null) {
+			//광고 없음.
+		}else {
+			//현재 달인지 - 과거의 달인지
+			String appDateStr = advertiseBean.getApplicationdate();
+			Date appDate = sdf.parse(appDateStr);
+			String expDateStr = advertiseBean.getExpiredate();
+			Date expDate = sdf.parse(expDateStr);
+			int currentYear = cal.get(Calendar.YEAR);
+			int currentMonth = cal.get(Calendar.MONTH)+1;
+			Calendar selectCal = Calendar.getInstance();
+			selectCal.set(year, month-1, 1, 0, 0, 0);
+			Date selectDateFirstDay = selectCal.getTime(); //선택일자의 첫번쨰날
+			Date selectDateLastDay; //선택 일자의 마지막 날
+			if(currentYear == year && currentMonth == month) {
+				//현재 달이면 마지막 날짜는 오늘
+				selectDateLastDay = Calendar.getInstance().getTime();
+			}else {
+				//아니면 마지막 날짜는 해당 월의 마지막 날
+				int maxDay = selectCal.getActualMaximum(Calendar.DAY_OF_MONTH);
+				selectCal.set(Calendar.DAY_OF_MONTH, maxDay);
+				selectDateLastDay = selectCal.getTime();
+			}
+			// 광고 기간 : appDate - expDate
+			// 선택 기간 : selectDateFirstDay - selectDateLastDay
+			int useDay = 0;
+			if(selectDateFirstDay.after(appDate)) {
+				//선택 기간의 첫날이 광고시작날짜보다 이후이면
+				if(selectDateFirstDay.after(expDate)) {
+					//광고만료날짜보다 이후다 - 만료된 광고
+					useDay = 0;
+				}else {
+					//광고만료날짜보다 이전이다 - 활성화된 광고
+					if(selectDateLastDay.after(expDate)) {
+						//기간의 마지막날이 만료날짜보다 이후다 - 일수 계산
+						//기간시작일부터 광고만료일까지
+						long useDayMSec = expDate.getTime() - selectDateFirstDay.getTime();
+						useDay = (int)(useDayMSec / (24*60*60*1000) )+1;
+					}else {
+						//기간의 마지막날이 만료날짜보다 이전이다 - 한달을 그대로씀
+						useDay = selectCal.getActualMaximum(Calendar.DAY_OF_MONTH);
+					}
+				}
+			}else {
+				//선택 기간의 첫날이 광고시작날짜보다 이전이면
+				if(selectDateLastDay.after(appDate)) {
+					//기간의 마지막날이 시작날짜보다 이후다 - 일수 계산
+					//광고 시작일부터 기간마지막날까지
+					long useDayMSec = selectDateLastDay.getTime() - appDate.getTime();
+					useDay = (int)(useDayMSec / (24*60*60*1000) )+1;
+				}else {
+					//기간의마지막날이 시작날짜보다 이전이다 - 시작되지 않은 광고
+					useDay = 0;
+				}
+			}
+			System.out.println("광고 시작일 : " + sdf.format(appDate));
+			System.out.println("광고 종료일 : " + sdf.format(expDate));
+			System.out.println("선택 시작일 : " + sdf.format(selectDateFirstDay));
+			System.out.println("선택 종료일 : " + sdf.format(selectDateLastDay));
+			System.out.println("광고 적용일 : " + useDay);
+			int avgPrice = 0;
+			if(useDay != 0) {
+				int adverPrice = advertiseBean.getPrice();
+				int totalDay = (int)((expDate.getTime() - appDate.getTime())/(24*60*60*1000))+1;
+				avgPrice = (int)(adverPrice / totalDay);
+				System.out.println("광고 가격 : " + adverPrice);
+				System.out.println("광고 일 평균단가 : " + avgPrice);
+			}
+			idBean.setAdvertiseBean(advertiseBean);
+			idBean.setAdvertiseUseDay(useDay);
+			idBean.setAdvertiseExpensePrice(useDay * avgPrice);
+		}
+		//
+		idBean.setEtcExpenseList(etcExpenseList);
+		idBean.setTotalEtcExpensePrice(totalExpensePrice);
+		idBean.setTotalExpensePrice();
+		//
+		idBean.setTotalProfit();
+		idBean.setProfitPerRental();
+		
+		getPage = "StatisticDetail";
+		mav.addObject("getPage", getPage);
+		mav.addObject("spaceNum", spaceNum);
+		mav.addObject("idBean", idBean);
+		return mav;
+		
+		
 	}
 }
