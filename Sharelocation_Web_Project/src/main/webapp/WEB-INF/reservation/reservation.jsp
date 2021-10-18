@@ -298,7 +298,8 @@
 															<div class="input-group mb-3">
 																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
 																<select class="form-select" name="checkintime" id="selectTextTime1" >
-
+																	<option value="">선택</option>
+																	
 																	<option value="0">00</option>
 
 																	<option value="1">01</option>
@@ -352,7 +353,7 @@
 																</select> <span class="input-group-text">시 부터</span> 
 																<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
 																<select class="form-select" name="checkouttime" id="selectTextTime2">
-
+																	<option value="">선택</option>
 																	<option value="0">00</option>
 
 																	<option value="1">01</option>
@@ -413,7 +414,7 @@
 															<div class="row align-items-center">
 																<div class="col-lg-8 col-8">
 																	<input type="number" class="form-control" name="person"
-																		value="0" id="testperson">
+																		value="1" id="testperson">
 																</div>
 															</div>
 														</td>
@@ -564,19 +565,6 @@
 	            var dateVal = $(this).val();
 	            $('#textbox').val(dateVal);
 	         });
-	         $('#testperson').change(function(){
-	            var personVal = $(this).val();
-	            $('#textboxperson').val(personVal);
-	             intValperson = parseInt(personVal);
-	            
-	             priceVal = "${detailSpacebean.price}";
-	            intValprice = parseInt(priceVal);
-	            
-	             intAmount = intValperson*intValprice;
-	            //alert(intAmount);
-	            // alert(intAmount+cTime);
-	             $('#priceText').text(intAmount+cTime);
-	         });
 	         $('#selectTextTime1').change(function(){
 	            var checkinTime = $(this).val();
 	            $('#selectText1').val(checkinTime);
@@ -589,9 +577,22 @@
 	             intcheckoutTime = parseInt(checkoutTime);
 	             cTime=(intcheckoutTime-intcheckinTime)*intValprice;
 	            // alert(parseInt(intAmount+cTime));
-	             $('#priceText').text(intAmount+cTime);
+	             $('#priceText').text(intAmount+cTime);	
 	         });
 	         
+	         $('#testperson').change(function(){
+		            var personVal = $(this).val();
+		            $('#textboxperson').val(personVal);
+		             intValperson = parseInt(personVal);
+		            
+		             priceVal = "${detailSpacebean.price}";
+		            intValprice = parseInt(priceVal);
+		            
+		             intAmount = intValperson*intValprice;
+		            //alert(intAmount);
+		            // alert(intAmount+cTime);
+		             //$('#priceText').text(intAmount+cTime);
+		      });	 
 	      });
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>

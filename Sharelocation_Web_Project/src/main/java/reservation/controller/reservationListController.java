@@ -47,12 +47,10 @@ public class reservationListController {
 			Model model,ModelAndView mav,HttpSession session,ReservationBean reservationbean,
 			HttpServletRequest request
 			) {
-		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		int membernum = loginInfo.getNum(); //로그인한 회원넘버
 		//로그인 안했다면
 		if(session.getAttribute("loginInfo")==null) { 
-
+			
 			model.addAttribute("msg", "로그인 해주세요~!");
 			model.addAttribute("url", "/sharelocation/#");
 			mav.setViewName("redirect");
@@ -64,7 +62,7 @@ public class reservationListController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", keyword);
-		map.put("membernum", Integer.toString(membernum));
+		map.put("membernum", Integer.toString(loginInfo.getNum()));
 		
 		String url = request.getContextPath() + "/" + command;
 		int totalCount = reservationDao.getReservationTotalCountByMapMembernum(map);

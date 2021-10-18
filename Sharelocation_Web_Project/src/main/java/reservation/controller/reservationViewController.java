@@ -1,5 +1,9 @@
 package reservation.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +25,6 @@ import space.model.SpaceDao;
 
 @Controller
 public class reservationViewController {
-
 
 	private final String command="/reservView.rv";
 	private final String command1="/reviewboardInsert.rv";
@@ -54,7 +57,6 @@ public class reservationViewController {
 		mav.addObject("reservationbean",reservationbean);
 		mav.addObject("spacebean",spacebean);
 		mav.addObject("detailSpacebean",detailSpacebean);
-		
 		mav.setViewName(getPage);
 		return mav;
 	}
@@ -64,9 +66,11 @@ public class reservationViewController {
 			@RequestParam(value = "spacenum") int spacenum,
 			@RequestParam(value = "membernum") int membernum,
 			@RequestParam(value = "reservnum") int reservnum,
-			@Valid ReviewBoardBean reviewBoardBean, BindingResult result 
-			) {
-		
+			@RequestParam(value = "writer") String writer,
+			@RequestParam(value = "detailspacenum") int detailspacenum,
+		    ReviewBoardBean reviewBoardBean, HttpServletResponse response
+			) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		reviewBoardBean.setSpacenum(spacenum);
 		reviewBoardBean.setMembernum(membernum);
 		
@@ -79,22 +83,20 @@ public class reservationViewController {
 		System.out.println("totalrating:"+total );
 		
 		System.out.println(reviewBoardBean);
-		if(result.hasErrors()) {
-			System.out.println("유효성 검사 오류입니다.");
-			mav.addObject("num",reservnum);
-			mav.setViewName(getPage1);
-			return mav;
-		}
 		int cnt=-1;
 		cnt = reviewBoardDao.insertReviewBoard(reviewBoardBean);
-		
+		PrintWriter pw = response.getWriter();
 		if(cnt != -1) {
-			System.out.println("리뷰후기 등록");
+			pw.println("<script>");
+			pw.println("alert('리뷰 등록되었습니다.');");
+			pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
+			pw.println("</script>");
+			pw.flush();
+			return null;
 		}
 		else {
 			System.out.println("리뷰후기 실패");
 		}
-		mav.setViewName(getPage1+"?num="+reservnum);
 		return mav;
 	}
 }
