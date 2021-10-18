@@ -67,11 +67,11 @@ tr th {
 																			<c:forEach var="notice" items="${noticeBoard}"  varStatus="vs">
 																				<tr>
 																					<td class="text-bold-500" width="200px">${pageInfo.totalCount - ((pageInfo.pageNumber-1) * pageInfo.pageSize) - vs.count + 1}</td>
-																					<td><input type = "hidden" name ="spacenum" value="${notice.num}"></td>
 																					<td class="text-bold-500" width="200px">${notice.writer }</td>
 																					<td width="600px"><a
 																						href="detailViewNoticeBoard.nb?num=${notice.num}">${notice.subject }</a></td>
 																					<td>${notice.regdate }</td>
+																					<td><input type = "hidden" name ="spacenum" value="${notice.num}"></td>
 																				</tr>
 																			</c:forEach>
 																		</tbody>

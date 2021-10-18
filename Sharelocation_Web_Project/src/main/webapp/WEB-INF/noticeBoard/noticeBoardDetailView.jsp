@@ -40,7 +40,7 @@
 												<h3>${nbBean.subject}</h3>
 												<hr>
 												${nbBean.content}
-												${nbBean.num}
+								
 											</div>
 											<div class="d-flex justify-content-end">
 											<c:if test="${id eq 'admin'}"> 

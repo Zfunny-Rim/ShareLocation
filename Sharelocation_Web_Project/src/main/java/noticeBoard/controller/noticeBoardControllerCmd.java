@@ -2,14 +2,14 @@ package noticeBoard.controller;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +33,7 @@ public class noticeBoardControllerCmd {
 	private final String getToPage = "noticeBoardInsert";
 	private final String getPageList = "redirect:/noticeBoardList.nb";
 	private final String getPageUpdate = "noticeBoardUpdate";
-	
+
 
 	@Autowired
 	NoticeBoardDao noticeBoardDao;
@@ -75,7 +75,9 @@ public class noticeBoardControllerCmd {
 		return mav;
 	}
 	@RequestMapping(value= command1, method = RequestMethod.POST)
-	public ModelAndView doActionPost(ModelAndView mav, NoticeBoardBean bean, HttpSession session) {
+	public ModelAndView doActionPost(@Valid NoticeBoardBean noticeBoardBean,BindingResult result, ModelAndView mav, HttpSession session
+			
+			) {
 
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 
@@ -83,25 +85,25 @@ public class noticeBoardControllerCmd {
 			mav.addObject("id",loginInfo.getId());
 			mav.addObject("membernum",loginInfo.getNum());
 		}
-		
-		String flag = "false";
-		
-		if(flag.equals("false")) {
-			int cnt = noticeBoardDao.insertData(bean);
-			flag = "true";
-			if(cnt!=0) {
-				System.out.println("삽입성공");
-			}
+		System.out.println(noticeBoardBean);
+		if(result.hasErrors()) {
+			mav.setViewName(getToPage);
+			return mav;	
 		}
-	
-		mav.setViewName(getPageList);
+
+		int cnt = noticeBoardDao.insertData(noticeBoardBean);
+		if(cnt!=0) {
+			System.out.println("삽입성공");
+			mav.setViewName(getPageList);
+		}
 		return mav;
+
 	}
 	@RequestMapping(value= cmdDelete, method = RequestMethod.GET)
 	public ModelAndView doAction(ModelAndView mav,
 			@RequestParam(value ="num")  int num
 			) {
-		
+
 		int cnt = noticeBoardDao.deleteBoardData(num);
 		if(cnt !=0) {
 			System.out.println("삭제 성공");
@@ -114,21 +116,20 @@ public class noticeBoardControllerCmd {
 			HttpSession session,
 			@RequestParam(value ="num")  int num
 			) {
-		
-		
+
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		NoticeBoardBean noticeBoard = noticeBoardDao.getNoticeBoardListbyNum(num); 
-		
+
 		if(loginInfo != null) {
 			mav.addObject("id",loginInfo.getId());
 			mav.addObject("membernum",loginInfo.getNum());
 		}
-		
-		
+
+
 		mav.addObject("noticeBoard",noticeBoard);
 		mav.setViewName(getPageUpdate);
-		
+
 		return mav;
 	}
-	
+
 }

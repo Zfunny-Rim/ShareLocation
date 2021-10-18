@@ -8,11 +8,24 @@
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
+<link rel="stylesheet"
+	href="./resources/assets/vendors/choices.js/choices.min.css">
 <style type="text/css">
 tr th {
 	align-items: center;
 }
+
+.err {
+	color: red;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.required {
+	color: red;
+}
 </style>
+
 
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -39,7 +52,7 @@ tr th {
 											<div class="card-content">
 												<div class="card-body">
 													<h4>공지사항 입력</h4>
-													<form action="insertNoticeBoard.nb" method="post">
+													<form:form commandName="noticeBoardBean" action="insertNoticeBoard.nb" method="post">
 														<div class="form-body">
 															<div class="row">
 																<div class="divider">
@@ -52,8 +65,8 @@ tr th {
 																</div>
 																<div class="col-md-8 form-group">
 																	<input type="text" class="form-control" name="writer"
-																		value="${id}" > 
-																		<input type="text" class="form-control" name="membernum"
+																		value="${id}"> <input type="text"
+																		class="form-control" name="membernum"
 																		value="${membernum}">
 																	<p>
 																		<small class="text-muted"> </small>
@@ -63,11 +76,15 @@ tr th {
 																<div class="col-md-4">
 																	<label>제목<span class="required">*</span>
 																	</label>
+
 																</div>
 																<div class="col-md-8 form-group">
 																	<input type="text" class="form-control" name="subject">
+																	<form:errors cssClass="err" path="subject"/>
 																	<p>
-																		<small class="text-muted"> </small>
+																		<small class="text-muted"> 
+																		
+																		</small>
 																	</p>
 																</div>
 																<!-- 입력 2 start -->
@@ -76,9 +93,11 @@ tr th {
 																</div>
 																<div class="col-md-8 form-group">
 																	<textarea class="form-control" rows="3" name="content"
-																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">공지 내용 쓰기</textarea>
+																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;" placeholder="공지 내용 쓰기"></textarea>
 																	<p>
-																		<small class="text-muted"> </small>
+																		<small class="text-muted"> 
+																		<form:errors cssClass="err" path="content" />
+																		</small>
 																	</p>
 																</div>
 																<!-- 입력 2 end -->
@@ -95,7 +114,7 @@ tr th {
 
 															</div>
 														</div>
-													</form>
+													</form:form>
 												</div>
 											</div>
 										</div>
