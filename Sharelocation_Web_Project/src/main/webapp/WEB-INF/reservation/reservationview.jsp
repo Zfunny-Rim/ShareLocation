@@ -52,8 +52,11 @@
 	/* background-color: #fff; */
 	/* border-bottom: 1px solid rgba(0,0,0,.125); */
 	float: right;
-}
-</style>
+	
+.err{color:red; font-weight: bold; font-size:11px;} 
+
+    	
+    </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 
@@ -90,7 +93,7 @@
 									</c:if>
 									</p>
 									<c:if test="${reservationbean.status eq '이용완료' }">
-										<form action="reviewboardInsert.rv" method="get" id="reviewboardInsert">
+										<form:form commandName="reviewBoardBean" action="reviewboardInsert.rv" method="get" id="reviewboardInsert">
 											<input type="hidden" name="spacenum" value="${spacebean.num}"> 
 											<input type="hidden" name="membernum" value="${reservationbean.membernum}">
 											<input type="hidden" name="reservnum" value="${reservationbean.num}">
@@ -152,6 +155,7 @@
 																<div class="card-body">
 																	<div class="form-floating">
 																		<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="content"></textarea>
+																		<form:errors cssClass="err" path="content" />
 																		<label for="floatingTextarea">이용후기를 남겨주세요.</label>
 																	</div>
 																</div>
@@ -175,7 +179,7 @@
 												</div>
 											</div>
 										</div>
-										</form>
+										</form:form>
 									</c:if>
 								</div>
 							</div>

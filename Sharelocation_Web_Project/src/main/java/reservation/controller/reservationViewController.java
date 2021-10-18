@@ -1,5 +1,9 @@
 package reservation.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +68,8 @@ public class reservationViewController {
 			@RequestParam(value = "spacenum") int spacenum,
 			@RequestParam(value = "membernum") int membernum,
 			@RequestParam(value = "reservnum") int reservnum,
-			@Valid ReviewBoardBean reviewBoardBean, BindingResult result 
-			) {
+			@Valid ReviewBoardBean reviewBoardBean, BindingResult result,HttpServletResponse response
+			) throws IOException {
 		
 		reviewBoardBean.setSpacenum(spacenum);
 		reviewBoardBean.setMembernum(membernum);
@@ -80,7 +84,7 @@ public class reservationViewController {
 		
 		System.out.println(reviewBoardBean);
 		if(result.hasErrors()) {
-			System.out.println("유효성 검사 오류입니다.");
+			System.out.println("리뷰보드 유효성 검사 오류입니다.");
 			mav.addObject("num",reservnum);
 			mav.setViewName(getPage1);
 			return mav;
@@ -88,13 +92,24 @@ public class reservationViewController {
 		int cnt=-1;
 		cnt = reviewBoardDao.insertReviewBoard(reviewBoardBean);
 		
+		PrintWriter pw = response.getWriter();
 		if(cnt != -1) {
 			System.out.println("리뷰후기 등록");
+			pw.println("<script>");
+			pw.println("alert('리뷰후기가 등록되었습니다.');");
+			pw.println("location.href='reservView.rv?=num'"+reservnum);
+			pw.println("</script>");
+			pw.flush();
+			return null;
 		}
 		else {
 			System.out.println("리뷰후기 실패");
+			pw.println("<script>");
+			pw.println("alert('리뷰후기등록이 실패되었습니다.');");
+			pw.println("location.href='reservView.rv?=num'"+reservnum);
+			pw.println("</script>");
+			pw.flush();
+			return null;
 		}
-		mav.setViewName(getPage1+"?num="+reservnum);
-		return mav;
 	}
 }
