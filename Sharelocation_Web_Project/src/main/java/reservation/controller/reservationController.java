@@ -67,7 +67,7 @@ public class reservationController {
 			
 			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
 			
-			BalanceBean balance = balanceDao.getBalance(loginInfo.getNum());
+			BalanceBean balance = balanceDao.getBalance(spacebean.getMembernum());
 			
 			mav.addObject("balance",balance);
 			mav.addObject("spacebean",spacebean);

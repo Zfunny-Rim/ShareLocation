@@ -17,9 +17,14 @@
 		<typeAlias alias="MyBalance" type="reservation.model.BalanceBean"/>
 		<typeAlias alias="MyPackage" type="detailspace.model.PackagePriceBean"/>
 		<typeAlias alias="MyFavorite" type="space.model.FavoriteBean"/>
-		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>
+		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>		
+		<typeAlias alias="MyIncome" type="income.model.IncomeBean"/>
 		<typeAlias alias="MyNotice" type="noticeBoard.model.NoticeBoardBean"/>
+<<<<<<< HEAD
 		<typeAlias alias="MyHelp" type="helpBoard.model.HelpBoardBean"/>
+=======
+		<typeAlias alias="MyQnaBoard" type="qnaBoard.model.QnaBoardBean"/>
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 	</typeAliases>
 	
 	<mappers>
@@ -29,7 +34,12 @@
 		<mapper resource="mybatis/reviewBoard.xml"/>     
 		<mapper resource="mybatis/member.xml"/>
 		<mapper resource="mybatis/reservation.xml"/>
+		<mapper resource="mybatis/income.xml"/>
 		<mapper resource="mybatis/noticeBoard.xml"/>
+<<<<<<< HEAD
 		<mapper resource="mybatis/helpBoard.xml"/>
+=======
+		<mapper resource="mybatis/qnaBoard.xml"/>
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 	</mappers>
 </configuration>

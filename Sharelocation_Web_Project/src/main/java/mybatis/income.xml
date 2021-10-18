@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="income.model.IncomeBean">
+	<insert id="insertIncome">
+		insert into income
+		values(income_seq.nextval, #{membernum}, #{spacenum}, #{type}, #{category},
+		${price}, sysdate, #{note}, #{reservationnum}, #{advertisenum})
+	</insert>
+	<select id="getTotalIncomePriceBySpaceNum" resultType="int">
+		select sum(price) from income 
+		where spacenum=#{spaceNum} and type='수입'
+		group by spacenum
+	</select>
+	<select id="getTotalExpensePriceBySpaceNum" resultType="int">
+		select sum(price) from income 
+		where spacenum=#{spaceNum} and type='지출'
+		group by spacenum
+	 </select>
+	 <select id="getIncomePriceByMonthAndSpaceNum" resultType="int">
+	 	select sum(price) from income 
+		where spacenum=#{spaceNum} and type='수입'
+			and to_char(incomedate, 'yyyy-mm') = #{monthStr}
+		group by spacenum
+	 </select>
+	 <select id="getExpensePriceByMonthAndSpaceNum" resultType="int">
+	 	select sum(price) from income 
+		where spacenum=#{spaceNum} and type='지출'
+			and to_char(incomedate, 'yyyy-mm') = #{monthStr}
+		group by spacenum
+	 </select>
+	 <select id="getIncomeListByMonth" resultType="MyIncome">
+	 	select * from income
+	 	where spacenum=#{spaceNum} 
+	 		and to_char(incomedate, 'yyyy-mm')=#{monthStr}
+	 </select>
+</mapper>

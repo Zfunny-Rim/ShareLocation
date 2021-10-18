@@ -15,5 +15,9 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+<<<<<<< HEAD
 	<context:component-scan base-package="reservation, space, detailspace, reviewBoard, balance, member,helpBoard" />
+=======
+	<context:component-scan base-package="reservation, space, detailspace, reviewBoard, balance, member, income" />
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
 </beans>

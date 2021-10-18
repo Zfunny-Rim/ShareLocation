@@ -1,7 +1,11 @@
 package reservation.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,11 +44,9 @@ public class reservationInsertController {
 	public ModelAndView reservationInsert(
 			@RequestParam(value = "spacenum",required=false) int spacenum,
 			@RequestParam(value = "detailspacenum",required=false) int detailspacenum,
-			@RequestParam(value = "operatingtime",required=false) int operatingtime,
-			@RequestParam(value = "operatingendtime",required=false) int operatingendtime,
-			ReservationBean reservationbean,BindingResult result,
+			ReservationBean reservationbean,BindingResult result, HttpServletRequest request,
 			ModelAndView mav, HttpSession session
-			) {
+			) throws ParseException{
 		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		//set member session요청
@@ -52,14 +54,36 @@ public class reservationInsertController {
 		reservationbean.setSpacenum(spacenum);
 		reservationbean.setDetailspacenum(detailspacenum);
 		reservationbean.setStatus("예약대기");//임시
-		reservationbean.setPaymenttype("현장결제"); //임시
+		
+		String reservationdate = request.getParameter("reservationdate");
+		String checkintime = request.getParameter("checkintime");
+		String checkouttime = request.getParameter("checkouttime");
+		
+		System.out.println("reservationdate:"+reservationdate);
+		System.out.println("checkintime:"+checkintime);
+		System.out.println("checkouttime:"+checkouttime);
+		
+		String checkin = reservationdate+" "+checkintime+":00";
+		String checkout = reservationdate+" "+checkouttime+":00";
+		
+		System.out.println("checkin:"+checkin);
+		System.out.println("checkin:"+checkout);
+		
+		reservationbean.setCheckin(checkin);
+		reservationbean.setCheckout(checkout);
 		
 		SpaceBean spacebean = spaceDao.getSpace(spacenum);
-		reservationbean.setCheckin("2021-10-12"); //임시
-		reservationbean.setCheckout("2021-10-13"); //임시
 		
 		DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
-		reservationbean.setAmounts(detailSpacebean.getPrice());
+		
+		int price = detailSpacebean.getPrice();
+		int Intoperatingtime = Integer.parseInt(checkintime);
+		int Intoperatingendtime = Integer.parseInt(checkouttime);
+		int time = (Intoperatingendtime-Intoperatingtime);
+		int person = reservationbean.getPerson();
+		int totalamount = (price*time)+(price*person);
+		
+		reservationbean.setAmounts(totalamount);
 		
 		System.out.println("resevationbean InsertController:"+reservationbean);
 		if(result.hasErrors()) {
@@ -78,6 +102,7 @@ public class reservationInsertController {
 			
 			mav.addObject("spacenum",spacenum);
 			mav.addObject("spacebean",spacebean);
+			mav.addObject("reservationdate",reservationdate);
 			mav.addObject("detailSpacebean",detailSpacebean);
 			mav.addObject("reservationbean",reservationbean);
 			

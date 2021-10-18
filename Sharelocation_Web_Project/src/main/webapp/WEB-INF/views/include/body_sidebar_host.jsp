@@ -106,7 +106,7 @@
 				<li class="sidebar-item"><a href="helpBoardList.hb" class='sidebar-link'>
 						<i class="bi bi-question-circle-fill"></i> <span>도움말</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="list.qnaBoard" class='sidebar-link'>
 						<i class="bi bi-chat-right-text-fill"></i> <span>Q&A</span>
 				</a></li>
 				<li class="sidebar-title"></li>

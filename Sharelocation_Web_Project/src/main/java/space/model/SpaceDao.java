@@ -140,11 +140,22 @@ public class SpaceDao {
 	public List<SpaceBean> getSpaceApprovalWaitingList() {
 		return sqlSessionTemplate.selectList(namespace+".getSpaceApprovalWaitingList");
 	}
+	public List<SpaceBean> getSpaceApprovalWaitingList(int limit) {
+		RowBounds rowBounds = new RowBounds(0, limit);
+		return sqlSessionTemplate.selectList(namespace+".getSpaceApprovalWaitingList", null, rowBounds);
+	}
 	public int updateSpaceStatus(SpaceBean spaceBean) {
 		return sqlSessionTemplate.update(namespace+".updateSpaceStatus", spaceBean);
 	}
 	public int getAllSpaceCount() {
 		return sqlSessionTemplate.selectOne(namespace+".getAllSpaceCount");
+	}
+	public List<SpaceBean> getAllSpaceList(Paging pageInfo) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		return sqlSessionTemplate.selectList(namespace+".getAllSpaceList", null, rowBounds);
+	}
+	public List<AdvertiseBean> getExpiredAdvertiseList() {
+		return sqlSessionTemplate.selectList(namespace+".getExpiredAdvertiseList");
 	}
 }
 

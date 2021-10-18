@@ -74,14 +74,14 @@
 			<!-- ***** Login Card END ***** -->
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="main.admin" class='sidebar-link'>
 						<i class="bi bi-house-door-fill"></i> <span>홈</span>
 				</a></li>
 					<li class="sidebar-item">
 						<a href="approvalList.admin" class='sidebar-link'>
 						<i class="bi bi-journal-text"></i> <span>검수신청 리스트</span>
 				</a></li>
-				<li class="sidebar-item"><a href="favoriteList.sp" class='sidebar-link'>
+				<li class="sidebar-item"><a href="spaceList.admin" class='sidebar-link'>
 						<i class="bi bi-bookmark-star-fill"></i> <span>등록된 공간 관리</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
@@ -93,7 +93,7 @@
 				<li class="sidebar-item"><a href="helpBoardList.hb" class='sidebar-link'>
 						<i class="bi bi-question-circle-fill"></i> <span>도움말</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="list.qnaBaord"  class='sidebar-link'>
 						<i class="bi bi-chat-right-text-fill"></i> <span>Q&A</span>
 				</a></li>
 				<li class="sidebar-title"></li>

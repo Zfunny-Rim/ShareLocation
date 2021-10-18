@@ -16,8 +16,12 @@
 	</bean>
 	
 
+<<<<<<< HEAD
 	<context:component-scan base-package="host, space, detailspace, reservation, reviewBoard, member,helpBoard" />
 
+=======
+	<context:component-scan base-package="host, space, detailspace, reservation, reviewBoard, member, income" />
+>>>>>>> branch 'master' of https://github.com/Zfunny-Rim/ShareLocation.git
     
     
     <bean id="multipartResolver"
