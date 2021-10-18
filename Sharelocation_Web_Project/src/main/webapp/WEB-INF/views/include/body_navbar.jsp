@@ -68,17 +68,25 @@
 						<div class="user-menu d-flex">
 							<div class="user-name text-end me-3">
 								<h6 class="mb-0 text-gray-600">${loginInfo.nickname }</h6>
-								<p class="mb-0 text-sm text-gray-600">welcome</p>
+								<c:if test="${loginInfo.type eq 'guest' }">
+								<p class="mb-0 text-sm text-gray-600">guest</p>
+								</c:if>
+								<c:if test="${loginInfo.type eq 'host' }">
+								<p class="mb-0 text-sm text-gray-600">host</p>
+								</c:if>
+								<c:if test="${loginInfo.type eq 'admin' }">
+								<p class="mb-0 text-sm text-gray-600">admin</p>
+								</c:if>
 							</div>
 							<div class="user-img d-flex align-items-center">
 								<div class="avatar avatar-md">
 									<c:if test="${loginInfo.gender eq '남' }">
 										<img src="./resources/assets/images/faces/1.jpg">
-										<span class="avatar-status bg-danger"></span>
+										<span class="avatar-status bg-success"></span>
 									</c:if>
 									<c:if test="${loginInfo.gender eq '여' }">
 										<img src="./resources/assets/images/faces/3.jpg">
-										<span class="avatar-status bg-danger"></span>
+										<span class="avatar-status bg-success"></span>
 									</c:if>
 								</div>
 							</div>
