@@ -48,7 +48,12 @@
 					</tr>
 					<tr>
 						<td>요청사항</td>
-						<td>${reservationBean.cusrequest}</td>
+						<c:if test = "${empty reservationBean.cusrequest}">
+							<td>없음.</td>
+   						</c:if>
+   						<c:if test = "${not empty reservationBean.cusrequest}">
+							<td>${reservationBean.cusrequest}</td>
+   						</c:if>
 					</tr>
 				</tbody>
 			</table>

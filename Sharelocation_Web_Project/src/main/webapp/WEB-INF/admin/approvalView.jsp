@@ -125,8 +125,10 @@
 						<hr>
 						<div class="d-flex justify-content-end">
 							<button class="btn btn-outline-primary"  onClick="location.href='approvalList.admin'">목록보기</button>
-							<button class="btn btn-outline-success mx-2" onClick="approval('${spaceBean.num}')">검수완료</button>
-							<button class="btn btn-outline-danger"  onClick="reject('${spaceBean.num}')">검수반려</button>
+							<c:if test="${spaceBean.status eq '검수대기' }">
+								<button class="btn btn-outline-success mx-2" onClick="approval('${spaceBean.num}')">검수완료</button>
+								<button class="btn btn-outline-danger"  onClick="reject('${spaceBean.num}')">검수반려</button>
+							</c:if>
 						</div>
 					</div>
 					<div class="col-7 my-2 py-2">

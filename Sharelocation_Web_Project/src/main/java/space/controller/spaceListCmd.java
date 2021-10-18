@@ -62,7 +62,7 @@ public class spaceListCmd {
 		String url = request.getContextPath() + command;
 		System.out.println("url 확인해보자"+url);
 
-		Paging pageInfo = new Paging(pagenumber, null, totalCount, url, whatColumn, keyword, null);
+		Paging pageInfo = new Paging(pagenumber, "1", totalCount, url, whatColumn, keyword, null);
 		
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,map);

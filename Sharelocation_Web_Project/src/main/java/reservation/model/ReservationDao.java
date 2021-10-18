@@ -30,11 +30,11 @@ public class ReservationDao {
 		return cnt;
 	}
 
-	public List<ReservationBean> getReservList(int membernum,Paging pageInfo) {
+	public List<ReservationBean> getReservList(Paging pageInfo,Map<String, String> map) {
 		
 		List<ReservationBean> reservationLists = new ArrayList<ReservationBean>();
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
-		reservationLists = sqlSessionTemplate.selectList(namespace+".getReservList",membernum,rowBounds);
+		reservationLists = sqlSessionTemplate.selectList(namespace+".getReservList",map,rowBounds);
 		return reservationLists;
 	}
 
@@ -46,7 +46,9 @@ public class ReservationDao {
 	public int getReservationTotalCountByMap(Map<String, String> map) {
 		return sqlSessionTemplate.selectOne(namespace+".getReservationTotalCountByMap", map);
 	}
-
+	public int getReservationTotalCountByMapMembernum(Map<String, String> map) {
+		return sqlSessionTemplate.selectOne(namespace+".getReservationTotalCountByMapMembernum", map);
+	}
 	public List<ReservationBean> getReservationListByMap(Paging pageInfo, Map<String, String> map) {
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 		return sqlSessionTemplate.selectList(namespace+".getReservationListByMap", map, rowBounds);
@@ -81,5 +83,17 @@ public class ReservationDao {
 	}
 	public int reservationCancel(int num) {
 		return sqlSessionTemplate.update(namespace+".reservationCancel",num);
+	}
+
+	public int getReservtionCountByMonth(String monthStr) {
+		return sqlSessionTemplate.selectOne(namespace+".getReservtionCountByMonth", monthStr);
+	}
+
+	public int getReservtionCountByMonthAndSpaceNum(Map<String, Object> queryParam) {
+		return sqlSessionTemplate.selectOne(namespace+".getReservtionCountByMonthAndSpaceNum", queryParam);
+	}
+
+	public int getCompleteReservationCountBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getCompleteReservationCountBySpaceNum", spaceNum);
 	}
 }

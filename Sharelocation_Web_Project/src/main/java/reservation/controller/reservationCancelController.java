@@ -20,7 +20,7 @@ public class reservationCancelController {
 	@RequestMapping(value= command)
 	public ModelAndView doAction(ModelAndView mav,
 			@RequestParam(value = "pageNumber",required=false) String pageNumber,
-			@RequestParam(value = "num",required=false) int num) {
+			@RequestParam(value = "num") int num) {
 		
 		int cnt = reservationDao.reservationCancel(num); 
 		

@@ -59,4 +59,8 @@ private String namespace = "reviewBoard.model.ReviewBoardBean";
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 		return sqlSessionTemplate.selectList(namespace+".getOriginReviewListByMap",map,rowBounds);
 	}
+
+	public int insertReviewBoard(ReviewBoardBean reviewBoardBean) {
+		return sqlSessionTemplate.insert(namespace+".insertReviewBoard",reviewBoardBean);
+	}
 }

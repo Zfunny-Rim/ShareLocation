@@ -81,6 +81,7 @@ public class SpaceFavoriteListCmd {
 		}
 		
 		mav.addObject("favoriteResult",favoriteResult);	
+		mav.addObject("membernum",member.getNum());	
 		System.out.println(favoriteBean);
 		System.out.println(favoriteResult);
 	
