@@ -10,7 +10,7 @@
     <%@ include file="/WEB-INF/views/include/head_css.jsp" %>
     <%-- ******* CUSTOM CSS Link HERE ******* --%>
     <style type="text/css">
-    	.err{color:red; font-weight: bold; font-size:11px;}
+    	.err{color:red; font-weight: bold; font-size:11px;} 
     	.required{color:red;}
     </style>
     <%-- ******* CUSTOM CSS Link END ******* --%>

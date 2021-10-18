@@ -1,4 +1,5 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/include/tagLib.jsp"%>
 <!DOCTYPE html>
@@ -90,24 +91,22 @@
 																<input type="text" id="problem_name"
 																	class="form-control" name="name" placeholder="name">
 															</div>
-															<div class="col-12">
-																<label>이메일<span class="required">*</span></label>
-															</div>
-															<div class="form-group">
-																<div class="input-group mb-3">
-																	<input type="text" class="form-control" id="firstemail"
-																		name="email_id" placeholder="아이디"> <span
-																		class="input-group-text">@</span> <select
-																		class="form-select" id="secondemail"
-																		name="domain_selector">
-																		<option value="">선택</option>
-																		<option value="naver.com">naver.com</option>
-																		<option value="hanmail.net">hanmail.net</option>
-																		<option value="gmail.com">gmail.com</option>
-																		<option value="daum.net">daum.net</option>
-																	</select>
-																</div>
-															</div>
+															<div class="col-md-8 form-group">
+		                                                    <div class="input-group mb-3">
+			                                                    <input type="text" class="form-control" id="firstemail" name="email_id" placeholder="example">
+			                                                    <span class="input-group-text">@</span>
+			                                                    <input type="text" class="form-control" id="secondemail" name="email_domain" placeholder="empas.com">
+			                                                    <select class="form-select" name="domain_selector" id="thirdemail">
+			                                                        <option value="">직접입력</option>
+			                                                        <option value="naver.com">naver.com</option>
+			                                                        <option value="hanmail.net">hanmail.net</option>
+			                                                        <option value="daum.net">daum.net</option>
+			                                                        <option value="gmail.com">gmail.com</option>
+			                                                        <option value="hotmail.com">hotmail.com</option>
+			                                                        <option value="nate.com">nate.com</option>
+			                                                    </select>
+			                                                </div>
+														</div>
 															<div class="col-12">
 																<div class="form-group">
 																	<label>주소<span class="required">*</span></label> <input
@@ -137,33 +136,24 @@
 																		name="birth">
 																</div>
 															</div>
+																<br><br><br><br>
 															<div class="col-12">
-																<div class="form-check">
-																	<label>성별<span class="required">*</span></label>
-																	<div class="checkbox">
-																		<input type="checkbox" id="checkbox3" name="gender"
-																			value="남" class="form-check-input" checked> <label
-																			for="checkbox3">Male</label>
-																	</div>
-																	<div class="checkbox">
-																		<input type="checkbox" id="checkbox3" name="gender"
-																			value="여" class="form-check-input"> <label
-																			for="checkbox3">Female</label>
-																	</div>
-																</div>
+																	<label>성별<span class="required">*</span></label><br>
+																	<input
+																	class="form-check-input" type="radio" name="gender"
+																	value="남" id="flexRadioDefault2" checked="">
+																남자 &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio"
+																	name="gender" value="여" id="flexRadioDefault2">
+																여자
 															</div>
+															<br><br><br>
 															<div class="col-12">
-																<div class="form-check">
-																	<label>방문목적<span class="required">*</span></label>
-																	<div class="checkbox">
-																		<input type="checkbox" id="checkbox3" name="type"
-																			value="guest" class="form-check-input" checked>Guest
-																	</div>
-																	<div class="checkbox">
-																		<input type="checkbox" id="checkbox3" name="type"
-																			value="host" class="form-check-input">Host
-																	</div>
-																</div>
+																<label>방문목적<span class="required">*</span></label><br> <input
+																	class="form-check-input" type="radio" name="type"
+																	value="guest" id="flexRadioDefault2" checked="">
+																Guest &nbsp;&nbsp;<input class="form-check-input" type="radio"
+																	name="type" value="host" id="flexRadioDefault2">
+																Host
 															</div>
 															<div class="col-12 d-flex justify-content-end">
 																<input type="submit" class="btn btn-primary me-1 mb-1"
@@ -188,6 +178,20 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+		<script>
+		$(function(){
+	  		$("#thirdemail").change(function(){
+	  			var selVal = $('select[name="domain_selector"] option:selected').val();
+	  			if(selVal == ""){
+	  				$('input[name="email_domain"]').val('');
+	  				$('input[name="email_domain"]').removeAttr('readonly');
+	  			}else{
+	  				$('input[name="email_domain"]').val(selVal);
+	  				$('input[name="email_domain"]').attr('readonly', 'readonly');
+	  			}
+	  		});
+	  	});
+		</script>
 		<script>
 			let checkId = false;
 			let checkNickName = false;
@@ -268,7 +272,7 @@
 							}
 						});
 			}
-
+			
 			async
 			function processing() {
 
@@ -307,15 +311,15 @@
 					return false;
 				}
 				if($("#secondemail").val() == ""){
-					alert("이메일을 선택해주세요");
+					alert("이메일을 선택하거나 입력해주세요");
 					$("#secondemail").focus();    
 					return false;
 				}
-				   
-				var emailStr = $("#firstemail").val() + "@"
-						+ $("#secondemail").val();
-				$("#hemail").val(emailStr);
 				
+				var emailStr = $("#firstemail").val()+"@"+$("#secondemail").val();
+		  		$("#hemail").val(emailStr);
+				
+		  		//주소
 				if($("#address").val()==""){
 					alert("주소를 입력하세요.")
 					$("#address").focus();
@@ -349,7 +353,9 @@
 				}
 				return true;
 			}
-				
+			
+			
+			
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>

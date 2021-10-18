@@ -15,5 +15,5 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="balance,space,detailspace, "/>
+	<context:component-scan base-package="balance,space,detailspace, reviewBoard"/>
 </beans>

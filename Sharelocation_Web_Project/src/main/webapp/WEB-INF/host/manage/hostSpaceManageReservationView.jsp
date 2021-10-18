@@ -48,7 +48,12 @@
 					</tr>
 					<tr>
 						<td>요청사항</td>
-						<td>${reservationBean.cusrequest}</td>
+						<c:if test = "${empty reservationBean.cusrequest}">
+							<td>없음.</td>
+   						</c:if>
+   						<c:if test = "${not empty reservationBean.cusrequest}">
+							<td>${reservationBean.cusrequest}</td>
+   						</c:if>
 					</tr>
 				</tbody>
 			</table>
@@ -142,7 +147,7 @@
 						<c:if test="${reservationBean.status eq '입금대기' }">
 							<button class="btn btn-outline-primary" type="button"
 								onClick="confirmReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
-								예약확정</button>
+								예약확정</button> 
 							<button class="btn btn-outline-danger" type="button" 
 								onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
 								예약취소</button>
