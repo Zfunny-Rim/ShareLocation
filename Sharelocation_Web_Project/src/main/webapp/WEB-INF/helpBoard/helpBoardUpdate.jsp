@@ -22,7 +22,7 @@ tr th {
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
-		<div id="" style="padding-top: 0px;">
+		<div id="main" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
@@ -39,7 +39,7 @@ tr th {
 											<div class="card-content">
 												<div class="card-body">
 													<h4>공지사항 수정</h4>
-													<form action="updateNotice.nb?num=${noticeBoard.num}" method="post">
+													<form action="updateHelp.hb?num=${helpBoard.num}" method="post">
 														<div class="form-body">
 															<div class="row">
 																<div class="divider">
@@ -54,7 +54,7 @@ tr th {
 																	<input type="text" class="form-control" name="writer"
 																		value="${id}" > 
 																		<input type="hidden" class="form-control" name="membernum"
-																		value="${noticeBoard.membernum}">
+																		value="${helpBoard.membernum}">
 																	<p>
 																		<small class="text-muted"> </small>
 																	</p>
@@ -65,7 +65,7 @@ tr th {
 																	</label>
 																</div>
 																<div class="col-md-8 form-group">
-																	<input type="text" class="form-control" name="subject" value="${noticeBoard.subject}">
+																	<input type="text" class="form-control" name="category" value="${helpBoard.category}">
 																	<p>
 																		<small class="text-muted"></small>
 																	</p>
@@ -76,7 +76,7 @@ tr th {
 																</div>
 																<div class="col-md-8 form-group">
 																	<textarea class="form-control" rows="3" name="content"
-																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">${noticeBoard.content}</textarea>
+																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">${helpBoard.content}</textarea>
 																	<p>
 																		<small class="text-muted"></small>
 																	</p>
@@ -89,7 +89,7 @@ tr th {
 																			type="submit">수정</button>
 																		<button class="btn btn-sm btn-outline-success"
 																			type="reset">취소</button>
-																		<button class="btn btn-sm btn-outline-success" onclick="listNotice()">목록</button>
+																		<button class="btn btn-sm btn-outline-success" onclick="listHelp()">목록</button>
 																	</div>
 																</div>
 
@@ -113,12 +113,12 @@ tr th {
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
 			function insert() {
-				location.href = "insertNoticeBoard.nb";
+				location.href = "insertHelpBoard.nb";
 			}
 			
-			function listNotice(){
+			function listHelp(){
 				//alert();
-				location.href="noticeBoardList.nb";
+				location.href="helpBoardList.hb";
 			}
 			
 		</script>

@@ -12,7 +12,7 @@
 
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/space/" />
+		<property name="prefix" value="/WEB-INF/helpBoard/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	

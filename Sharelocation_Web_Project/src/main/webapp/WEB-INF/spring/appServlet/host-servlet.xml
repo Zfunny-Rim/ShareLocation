@@ -16,7 +16,8 @@
 	</bean>
 	
 
-	<context:component-scan base-package="host, space, detailspace, reservation, reviewBoard, member, income" />
+	<context:component-scan base-package="host, space, detailspace, reservation, reviewBoard, member,helpBoard,income" />
+
     
     
     <bean id="multipartResolver"

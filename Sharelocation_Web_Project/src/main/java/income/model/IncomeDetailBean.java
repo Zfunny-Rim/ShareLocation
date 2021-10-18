@@ -9,7 +9,7 @@ public class IncomeDetailBean {
 	private final double FIXED_CLEAN_RATIO = 0.01;
 	private final double FIXED_MAINTENANCE_RATIO = 0.01;
 	private final double FIXED_TAX_RATIO = 0.1;
-	private final double FIXED_FEES_RATIO = 0.3;
+	private final double FIXED_FEES_RATIO = 0.1;
 	//
 	private SpaceBean spaceBean;
 	private int year;
