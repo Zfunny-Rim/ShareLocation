@@ -48,6 +48,13 @@
 			insert into reviewboard(num, spacenum, membernum, writer, regdate, content, ref, restep, relevel, servicerating, pricevalueration, cleanrating, totalrating)
 			values(review_board_seq.nextval, #{spacenum}, #{membernum}, #{writer}, sysdate, #{content}, review_board_seq.currval, 0, 0, #{servicerating}, #{pricevalueration}, #{cleanrating},#{totalrating})
 	</insert>
+	<select id="getOriginReviewListByMemberNum" resultType="MyReview">
+		select * from reviewboard where membernum=#{memberNum}
+		order by regdate desc
+	</select>
+	<select id="getOriginReviewCountByMemberNum" resultType="int">
+		select count(*) from reviewboard where membernum=#{memberNum}
+	</select>
 </mapper>
 			
 			

@@ -18,7 +18,7 @@ import space.model.FavoriteBean;
 public class SpaceFavoriteCmd {
 
 	private final String command = "/favorite.sp";
-	private final String getPage = "/detailView.sp";
+	private final String getPage = "detailView.sp";
 	private boolean flag = false;
 
 	@Autowired

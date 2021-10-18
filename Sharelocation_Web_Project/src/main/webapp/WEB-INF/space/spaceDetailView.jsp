@@ -416,7 +416,7 @@ element.style {
 															<div class="list-group-item" style="border:none; border-bottom: 1px solid #eee; text-align:center;">
 																<form action="reserv.rv" method="post">           
 																	<input type="hidden" name="spacenum" value="${space.num }">
-																	<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
+																	<input type="hidden" name="detailspacenum" value="${dspBean.num }">	
 																	<button class="btn btn-outline-success" type="submit">예약하기</button>
 																</form>
 															</div>

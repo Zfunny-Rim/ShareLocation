@@ -96,7 +96,7 @@
 				<li class="sidebar-item"><a href="favoriteList.sp" class='sidebar-link'>
 						<i class="bi bi-bookmark-star-fill"></i> <span>찜한 공간</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="reviewManage.sp" class='sidebar-link'>
 						<i class="bi bi-blockquote-left"></i> <span>후기 관리하기</span>
 				</a></li>
 				<li class="sidebar-item"><a href="noticeBoardList.nb" class='sidebar-link'>

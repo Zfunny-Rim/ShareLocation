@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPS partagé</title>
+<%@ include file="/WEB-INF/views/include/head_css.jsp" %>
+<%-- ******* CUSTOM CSS Link HERE ******* --%>
+    
+<%-- ******* CUSTOM CSS Link END ******* --%>
+</head>
+
+<body>
+<div id="app">
+<%@ include file="/WEB-INF/views/include/body_navbar.jsp" %>
+<%@ include file="/WEB-INF/views/include/body_sidebar.jsp" %>
+<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
+<div id="" style="padding-top:0px;">
+<div id="main-content">   
+<div class="page-heading">
+<section class="section">
+<div class="row justify-content-center">
+<div class="col-8">
+<div class="card">
+<div class="card-body">
+<%-- ******* Main Code HERE ******* --%>
+<h4 class="card-title">후기 관리하기</h4>
+<div class="row justify-content-center">
+	<div class="col-9">
+		<c:if test="${empty reviewList  }">
+			작성한 리뷰가 없습니다. 
+		</c:if>
+		<c:if test="${not empty reviewList }">
+		
+		
+		</c:if>
+	</div>
+</div>
+<%-- ******* Main Code END ******* --%>
+</div>
+</div>
+</div>
+</div>
+ </section>
+</div>
+</div>
+</div>
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
+<%-- ******* CUSTOM Script HERE ******* --%>
+
+<%-- ******* CUSTOM Script END ******* --%>
+</div>
+</body>
+</html>
