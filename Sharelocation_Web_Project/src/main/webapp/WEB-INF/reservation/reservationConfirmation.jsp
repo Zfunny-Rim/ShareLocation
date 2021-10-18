@@ -106,7 +106,9 @@
 																<tbody>
 																	<tr>
 																		<td class="text-bold-500">예약날짜</td>
-																		<td align="center">${reservationbean.applicationdate}</td>
+																		<td align="center">
+																			<fmt:parseDate var="ciDate" value="${reservationBean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+																			<fmt:formatDate  value="${ciDate}" pattern="yyyy.MM.dd (E)"/>
 																		<td rowspan="5">
 																			<fmt:formatNumber value="${reservationbean.amounts}" pattern="###,###"/>원
 																		</td>
@@ -115,7 +117,11 @@
 																		
 																		<td class="text-bold-500">예약시간</td>
 																		<td align="center">
-																		${reservationbean.checkin}시~${reservationbean.checkout}시
+																			<fmt:parseDate var="ciDate" value="${reservationBean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+																			<fmt:formatDate  value="${ciDate}" pattern="HH시"/>
+																			~ 
+																			<fmt:parseDate var="coDate" value="${reservationBean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
+																			<fmt:formatDate  value="${coDate}" pattern="HH시"/>
 																		</td>
 																	</tr>
 																	<tr>
@@ -165,7 +171,7 @@
 														<td align="center">
 															<c:set var="today" value="<%=new java.util.Date()%>" />
 															<c:set var="date">
-																<fmt:formatDate value="${today}" pattern="yyyy-MM-dd hh:mm:ss" />
+																<fmt:formatDate value="${today}" pattern="yyyy.MM.dd (E)" />
 															</c:set>
 															<c:out value="${date}" />
 														</td>
@@ -176,7 +182,13 @@
 													</tr>
 													<tr>
 														<td class="text-bold-500">예약내용</td>
-														<td align="center">${reservationbean.applicationdate} ${reservationbean.checkin}시~${reservationbean.checkout}시</td>
+														<td align="center">
+															<fmt:parseDate var="ciDate" value="${reservationBean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+															<fmt:formatDate  value="${ciDate}" pattern="yyyy.MM.dd (E) HH시"/>
+															~ 
+															<fmt:parseDate var="coDate" value="${reservationBean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
+															<fmt:formatDate  value="${coDate}" pattern="HH시"/>
+														</td>
 													</tr>
 													<tr>
 														<td class="text-bold-500">예약인원</td>

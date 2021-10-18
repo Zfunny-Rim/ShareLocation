@@ -93,6 +93,7 @@ public class SpaceDetailView {
 		map.put("spacenum", Integer.toString(num));
 		map.put("spaceNum", Integer.toString(num));
 		int allCount = reviewBoardDao.getOriginReviewAllCountBySpaceNum(num);
+		System.out.println("spacenum:"+num);
 		int totalCount = reviewBoardDao.getOriginReviewTotalCountBySpaceNum(map);
 		String url = request.getContextPath() + "/" + command;
 		System.out.println("count 확인"+allCount);

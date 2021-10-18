@@ -1,11 +1,14 @@
 package reviewBoard.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class ReviewBoardBean {
 	private int num;
 	private int spacenum;
 	private int membernum;
 	private String writer;
 	private String regdate;
+	@NotEmpty(message = "이용 후기 작성은 필수입니다.")
 	private String content;
 	private int ref;
 	private int restep;
@@ -124,7 +127,7 @@ public class ReviewBoardBean {
 	}
 	@Override
 	public String toString() {
-		return "ReviewBoardBean [num=" + num + ", spacenum=" + spacenum + ", membernum=" + membernum + ", write="
+		return "ReviewBoardBean [num=" + num + ", spacenum=" + spacenum + ", membernum=" + membernum + ", writer="
 				+ writer + ", regdate=" + regdate + ", content=" + content + ", ref=" + ref + ", restep=" + restep
 				+ ", relevel=" + relevel + ", servicerating=" + servicerating + ", pricevalueration=" + pricevalueration
 				+ ", cleanrating=" + cleanrating + ", totalrating=" + totalrating + ", reviewReply=" + reviewReply
