@@ -20,6 +20,7 @@
 		<typeAlias alias="MyAdvertise" type="space.model.AdvertiseBean"/>		
 		<typeAlias alias="MyIncome" type="income.model.IncomeBean"/>
 		<typeAlias alias="MyNotice" type="noticeBoard.model.NoticeBoardBean"/>
+		<typeAlias alias="MyQnaBoard" type="qnaBoard.model.QnaBoardBean"/>
 	</typeAliases>
 	
 	<mappers>
