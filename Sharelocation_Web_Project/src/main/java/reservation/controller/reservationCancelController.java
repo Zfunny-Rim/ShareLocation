@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import reservation.model.ReservationDao;
 
 @Controller
-public class reservationDeleteController {
+public class reservationCancelController {
 	
 	private final String command="/reservationdelete.rv";
 	private final String getPage="redirect:/reservList.rv";
@@ -20,9 +20,9 @@ public class reservationDeleteController {
 	@RequestMapping(value= command)
 	public ModelAndView doAction(ModelAndView mav,
 			@RequestParam(value = "pageNumber",required=false) String pageNumber,
-			@RequestParam(value = "num",required=false) int num) {
+			@RequestParam(value = "num") int num) {
 		
-		int cnt = reservationDao.deleteReserv(num);  //DB에서 레코드삭제
+		int cnt = reservationDao.reservationCancel(num); 
 		
 		mav.setViewName(getPage+"?pageNumber="+pageNumber);
 		return mav;

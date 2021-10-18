@@ -7,13 +7,13 @@ import org.hibernate.validator.constraints.NotBlank;
 public class PackagePriceBean {
 	private int num;
 	private int detailspacenum;
-	@NotBlank(message="ÆĞÅ°Áö¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotBlank(message="íŒ¨í‚¤ì§€ëª…ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private String title;
-	@NotNull(message="½ÃÀÛ½Ã°£À» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotNull(message="ì‹œì‘ì‹œê°„ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private Integer checkintime;
-	@NotNull(message="Á¾·á½Ã°£À» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotNull(message="ì¢…ë£Œì‹œê°„ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private Integer checkouttime;
-	@NotNull(message="°¡°İÀ» ÀÔ·ÂÇÏ¼¼¿ä.")
+	@NotNull(message="ê°€ê²©ì„ ì…ë ¥í•˜ì„¸ìš”.")
 	private Integer price;
 	
 	public PackagePriceBean() {

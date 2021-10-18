@@ -31,8 +31,9 @@ public class spaceListCmd {
 			@RequestParam(value ="whatColumn",required = false) String whatColumn,
 			@RequestParam(value ="keyword",required = false) String keyword,
 			@RequestParam(value ="area",required = false) String area,
-			@RequestParam(value ="pageNumber",required = false) String pageNumber,
+			@RequestParam(value ="pagenumber",required = false) String pagenumber,
 			@RequestParam(value ="tag",required = false) String tag,
+			@RequestParam(value ="spacenum",required = false) String spacenum,
 			
 			HttpServletRequest request
 			) {
@@ -44,6 +45,9 @@ public class spaceListCmd {
 		}
 		if(tag==null) {
 			tag = "";
+		}
+		if(pagenumber == null) {
+			pagenumber = "1";
 		}
 	
 		Map<String, String> map = new HashMap<String, String>();
@@ -58,8 +62,8 @@ public class spaceListCmd {
 		String url = request.getContextPath() + command;
 		System.out.println("url 확인해보자"+url);
 
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, null);
-
+		Paging pageInfo = new Paging(pagenumber, "1", totalCount, url, whatColumn, keyword, null);
+		
 		System.out.println(keyword);
 		List<SpaceBean> spaceLists = spaceDao.getSpaceList(pageInfo,map);
 		
@@ -74,8 +78,12 @@ public class spaceListCmd {
 
 
 		mav.addObject("spaceLists",spaceLists);
-		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
+		mav.addObject("totalCount", totalCount);
+		mav.addObject("pagenumber", pagenumber);
+		mav.addObject("spacenum",spacenum);
+		
+		mav.setViewName(getPage);
 		return mav;
 	}
 

@@ -5,7 +5,7 @@
 		<div class="sidebar-header">
 			<div class="d-flex justify-content-between">
 				<div class="logo">
-					<a href="index.jsp"><img
+					<a href="/sharelocation"><img
 						src="./resources/assets/images/logo/ips_logo.png"
 						style="width: 151px; height: 60px;"></a>
 				</div>
@@ -60,6 +60,18 @@
 			<div class="card bg-light">
 				<div class="card-header">
 					<h4 class="card-title">${loginInfo.nickname }</h4>
+						<div class="user-img d-flex align-items-center">
+								<div class="avatar avatar-md">
+									<c:if test="${loginInfo.gender eq '남' }">
+										<img src="./resources/assets/images/faces/1.jpg">
+										<span class="avatar-status bg-danger"></span>
+									</c:if>
+									<c:if test="${loginInfo.gender eq '여' }">
+										<img src="./resources/assets/images/faces/3.jpg">
+										<span class="avatar-status bg-danger"></span>
+									</c:if>
+								</div>
+							</div>
 					<h4 class="card-title"><a href="logout.jsp">logout</a></h4>
 				</div>
 				<div class="card-body">
@@ -88,13 +100,13 @@
 				<li class="sidebar-item"><a href="spaceList.ho" class='sidebar-link'>
 						<i class="bi bi-gear"></i> <span>내 공간 관리하기</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="noticeBoardList.nb" class='sidebar-link'>
 						<i class="bi bi-exclamation-diamond-fill"></i> <span>공지사항</span>
 				</a></li>
 				<li class="sidebar-item"><a href="#" class='sidebar-link'>
 						<i class="bi bi-question-circle-fill"></i> <span>도움말</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="list.qnaBoard" class='sidebar-link'>
 						<i class="bi bi-chat-right-text-fill"></i> <span>Q&A</span>
 				</a></li>
 				<li class="sidebar-title"></li>

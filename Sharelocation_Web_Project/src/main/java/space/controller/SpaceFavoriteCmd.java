@@ -18,19 +18,20 @@ import space.model.FavoriteBean;
 public class SpaceFavoriteCmd {
 
 	private final String command = "/favorite.sp";
-	private final String getPage = "redirect:/detailView.sp";
+	private final String getPage = "/detailView.sp";
 	private boolean flag = false;
 
 	@Autowired
 	SpaceDao spaceDao;
 
 	@RequestMapping(value= command)
-	public String doAction(@RequestParam(value = "spacenum") int spacenum,
+	public ModelAndView doAction(@RequestParam(value = "spacenum") int spacenum,
 			@RequestParam(value = "membernum") int membernum, 
 			FavoriteBean bean, HttpServletResponse response,
 			ModelAndView mav
 			) throws IOException {
 		System.out.println("spaceDetailView");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();	
 		bean.setMembernum(membernum); 
 		bean.setSpacenum(spacenum);
@@ -40,10 +41,12 @@ public class SpaceFavoriteCmd {
 			int cnt = spaceDao.delFavorite(bean);
 			flag = false;
 			if(cnt != 0) {
-				System.out.println(" ÁÁ¾Æ¿ä»èÁ¦¼º°ø");
-				/* ÂòÇÏ±â ¸Ş¼¼Áö ¼³Á¤ */
-
-			//	pw.println("<script>alert('ÂòÇÏ±â ÇØÁ¦ µÇ¾ú½À´Ï´Ù');</script>"); pw.flush(); // È­¸é Ãâ·Â
+				System.out.println(" ì¢‹ì•„ìš”ì‚­ì œì„±ê³µ");
+				pw.println("<script>");
+				pw.println("alert('ì¢‹ì•„ìš”ê°€ í•´ì œ ë˜ì—ˆìŠµë‹ˆë‹¤');");
+				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
+				pw.println("</script>");
+				return null;
 			}
 		}
 		else {	
@@ -51,14 +54,16 @@ public class SpaceFavoriteCmd {
 			int cnt = spaceDao.addFavorite(bean);
 			flag = true;
 			if(cnt != 0) {
-				System.out.println(" ÁÁ¾Æ¿äÀÔ·Â¼º°ø");
-				/* ÂòÇÏ±â ¸Ş¼¼Áö ¼³Á¤ */
-				/*
-				 * pw.println("<script>alert('ÂòÇÏ±â ¼³Á¤ µÇ¾ú½À´Ï´Ù');</script>"); pw.flush(); // È­¸é Ãâ·Â
-				 * ºÎºĞ
-				 */			}
+				System.out.println(" ì¢‹ì•„ìš”ì…ë ¥ì„±ê³µ");
+				pw.println("<script>");
+				pw.println("alert('ì¢‹ì•„ìš”ê°€ ì„¤ì • ë˜ì—ˆìŠµë‹ˆë‹¤');");
+				pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
+				pw.println("</script>");
+				return null;
+			}
 		}
 
-		return getPage+"?num="+spacenum;
+		mav.setViewName(getPage);	
+		return mav;
 	}
 }

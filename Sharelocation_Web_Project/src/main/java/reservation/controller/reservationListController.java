@@ -1,7 +1,10 @@
 package reservation.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import detailspace.model.DetailSpaceBean;
+import detailspace.model.DetailSpaceDao;
+import member.model.MemberBean;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
+import space.model.SpaceBean;
 import space.model.SpaceDao;
 import utility.Paging;
 
@@ -26,32 +33,56 @@ public class reservationListController {
 	@Autowired
 	ReservationDao reservationDao;
 	
-	//@Autowired
-	//SpaceDao spaceDao;
+	@Autowired
+	SpaceDao spaceDao;
+	
+	@Autowired
+	DetailSpaceDao detailSpaceDao;
 	
 	@RequestMapping(value=command,method = RequestMethod.GET)
 	public ModelAndView doAction(
 			@RequestParam(value = "pageNumber",required=false) String pageNumber,
-			//@RequestParam(value = "membernum",required=false) int membernum,
-			Model model,ModelAndView mav,HttpSession session
+			@RequestParam(value="whatColumn", required =false) String whatColumn,
+			@RequestParam(value="keyword", required =false) String keyword,
+			Model model,ModelAndView mav,HttpSession session,ReservationBean reservationbean,
+			HttpServletRequest request
 			) {
 		
-		//∑Œ±◊¿Œ æ»«ﬂ¥Ÿ∏È
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		int membernum = loginInfo.getNum(); //Î°úÍ∑∏Ïù∏Ìïú ÌöåÏõêÎÑòÎ≤Ñ
+		//Î°úÍ∑∏Ïù∏ ÏïàÌñàÎã§Î©¥
 		if(session.getAttribute("loginInfo")==null) { 
 
-			model.addAttribute("msg", "∑Œ±◊¿Œ «ÿ¡÷ººø‰~!");
+			model.addAttribute("msg", "Î°úÍ∑∏Ïù∏ Ìï¥Ï£ºÏÑ∏Ïöî~!");
 			model.addAttribute("url", "/sharelocation/#");
 			mav.setViewName("redirect");
 			return mav;
 		}
-		Paging pageInfo = new Paging(pageNumber, null, 0, null, null, null, null);
+		if(pageNumber == null) {
+			pageNumber = "1";
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("whatColumn", whatColumn);
+		map.put("keyword", keyword);
+		map.put("membernum", Integer.toString(membernum));
 		
-		List<ReservationBean> reservationLists = reservationDao.getReservList(1,pageInfo);  //membernum∞™ 1 ¿”Ω√
+		String url = request.getContextPath() + "/" + command;
+		int totalCount = reservationDao.getReservationTotalCountByMapMembernum(map);
+		Paging pageInfo = new Paging(pageNumber, "4", totalCount, url, whatColumn, keyword, null);
+		List<ReservationBean> reservationLists = reservationDao.getReservList(pageInfo,map);
 		System.out.println("reservationbean.List:"+reservationLists.size());
+		for(ReservationBean rBean : reservationLists) {
+			SpaceBean spacebean = spaceDao.getSpace(rBean.getSpacenum());
+			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(rBean.getDetailspacenum());
+			mav.addObject("spacebean",spacebean);
+			mav.addObject("detailSpacebean",detailSpacebean);
+		}
 		
 		mav.setViewName(getPage);
 		mav.addObject("pageInfo",pageInfo);
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("reservationLists",reservationLists);
+		mav.addObject("pageNumber", pageNumber);
 		return mav;
 	}
 }

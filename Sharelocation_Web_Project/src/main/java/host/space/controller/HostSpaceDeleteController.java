@@ -28,9 +28,9 @@ public class HostSpaceDeleteController {
 	@RequestMapping(value=command)
 	public ModelAndView deleteSpace(@RequestParam(value="spaceNum")int spaceNum) {
 		ModelAndView mav = new ModelAndView(viewPage);
-		//°ü·ÃµÈ Å×ÀÌºí - Facility, Image, detailSpace... on delete Cascade µÉ°ÍÀÓ ¾Æ¸¶µµ
-		//ÀÌ¹ÌÁö ÆÄÀÏµé¸¸ Á÷Á¢ÀûÀ¸·Î Áö¿öÁÖ¸é µÈ´Ù.
-		// 1. °ø°£ÀÇ ¸ŞÀÎ ÀÌ¹ÌÁö / 2. °ø°£ÀÇ ¼­ºê ÀÌ¹ÌÁöµé / 3. ¼¼ºÎ°ø°£ÀÇ ÀÌ¹ÌÁöµé
+		//ê´€ë ¨ëœ í…Œì´ë¸” - Facility, Image, detailSpace... on delete Cascade ë ê²ƒì„ ì•„ë§ˆë„
+		//ì´ë¯¸ì§€ íŒŒì¼ë“¤ë§Œ ì§ì ‘ì ìœ¼ë¡œ ì§€ì›Œì£¼ë©´ ëœë‹¤.
+		// 1. ê³µê°„ì˜ ë©”ì¸ ì´ë¯¸ì§€ / 2. ê³µê°„ì˜ ì„œë¸Œ ì´ë¯¸ì§€ë“¤ / 3. ì„¸ë¶€ê³µê°„ì˜ ì´ë¯¸ì§€ë“¤
 		String mainImageName =  spaceDao.getspaceMainImage(spaceNum);
 		List<String> imageFileNameList = spaceDao.getSpaceImageFileListBySpaceNum(spaceNum);  
 		List<String> detailImageFileNameList = detailSpaceDao.getSpaceImageBySpaceNum(spaceNum);
@@ -43,19 +43,19 @@ public class HostSpaceDeleteController {
 		cnt = spaceDao.deleteSpace(spaceNum);
 		String uploadPath = servletContext.getRealPath("/resources/spaceimage");
 		if(cnt != -1) {
-			//mainimage »èÁ¦
+			//mainimage ì‚­ì œ
 			File dFile = new File(uploadPath+"\\"+mainImageName);
 			System.out.println("File Delete : " + mainImageName);
 			if(dFile.exists())
 				dFile.delete();
-			//sub image »èÁ¦
+			//sub image ì‚­ì œ
 			for(String fileName:imageFileNameList) {
 				dFile = new File(uploadPath+"\\"+fileName);
 				System.out.println("File Delete : " + fileName);
 				if(dFile.exists())
 					dFile.delete();
 			}
-			//detailspace image »èÁ¦
+			//detailspace image ì‚­ì œ
 			for(String fileName:detailImageFileNameList) {
 				dFile = new File(uploadPath+"\\"+fileName);
 				System.out.println("File Delete : " + fileName);

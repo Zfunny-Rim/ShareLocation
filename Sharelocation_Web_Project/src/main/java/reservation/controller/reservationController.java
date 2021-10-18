@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
 import member.model.MemberBean;
+import reservation.model.BalanceBean;
+import reservation.model.BalanceDao;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
 import space.model.SpaceBean;
@@ -37,8 +39,8 @@ public class reservationController {
 	@Autowired
 	DetailSpaceDao detailSpaceDao;
 	
-	//@Autowired
-	//BalanceDao balanceDao;
+	@Autowired
+	BalanceDao balanceDao;
 	
 	@RequestMapping(value=command)
 	public ModelAndView reservation(HttpServletRequest request,ModelAndView mav,
@@ -47,41 +49,29 @@ public class reservationController {
 			Model model,
 			HttpSession session ) throws IOException {
 			 
-		
-		//·Î±×ÀÎ ¾ÈÇß´Ù¸é
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		//ë¡œê·¸ì¸ ì•ˆí–ˆë‹¤ë©´
 		if(session.getAttribute("loginInfo")==null) { 
 						
-			model.addAttribute("msg", "·Î±×ÀÎ ÇØÁÖ¼¼¿ä~!");
+			model.addAttribute("msg", "ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”~!");
 			model.addAttribute("url", "/sharelocation/#");
 			mav.setViewName("redirect");
 			return mav;
 		}
-		//·Î±×ÀÎ ÇßÀ¸¸é
+		//ë¡œê·¸ì¸ í–ˆìœ¼ë©´
 		else {
-			//spaceNum°ª ¹Ş¾Æ¼­ bean ¹­±â
-			//È£½ºÆ®Á¤º¸°¡Á®¿À·Á¸é È£½ºÆ®memberNum°ª beanÀ¸·Î ¹­±â
+			//spaceNumê°’ ë°›ì•„ì„œ bean ë¬¶ê¸°
+			//í˜¸ìŠ¤íŠ¸ì •ë³´ê°€ì ¸ì˜¤ë ¤ë©´ í˜¸ìŠ¤íŠ¸memberNumê°’ beanìœ¼ë¡œ ë¬¶ê¸°
 			
 			SpaceBean spacebean = spaceDao.getSpace(spacenum);
 			
 			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
 			
-			ReservationBean reservationbean = new ReservationBean();
-			reservationbean.setMembernum(1);
-			reservationbean.setSpacenum(spacenum);
-			reservationbean.setDetailspacenum(detailspacenum);
-			reservationbean.setCheckin(spacebean.getOperatingtime()); //ÀÓ½Ã
-			reservationbean.setCheckout(spacebean.getOperatingendtime()); //ÀÓ½Ã
-			reservationbean.setPerson(2);  //ÀÓ½Ã
-			reservationbean.setAmounts(detailSpacebean.getPrice());
-			reservationbean.setApplicationdate("2021-10-20");  //ÀÓ½Ã
-			 
-			System.out.println(reservationbean.toString());
-			//BalanceBean balance = balanceDao.getBalance(spacebean.getMembernum());
-			//mav.addObject("balance",balance);
+			BalanceBean balance = balanceDao.getBalance(spacebean.getMembernum());
 			
+			mav.addObject("balance",balance);
 			mav.addObject("spacebean",spacebean);
 			mav.addObject("detailSpacebean",detailSpacebean);
-			mav.addObject("reservationbean",reservationbean);
 			mav.setViewName(getPage);
 			return mav;
 		}

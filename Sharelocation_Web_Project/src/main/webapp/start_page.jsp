@@ -5,7 +5,4 @@
 	String viewPage = request.getContextPath();
 
 	response.sendRedirect(viewPage);
-	
-	
-	
 %>
