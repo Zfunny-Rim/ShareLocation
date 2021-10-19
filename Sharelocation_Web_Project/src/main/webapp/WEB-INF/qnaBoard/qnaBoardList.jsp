@@ -37,9 +37,9 @@
 										<thead class="thead-dark">
 											<tr>
 												<th>No.</th>
+												<th>TYPE</th>
 												<th>제목</th>
 												<th>작성자</th>
-												<th>TYPE</th>
 												<th>작성일</th>
 												<th>조회수</th>
 											</tr>
@@ -55,6 +55,7 @@
 											<c:forEach var="list" items="${list }" varStatus="status">
 												<tr>
 													<td class="text-bold-500">${pageInfo.totalCount - ((pageInfo.pageNumber-1) * pageInfo.pageSize) - status.count + 1}</td>
+													<td class="text-bold-500">${list.type }</td>
 													<td>
 														<c:if test="${list.relevel > 0 }">
 															<c:set var="imgWidth" value="${(list.relevel-1) * 15 }"/>
@@ -69,7 +70,6 @@
 														</c:if>
 													</td>
 													<td class="text-bold-500">${list.writer }</td>
-													<td class="text-bold-500">${list.type }</td>
 													<td><fmt:parseDate var="wiriteDate"
 															value="${list.regdate }" pattern="yyyy-MM-dd" /> <fmt:formatDate
 															value="${wiriteDate }" pattern="yyyy/MM/dd" /></td>
@@ -116,10 +116,10 @@
 												end="${pageInfo.endPage }">
 												<c:set var="url"
 													value="${pageInfo.url }?pagenumber=${i }" />
-												<c:if test="${i eq pagenumber }">
+												<c:if test="${i eq pageInfo.pageNumber }">
 													<li class="page-item active"><a class="page-link">${i }</a></li>
 												</c:if>
-												<c:if test="${i ne pagenumber }">
+												<c:if test="${i ne pageInfo.pageNumber }">
 													<li class="page-item"><a class="page-link"
 														href="${url }">${i }</a></li>
 												</c:if>
