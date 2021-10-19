@@ -37,16 +37,12 @@ public class SpaceDetailView {
 	@Autowired
 	DetailSpaceDao detailSpaceDao;
 	
-	
 	@Autowired
 	ServletContext servletContext;
 	
 	@Autowired
 	ReviewBoardDao reviewBoardDao;
 	
-	
-	
-
 	@RequestMapping(value= command)
 	public ModelAndView doAction(@RequestParam(value = "num") int num,
 				@RequestParam(value ="detailspacenum", required = false) String detailspacenum ,
@@ -144,7 +140,5 @@ public class SpaceDetailView {
 		return mav;
 	}
 	
-	
-
 }
 

@@ -22,7 +22,7 @@ tr th {
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<%@ include file="/WEB-INF/views/include/tagLib.jsp"%>
-		<div id="" style="padding-top: 0px;">
+		<div id="main" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
@@ -38,9 +38,9 @@ tr th {
 										<div class="card mb-2">
 											<div class="card-content">
 												<div class="card-body">
-													<h4>공지 사항</h4>
+													<h4>도움말</h4>
 
-													<c:if test="${empty noticeBoard }"> 등록된 공지사항이 없습니다.</c:if>
+													<c:if test="${empty helpBoard }"> 등록된 도움말이 없습니다.</c:if>
 													<div class="col-9">
 														<div class="card">
 															<div class="card-content">
@@ -51,7 +51,7 @@ tr th {
 																		<c:if test="${id eq 'admin'}">
 																			<button type="button"
 																				class="btn btn-sm btn-outline-success"
-																				onClick="location.href='insertNoticeBoard.nb'">삽입하기</button>
+																				onClick="location.href='insertHelpBoard.hb'">삽입하기</button>
 																		</c:if>
 																	</div>
 																	<table class="table mb-0">
@@ -64,13 +64,13 @@ tr th {
 																			</tr>
 																		</thead>
 																		<tbody>
-																			<c:forEach var="notice" items="${noticeBoard}"  varStatus="vs">
+																			<c:forEach var="help" items="${helpBoard}"  varStatus="vs">
 																				<tr>
 																					<td class="text-bold-500" width="200px">${pageInfo.totalCount - ((pageInfo.pageNumber-1) * pageInfo.pageSize) - vs.count + 1}</td>
-																					<td class="text-bold-500" width="200px">${notice.writer }</td>
+																					<td class="text-bold-500" width="200px">${help.writer }</td>
 																					<td width="auto"><a
-																						href="detailViewNoticeBoard.nb?num=${notice.num}">${notice.subject }</a></td>
-																					<td>${notice.regdate }</td>
+																						href="detailViewHelpBoard.hb?num=${help.num}">${help.category }</a></td>
+																					<td>${help.regdate }</td>
 																					
 																				</tr>
 																			</c:forEach>
@@ -82,7 +82,7 @@ tr th {
 														</div>
 													</div>
 													<!-- 페이징 시작 -->
-													<c:if test="${not empty noticeBoard }">
+													<c:if test="${not empty helpBoard }">
 														<div class="page-nav d-flex justify-content-center">
 															<nav>
 																<ul class="pagination pagination-primary">

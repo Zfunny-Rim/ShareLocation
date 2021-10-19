@@ -29,7 +29,12 @@
 		order by num desc
 	</select>
 
-
+<update id="updateNoticeBoard">
+	update noticeboard
+	set subject = #{subject}, content = #{content}
+	where num = #{num}
+	
+</update>
 
 </mapper>			
 			

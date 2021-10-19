@@ -17,7 +17,7 @@
 	<div id="app">
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp" %>
 		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp" %>
-        <div id="main" style="padding-top:0px;">
+        <div id="" style="padding-top:0px;">
             <div id="main-content">
                 <div class="page-heading">
                     <section class="section">

@@ -108,13 +108,17 @@ public class HostSpaceManageController {
 			@RequestParam(value="tab", required = false) String tab) {
 		ModelAndView mav = new ModelAndView(viewPage);
 		SpaceBean spaceBean = spaceDao.getSpace(spaceNum);
-		
+		int memberNum = spaceBean.getMembernum();
+		BalanceBean balanceBean = balanceDao.getBalance(memberNum);
 		List<DetailSpaceBean> dspList =  detailSpaceDao.getDetailSpaceListBySpaceNum(spaceNum);
 		List<SpaceImageBean> spImgList = spaceDao.getSpaceImageListBySpaceNum(spaceNum);
+		List<SpaceFacilityBean> spFacList = spaceDao.getFacility(spaceNum);
 		mav.addObject("spaceNum", spaceNum);
 		mav.addObject("spaceBean",spaceBean);
 		mav.addObject("dspList",dspList);
 		mav.addObject("spImgList", spImgList);
+		mav.addObject("spFacList", spFacList);
+		mav.addObject("balanceBean", balanceBean);
 		
 		getPage = "Home";
 		mav.addObject("getPage", getPage);
