@@ -46,8 +46,6 @@ dl, ol, ul {
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
-						<h3 align="center">예약 내역 리스트</h3>
-						<br> <br>
 						<div class="row justify-content-md-center mb-2">
 							<div class="col-md-8 col-12">
 								<div class="row">
