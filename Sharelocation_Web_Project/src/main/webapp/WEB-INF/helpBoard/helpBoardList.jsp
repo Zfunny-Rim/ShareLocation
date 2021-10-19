@@ -30,8 +30,6 @@ tr th {
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
-
-
 						<%-- ******* Main Code HERE ******* --%>
 
 						<div id="main-content">
@@ -117,19 +115,19 @@ tr th {
 																	</c:if>
 																	<c:if test="${pageInfo.beginPage ne 1 }">
 																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }" />
+																			value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }" />
 																		<li class="page-item"><a class="page-link"
 																			href="${url }">이전</a></li>
 																	</c:if>
 																	<c:forEach var="i" begin="${pageInfo.beginPage }"
 																		end="${pageInfo.endPage }">
 																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }" />
-																		<c:if test="${i eq pagenumber }">
+																			value="${pageInfo.url }?pagenumber=${i }" />
+																		<c:if test="${i eq pageInfo.pageNumber }">
 																			<li class="page-item active"><a
 																				class="page-link">${i }</a></li>
 																		</c:if>
-																		<c:if test="${i ne pagenumber }">
+																		<c:if test="${i ne pageInfo.pageNumber }">
 																			<li class="page-item"><a class="page-link"
 																				href="${url }">${i }</a></li>
 																		</c:if>
@@ -140,7 +138,7 @@ tr th {
 																	</c:if>
 																	<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
 																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}" />
+																			value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }"/>
 																		<li class="page-item"><a class="page-link"
 																			href="${url }">다음</a></li>
 																	</c:if>

@@ -60,7 +60,7 @@ public class NoticeBoardListCmd {
 		
 		int totalCount = noticeBoardDao.getTotalCount(map);
 		String url = request.getContextPath() + command;
-		Paging pageInfo = new Paging(pagenumber, "3", totalCount, url,  whatColumn, keyword, null);
+		Paging pageInfo = new Paging(pagenumber, "5", totalCount, url,  whatColumn, keyword, null);
 		List<NoticeBoardBean> noticeBoard = noticeBoardDao.getNoticeBoardList(pageInfo, map); 
 		
 		mav.addObject("noticeBoard",noticeBoard);
