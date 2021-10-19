@@ -68,28 +68,28 @@
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
 						<form:form commandName="" action="reservInsert.rv" method="post">
-							<input type="hidden" name="spacenum" value="${spacebean.num}"> 
-							<input type="hidden" name="detailspacenum" value="${detailSpacebean.num}">
+							<input type="hidden" name="spacenum" value="${spacebean.num}">
+							<input type="hidden" name="detailspacenum"
+								value="${detailSpacebean.num}">
 							<h2 data-v-744e58ae="" class="heading--new" align="center">예약하기</h2>
 							<!-- 예약 공간 시작-->
 							<p class="text-subtitle text-muted">예약 공간</p>
 							<div class="card">
-                                <div class="card-content">
-                                   <img src="<%=request.getContextPath()%>/resources/spaceimage/${spacebean.mainimage}"
+								<div class="card-content">
+									<img
+										src="<%=request.getContextPath()%>/resources/spaceimage/${spacebean.mainimage}"
 										class="img-fluid1, first" alt="singleminded">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${spacebean.name }</h5>
-                                        <p class="card-text">
-                                           ${spacebean.contentscom }
-                                        </p>
-                                    </div>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">공간유형 : ${spacebean.type }</li>
+									<div class="card-body">
+										<h5 class="card-title">${spacebean.name }</h5>
+										<p class="card-text">${spacebean.contentscom }</p>
+									</div>
+								</div>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">공간유형 : ${spacebean.type }</li>
 									<li class="list-group-item">예약인원 :
 										최소${detailSpacebean.minperson }명~최대${detailSpacebean.maxperson }명</li>
-                                </ul>
-                            </div>
+								</ul>
+							</div>
 							<!-- 예약 공간 끜-->
 
 							<!-- 접히는거 시작 -->
@@ -123,113 +123,27 @@
 																	<td class="text-bold-500">예약시간</td>
 																	<td align="center">
 																		<div class="input-group mb-3">
-																<select class="form-select" id="selectText1" disabled>
-
-																	<option value="0">00</option>
-
-																	<option value="1">01</option>
-
-																	<option value="2">02</option>
-
-																	<option value="3">03</option>
-
-																	<option value="4">04</option>
-
-																	<option value="5">05</option>
-
-																	<option value="6">06</option>
-
-																	<option value="7">07</option>
-
-																	<option value="8">08</option>
-
-																	<option value="9">09</option>
-
-																	<option value="10">10</option>
-
-																	<option value="11">11</option>
-
-																	<option value="12">12</option>
-
-																	<option value="13">13</option>
-
-																	<option value="14">14</option>
-
-																	<option value="15">15</option>
-
-																	<option value="16">16</option>
-
-																	<option value="17">17</option>
-
-																	<option value="18">18</option>
-
-																	<option value="19">19</option>
-
-																	<option value="20">20</option>
-
-																	<option value="21">21</option>
-
-																	<option value="22">22</option>
-
-																	<option value="23">23</option>
-
-																	<option value="24">24</option>
-
-																</select> <span class="input-group-text">시 부터</span> 
-																<select class="form-select" id="selectText2" disabled>
-
-																	<option value="0">00</option>
-
-																	<option value="1">01</option>
-
-																	<option value="2">02</option>
-
-																	<option value="3">03</option>
-
-																	<option value="4">04</option>
-
-																	<option value="5">05</option>
-
-																	<option value="6">06</option>
-
-																	<option value="7">07</option>
-
-																	<option value="8">08</option>
-
-																	<option value="9">09</option>
-
-																	<option value="10">10</option>
-
-																	<option value="11">11</option>
-
-																	<option value="12">12</option>
-
-																	<option value="13">13</option>
-
-																	<option value="14">14</option>
-
-																	<option value="15">15</option>
-
-																	<option value="16">16</option>
-
-																	<option value="17">17</option>
-
-																	<option value="18">18</option>
-
-																	<option value="19">19</option>
-
-																	<option value="20">20</option>
-
-																	<option value="21">21</option>
-
-																	<option value="22">22</option>
-
-																	<option value="23">23</option>
-
-																	<option value="24">24</option>
-
-																</select> <span class="input-group-text">시 까지</span>
-															</div>
+																			<select class="form-control" id="selectText1" disabled>
+																				<c:forEach var="i" begin="${spacebean.operatingtime }" end="${spacebean.operatingendtime }">
+																					<fmt:formatNumber var="hourStr" value="${i }"
+																						pattern="00" />
+																					<c:set var="timeStr" value="${hourStr }:00" />
+																					<option value="${i }"
+																						<c:if test="${i eq reservationbean.checkin}">selected</c:if>>${timeStr }
+																					</option>
+																				</c:forEach>
+																			</select> 
+																			<span class="input-group-text"> ~ </span>
+																			<select class="form-control" id="selectText2" disabled>
+																				<c:forEach var="i" begin="${spacebean.operatingtime }" end="${spacebean.operatingendtime }">
+																					<fmt:formatNumber var="hourStr" value="${i }" pattern="00" />
+																					<c:set var="timeStr" value="${hourStr }:00" />
+																					<option value="${i }"
+																						<c:if test="${i eq reservationbean.checkout }">selected</c:if>>${timeStr }
+																					</option>
+																				</c:forEach>
+																			</select>
+																		</div>
 																	</td>
 																</tr>
 																<tr>
@@ -239,25 +153,27 @@
 																</tr>
 																<tr>
 																	<td class="text-bold-500">결제방식</td>
-																	<td align="center">
-																		<select class="form-select" id="basicSelect" name="paymenttype">
-                                                        					<option value="">선택</option>
-                                                        					<option value="현장결제">현장결제</option>
-                                                        					<option value="무통장입금">무통장입금</option>
-                                                    					</select>
-																	</td>
+																	<td align="center"><select class="form-select"
+																		id="basicSelect" name="paymenttype">
+																			<option value="">선택</option>
+																			<option value="현장결제">현장결제</option>
+																			<option value="무통장입금">무통장입금</option>
+																	</select></td>
 																</tr>
 																<tr>
-																	<td class="text-bold-500" align="center" colspan="2" >
-																		총 가격:
+																	<td class="text-bold-500" align="center" colspan="2">
+																	
+																		&#8361;
 																		<span id="priceText">
-																		${detailSpacebean.price}
+																		${detailSpacebean.price}"
 																		</span>
 																	</td>
 																</tr>
 																<tr>
-																	<td colspan="2" class="text-bold-500" align="center"><input
-																		type="submit" class="btn btn-secondary" value="예약신청하기"></td>
+																	<td colspan="2" class="text-bold-500" align="center">
+																	<button type="submit" class="btn btn-primary me-1 mb-1"
+				 														onClick="return processing()">예약신청하기
+				 													</button>
 																</tr>
 															</tbody>
 														</table>
@@ -288,134 +204,48 @@
 											<table class="table table-lg" style="width: auto;">
 												<tbody>
 													<tr>
-														<td class="text-bold-500">예약 날짜</td>
-														<td align="center">
-														<input type="date" name="reservationdate" id="textdate"></td>
-													</tr>
-													<tr>
-														<td class="text-bold-500">예약시간</td>
-														<td>
-															<div class="input-group mb-3">
-																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
-																<select class="form-select" name="checkintime" id="selectTextTime1" >
-																	<option value="">선택</option>
-																	
-																	<option value="0">00</option>
-
-																	<option value="1">01</option>
-
-																	<option value="2">02</option>
-
-																	<option value="3">03</option>
-
-																	<option value="4">04</option>
-
-																	<option value="5">05</option>
-
-																	<option value="6">06</option>
-
-																	<option value="7">07</option>
-
-																	<option value="8">08</option>
-
-																	<option value="9">09</option>
-
-																	<option value="10">10</option>
-
-																	<option value="11">11</option>
-
-																	<option value="12">12</option>
-
-																	<option value="13">13</option>
-
-																	<option value="14">14</option>
-
-																	<option value="15">15</option>
-
-																	<option value="16">16</option>
-
-																	<option value="17">17</option>
-
-																	<option value="18">18</option>
-
-																	<option value="19">19</option>
-
-																	<option value="20">20</option>
-
-																	<option value="21">21</option>
-
-																	<option value="22">22</option>
-
-																	<option value="23">23</option>
-
-																	<option value="24">24</option>
-
-																</select> <span class="input-group-text">시 부터</span> 
-																<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
-																<select class="form-select" name="checkouttime" id="selectTextTime2">
-																	<option value="">선택</option>
-																	<option value="0">00</option>
-
-																	<option value="1">01</option>
-
-																	<option value="2">02</option>
-
-																	<option value="3">03</option>
-
-																	<option value="4">04</option>
-
-																	<option value="5">05</option>
-
-																	<option value="6">06</option>
-
-																	<option value="7">07</option>
-
-																	<option value="8">08</option>
-
-																	<option value="9">09</option>
-
-																	<option value="10">10</option>
-
-																	<option value="11">11</option>
-
-																	<option value="12">12</option>
-
-																	<option value="13">13</option>
-
-																	<option value="14">14</option>
-
-																	<option value="15">15</option>
-
-																	<option value="16">16</option>
-
-																	<option value="17">17</option>
-
-																	<option value="18">18</option>
-
-																	<option value="19">19</option>
-
-																	<option value="20">20</option>
-
-																	<option value="21">21</option>
-
-																	<option value="22">22</option>
-
-																	<option value="23">23</option>
-
-																	<option value="24">24</option>
-
-																</select> <span class="input-group-text">시 까지</span>
-															</div>
-														</td>
-													</tr>
-													<tr>
 														<td class="text-bold-500">예약인원</td>
 														<td align="center">
 															<div class="row align-items-center">
 																<div class="col-lg-8 col-8">
 																	<input type="number" class="form-control" name="person"
-																		value="1" id="testperson">
+																		value="0" id="testperson">
 																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="text-bold-500">예약 날짜</td>
+														<td align="center"><input type="date"
+															name="reservationdate" id="textdate"></td>
+													</tr>
+													<tr>
+														<td class="text-bold-500">예약시간</td>
+														<td>
+															<div class="input-group mb-3">
+																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }"> 
+																<select class="form-control" name="checkintime" id="selectTextTime1">
+																	<c:forEach var="i" begin="${spacebean.operatingtime }"
+																		end="${spacebean.operatingendtime }">
+																		<fmt:formatNumber var="hourStr" value="${i }"
+																			pattern="00" />
+																		<c:set var="timeStr" value="${hourStr }:00" />
+																		<option value="${i }"
+																			<c:if test="${i eq reservationbean.checkin}">selected</c:if>>${timeStr }
+																		</option>
+																	</c:forEach>
+																</select>
+																 <span class="input-group-text"> ~ </span> 
+																 <input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }"> 
+																 <select class="form-control" name="checkouttime" id="selectTextTime2">
+																	<c:forEach var="i" begin="${spacebean.operatingtime }" end="${spacebean.operatingendtime }">
+																		<fmt:formatNumber var="hourStr" value="${i }" pattern="00" />
+																		<c:set var="timeStr" value="${hourStr }:00" />
+																		<option value="${i }"
+																			<c:if test="${i eq reservationbean.checkout }">selected</c:if>>${timeStr }
+																		</option>
+																	</c:forEach>
+																</select>
 															</div>
 														</td>
 													</tr>
@@ -447,12 +277,12 @@
 													</div>
 													<div class="col-md-8 form-group">
 														<%
-															MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
-															String nickname = loginInfo.getNickname();
-															String hp = loginInfo.getHp();
-															String email = loginInfo.getEmail();
-															int membernum = loginInfo.getNum();
-															%>
+														MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
+														String nickname = loginInfo.getNickname();
+														String hp = loginInfo.getHp();
+														String email = loginInfo.getEmail();
+														int membernum = loginInfo.getNum();
+														%>
 														<%=nickname%>
 													</div>
 													<div class="col-md-4">
@@ -551,49 +381,90 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
-	    var intValprice;
-	      var checkoutTime;
-	      var checkinTime;
-	      var priceVal;
-	      var intAmount;
-	      var cTime;
-	      var intcheckinTime;
-	      var intcheckoutTime;
-	      $(function(){
-	         $('#textdate').change(function(){
-	            //alert(1);
-	            var dateVal = $(this).val();
-	            $('#textbox').val(dateVal);
-	         });
-	         $('#selectTextTime1').change(function(){
-	            var checkinTime = $(this).val();
-	            $('#selectText1').val(checkinTime);
-	             intcheckinTime = parseInt(checkinTime);
-	            //alert(intcheckinTime);
-	         });
-	         $('#selectTextTime2').change(function(){
-	            var checkoutTime = $(this).val();
-	            $('#selectText2').val(checkoutTime);
-	             intcheckoutTime = parseInt(checkoutTime);
-	             cTime=(intcheckoutTime-intcheckinTime)*intValprice;
-	            // alert(parseInt(intAmount+cTime));
-	             $('#priceText').text(intAmount+cTime);	
-	         });
-	         
-	         $('#testperson').change(function(){
-		            var personVal = $(this).val();
-		            $('#textboxperson').val(personVal);
-		             intValperson = parseInt(personVal);
-		            
-		             priceVal = "${detailSpacebean.price}";
-		            intValprice = parseInt(priceVal);
-		            
-		             intAmount = intValperson*intValprice;
-		            //alert(intAmount);
-		            // alert(intAmount+cTime);
-		             //$('#priceText').text(intAmount+cTime);
-		      });	 
-	      });
+			function processing(){
+				var start_time = $('select[name="checkintime"]').val();
+				var end_time = $('select[name="checkouttime"]').val();
+			
+			if($('input[name="person"]').val()==0) {
+					alert("최소 인원 1명이상 선택해주세요.");
+					$('input[name="person"]').focus();
+					return false;
+			}
+			if($('input[name="reservationdate"]').val()=="") {
+				alert("예약날짜 선택해주세요.");
+				$('input[name="reservationdate"]').focus();
+				return false;
+				
+			}
+			if($('input[name="paymenttype"]').val()=="") {
+				alert("결제상태를 선택해주세요.");
+				$('input[name="reservationdate"]').focus();
+				return false;
+			}
+			
+			var opStime = ${spacebean.operatingtime};
+			var opEtime = ${spacebean.operatingendtime};
+			if(opStime == 0 && opEtime == 24){
+				//24시간 운영
+				return true;
+			}
+			if(parseInt(start_time) > parseInt(end_time)){
+				alert("시작시간은 종료시간보다 빨라야 합니다.");
+				return false;
+			}
+			else if(start_time == end_time){
+				alert("시작시간과 종료시간이 같을 수 없습니다.");
+				return false;
+			}
+			return true;
+		}
+		</script>
+		<script type="text/javascript">
+			var intValprice;
+			var checkoutTime;
+			var checkinTime;
+			var priceVal;
+			var intAmount;
+			var cTime;
+			var intcheckinTime;
+			var intcheckoutTime;
+			
+			$(function() {
+				$('#textdate').change(function() {
+					//alert(1);
+					var dateVal = $(this).val();
+					$('#textbox').val(dateVal);
+				});
+				$('#selectTextTime1').change(function() {
+					var checkinTime = $(this).val();
+					$('#selectText1').val(checkinTime);
+					intcheckinTime = parseInt(checkinTime);
+					//alert(intcheckinTime);
+				});
+				$('#selectTextTime2').change(function() {
+					var checkoutTime = $(this).val();
+					$('#selectText2').val(checkoutTime);
+					intcheckoutTime = parseInt(checkoutTime);
+					cTime = (intcheckoutTime - intcheckinTime) * intValprice;
+					// alert(parseInt(intAmount+cTime));
+					$('#priceText').text(intAmount + cTime);
+				});
+
+				$('#testperson').change(function() {
+					var personVal = $(this).val();
+					$('#textboxperson').val(personVal);
+					intValperson = parseInt(personVal);
+
+					priceVal = "${detailSpacebean.price}";
+					intValprice = parseInt(priceVal);
+
+					intAmount = intValperson * intValprice;
+					//alert(intAmount);
+					// alert(intAmount+cTime);
+					$('#priceText').text(intAmount);
+				});
+			});
+			
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
