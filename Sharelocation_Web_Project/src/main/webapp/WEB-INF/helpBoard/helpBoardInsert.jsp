@@ -29,6 +29,9 @@ tr th {
 .required {
 	color: red;
 }
+.ck-editor__editable{
+	min-height: 250px;
+}
 </style>
 
 
@@ -44,10 +47,71 @@ tr th {
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
-
-
 						<%-- ******* Main Code HERE ******* --%>
-
+						<section id="basic-vertical-layouts">
+							<div class="row justify-content-md-center">
+								<div class="col-md-8 col-12">
+									<div class="card">
+										<div class="card-header">
+											<h4 class="card-title">도움말 입력</h4>
+										</div>
+										<div class="card-content">
+											<div class="card-body">
+												<form class="form form-vertical" action="insertHelpBoard.hb"
+													method="post">
+													<input type="hidden" name="writer" value="${loginInfo.nickname }">
+													<input type="hidden" name="membernum" value="${loginInfo.num }">
+													<input type="hidden" name="type" value="${loginInfo.type }">
+													<div class="form-body">
+														<div class="row">
+															<label><b>작성자&nbsp;&nbsp;</b>${loginInfo.nickname }</label>
+															<br><br>
+															<div class="col-12 mb-2">
+																<label><b>종류</b></label>
+															</div>
+															<div class="col-md-12 form-group">
+																<select name="category">
+																	<option value="">선택하세요</option>
+																	<c:forEach var="category" items="${category}">
+																		<option value="${category}"
+																			<c:if test ="">selected</c:if>>${category}</option>
+																	</c:forEach>
+																</select>
+															</div>
+															<div class="col-12 mb-2">
+																<label><b>제목</b></label>
+															</div>
+															<div class="col-md-12 form-group">
+																<input type="text" id="subject"
+																	class="form-control" name="title">
+															</div>
+															<div class="col-12 mb-2">
+																<label><b>내용</b></label>
+															</div>
+															<br><br>
+															<div class="col-md-12 form-group">
+																<textarea class="form-control" id="editor" name="content"></textarea>
+															</div>
+															<br><br>
+															<div class="col-12 d-flex justify-content-end">
+																<input type="submit" class="btn btn-primary me-1 mb-1"
+																	onClick="return processing()" value="확인"> <input
+																	type="button" class="btn btn-light-secondary me-1 mb-1"
+																	onClick="javascript:history.back()" value="취소">
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						
+						
+						
+						
 						<div id="main-content">
 							<div class="page-heading">
 								<section class="section">
@@ -158,6 +222,7 @@ tr th {
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+		<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 		<script type="text/javascript">
 			function insert() {
 				location.href = "insertHelpBoard.hb";
@@ -166,6 +231,30 @@ tr th {
 			function listHelp(){
 				//alert();
 				location.href="helpBoardList.hb";
+			}
+			
+			var myEditor;
+			ClassicEditor
+	          .create( document.querySelector( '#editor' ) )
+	          .then(editor => {
+	          console.log('Editor was initialized', editor);
+	          myEditor = editor;
+	          })
+	          .catch( error => {
+	              console.error( error );
+	          } );
+			function processing(){
+				if($("#subject").val()==""){
+					alert("제목을 입력하세요");
+					$("#subject").focus();
+					return false;
+				}
+				if(myEditor.getData()==""){
+					alert("내용을 입력하세요");
+					$("#editor").focus();
+					return false;
+				}
+				return true;
 			}
 		</script>
 
