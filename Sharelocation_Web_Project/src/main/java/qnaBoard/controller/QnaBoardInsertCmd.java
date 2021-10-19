@@ -37,7 +37,7 @@ public class QnaBoardInsertCmd {
 		if(member == null) {
 			session.setAttribute("destination", "redirect:"+command);
 			pw.println("<script>");
-			pw.println("alert('검수가 처리되었습니다.');");
+			pw.println("alert('로그인이 필요한 작업입니다.');");
 			pw.println("location.href='miniLogin.member';");
 			pw.println("</script>");
 			pw.flush();

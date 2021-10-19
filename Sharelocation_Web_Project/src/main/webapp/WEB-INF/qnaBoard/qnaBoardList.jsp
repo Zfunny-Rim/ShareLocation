@@ -95,7 +95,8 @@
 											</div>
 										</div>
 										<div class="right-side">
-											<button class="btn btn-outline-secondary" onClick="location.href='insert.qnaBoard'">글쓰기</button>
+											<button class="btn btn-outline-secondary" type="button"
+											onClick="location.href='insert.qnaBoard'">글쓰기</button>
 										</div>
 									</div>
 								</form>
