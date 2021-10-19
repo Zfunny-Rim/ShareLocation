@@ -11,6 +11,8 @@ public class HelpBoardBean {
 	private String writer; 
 	private String regdate; 
 	@NotBlank(message="필수 입력사항입니다.")
+	private String title; 
+	@NotBlank(message="필수 입력사항입니다.")
 	private String content;
 	public int getNum() {
 		return num;
@@ -42,31 +44,38 @@ public class HelpBoardBean {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getContent() {
 		return content;
+	}
+	@Override
+	public String toString() {
+		return "HelpBoardBean [num=" + num + ", membernum=" + membernum + ", category=" + category + ", writer="
+				+ writer + ", regdate=" + regdate + ", title=" + title + ", content=" + content + "]";
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public HelpBoardBean(int num, int membernum, String category, String writer, String regdate, String content) {
+	public HelpBoardBean(int num, int membernum, String category, String writer, String regdate, String title,
+			String content) {
 		super();
 		this.num = num;
 		this.membernum = membernum;
 		this.category = category;
 		this.writer = writer;
 		this.regdate = regdate;
+		this.title = title;
 		this.content = content;
 	}
 	public HelpBoardBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "NoticeBoardBean [num=" + num + ", membernum=" + membernum + ", category=" + category + ", writer="
-				+ writer + ", regdate=" + regdate + ", content=" + content + "]";
-	} 
-	
 	
 
 }

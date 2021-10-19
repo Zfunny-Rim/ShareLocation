@@ -57,7 +57,8 @@ tr th {
 											<div class="card-content">
 												<div class="card-body">
 													<h4>공지사항 입력</h4>
-													<form:form commandName="helpBoardBean" action="insertHelpBoard.hb" method="post">
+													<form:form commandName="helpBoardBean"
+														action="insertHelpBoard.hb" method="post">
 														<div class="form-body">
 															<div class="row">
 																<div class="divider">
@@ -69,8 +70,8 @@ tr th {
 																	</label>
 																</div>
 																<div class="col-md-8 form-group">
-																	<input type="hidden" class="form-control" name="writer"
-																		value="${id}"> <input type="text"
+																	<input type="text" class="form-control" name="writer"
+																		value="${id}"> <input type="hidden"
 																		class="form-control" name="membernum"
 																		value="${membernum}">
 																	<p>
@@ -83,37 +84,46 @@ tr th {
 																	</label>
 
 																</div>
+
+
+
 																<div class="col-md-8 form-group">
-																
-																
-															<select name="category">
-																<option value="">선택하세요</option>
-															<c:forEach var="category" items="${category}">
-																<option value="${category}" 
-																<c:if test ="">selected</c:if>
-																>${category}</option>
-															</c:forEach>
-															</select>
-															
-																	
-																	
-																	<form:errors cssClass="err" path="category"/>
+																	<select name="category">
+																		<option value="">선택하세요</option>
+																		<c:forEach var="category" items="${category}">
+																			<option value="${category}"
+																				<c:if test ="">selected</c:if>>${category}</option>
+																		</c:forEach>
+																	</select>
+
+																	<form:errors cssClass="err" path="category" />
 																	<p>
-																		<small class="text-muted"> 
-																		
-																		</small>
+																		<small class="text-muted"> </small>
 																	</p>
 																</div>
+																<div class="col-md-4">
+																	<label>제목 <span class="required">*</span>
+																	</label>
+																</div>
+
+																<div class="col-md-8 form-group">
+																	<input type="text" class="form-control" name="title">
+																	<p>
+																		<small class="text-muted"><form:errors cssClass="err" path="title" /> </small>
+																	</p>
+																</div>
+
 																<!-- 입력 2 start -->
 																<div class="col-md-4">
 																	<label>공지 내용 <span class="required">*</span></label>
 																</div>
 																<div class="col-md-8 form-group">
 																	<textarea class="form-control" rows="3" name="content"
-																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;" placeholder="공지 내용 쓰기"></textarea>
+																		style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;"
+																		placeholder="공지 내용 쓰기"></textarea>
 																	<p>
-																		<small class="text-muted"> 
-																		<form:errors cssClass="err" path="content" />
+																		<small class="text-muted"> <form:errors
+																				cssClass="err" path="content" />
 																		</small>
 																	</p>
 																</div>
@@ -125,7 +135,8 @@ tr th {
 																			type="submit">삽입</button>
 																		<button class="btn btn-sm btn-outline-success"
 																			type="reset">취소</button>
-																		<button class="btn btn-sm btn-outline-success" onclick="listHelp()">목록</button>
+																		<button class="btn btn-sm btn-outline-success"
+																			onclick="listHelp()">목록</button>
 																	</div>
 																</div>
 
