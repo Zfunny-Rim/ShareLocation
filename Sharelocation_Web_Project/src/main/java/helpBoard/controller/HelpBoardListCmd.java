@@ -48,6 +48,11 @@ public class HelpBoardListCmd {
 		if(pagenumber == null) {
 			pagenumber = "1";
 		}
+		if(keyword == null) {
+			keyword = "%";
+		}
+		
+		
 		System.out.println("HelpBoardListCmd");
 		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");

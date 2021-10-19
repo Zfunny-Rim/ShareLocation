@@ -6,6 +6,12 @@
 <html lang="ko">
 
 
+<%
+String[] time = new String[]{"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+		"11", "12", "13", "14", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
+request.setAttribute("time", time);
+%>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -298,58 +304,11 @@
 															<div class="input-group mb-3">
 																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
 																<select class="form-select" name="checkintime" id="selectTextTime1" >
-																	<option value="">선택</option>
 																	
-																	<option value="0">00</option>
-
-																	<option value="1">01</option>
-
-																	<option value="2">02</option>
-
-																	<option value="3">03</option>
-
-																	<option value="4">04</option>
-
-																	<option value="5">05</option>
-
-																	<option value="6">06</option>
-
-																	<option value="7">07</option>
-
-																	<option value="8">08</option>
-
-																	<option value="9">09</option>
-
-																	<option value="10">10</option>
-
-																	<option value="11">11</option>
-
-																	<option value="12">12</option>
-
-																	<option value="13">13</option>
-
-																	<option value="14">14</option>
-
-																	<option value="15">15</option>
-
-																	<option value="16">16</option>
-
-																	<option value="17">17</option>
-
-																	<option value="18">18</option>
-
-																	<option value="19">19</option>
-
-																	<option value="20">20</option>
-
-																	<option value="21">21</option>
-
-																	<option value="22">22</option>
-
-																	<option value="23">23</option>
-
-																	<option value="24">24</option>
-
+																	<c:forEach items="${time}" var="${time}">
+																	
+																	</c:forEach>
+																	
 																</select> <span class="input-group-text">시 부터</span> 
 																<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
 																<select class="form-select" name="checkouttime" id="selectTextTime2">
