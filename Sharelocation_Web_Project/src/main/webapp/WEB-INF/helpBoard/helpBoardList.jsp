@@ -7,6 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
+<%
+String[] category = new String[]{"회원", "예약 및 결제", "취소 및 환불", "공간이용 및 후기", "기타"};
+request.setAttribute("category", category);
+%>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
 <style type="text/css">
 tr th {
@@ -33,8 +37,8 @@ tr th {
 						<div id="main-content">
 							<div class="page-heading">
 								<section class="section">
-
 									<div class="row justify-content-md-center">
+
 										<div class="card mb-2">
 											<div class="card-content">
 												<div class="card-body">
@@ -59,19 +63,22 @@ tr th {
 																			<tr>
 																				<th>번호</th>
 																				<th>작성자</th>
-																				<th>제목</th>
+																				<th>종류</th>
+																				<th>내용</th>
 																				<th>작성일</th>
 																			</tr>
 																		</thead>
 																		<tbody>
-																			<c:forEach var="help" items="${helpBoard}"  varStatus="vs">
+																			<c:forEach var="help" items="${helpBoard}"
+																				varStatus="vs">
 																				<tr>
 																					<td class="text-bold-500" width="200px">${pageInfo.totalCount - ((pageInfo.pageNumber-1) * pageInfo.pageSize) - vs.count + 1}</td>
 																					<td class="text-bold-500" width="200px">${help.writer }</td>
+																					<td class="text-bold-500" width="200px">${help.category }</td>
 																					<td width="auto"><a
-																						href="detailViewHelpBoard.hb?num=${help.num}">${help.category }</a></td>
+																						href="detailViewHelpBoard.hb?num=${help.num}">${help.content }</a></td>
 																					<td>${help.regdate }</td>
-																					
+
 																				</tr>
 																			</c:forEach>
 																		</tbody>
@@ -81,6 +88,24 @@ tr th {
 															</div>
 														</div>
 													</div>
+													<div class="row justify-content-center">
+														<form class="m-0 p-0" action="helpBoardList.hb" method="get"
+															style="width: 500px">
+															<div class="input-group ms-auto">
+																<select name="whatColumn" class="input-group-text">
+																	<option value="%%">전체종류</option>
+																	<c:forEach var="category" items="${category}">
+																		<option value="${category}">${category}</option>
+																	</c:forEach>
+																</select> <input type="text" class="form-control"
+																	placeholder="도움말 내용 검색하세요." name="keyword"> <input
+																	type="submit" value="검색"
+																	class="btn btn-outline-secondary">
+															</div>
+														</form>
+													</div>
+
+
 													<!-- 페이징 시작 -->
 													<c:if test="${not empty helpBoard }">
 														<div class="page-nav d-flex justify-content-center">

@@ -7,6 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IPS partagé</title>
 <%@ include file="/WEB-INF/views/include/head_css.jsp"%>
+<%
+String[] category = new String[]{"회원", "예약 및 결제", "취소 및 환불", "공간이용 및 후기", "기타"};
+request.setAttribute("category", category);
+%>
+
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
 <link rel="stylesheet"
 	href="./resources/assets/vendors/choices.js/choices.min.css">
@@ -64,7 +69,7 @@ tr th {
 																	</label>
 																</div>
 																<div class="col-md-8 form-group">
-																	<input type="text" class="form-control" name="writer"
+																	<input type="hidden" class="form-control" name="writer"
 																		value="${id}"> <input type="text"
 																		class="form-control" name="membernum"
 																		value="${membernum}">
@@ -79,7 +84,19 @@ tr th {
 
 																</div>
 																<div class="col-md-8 form-group">
-																	<input type="text" class="form-control" name="category">
+																
+																
+															<select name="category">
+																<option value="">선택하세요</option>
+															<c:forEach var="category" items="${category}">
+																<option value="${category}" 
+																<c:if test ="">selected</c:if>
+																>${category}</option>
+															</c:forEach>
+															</select>
+															
+																	
+																	
 																	<form:errors cssClass="err" path="category"/>
 																	<p>
 																		<small class="text-muted"> 

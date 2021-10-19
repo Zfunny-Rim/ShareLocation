@@ -6,8 +6,7 @@
 
 	<select id="getSpace" resultType="MySpace">
 		select * from space
-		where num =
-		#{num}
+		where num = #{num}
 	</select>
 
 	<insert id="addFavorite">
