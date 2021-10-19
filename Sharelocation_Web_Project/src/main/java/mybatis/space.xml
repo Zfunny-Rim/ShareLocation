@@ -208,4 +208,7 @@
 	<select id="getFavoriteListCount" resultType="int">
 		select count(*) from favorite where membernum=#{membernum}
 	</select>
+	<select id="getRecentSpaceList" resultType="MySpace">
+		select * from space order by regdate desc
+	</select>
 </mapper>
