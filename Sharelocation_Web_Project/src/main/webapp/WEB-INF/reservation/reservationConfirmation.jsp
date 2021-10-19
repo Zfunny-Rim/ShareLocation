@@ -72,7 +72,7 @@
 								<div class="card-content">
 									<div class="card-body">
 										<h5 class="card-title" align="center">${spacebean.name },${detailSpacebean.name }</h5>
-										<p class="card-text" align="center">예약이 확정되었습니다.</p>
+										<p class="card-text" align="center">예약대기 상태가 되었습니다.</p>
 									</div>
 								</div>
 								<ul class="list-group list-group-flush">

@@ -2,8 +2,10 @@ package reservation.controller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,17 +48,20 @@ public class reservationController {
 	public ModelAndView reservation(HttpServletRequest request,ModelAndView mav,
 			@RequestParam("spacenum") int spacenum,
 			@RequestParam("detailspacenum") int detailspacenum,		
-			Model model,
+			Model model,HttpServletResponse response,
 			HttpSession session ) throws IOException {
-			 
+		response.setContentType("text/html; charset=UTF-8");	 
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		//로그인 안했다면
+		PrintWriter pw = response.getWriter();
 		if(session.getAttribute("loginInfo")==null) { 
 						
-			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-			model.addAttribute("url", "/sharelocation/miniLogin.member");
-			mav.setViewName("redirect");
-			return mav;
+			session.setAttribute("destination", "redirect:/detailView.sp?num="+spacenum+"&detailspacenum="+detailspacenum);     
+			pw.print("<script>");
+			pw.print("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='miniLogin.member';");
+			pw.print("</script>");
+			return null;
 		}
 		//로그인 했으면
 		else {
