@@ -109,8 +109,14 @@ element.style {
 						<div class="card">
 						<div class="card-body">
 							<h3>${space.name }
-							<button class="btn btn-danger"
-								onclick="favorite(${space.num},${space.membernum})">찜하기</button>
+							<c:if test="${not empty favoriteBean }">
+								<button class="btn btn-danger"
+								onclick="favorite(${space.num})">찜해제하기</button>
+							</c:if>
+							<c:if test="${empty favoriteBean }">
+							<button class="btn btn-success"
+								onclick="favorite(${space.num})">찜하기</button>
+							</c:if>
 							</h3>
 							<div class="card-text mb-2">
 							${space.contentssim }
@@ -466,23 +472,11 @@ element.style {
 			}
 		);
 		
-		function approval(num){
-			result = confirm('검수를 완료하시겠습니까? 해당 공간이 영업을 시작합니다.');
-			if(result){
-				location.href='approvalProc.admin?spaceNum='+num+'&flag=true';
-			}
-		}
-		function reject(num){
-			result = confirm('검수를 반려하시겠습니까?');
-			if(result){
-				location.href='approvalProc.admin?spaceNum='+num+'&flag=false';
-			}
-		}
 		</script>
 		<script type="text/javascript">
 	
-	function favorite(spacenum,membernum){
-		location.href="favorite.sp?spacenum="+spacenum+"&membernum="+membernum;
+	function favorite(spacenum){
+		location.href="favorite.sp?spacenum="+spacenum;
 	}
 	
 	function detailView(spacenum){

@@ -117,8 +117,9 @@ public class SpaceDao {
 		spaceLists = sqlSessionTemplate.selectList(namespace+".getSpaceList", id);
 		return spaceLists;
 	}
-	public List<FavoriteBean> getFavoriteList(int num) {
-		List<FavoriteBean> favoritBean = sqlSessionTemplate.selectList(namespace+".getFavoriteList", num);
+	public List<FavoriteBean> getFavoriteList(int num, Paging pageInfo) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		List<FavoriteBean> favoritBean = sqlSessionTemplate.selectList(namespace+".getFavoriteList", num, rowBounds);
 		return favoritBean;
 	}
 	public SpaceBean getSpaceBySpaceNum(int num) {
@@ -156,6 +157,12 @@ public class SpaceDao {
 	}
 	public List<AdvertiseBean> getExpiredAdvertiseList() {
 		return sqlSessionTemplate.selectList(namespace+".getExpiredAdvertiseList");
+	}
+	public FavoriteBean getFavoriteBySpaceNumAndMemberNum(FavoriteBean fBean) {
+		return sqlSessionTemplate.selectOne(namespace+".getFavoriteBySpaceNumAndMemberNum", fBean);
+	}
+	public int getFavoriteListCount(int memberNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getFavoriteListCount", memberNum);
 	}
 }
 

@@ -27,6 +27,7 @@ import utility.Paging;
 public class SpaceReviewManageController {
 	private final String command = "reviewManage.sp";
 	private final String viewPage = "reviewManage";
+	private final String delCommand = "reviewDelete.sp";
 	
 	@Autowired
 	MemberDao memberDao;
@@ -66,6 +67,33 @@ public class SpaceReviewManageController {
 		}
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("pageInfo", pageInfo);
+		return mav;
+	}
+	
+	@RequestMapping(value=delCommand)
+	public ModelAndView reviewDelete(@RequestParam(value="reviewNum")int reviewNum,
+			HttpSession session, HttpServletResponse response) throws IOException {
+		ModelAndView mav = new ModelAndView(viewPage);
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='miniLogin.member';");
+			pw.println("</script>");
+			return null;
+		}
+		int cnt = -1;
+		cnt = reviewBoardDao.deleteReviewByNum(reviewNum);
+		if(cnt != -1) {
+			pw.println("<script>");
+			pw.println("alert('리뷰가 삭제되었습니다..');");
+			pw.println("location.href='reviewManage.sp';");
+			pw.println("</script>");
+			return null;
+		}
+		mav.setViewName("redirect:/reviewManage.sp");
 		return mav;
 	}
 }

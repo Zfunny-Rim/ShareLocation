@@ -86,7 +86,7 @@
 			<!-- ***** Login Card END ***** -->
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="/sharelocation" class='sidebar-link'>
 						<i class="bi bi-house-door-fill"></i> <span>홈</span>
 				</a></li>
 					<li class="sidebar-item">
@@ -110,7 +110,7 @@
 				</a></li>
 				<li class="sidebar-title"></li>
 				<li class="sidebar-item"><a href="main.ho" class='sidebar-link'>
-						<i class="bi bi-cart"></i> <span>호스트 되기</span>
+						<i class="bi bi-cart"></i> <span>호스트 페이지</span>
 				</a></li>
 			</ul>
 		</div>

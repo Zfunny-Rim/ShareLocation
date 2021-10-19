@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
+import member.model.MemberBean;
 import reservation.model.BalanceBean;
 import reservation.model.BalanceDao;
 import reviewBoard.model.ReviewBoardBean;
 import reviewBoard.model.ReviewBoardDao;
+import space.model.FavoriteBean;
 import space.model.SpaceBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
@@ -55,8 +58,7 @@ public class SpaceDetailView {
 				@RequestParam(value="whatColumn", required =false) String whatColumn,
 				@RequestParam(value="keyword", required =false) String keyword,
 				@RequestParam(value ="pagenumber",required = false) String pagenumber,
-			
-				HttpServletRequest request,
+				HttpServletRequest request, HttpSession session,
 				ReviewBoardBean boardBean,
 			   ModelAndView mav) {
 		System.out.println("spaceDetailView");
@@ -86,10 +88,6 @@ public class SpaceDetailView {
 		List<DetailSpaceBean> detailspace = detailSpaceDao.getListDetailSpace(num);
 		System.out.println("detailspace"+detailspace);
 		mav.addObject("detailspace",detailspace);
-		
-		
-		
-		
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("spacenum", Integer.toString(num));
@@ -142,7 +140,17 @@ public class SpaceDetailView {
 		//dspList
 		List<DetailSpaceBean> dspList = detailSpaceDao.getDetailSpaceListBySpaceNum(num);
 		mav.addObject("dspList",dspList);
-		mav.setViewName(getPage);	
+		mav.setViewName(getPage);
+		//favorite
+		FavoriteBean favoriteBean = null;
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo != null) {
+			FavoriteBean fBean = new FavoriteBean();
+			fBean.setSpacenum(num);
+			fBean.setMembernum(loginInfo.getNum());
+			favoriteBean = spaceDao.getFavoriteBySpaceNumAndMemberNum(fBean);
+		}
+		mav.addObject("favoriteBean", favoriteBean);
 		return mav;
 	}
 

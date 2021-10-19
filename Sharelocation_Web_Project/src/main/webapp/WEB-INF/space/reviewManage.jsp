@@ -106,7 +106,7 @@
 							<p class="card-text">${review.content }</p>
 							<div class="del-btn">
 								<button class="btn btn-sm btn-outline-danger" 
-									onClick="replyDel('${spaceNum}', '${replyBean.num }')">삭제</button>
+									onClick="replyDel('${review.num }')">삭제</button>
 							</div>
 						</div>
 						<c:set var="replyBean" value="${review.reviewReply }"/>
@@ -178,7 +178,14 @@
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 <%-- ******* CUSTOM Script HERE ******* --%>
-
+<script type="text/javascript">
+function replyDel(reviewnum){
+	result = confirm('리뷰를 삭제하시겠습니까?');
+	if(result){
+		location.href='reviewDelete.sp?reviewNum='+reviewnum;
+	}
+}
+</script>
 <%-- ******* CUSTOM Script END ******* --%>
 </div>
 </body>

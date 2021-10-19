@@ -51,8 +51,8 @@ public class reservationListController {
 		//로그인 안했다면
 		if(session.getAttribute("loginInfo")==null) { 
 			
-			model.addAttribute("msg", "로그인 해주세요~!");
-			model.addAttribute("url", "/sharelocation/#");
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/sharelocation/miniLogin.member");
 			mav.setViewName("redirect");
 			return mav;
 		}
