@@ -1,10 +1,13 @@
 package reservation.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -44,12 +47,21 @@ public class reservationInsertController {
 	@RequestMapping(value=command)
 	public ModelAndView reservationInsert(
 			ReservationBean reservationBean, BindingResult result,  HttpServletRequest request,
-			ModelAndView mav, HttpSession session
-			) throws ParseException{
+			ModelAndView mav, HttpSession session, HttpServletResponse response
+			) throws ParseException, IOException{
 		System.out.println(reservationBean);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
 		int spacenum = reservationBean.getSpacenum();
 		int detailspacenum = reservationBean.getDetailspacenum();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='miniLogin.member';");
+			pw.println("</script>");
+			return null;
+		}
 		//set member session요청
 		reservationBean.setMembernum(loginInfo.getNum()); 
 		reservationBean.setSpacenum(spacenum);
@@ -88,7 +100,7 @@ public class reservationInsertController {
 		
 		System.out.println("resevationbean InsertController:"+reservationBean);
 			int cnt=-1;
-			cnt = reservationDao.reservInsert(reservationBean);
+			//cnt = reservationDao.reservInsert(reservationBean);
 			if(cnt != -1) {
 				System.out.println("저장 성공");
 			}
@@ -98,6 +110,7 @@ public class reservationInsertController {
 			
 			mav.addObject("spacenum",spacenum);
 			mav.addObject("spacebean",spacebean);
+			mav.addObject("memberbean", loginInfo);
 			mav.addObject("reservationdate",reservationdate);
 			mav.addObject("detailSpacebean",detailSpacebean);
 			mav.addObject("reservationbean",reservationBean);

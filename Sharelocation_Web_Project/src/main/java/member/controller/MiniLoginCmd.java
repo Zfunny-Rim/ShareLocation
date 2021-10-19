@@ -22,7 +22,7 @@ public class MiniLoginCmd {
 	private final String command = "miniLogin.member";
 	private final String hostPage = "redirect:/main.ho";
 	private final String guestPage = "redirect:/list.sp";
-	private final String adminPage = "redirect:/list.admin";
+	private final String adminPage = "redirect:/main.admin";
 	private final String getPage = "miniLoginForm";
 	
 	@Autowired
@@ -54,6 +54,7 @@ public class MiniLoginCmd {
 		 String destination = (String)session.getAttribute("destination");
 		 if(destination != null) {
 			 mav.setViewName(destination);
+			 session.setAttribute("destination", null);
 			 return mav;
 		 }
 		 if(dbMember == null) {
