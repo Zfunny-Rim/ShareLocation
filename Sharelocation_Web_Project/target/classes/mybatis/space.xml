@@ -6,7 +6,8 @@
 
 	<select id="getSpace" resultType="MySpace">
 		select * from space
-		where num = #{num}
+		where num =
+		#{num}
 	</select>
 
 	<insert id="addFavorite">
@@ -17,10 +18,9 @@
 
 	<select id="getSpaceList" resultType="MySpace">
 		select * from space
-		where status = '운영중'
-		<if test="status!=null">
-			or name like upper(#{keyword}) or tag like upper(#{keyword})
-		</if>
+		where status = '운영중' and name like
+		upper(#{keyword}) or tag like upper(#{keyword})
+
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
@@ -34,7 +34,8 @@
 		select count(*) from space
 		where status = '운영중'
 		<if test="status!=null">
-			or name like upper(#{keyword}) or tag like upper(#{keyword})
+			and name like upper(#{keyword}) or tag like
+			upper(#{keyword})
 		</if>
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
@@ -48,10 +49,13 @@
 	<select id="getPowerSpaceList" resultType="MySpace">
 		select * from space
 		where grade = '광고' and status = '운영중'
-		<if test="grade!=null">
-			or name like upper(#{keyword}) or tag like
-			upper(#{keyword})
+		<if test="status!=null">
+			and name like upper(#{keyword}) 
 		</if>
+		<if test="tag!=null">
+		and tag like upper(#{keyword})
+		</if>
+
 
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
@@ -163,9 +167,11 @@
 	</select>
 
 	<insert id="addAdvertise">
-		insert into advertise(num, spacenum, applicationdate, expiredate, price)
-		values(advertise_seq.nextval, #{spacenum}, 
-		sysdate, to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'), #{price})
+		insert into advertise(num, spacenum, applicationdate,
+		expiredate, price)
+		values(advertise_seq.nextval, #{spacenum},
+		sysdate,
+		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'), #{price})
 	</insert>
 	<update id="updateGrade">
 		update space set grade=#{grade} where num=#{num}
@@ -176,7 +182,8 @@
 	</select>
 	<update id="updateAdvertise">
 		update advertise set price = #{price},
-		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi') 
+		expiredate =
+		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi')
 		where num=#{num}
 	</update>
 	<select id="getSpaceApprovalWaitingList" resultType="MySpace">
@@ -196,19 +203,24 @@
 		where num = #{num}
 	</select>
 	<select id="getAllSpaceList" resultType="MySpace">
-		select * from space order by regdate desc
+		select * from space
+		order by regdate desc
 	</select>
 	<select id="getExpiredAdvertiseList" resultType="MyAdvertise">
-		select * from advertise where <![CDATA[ expiredate < sysdate ]]> 
+		select * from advertise where <![CDATA[ expiredate < sysdate ]]>
 	</select>
-	<select id="getFavoriteBySpaceNumAndMemberNum" resultType="MyFavorite">
-		select * from favorite 
-		where spacenum=#{spacenum} and membernum=#{membernum}
+	<select id="getFavoriteBySpaceNumAndMemberNum"
+		resultType="MyFavorite">
+		select * from favorite
+		where spacenum=#{spacenum} and
+		membernum=#{membernum}
 	</select>
 	<select id="getFavoriteListCount" resultType="int">
-		select count(*) from favorite where membernum=#{membernum}
+		select count(*)
+		from favorite where membernum=#{membernum}
 	</select>
 	<select id="getRecentSpaceList" resultType="MySpace">
-		select * from space order by regdate desc
+		select * from space
+		order by regdate desc
 	</select>
 </mapper>

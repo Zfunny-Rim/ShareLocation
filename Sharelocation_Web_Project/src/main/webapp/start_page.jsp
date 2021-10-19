@@ -3,6 +3,7 @@
 
 
 <% 
+
 	String viewPage = request.getContextPath();
 
 
