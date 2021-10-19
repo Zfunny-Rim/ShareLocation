@@ -69,14 +69,13 @@ public class reservationController {
 			//호스트정보가져오려면 호스트memberNum값 bean으로 묶기
 			
 			SpaceBean spacebean = spaceDao.getSpace(spacenum);
-			
 			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
-			
 			BalanceBean balance = balanceDao.getBalance(spacebean.getMembernum());
 			
 			mav.addObject("balance",balance);
 			mav.addObject("spacebean",spacebean);
 			mav.addObject("detailSpacebean",detailSpacebean);
+			mav.addObject("loginInfo",loginInfo);
 			mav.setViewName(getPage);
 			return mav;
 		}
