@@ -12,6 +12,9 @@
 .required {
 	color: red;
 }
+.ck-editor__editable{
+	min-height: 250px;
+}
 </style>
     <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -45,21 +48,21 @@
 													<input type="hidden" name="type" value="${loginInfo.type }">
 													<div class="form-body">
 														<div class="row">
-															<label>작성자<span class="required">*</span>&nbsp;&nbsp;${loginInfo.nickname }</label>
+															<label>작성자&nbsp;&nbsp;${loginInfo.nickname }</label>
 															<br><br>
-															<div class="col-12">
-																<label>제목<span class="required">*</span></label>
+															<div class="col-12 mb-2">
+																<label>제목</label>
 															</div>
 															<div class="col-md-12 form-group">
 																<input type="text" id="subject"
 																	class="form-control" name="subject">
 															</div>
-															<div class="col-12">
-																<label>내용<span class="required">*</span></label>
+															<div class="col-12 mb-2">
+																<label>내용</label>
 															</div>
 															<br><br>
 															<div class="col-md-12 form-group">
-																<textarea class="form-control" id="content" name="content" rows="5"></textarea>
+																<textarea class="form-control" id="editor" name="content"></textarea>
 															</div>
 															<br><br>
 															<div class="col-12 d-flex justify-content-end">
@@ -85,16 +88,22 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+		<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 		<script>
+		ClassicEditor
+          .create( document.querySelector( '#editor' ) )
+          .catch( error => {
+              console.error( error );
+          } );
 		function processing(){
 			if($("#subject").val()==""){
 				alert("제목을 입력하세요");
 				$("#subject").focus();
 				return false;
 			}
-			if($("#content").val()==""){
+			if($("textarea[name='content']").val()==""){
 				alert("내용을 입력하세요");
-				$("#content").focus();
+				$("textarea[name='content']").focus();
 				return false;
 			}
 			return true;
