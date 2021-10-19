@@ -49,11 +49,11 @@
 			values(review_board_seq.nextval, #{spacenum}, #{membernum}, #{writer}, sysdate, #{content}, review_board_seq.currval, 0, 0, #{servicerating}, #{pricevalueration}, #{cleanrating},#{totalrating})
 	</insert>
 	<select id="getOriginReviewListByMemberNum" resultType="MyReview">
-		select * from reviewboard where membernum=#{memberNum}
+		select * from reviewboard where membernum=#{memberNum} and relevel=0
 		order by regdate desc
 	</select>
 	<select id="getOriginReviewCountByMemberNum" resultType="int">
-		select count(*) from reviewboard where membernum=#{memberNum}
+		select count(*) from reviewboard where membernum=#{memberNum} and relevel=0
 	</select>
 </mapper>
 			

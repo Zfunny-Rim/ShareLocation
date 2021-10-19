@@ -65,6 +65,7 @@ public class SpaceReviewManageController {
 			rBean.setSpaceBean(spaceBean);
 		}
 		mav.addObject("reviewList", reviewList);
+		mav.addObject("pageInfo", pageInfo);
 		return mav;
 	}
 }
