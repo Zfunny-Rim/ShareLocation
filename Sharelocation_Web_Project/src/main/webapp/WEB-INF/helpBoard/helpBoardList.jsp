@@ -64,7 +64,7 @@ tr th {
 																				<th>번호</th>
 																				<th>작성자</th>
 																				<th>종류</th>
-																				<th>내용</th>
+																				<th>제목</th>
 																				<th>작성일</th>
 																			</tr>
 																		</thead>
@@ -76,7 +76,7 @@ tr th {
 																					<td class="text-bold-500" width="200px">${help.writer }</td>
 																					<td class="text-bold-500" width="200px">${help.category }</td>
 																					<td width="auto"><a
-																						href="detailViewHelpBoard.hb?num=${help.num}">${help.content }</a></td>
+																						href="detailViewHelpBoard.hb?num=${help.num}">${help.title}</a></td>
 																					<td>${help.regdate }</td>
 
 																				</tr>
