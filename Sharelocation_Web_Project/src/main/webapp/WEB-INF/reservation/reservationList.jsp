@@ -40,7 +40,7 @@ dl, ol, ul {
 <body>
 	<div id="app">
 		<%@ include file="/WEB-INF/views/include/body_navbar.jsp"%>
-		<%@ include file="/WEB-INF/views/include/body_sidebar_host.jsp"%>
+		<%@ include file="/WEB-INF/views/include/body_sidebar.jsp"%>
 		<div id="" style="padding-top: 0px;">
 			<div id="main-content">
 				<div class="page-heading">
@@ -49,7 +49,7 @@ dl, ol, ul {
 						<h3 align="center">예약 내역 리스트</h3>
 						<br> <br>
 						<div class="row justify-content-md-center mb-2">
-							<div class="col-md-9 col-12">
+							<div class="col-md-8 col-12">
 								<div class="row">
 									<div class="col-6 col-md-6 order-md-1 order-last"></div>
 									<div class="col-6 col-md-6 order-md-2 order-first">
@@ -96,7 +96,7 @@ dl, ol, ul {
 							</div>
 						</div>
 						<div class="row justify-content-md-center">
-							<div class="col-md-9 col-12">
+							<div class="col-md-8 col-12">
 								<div class="card">
 									<div class="card-header">
 										<h4 class="card-title">예약 내역 리스트</h4>

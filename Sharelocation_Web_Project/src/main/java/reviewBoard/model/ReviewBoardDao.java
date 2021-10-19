@@ -63,4 +63,13 @@ private String namespace = "reviewBoard.model.ReviewBoardBean";
 	public int insertReviewBoard(ReviewBoardBean reviewBoardBean) {
 		return sqlSessionTemplate.insert(namespace+".insertReviewBoard",reviewBoardBean);
 	}
+
+	public List<ReviewBoardBean> getOriginReviewListByMemberNum(int memberNum, Paging pageInfo) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		return sqlSessionTemplate.selectList(namespace+".getOriginReviewListByMemberNum", memberNum, rowBounds);
+	}
+
+	public int getOriginReviewCountByMemberNum(int memberNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getOriginReviewCountByMemberNum", memberNum);
+	}
 }
