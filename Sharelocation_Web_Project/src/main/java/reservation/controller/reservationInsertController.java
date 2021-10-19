@@ -94,8 +94,13 @@ public class reservationInsertController {
 		int Intoperatingendtime = Integer.parseInt(checkouttime);
 		int time = (Intoperatingendtime-Intoperatingtime);
 		int person = reservationBean.getPerson();
-		int totalamount = (price*time)+(price*person);
-		
+		int totalamount = 0;
+		String priceUnit = detailSpacebean.getPriceunit();
+		if(priceUnit.equals("시간")) {
+			totalamount = price * time * person;
+		}else {
+			totalamount = price * time;
+		}
 		reservationBean.setAmounts(totalamount);
 		
 		System.out.println("resevationbean InsertController:"+reservationBean);

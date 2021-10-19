@@ -32,24 +32,8 @@
 								<div class="card-text">
 								총게시물 &nbsp;${pageInfo.totalCount }
 								</div>
-								<form action="list.qnaBoard" method="get">
-									<div class="col-md-3 mb-7 mb-2">
-										<div class="input-group mb-3">
-											<select class="form-select" name="whatColumn">
-												<option value="all">전체</option>
-												<option value="subject">제목</option>
-												<option value="writer">작성자</option>
-											</select> 
-											<input type="text" class="form-control" name="keyword">
-											<input type="submit" class="input-group-text" value="검색" >&nbsp;
-										</div>
-										<div class="buttons">
-											<a href="insert.qnaBoard" class="btn btn-outline-dark">글쓰기</a>
-										</div>
-									</div>
-								</form>
 								<div class="table-responsive">
-									<table class="table mb-0">
+									<table class="table mb-3">
 										<thead class="thead-dark">
 											<tr>
 												<th>No.</th>
@@ -61,6 +45,13 @@
 											</tr>
 										</thead>
 										<tbody>
+											<c:if test="${empty list }">
+											<tr>
+												<td colspan="6" style="text-align:center">
+													<span class="text-muted">등록된 게시물이 없습니다.</span>
+												</td>
+											</tr>
+											</c:if>
 											<c:forEach var="list" items="${list }" varStatus="status">
 												<tr>
 													<td class="text-bold-500">${pageInfo.totalCount - ((pageInfo.pageNumber-1) * pageInfo.pageSize) - status.count + 1}</td>
@@ -89,9 +80,25 @@
 										</tbody>
 									</table>
 								</div>
-							</div>
-						</div>
-							<c:if test="${not empty list }">
+								<form action="list.qnaBoard" method="get">
+									<div class="d-flex justify-content-between">
+										<div class="left-side"></div>
+										<div class="center-side">
+											<div class="input-group mb-3">
+												<select class="form-select" name="whatColumn">
+													<option value="all">전체</option>
+													<option value="subject">제목</option>
+													<option value="writer">작성자</option>
+												</select> 
+												<input type="text" class="form-control" name="keyword">
+												<input type="submit" class="input-group-text" value="검색" >&nbsp;
+											</div>
+										</div>
+										<div class="right-side">
+											<button class="btn btn-outline-secondary" onClick="location.href='insert.qnaBoard'">글쓰기</button>
+										</div>
+									</div>
+								</form>
 								<div class="page-nav d-flex justify-content-center">
 									<nav>
 										<ul class="pagination pagination-primary">
@@ -100,14 +107,14 @@
 											</c:if>
 											<c:if test="${pageInfo.beginPage ne 1 }">
 												<c:set var="url"
-													value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }" />
+													value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }" />
 												<li class="page-item"><a class="page-link"
 													href="${url }">이전</a></li>
 											</c:if>
 											<c:forEach var="i" begin="${pageInfo.beginPage }"
 												end="${pageInfo.endPage }">
 												<c:set var="url"
-													value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }" />
+													value="${pageInfo.url }?pagenumber=${i }" />
 												<c:if test="${i eq pagenumber }">
 													<li class="page-item active"><a class="page-link">${i }</a></li>
 												</c:if>
@@ -121,14 +128,16 @@
 											</c:if>
 											<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
 												<c:set var="url"
-													value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}" />
+													value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }" />
 												<li class="page-item"><a class="page-link"
 													href="${url }">다음</a></li>
 											</c:if>
 										</ul>
 									</nav>
 								</div>
-							</c:if>
+								
+							</div>
+						</div>
 						</div>
 						</div>
 						<%-- ******* Main Code END ******* --%>
