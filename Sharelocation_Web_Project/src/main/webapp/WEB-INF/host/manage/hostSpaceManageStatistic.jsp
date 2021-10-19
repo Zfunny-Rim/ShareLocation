@@ -204,6 +204,7 @@
 							monthlyJson["7월"], monthlyJson["8월"],
 							monthlyJson["9월"], monthlyJson["10월"],
 							monthlyJson["11월"], monthlyJson["12월"] ],
+// 					data : [ 18, 25, 35, 33, 42, 31, 24, 27, 30, 51, 41, 43],
 				}, ],
 		chart : {
 			type : "bar",
@@ -259,6 +260,7 @@
 							profitJson["7월"], profitJson["8월"],
 							profitJson["9월"], profitJson["10월"],
 							profitJson["11월"], profitJson["12월"] ],
+// 						data : [ 220000, 270000, 330000, 480000, 620000, 410000, 430000, 270000, 300000, 610000, 410000, 430000],
 					}, ],
 			chart : {
 				type : "bar",
@@ -306,6 +308,7 @@
 	            series: [monthlyJson["1월"], monthlyJson["2월"], monthlyJson["3월"], monthlyJson["4월"],
 			    	  monthlyJson["5월"], monthlyJson["6월"], monthlyJson["7월"], monthlyJson["8월"],
 		    		  monthlyJson["9월"], monthlyJson["10월"], monthlyJson["11월"], monthlyJson["12월"]],
+// 				series : [ 18, 25, 35, 33, 42, 31, 24, 27, 30, 51, 41, 43],
 	            chart: {
 	            type: 'pie',
 	          },
@@ -332,6 +335,7 @@
        dowJson = JSON.parse(dowJson);
        var PieDowOptions = {
                series: [dowJson["월"],dowJson["화"],dowJson["수"],dowJson["목"],dowJson["금"],dowJson["토"],dowJson["일"]],
+// 				series : [ 18, 25, 35, 33, 72, 89, 41],
                chart: {
                type: 'pie',
              },
