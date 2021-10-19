@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-
 <% 
 	String viewPage = request.getContextPath();
 
