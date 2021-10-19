@@ -49,6 +49,7 @@ public class MemberLoginCmd {
 		 String destination = (String)session.getAttribute("destination");
 		 if(destination != null) {
 			 mav.setViewName(destination);
+			 session.setAttribute("destination", null);
 			 return mav;
 		 }
 		 if(dbMember == null) {

@@ -4,14 +4,6 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-
-
-<%
-String[] time = new String[]{"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
-		"11", "12", "13", "14", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
-request.setAttribute("time", time);
-%>
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,19 +16,16 @@ request.setAttribute("time", time);
 	height: auto;
 	margin-left: 20%;
 }
-
 .parent {
 	width: 90%;
 	margin: 10px auto;
 }
-
 .first {
 	border: 1px solid black;
 	float: left;
 	width: 30%;
 	box-sizing: border-box;
 }
-
 .second {
 	border: 1px solid black;
 	float: left;
@@ -44,14 +33,12 @@ request.setAttribute("time", time);
 	width: 30%;
 	box-sizing: border-box;
 }
-
 .third {
 	border: 1px solid black;
 	float: right;
 	width: 30%;
 	box-sizing: border-box;
 }
-
 .card-header {
 	padding: 1.5rem;
 	margin-bottom: 0;
@@ -72,351 +59,199 @@ request.setAttribute("time", time);
 			<div id="main-content">
 				<div class="page-heading">
 					<section class="section">
-						<%-- ******* Main Code HERE ******* --%>
-						<form:form commandName="" action="reservInsert.rv" method="post">
-							<input type="hidden" name="spacenum" value="${spacebean.num}">
-							<input type="hidden" name="detailspacenum"
-								value="${detailSpacebean.num}">
-							<h2 data-v-744e58ae="" class="heading--new" align="center">예약하기</h2>
-							<!-- 예약 공간 시작-->
-							<p class="text-subtitle text-muted">예약 공간</p>
-							<div class="card">
-								<div class="card-content">
-									<img
-										src="<%=request.getContextPath()%>/resources/spaceimage/${spacebean.mainimage}"
-										class="img-fluid1, first" alt="singleminded">
-									<div class="card-body">
-										<h5 class="card-title">${spacebean.name }</h5>
-										<p class="card-text">${spacebean.contentscom }</p>
-									</div>
-								</div>
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">공간유형 : ${spacebean.type }</li>
-									<li class="list-group-item">예약인원 :
-										최소${detailSpacebean.minperson }명~최대${detailSpacebean.maxperson }명</li>
-								</ul>
+					<div class="row justify-content-center">
+					<div class="col-8">
+					<%-- ******* Main Code HERE ******* --%>
+					<div class="card">
+					<div class="card-body">
+					<h4>예약하기</h4>
+						<div class="row">
+							<div class="col-5 px-5">
+							<img src="<%=request.getContextPath()%>/resources/spaceimage/${spacebean.mainimage}"
+										class="img-fluid w-100 first" style="height: 250px">
 							</div>
-							<!-- 예약 공간 끜-->
-
-							<!-- 접히는거 시작 -->
-							<div class="card-header"
-								style="width: auto; align-content: center;">
-								<div class="accordion" id="cardAccordion" style="width: auto">
-									<div class="card" style="width: auto">
-										<div class="card-header" id="headingOne"
-											data-bs-toggle="collapse" data-bs-target="#collapseOne"
-											aria-expanded="false" aria-controls="collapseOne"
-											role="button">
-											<span class="collapsed collapse-title">결제 예정 금액</span>
-										</div>
-										<div id="collapseOne" class="collapse pt-1"
-											aria-labelledby="headingOne" data-parent="#cardAccordion">
-											<div class="card-body">
-												<!-- reservation 넘어가기 -->
-
-												<div class="card-body" style="width: auto">
-													<!-- Table with outer spacing -->
-													<div class="table-responsive">
-														<table class="table table-lg" style="width: auto;">
-															<tbody>
-																<tr>
-																	<td class="text-bold-500">예약날짜</td>
-																	<td align="center"><input type="text" id="textbox"
-																		disabled></td>
-
-																</tr>
-																<tr>
-																	<td class="text-bold-500">예약시간</td>
-																	<td align="center">
-																		<div class="input-group mb-3">
-																			<select class="form-control" id="selectText1" disabled>
-																				<c:forEach var="i" begin="${spacebean.operatingtime }" end="${spacebean.operatingendtime }">
-																					<fmt:formatNumber var="hourStr" value="${i }"
-																						pattern="00" />
-																					<c:set var="timeStr" value="${hourStr }:00" />
-																					<option value="${i }"
-																						<c:if test="${i eq reservationbean.checkin}">selected</c:if>>${timeStr }
-																					</option>
-																				</c:forEach>
-																			</select> 
-																			<span class="input-group-text"> ~ </span>
-																			<select class="form-control" id="selectText2" disabled>
-																				<c:forEach var="i" begin="${spacebean.operatingtime }" end="${spacebean.operatingendtime }">
-																					<fmt:formatNumber var="hourStr" value="${i }" pattern="00" />
-																					<c:set var="timeStr" value="${hourStr }:00" />
-																					<option value="${i }"
-																						<c:if test="${i eq reservationbean.checkout }">selected</c:if>>${timeStr }
-																					</option>
-																				</c:forEach>
-																			</select>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="text-bold-500">예약인원</td>
-																	<td align="center"><input type="text"
-																		id="textboxperson" disabled>명</td>
-																</tr>
-																<tr>
-																	<td class="text-bold-500">결제방식</td>
-																	<td align="center"><select class="form-select"
-																		id="basicSelect" name="paymenttype">
-																			<option value="">선택</option>
-																			<option value="현장결제">현장결제</option>
-																			<option value="무통장입금">무통장입금</option>
-																	</select></td>
-																</tr>
-																<tr>
-																	<td class="text-bold-500" align="center" colspan="2">
-																	
-																		&#8361;
-																		<span id="priceText">
-																		${detailSpacebean.price}"
-																		</span>
-																	</td>
-																</tr>
-																<tr>
-																	<td colspan="2" class="text-bold-500" align="center">
-																	<button type="submit" class="btn btn-primary me-1 mb-1"
-				 														onClick="return processing()">예약신청하기
-				 													</button>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-												</div>
+							<div class="col-7">
+								<h4>${spacebean.name }</h4>
+								<table class="table">
+									<tr>
+										<th>공간설명</th>
+										<td>${spacebean.contentssim }</td>
+									</tr>
+									<tr>
+										<th>분류</th>
+										<td>${spacebean.type }</td>
+									</tr>
+									<tr>
+										<th>세부공간 이름</th>
+										<td>${detailSpacebean.name }</td>
+									</tr>
+									<tr>
+										<th>세부공간 설명</th>
+										<td>${detailSpacebean.contents }</td>
+									</tr>
+									<tr>
+										<th>예약시간</th>
+										<td>최소 ${detailSpacebean.mintime } 시간부터</td>
+									</tr>
+									<tr>
+										<th>수용인원</th>
+										<td>최소 ${detailSpacebean.minperson } 명 ~ 최대 ${detailSpacebean.maxperson } 명</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-6">
+					<div class="card">
+						<div class="card-body">
+						<h5>호스트 정보</h5>
+						<table class="table mb-5">
+							<tbody>
+								<tr>
+									<th>공간상호</th>
+									<td>${balance.company}</td>
+								</tr>
+								<tr>
+									<th>대표자명</th>
+									<td>${balance.name }</td>
+								</tr>
+								<tr>
+									<th>소재지</th>
+									<td>${balance.address }</td>
+								</tr>
+								<tr>
+									<th>연락처</th>
+									<td>${balance.call }</td>
+								</tr>
+							</tbody>
+						</table>
+						<h5>예약자 정보</h5>
+						<table class="table">
+							<tbody>
+							<tr>
+								<th>예약자 이름</th>
+								<td>${loginInfo.name}</td>
+							</tr>
+							<tr>
+								<th>연락처</th>
+								<td>${loginInfo.hp }</td>
+							</tr>
+							<tr>
+								<th>이메일</th>
+								<td>${loginInfo.email }</td>
+							</tr>
+							</tbody>
+						</table>
+						</div>
+					</div>
+					</div>
+					<div class="col-6">
+					<div class="card">
+					<div class="card-body">
+						<h5>예약 정보 입력</h5>
+							<form action="reservInsert.rv" method="post">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>예약인원</th>
+										<td align="center">
+											<input type="number" class="form-control" name="person"
+												value="${detailSpacebean.minperson }" id="selectPerson">
+										</td>
+									</tr>
+									<tr>
+										<th>예약날짜</th>
+										<td>
+										<jsp:useBean id="now" class="java.util.Date" />
+										<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+										<input type="date"
+											name="reservationdate" id="textdate" value="${today}"></td>
+									</tr>
+									<tr>
+										<th>예약시간</th>
+										<td>
+											<div class="input-group mb-3">
+												<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
+												<select class="form-select" name="checkintime" id="selectTextTime1">
+													<c:forEach var="i" begin="${spacebean.operatingtime }" end="${spacebean.operatingendtime }">
+														<option value="${i}">${i }</option>
+													</c:forEach>
+												</select> 
+												<span class="input-group-text">시 부터</span> 
+												<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
+												<select class="form-select" name="checkouttime" id="selectTextTime2">
+													<c:forEach var="i" begin="${spacebean.operatingtime }" end="${spacebean.operatingendtime }" varStatus="vs">
+														<option value="${i}"
+														<c:if test="${vs.count eq 2 }">selected</c:if>
+														>${i }</option>
+													</c:forEach>
+												</select>
+												<span class="input-group-text">시 까지</span>
 											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- 	  접히는거 끝 -->
-
-
-							<!-- 예약 정보 시작-->
-							<div class="col-md-7 col-12">
-								<div class="card">
-									<div class="card-header">
-										<div
-											class="card-header border-bottom d-flex justify-content-between align-items-center">
-											<h4 class="card-title d-flex">
-												<i class="bx bx-check font-medium-5 pl-25 pr-75"></i>예약정보
-											</h4>
-										</div>
-									</div>
-									<div class="card-content">
-										<div class="card-body">
-											<table class="table table-lg" style="width: auto;">
-												<tbody>
-													<tr>
-														<td class="text-bold-500">예약인원</td>
-														<td align="center">
-															<div class="row align-items-center">
-																<div class="col-lg-8 col-8">
-																	<input type="number" class="form-control" name="person"
-																		value="0" id="testperson">
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td class="text-bold-500">예약 날짜</td>
-														<td align="center"><input type="date"
-															name="reservationdate" id="textdate"></td>
-													</tr>
-													<tr>
-														<td class="text-bold-500">예약시간</td>
-														<td>
-															<div class="input-group mb-3">
-																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
-																<select class="form-select" name="checkintime" id="selectTextTime1" >
-																</select> <span class="input-group-text">시 부터</span> 
-																<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
-																<select class="form-select" name="checkouttime" id="selectTextTime2">
-																	<option value="">선택</option>
-																	<option value="0">00</option>
-
-																	<option value="1">01</option>
-
-																	<option value="2">02</option>
-
-																	<option value="3">03</option>
-
-																	<option value="4">04</option>
-
-																	<option value="5">05</option>
-
-																	<option value="6">06</option>
-
-																	<option value="7">07</option>
-
-																	<option value="8">08</option>
-
-																	<option value="9">09</option>
-
-																	<option value="10">10</option>
-
-																	<option value="11">11</option>
-
-																	<option value="12">12</option>
-
-																	<option value="13">13</option>
-
-																	<option value="14">14</option>
-
-																	<option value="15">15</option>
-
-																	<option value="16">16</option>
-
-																	<option value="17">17</option>
-
-																	<option value="18">18</option>
-
-																	<option value="19">19</option>
-
-																	<option value="20">20</option>
-
-																	<option value="21">21</option>
-
-																	<option value="22">22</option>
-
-																	<option value="23">23</option>
-
-																	<option value="24">24</option>
-
-																</select> <span class="input-group-text">시 까지</span>
-															</div>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-							<p class="meetspace-reserve-help">호스트 확인 후 예약이 가능합니다.</p>
-							<!-- 예약 정보 끝 -->
-
-							<!-- 예약자 정보 시작 -->
-							<div class="col-md-6 col-12">
-								<div class="card">
-									<div class="card-header">
-										<h4 class="card-title">
-											<font style="vertical-align: inherit;"><font
-												style="vertical-align: inherit;">예약자 정보</font></font>
-										</h4>
-									</div>
-									<div class="card-content">
-										<div class="card-body">
-											<div class="form-body">
-												<div class="row">
-													<div class="col-md-4">
-														<label><font style="vertical-align: inherit;"><font
-																style="vertical-align: inherit;">예약자</font></font></label>
-													</div>
-													<div class="col-md-8 form-group">
-														<%
-														MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
-														String nickname = loginInfo.getNickname();
-														String hp = loginInfo.getHp();
-														String email = loginInfo.getEmail();
-														int membernum = loginInfo.getNum();
-														%>
-														<%=nickname%>
-													</div>
-													<div class="col-md-4">
-														<label><font style="vertical-align: inherit;"><font
-																style="vertical-align: inherit;">연락처</font></font></label>
-													</div>
-													<div class="col-md-8 form-group">
-														<dl class="flex_box">
-															<dd>
-																<div>
-																	<div>
-																		<div>
-																			<%=hp%>
-																		</div>
-																	</div>
-																</div>
-															</dd>
-														</dl>
-													</div>
-													<div class="col-md-4">
-														<label><font style="vertical-align: inherit;"><font
-																style="vertical-align: inherit;">이메일</font></font></label>
-													</div>
-													<div class="col-md-8 form-group">
-														<%=email%>
-													</div>
-													<div class="col-md-4">
-														<label><font style="vertical-align: inherit;"><font
-																style="vertical-align: inherit;">요청사항</font></font></label>
-													</div>
-													<div class="col-md-8 form-group">
-														<textarea class="form-control" name="cusrequest"
-															placeholder="남기고 싶은말을 적어주세요. (최대 500자)"
-															id="floatingTextarea"></textarea>
-														<form:errors cssClass="err" path="cusrequest" />
-													</div>
-													<p>
-														<font color="blue"> 예약자 정보로 알림톡과 이메일이 발송됩니다. 정확한
-															정보인지 확인해주세요. </font>
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- 예약자 정보 끝 -->
-
-							<!-- 호스트 정보 시작 -->
-							<div class="col-12 col-md-6">
-								<div class="card">
-									<div class="card-header" bgColor="yellow">
-										<h4 class="card-title">호스트 정보</h4>
-									</div>
-									<div class="card-content">
-										<div class="card-body">
-											<!-- Table with outer spacing -->
-											<div class="table-responsive">
-												<table class="table table-lg">
-													<tbody>
-														<tr>
-															<td class="text-bold-500">공간상호</td>
-															<td>${balance.company}</td>
-														</tr>
-														<tr>
-															<td class="text-bold-500">대표자명</td>
-															<td>${balance.name }</td>
-														</tr>
-														<tr>
-															<td class="text-bold-500">소재지</td>
-															<td>${balance.address }</td>
-														</tr>
-														<tr>
-															<td class="text-bold-500">사업자번호</td>
-															<td>${balance.account }</td>
-														</tr>
-														<tr>
-															<td class="text-bold-500">연락처</td>
-															<td>${balance.call }</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- 호스트 정보 끝-->
-						</form:form>
-					</section>
+										</td>
+									</tr>
+									<tr>
+										<th>결제종류</th>
+										<td>
+											<select name="paymenttype">
+												<option value="무통장입금">무통장입금</option>
+												<option value="현장결제">현장결제</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<th>요청사항</th>
+										<td>
+											<textarea name="cusrequest" rows="3" cols="45" style="resize: none;"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<th>예약시간</th>
+										<td style="text-align:right;">
+											<fmt:formatDate var="todayStr" value="${now }" pattern="yyyy년 MM월 dd일"/>
+											<span id="selectDateText">${todayStr }</span>
+										 	<span id="selectTimeText"></span>
+										 </td>									
+									</tr>
+									<tr>
+										<th>가격</th>
+										<td style="text-align:right;">${detailSpacebean.price }원 / ${detailSpacebean.priceunit }</td>									
+									</tr>
+									<tr>
+										<th></th>
+										<td style="text-align:right;"><span id="priceFormula"></span></td>
+									</tr>
+									<tr>
+										<th>결제 예정금액</th>
+										<td style="text-align:right; font-size:25px; font-weight: bold;">
+											<span id="priceText">10000</span>원
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align:center;">
+											<button class="btn btn-outline-success" type="submit" onClick="return processing()">예약하기</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<input type="hidden" name="spacenum" value="${spacebean.num }">
+							<input type="hidden" name="detailspacenum" value="${detailSpacebean.num }">
+							</form>
+						</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				</section>
+		<%-- ******* Main Code END ******* --%>
+					</div>
 				</div>
 			</div>
 		</div>
-		<%-- ******* Main Code END ******* --%>
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
@@ -456,6 +291,21 @@ request.setAttribute("time", time);
 				alert("시작시간과 종료시간이 같을 수 없습니다.");
 				return false;
 			}
+			var inputDate = $('#textdate').val();
+			var todayDate = new Date();
+			todayDate.setHours(0);
+			todayDate.setMinutes(0);
+			todayDate.setSeconds(0);
+			var lastDate = new Date();
+			lastDate.setFullYear(lastDate.getFullYear()+1);
+			var curDate = new Date(inputDate);
+			if(curDate < todayDate){
+				alert("오늘 이전으로 예약할 수 없습니다.");
+				return false;
+			}if(curDate > lastDate){
+				alert("1년 이내로만 예약이 가능합니다.");
+				return false;
+			}
 			return true;
 		}
 		</script>
@@ -469,43 +319,102 @@ request.setAttribute("time", time);
 			var intcheckinTime;
 			var intcheckoutTime;
 			
+			var selTimeCount = 0;
+			var selPersonCount = 0;
+			function changeTimeText(){
+				var selTime1 = $('#selectTextTime1').val();
+				var selTime2 = $('#selectTextTime2').val();
+				selTimeCount = parseInt(selTime2) - parseInt(selTime1);
+				
+				var selTimeTxt = $('#selectTextTime1').val()+"시 ~ "+$("#selectTextTime2").val()+"시 ("+selTimeCount+"시간)";
+				$('#selectTimeText').empty();
+				$('#selectTimeText').text(selTimeTxt);
+			}
+			
+			function changeDateText(){
+				var selDate = $('#textdate').val();
+				var selDateArr = selDate.split('-');
+				var selDateText = selDateArr[0]+"년 "+selDateArr[1]+"월 "+selDateArr[2]+"일";
+				$('#selectDateText').empty();
+				$('#selectDateText').text(selDateText);
+			}
+			
+			function changePriceText(){
+				// 시간 - 시간 * 가격 * 인원
+				// 공간 - 시간 * 가격
+				var priceunit = '${detailSpacebean.priceunit}';
+				var price = '${detailSpacebean.price}';
+				var timeCount = selTimeCount;
+				var person = $('#selectPerson').val();
+				if(priceunit == '시간'){
+					var priceFor = selTimeCount+"시간 * "+person+"명 * "+price+"원";
+					$('#priceFormula').empty();
+					$('#priceFormula').text(priceFor);
+					var amount = parseInt(price) * selTimeCount * parseInt(person);
+					$('#priceText').empty();
+					$('#priceText').text(amount);
+				}else{
+					var priceFor = selTimeCount+"시간 * "+price+"원";
+					$('#priceFormula').empty();
+					$('#priceFormula').text(priceFor);
+					var amount = parseInt(price) * selTimeCount;
+					$('#priceText').empty();
+					$('#priceText').text(amount);
+				}
+			}
 			$(function() {
+				changeDateText();
+				changeTimeText();
+				changePriceText();
+				
 				$('#textdate').change(function() {
-					//alert(1);
-					var dateVal = $(this).val();
-					$('#textbox').val(dateVal);
+					changeDateText();
 				});
 				$('#selectTextTime1').change(function() {
-					var checkinTime = $(this).val();
-					$('#selectText1').val(checkinTime);
-					intcheckinTime = parseInt(checkinTime);
-					//alert(intcheckinTime);
+					//유효성검사
+					var opStartTime = '${spacebean.operatingtime}';
+					var opEndTime = '${spacebean.operatingendtime}';
+					var selTime1 = $('#selectTextTime1').val();
+					var selTime2 = $('#selectTextTime2').val();
+					if(parseInt(selTime1) >= parseInt(selTime2)){
+						alert("시작시간은 종료시간보다 빨라야합니다.");
+						$(this).val(opStartTime)
+					}
+					//
+					changeTimeText();
+					changePriceText();
 				});
 				$('#selectTextTime2').change(function() {
-					var checkoutTime = $(this).val();
-					$('#selectText2').val(checkoutTime);
-					intcheckoutTime = parseInt(checkoutTime);
-					cTime = (intcheckoutTime - intcheckinTime) * intValprice;
-					// alert(parseInt(intAmount+cTime));
-					$('#priceText').text(intAmount + cTime);
+					//유효성검사
+					var opStartTime = '${spacebean.operatingtime}';
+					var opEndTime = '${spacebean.operatingendtime}';
+					var selTime1 = $('#selectTextTime1').val();
+					var selTime2 = $('#selectTextTime2').val();
+					if(parseInt(selTime1) >= parseInt(selTime2)){
+						alert("종료시간은 시작시간보다 늦어야합니다.");
+						$(this).val(opEndTime)
+					}
+					changeTimeText();
+					changePriceText();
 				});
-
-				$('#testperson').change(function() {
+				$('#selectPerson').change(function(){
+					//유효성검사
+					var minPerson = '${detailSpacebean.minperson}';
+					var maxPerson = '${detailSpacebean.maxperson}';
 					var personVal = $(this).val();
-					$('#textboxperson').val(personVal);
-					intValperson = parseInt(personVal);
-
-					priceVal = "${detailSpacebean.price}";
-					intValprice = parseInt(priceVal);
-
-					intAmount = intValperson * intValprice;
-					//alert(intAmount);
-					// alert(intAmount+cTime);
-					$('#priceText').text(intAmount);
+					if(parseInt(personVal) < parseInt(minPerson)){
+						alert('최소 인원은 '+minPerson+'명 입니다.');
+						$(this).val(minPerson);
+					}
+					if(parseInt(personVal) > parseInt(maxPerson)){
+						alert('최대 인원은 '+maxPerson+'명 입니다.');
+						$(this).val(maxPerson);
+					}
+					//
+					changePriceText();
 				});
 			});
 			
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
-	</div>
 </body>
