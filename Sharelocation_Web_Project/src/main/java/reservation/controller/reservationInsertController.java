@@ -100,7 +100,7 @@ public class reservationInsertController {
 		
 		System.out.println("resevationbean InsertController:"+reservationBean);
 			int cnt=-1;
-			//cnt = reservationDao.reservInsert(reservationBean);
+			cnt = reservationDao.reservInsert(reservationBean);
 			if(cnt != -1) {
 				System.out.println("저장 성공");
 			}
