@@ -16,10 +16,7 @@
 	</bean>
 	
 
-	<context:component-scan base-package="host, space, detailspace, reservation, reviewBoard, member,helpBoard,income" />
-
-    
-    
+    <context:component-scan base-package="host, admin, member, space, detailspace, reservation, balance, reviewBoard, noticeBoard, helpBoard,  qnaBoard, income"/>
     <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10485760"/>	

@@ -4,6 +4,9 @@ public class FavoriteBean {
 	private int num;
 	private int spacenum;
 	private int membernum;
+	//
+	private SpaceBean spaceBean;
+	
 	public int getNum() {
 		return num;
 	}
@@ -22,4 +25,12 @@ public class FavoriteBean {
 	public void setMembernum(int membernum) {
 		this.membernum = membernum;
 	}
+	public SpaceBean getSpaceBean() {
+		return spaceBean;
+	}
+	public void setSpaceBean(SpaceBean spaceBean) {
+		this.spaceBean = spaceBean;
+	}
+	
+	
 }

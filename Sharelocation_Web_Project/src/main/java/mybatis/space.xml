@@ -6,8 +6,7 @@
 
 	<select id="getSpace" resultType="MySpace">
 		select * from space
-		where num =
-		#{num}
+		where num = #{num}
 	</select>
 
 	<insert id="addFavorite">
@@ -201,5 +200,12 @@
 	</select>
 	<select id="getExpiredAdvertiseList" resultType="MyAdvertise">
 		select * from advertise where <![CDATA[ expiredate < sysdate ]]> 
+	</select>
+	<select id="getFavoriteBySpaceNumAndMemberNum" resultType="MyFavorite">
+		select * from favorite 
+		where spacenum=#{spacenum} and membernum=#{membernum}
+	</select>
+	<select id="getFavoriteListCount" resultType="int">
+		select count(*) from favorite where membernum=#{membernum}
 	</select>
 </mapper>

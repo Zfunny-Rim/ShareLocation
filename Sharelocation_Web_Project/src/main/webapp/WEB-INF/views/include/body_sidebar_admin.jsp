@@ -84,16 +84,13 @@
 				<li class="sidebar-item"><a href="spaceList.admin" class='sidebar-link'>
 						<i class="bi bi-bookmark-star-fill"></i> <span>등록된 공간 관리</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
-						<i class="bi bi-blockquote-left"></i> <span>광고 관리하기</span>
-				</a></li>
 				<li class="sidebar-item"><a href="noticeBoardList.nb" class='sidebar-link'>
 						<i class="bi bi-exclamation-diamond-fill"></i> <span>공지사항</span>
 				</a></li>
 				<li class="sidebar-item"><a href="helpBoardList.hb" class='sidebar-link'>
 						<i class="bi bi-question-circle-fill"></i> <span>도움말</span>
 				</a></li>
-				<li class="sidebar-item"><a href="list.qnaBaord"  class='sidebar-link'>
+				<li class="sidebar-item"><a href="list.qnaBoard"  class='sidebar-link'>
 						<i class="bi bi-chat-right-text-fill"></i> <span>Q&A</span>
 				</a></li>
 				<li class="sidebar-title"></li>

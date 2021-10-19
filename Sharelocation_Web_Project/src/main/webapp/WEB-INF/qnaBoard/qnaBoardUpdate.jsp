@@ -12,6 +12,9 @@
 .required {
 	color: red;
 }
+.ck-editor__editable{
+	min-height: 250px;
+}
 </style>
     <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -44,24 +47,21 @@
 													<input type="hidden" name="pageNumber" value="${pageNumber }">
 													<div class="form-body">
 														<div class="row">
-															<label>작성자</label>
-															<div class="col-md-12 form-group">
-																<label>${list.writer }</label>
-															</div>
+															<label><b>작성자&nbsp;&nbsp;</b>${list.writer }</label>
 															<br><br>
 															<div class="col-12">
-																<label>제목<span class="required">*</span></label>
+																<label><b>제목</b></label>
 															</div>
 															<div class="col-md-12 form-group">
 																<input type="text" id="subject"
 																	class="form-control" name="subject" value="${list.subject }">
 															</div>
 															<div class="col-12">
-																<label>내용<span class="required">*</span></label>
+																<label><b>내용</b></label>
 															</div>
 															<br><br>
 															<div class="col-md-12 form-group">
-																<textarea class="form-control" id="content" name="content"  rows="5">${list.content }</textarea>
+																<textarea class="form-control" id="editor" name="content"  rows="5">${list.content }</textarea>
 															</div>
 															<br><br>
 															<div class="col-12 d-flex justify-content-end">
@@ -87,16 +87,27 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+		<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 		<script>
+		var myEditor;
+		ClassicEditor
+          .create( document.querySelector( '#editor' ) )
+          .then(editor => {
+          console.log('Editor was initialized', editor);
+          myEditor = editor;
+          })
+          .catch( error => {
+              console.error( error );
+          } );
 		function processing(){
 			if($("#subject").val()==""){
 				alert("제목을 입력하세요");
 				$("#subject").focus();
 				return false;
 			}
-			if($("#content").val()==""){
+			if(myEditor.getData()==""){
 				alert("내용을 입력하세요");
-				$("#content").focus();
+				$("#editor").focus();
 				return false;
 			}
 			return true;

@@ -26,7 +26,8 @@ public class NoticeBoardControllerCmd {
 
 
 	private final String command = "/detailViewNoticeBoard.nb";
-	private final String command1 = "/insertHelpBoard.nb";
+//	private final String command1 = "/insertHelpBoard.nb";
+	private final String command1 = "/insertNoticeBoard.nb";
 	private final String cmdDelete = "/deleteNotice.nb";
 	private final String cmdUpdate = "/updateNotice.nb";
 	private final String getPage = "noticeBoardDetailView";

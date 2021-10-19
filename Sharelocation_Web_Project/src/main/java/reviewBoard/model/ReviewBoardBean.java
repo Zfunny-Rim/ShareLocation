@@ -1,5 +1,7 @@
 package reviewBoard.model;
 
+import space.model.SpaceBean;
+
 public class ReviewBoardBean {
 	private int num;
 	private int spacenum;
@@ -16,7 +18,14 @@ public class ReviewBoardBean {
 	private int totalrating;
 	
 	private ReviewBoardBean reviewReply;
+	private SpaceBean spaceBean;
 	
+	public SpaceBean getSpaceBean() {
+		return spaceBean;
+	}
+	public void setSpaceBean(SpaceBean spaceBean) {
+		this.spaceBean = spaceBean;
+	}
 	public ReviewBoardBean getReviewReply() {
 		return reviewReply;
 	}

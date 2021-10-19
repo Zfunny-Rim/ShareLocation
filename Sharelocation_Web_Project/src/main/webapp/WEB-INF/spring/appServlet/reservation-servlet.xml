@@ -14,6 +14,5 @@
 		<property name="prefix" value="/WEB-INF/reservation/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-	<context:component-scan base-package="reservation, space, detailspace, reviewBoard, balance, member,helpBoard, income" />
+	<context:component-scan base-package="admin, member, space, detailspace, reservation, balance, reviewBoard, noticeBoard, helpBoard, qnaBoard,  income"/>
 </beans>
