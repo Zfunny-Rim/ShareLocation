@@ -48,17 +48,17 @@
 													<input type="hidden" name="type" value="${loginInfo.type }">
 													<div class="form-body">
 														<div class="row">
-															<label>작성자&nbsp;&nbsp;${loginInfo.nickname }</label>
+															<label><b>작성자&nbsp;&nbsp;</b>${loginInfo.nickname }</label>
 															<br><br>
 															<div class="col-12 mb-2">
-																<label>제목</label>
+																<label><b>제목</b></label>
 															</div>
 															<div class="col-md-12 form-group">
 																<input type="text" id="subject"
 																	class="form-control" name="subject">
 															</div>
 															<div class="col-12 mb-2">
-																<label>내용</label>
+																<label><b>내용</b></label>
 															</div>
 															<br><br>
 															<div class="col-md-12 form-group">
@@ -90,8 +90,13 @@
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 		<script>
+		var myEditor;
 		ClassicEditor
           .create( document.querySelector( '#editor' ) )
+          .then(editor => {
+          console.log('Editor was initialized', editor);
+          myEditor = editor;
+          })
           .catch( error => {
               console.error( error );
           } );
@@ -101,9 +106,9 @@
 				$("#subject").focus();
 				return false;
 			}
-			if($("textarea[name='content']").val()==""){
+			if(myEditor.getData()==""){
 				alert("내용을 입력하세요");
-				$("textarea[name='content']").focus();
+				$("#editor").focus();
 				return false;
 			}
 			return true;
