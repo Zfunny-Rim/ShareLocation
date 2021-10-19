@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
+import member.model.MemberBean;
+import member.model.MemberDao;
 import reservation.model.ReservationBean;
 import reservation.model.ReservationDao;
 import reviewBoard.model.ReviewBoardBean;
@@ -42,7 +44,8 @@ public class reservationViewController {
 	
 	@Autowired
 	DetailSpaceDao detailSpaceDao;
-	
+	@Autowired
+	MemberDao memberDao;
 	@RequestMapping(value = command)
 	public ModelAndView doAction(
 			@RequestParam(value = "num") int num,
@@ -50,13 +53,14 @@ public class reservationViewController {
 			) {
 		
 		ReservationBean reservationbean = reservationDao.getReservationByNum(num);
-		
 		SpaceBean spacebean = spaceDao.getSpace(reservationbean.getSpacenum());
 		DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(reservationbean.getDetailspacenum());
+		MemberBean memberBean = memberDao.getMemberByNum(reservationbean.getMembernum());
 		
 		mav.addObject("reservationbean",reservationbean);
 		mav.addObject("spacebean",spacebean);
 		mav.addObject("detailSpacebean",detailSpacebean);
+		mav.addObject("memberbean",memberBean);
 		mav.setViewName(getPage);
 		return mav;
 	}

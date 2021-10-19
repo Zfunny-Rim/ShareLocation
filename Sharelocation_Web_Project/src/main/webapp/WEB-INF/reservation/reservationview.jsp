@@ -148,17 +148,19 @@
 									
 										<p class="card-text">이용 후기</p>
 										<div class="form-floating">
-											<textarea class="form-control" id="contentCheck" name="content"></textarea>
+											<textarea class="form-control" id="contentCheck" name="content" rows="2" style="resize: none;"></textarea>
 											<label for="floatingTextarea">이용후기를 남겨주세요.</label>
 										</div>
 									</div>
 								<div class="modal-footer">
 										<button type="reset" class="btn btn-light-secondary"
 											data-bs-dismiss="modal">
-											<i class="bx bx-x d-block d-sm-none"></i> <span
-												class="d-none d-sm-block">취소</span>
+											<span class="d-none d-sm-block">취소</span>
 										</button>
-										 <input  type="submit" value="등록" onClick="return reviewcheck()">
+										<button type="submit" class="btn btn-light-primary" onClick="return reviewcheck()">
+											<span class="d-none d-sm-block">등록</span>
+										</button>
+<!-- 										 <input type="submit" value="등록" onClick="return reviewcheck()"> -->
 								</div>
 							</div>
 						</div>
@@ -191,14 +193,18 @@
 																<td align="center">${spacebean.name },${detailSpacebean.name }</td>
 															</tr>
 															<tr>
+																<td class="text-bold-500">공간분류</td>
+																<td align="center">${spacebean.type }</td>
+															</tr>
+															<tr>
 																<td class="text-bold-500">예약내용</td>
-																<td align="center"><fmt:parseDate var="ciDate"
-																		value="${reservationBean.checkin}"
-																		pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
-																		value="${ciDate}" pattern="yyyy.MM.dd (E) HH시" /> ~ <fmt:parseDate
-																		var="coDate" value="${reservationBean.checkout }"
-																		pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
-																		value="${coDate}" pattern="HH시" /></td>
+																<td align="center">
+																<fmt:parseDate var="ciDate" value="${reservationbean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
+																<fmt:formatDate  value="${ciDate}" pattern="yyyy.MM.dd (E) HH시"/>
+																~ 
+																<fmt:parseDate var="coDate" value="${reservationbean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
+													 			<fmt:formatDate  value="${coDate}" pattern="HH시"/>
+																</td>
 															</tr>
 															<tr>
 																<td class="text-bold-500">예약인원</td>
@@ -212,10 +218,6 @@
 																<c:if test="${not empty reservationbean.cusrequest}">
 																	<td align="center">${reservationbean.cusrequest}</td>
 																</c:if>
-															</tr>
-															<tr>
-																<td class="text-bold-500">사용목적</td>
-																<td align="center">${spacebean.type }</td>
 															</tr>
 														</tbody>
 													</table>
@@ -232,7 +234,7 @@
 														<tr>
 															<td class="text-bold-500">예약날짜</td>
 															<td align="center"><fmt:parseDate var="ciDate"
-																	value="${reservationBean.checkin}"
+																	value="${reservationbean.checkin}"
 																	pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
 																	value="${ciDate}" pattern="yyyy.MM.dd (E)" />
 														</tr>
@@ -240,10 +242,10 @@
 
 															<td class="text-bold-500">예약시간</td>
 															<td align="center"><fmt:parseDate var="ciDate"
-																	value="${reservationBean.checkin}"
+																	value="${reservationbean.checkin}"
 																	pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
 																	value="${ciDate}" pattern="HH시" /> ~ <fmt:parseDate
-																	var="coDate" value="${reservationBean.checkout }"
+																	var="coDate" value="${reservationbean.checkout }"
 																	pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
 																	value="${coDate}" pattern="HH시" /></td>
 														</tr>
@@ -299,226 +301,6 @@
 				</div>
 			</div>
 		</div>
-							
-							
-							
-							
-							
-							
-				<div class="row justify-content-center">
-					<div class="col-8">
-						<!-- 예약 공간 시작-->
-						<div class="card">
-							<div class="card-content">
-								<div class="card-body">
-									<h5 class="card-title" align="center">${spacebean.name },${detailSpacebean.name }</h5>
-									<p class="card-text" align="center">
-									<c:if test="${reservationbean.status eq '예약대기' }">
-										<span class="badge bg-warning res-stat">${reservationbean.status }</span>
-									</c:if>
-									<c:if test="${reservationbean.status eq '입금대기' }">
-										<span class="badge bg-info res-stat">${reservationbean.status }</span>
-									</c:if>
-									<c:if test="${reservationbean.status eq '예약확정' }">
-										<span class="badge bg-success res-stat">${reservationbean.status }</span>
-									</c:if>
-									<c:if test="${reservationbean.status eq '이용완료' }">
-										<span class="badge bg-primary res-stat">${reservationbean.status }</span>
-									</c:if>
-									<c:if test="${reservationbean.status eq '예약취소' }">
-										<span class="badge bg-danger">${reservationbean.status }</span>
-									</c:if>
-									</p>
-									<%
-									MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
-									String nickname = loginInfo.getNickname();
-									String hp = loginInfo.getHp();
-									String email = loginInfo.getEmail();
-									int membernum = loginInfo.getNum();
-													%>
-								</div>
-							</div>
-						</div>
-						<!-- 예약 공간 끜-->
-
-						<!-- 접히는거 시작 -->
-						<div class="card-header"
-							style="width: auto; align-content: center;">
-							<div class="accordion" id="cardAccordion" style="width: auto">
-								<div class="card" style="width: auto">
-									<div class="card-header" id="headingOne"
-										data-bs-toggle="collapse" data-bs-target="#collapseOne"
-										aria-expanded="false" aria-controls="collapseOne"
-										role="button">
-										<span class="collapsed collapse-title">결제 금액</span>
-									</div>
-									<div id="collapseOne" class="collapse pt-1"
-										aria-labelledby="headingOne" data-parent="#cardAccordion">
-										<div class="card-body">
-											<!-- reservation 넘어가기 -->
-
-											<div class="card-body" style="width: auto">
-												<!-- Table with outer spacing -->
-												<div class="table-responsive">
-													<table class="table table-lg" style="width: auto;">
-														<tbody>
-															<tr>
-																<td class="text-bold-500">예약날짜</td>
-																<td align="center">
-																	<fmt:parseDate var="ciDate" value="${reservationbean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
-																	<fmt:formatDate  value="${ciDate}" pattern="yyyy.MM.dd (E)"/>
-																</td>
-																<td rowspan="5"><fmt:formatNumber
-																		value="${reservationbean.amounts}" pattern="###,###" />원
-																</td>
-															</tr>
-															<tr>
-
-																<td class="text-bold-500">예약시간</td>
-																<td align="center">
-																	<fmt:parseDate var="ciDate" value="${reservationbean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
-																	<fmt:formatDate  value="${ciDate}" pattern="HH시"/>
-																	~ 
-																	<fmt:parseDate var="coDate" value="${reservationbean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
-																	<fmt:formatDate  value="${coDate}" pattern="HH시"/>
-																</td>
-															</tr>
-															<tr>
-																<td class="text-bold-500">예약인원</td>
-																<td align="center">${reservationbean.person}명</td>
-															</tr>
-															<tr>
-																<td class="text-bold-500">결제정보</td>
-																<td align="center">${reservationbean.paymenttype }</td>
-															</tr>
-															<tr>
-																<td class="text-bold-500">결제금액</td>
-																<td align="center"><fmt:formatNumber
-																		value="${reservationbean.amounts}" pattern="###,###" />원
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- 	  접히는거 끝 -->
-
-
-						<!-- 예약 내용 시작-->
-						<div class="col-md-6 col-12">
-							<div class="card">
-								<div class="card-header">
-									<div
-										class="card-header border-bottom d-flex justify-content-between align-items-center">
-										<h4 class="card-title d-flex" align="left">
-											<i class="bx bx-check font-medium-5 pl-25 pr-75"></i>예약 내용
-										</h4>
-									</div>
-								</div>
-								<div class="card-content">
-									<div class="card-body">
-										<table class="table table-lg" style="width: auto;">
-											<tbody>
-												<tr>
-													<td class="text-bold-500">신청일</td>
-													<td align="center"><c:set var="today"
-															value="<%=new java.util.Date()%>" /> <c:set var="date">
-															<fmt:formatDate value="${today}"
-																pattern="yyyy.MM.dd (E)" />
-														</c:set> <c:out value="${date}" /></td>
-												</tr>
-												<tr>
-													<td class="text-bold-500">예약공간</td>
-													<td align="center">${spacebean.name },${detailSpacebean.name }</td>
-												</tr>
-												<tr>
-													<td class="text-bold-500">예약내용</td>
-													<td align="center">
-														<fmt:parseDate var="ciDate" value="${reservationbean.checkin}" pattern="yyyy-MM-dd HH:mm"/>
-														<fmt:formatDate  value="${ciDate}" pattern="yyyy.MM.dd (E) HH시"/>
-														~ 
-														<fmt:parseDate var="coDate" value="${reservationbean.checkout }" pattern="yyyy-MM-dd HH:mm"/>
-											 			<fmt:formatDate  value="${coDate}" pattern="HH시"/>
-													</td>
-												</tr>
-												<tr>
-													<td class="text-bold-500">예약인원</td>
-													<td align="center">${reservationbean.person}명</td>
-												</tr>
-												<tr>
-													<td class="text-bold-500">요청사항</td>
-													<c:if test="${empty reservationbean.cusrequest}">
-														<td align="center">없음.</td>
-													</c:if>
-													<c:if test="${not empty reservationbean.cusrequest}">
-														<td align="center">${reservationbean.cusrequest}</td>
-													</c:if>
-												</tr>
-												<tr>
-													<td class="text-bold-500">사용목적</td>
-													<td align="center">${spacebean.type }</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 예약 내용 끝 -->
-
-						<!-- 예약자 정보 시작 -->
-						<div class="col-md-7 col-12">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">
-										<font style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">예약자 정보</font></font>
-									</h4>
-								</div>
-								<div class="card-content">
-									<div class="card-body">
-										<div class="form-body">
-											<div class="row">
-												<div class="col-md-4">
-													<label><font style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">예약자</font></font></label>
-												</div>
-												<div class="col-md-8 form-group">
-													<%=nickname%>
-												</div>
-												<div class="col-md-4">
-													<label><font style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">연락처</font></font></label>
-												</div>
-												<div class="col-md-8 form-group">
-													<%=hp%>
-												</div>
-												<div class="col-md-4">
-													<label><font style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">이메일</font></font></label>
-												</div>
-												<div class="col-md-8 form-group">
-													<%=email%>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 예약자 정보 끝 -->
-					</div>
-				</div>
-					</section>
-				</div>
-			</div>
-		</div>
 		<%-- ******* Main Code END ******* --%>
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
@@ -534,6 +316,7 @@
 					$("#contentCheck").focus();    
 					return false;
 				}
+				return true;
 			}
 			
 		</script>

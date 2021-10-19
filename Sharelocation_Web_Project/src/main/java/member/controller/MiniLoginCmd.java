@@ -39,7 +39,7 @@ public class MiniLoginCmd {
 			HttpServletResponse response,
 			HttpSession session
 			) throws IOException {
-		
+		System.out.println("로그인 시도.");
 		Map<String, String> map = new HashMap<String, String>();
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
@@ -54,7 +54,6 @@ public class MiniLoginCmd {
 		 String destination = (String)session.getAttribute("destination");
 		 if(destination != null) {
 			 mav.setViewName(destination);
-			 session.setAttribute("destination", null);
 			 return mav;
 		 }
 		 if(dbMember == null) {

@@ -16,5 +16,5 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="admin, member, space, detailspace, reservation, balance, reviewBoard, noticeBoard, helpBoard, income"/>
+	<context:component-scan base-package="admin, member, space, detailspace, reservation, balance, reviewBoard, noticeBoard, helpBoard,  qnaBoard, income"/>
 </beans>
