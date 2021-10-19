@@ -231,11 +231,6 @@ request.setAttribute("time", time);
 															<div class="input-group mb-3">
 																<input type="hidden" name="operatingtime" value="${spacebean.operatingtime }">
 																<select class="form-select" name="checkintime" id="selectTextTime1" >
-																	
-																	<c:forEach items="${time}" var="${time}">
-																	
-																	</c:forEach>
-																	
 																</select> <span class="input-group-text">시 부터</span> 
 																<input type="hidden" name="operatingendtime" value="${spacebean.operatingendtime }">
 																<select class="form-select" name="checkouttime" id="selectTextTime2">
