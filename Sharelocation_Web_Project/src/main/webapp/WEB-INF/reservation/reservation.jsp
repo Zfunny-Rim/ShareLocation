@@ -565,12 +565,14 @@
 	            var dateVal = $(this).val();
 	            $('#textbox').val(dateVal);
 	         });
+	         
 	         $('#selectTextTime1').change(function(){
 	            var checkinTime = $(this).val();
 	            $('#selectText1').val(checkinTime);
 	             intcheckinTime = parseInt(checkinTime);
 	            //alert(intcheckinTime);
 	         });
+	         
 	         $('#selectTextTime2').change(function(){
 	            var checkoutTime = $(this).val();
 	            $('#selectText2').val(checkoutTime);
