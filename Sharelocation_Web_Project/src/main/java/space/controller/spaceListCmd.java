@@ -46,6 +46,9 @@ public class spaceListCmd {
 		if(tag==null) {
 			tag = "";
 		}
+		if(whatColumn==null) {
+			whatColumn = "";
+		}
 		if(pagenumber == null) {
 			pagenumber = "1";
 		}

@@ -18,7 +18,9 @@
 	<select id="getSpaceList" resultType="MySpace">
 		select * from space
 		where status = '운영중'
-			and( name like upper(#{keyword}) or tag like upper(#{keyword}) )
+		<if test="status!=null">
+			or name like upper(#{keyword}) or tag like upper(#{keyword})
+		</if>
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
@@ -29,11 +31,10 @@
 	</select>
 
 	<select id="getTotalCount" resultType="int">
-		select count(*) from space
+		select * from space
 		where status = '운영중'
 		<if test="status!=null">
-			and name like upper(#{keyword}) or tag like
-			upper(#{keyword})
+			or name like upper(#{keyword}) or tag like upper(#{keyword})
 		</if>
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
@@ -47,13 +48,10 @@
 	<select id="getPowerSpaceList" resultType="MySpace">
 		select * from space
 		where grade = '광고' and status = '운영중'
-		<if test="status!=null">
-			and name like upper(#{keyword}) 
+		<if test="grade!=null">
+			or name like upper(#{keyword}) or tag like
+			upper(#{keyword})
 		</if>
-		<if test="tag!=null">
-		and tag like upper(#{keyword})
-		</if>
-
 
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
@@ -61,8 +59,6 @@
 		<if test="area!=null">
 			and address like #{area}
 		</if>
-
-
 	</select>
 
 
