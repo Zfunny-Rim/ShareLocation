@@ -27,9 +27,11 @@
                 <div class="page-heading">
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
+                    	<div class="row justify-content-center">
+                    	<div class="col-8">
 						<h3>운영 통계</h3>
 						<div class="row">
-						<div class="col-12 col-lg-9">
+						<div class="col-12 col-lg-8">
 						<div class="row">
 						<div class="col-6 col-lg-3 col-md-6">
 							<div class="card">
@@ -175,7 +177,7 @@
 							</div>
 						</div>
 						</div>
-						<div class="col-12 col-lg-3">
+						<div class="col-12 col-lg-4">
 							<div class="card">
 								<div class="card-body px-3 py-4-5">
 									<div class="row">
@@ -209,6 +211,8 @@
 							</div>
 						</div>
 						</div>
+						</div>
+                    	</div>
                     	<%-- ******* Main Code END ******* --%>
                     </section>
                 </div>
@@ -276,21 +280,9 @@
         var PieDowOptions = {
                 series: [dowJson["월"],dowJson["화"],dowJson["수"],dowJson["목"],dowJson["금"],dowJson["토"],dowJson["일"]],
                 chart: {
-                width: 380,
                 type: 'pie',
               },
               labels: ["월","화","수","목","금","토","일"],
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }]
               };
         
         var PieOptions = {
@@ -298,21 +290,9 @@
 			    	  monthlyJson["5월"], monthlyJson["6월"], monthlyJson["7월"], monthlyJson["8월"],
 		    		  monthlyJson["9월"], monthlyJson["10월"], monthlyJson["11월"], monthlyJson["12월"]],
                 chart: {
-                width: 380,
                 type: 'pie',
               },
               labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }]
               };
 
             var chart = new ApexCharts(document.querySelector("#piechart"), PieOptions);
