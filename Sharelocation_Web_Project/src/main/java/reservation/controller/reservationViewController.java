@@ -92,14 +92,14 @@ public class reservationViewController {
 		PrintWriter pw = response.getWriter();
 		if(cnt != -1) {
 			pw.println("<script>");
-			pw.println("alert('리뷰 등록되었습니다.');");
+			pw.println("alert('후기가 등록되었습니다.');");
 			pw.println("location.href='detailView.sp?num="+spacenum+"&membernum="+membernum+"';");
 			pw.println("</script>");
 			pw.flush();
 			return null;
 		}
 		else {
-			System.out.println("리뷰후기 실패");
+			System.out.println("후기 실패");
 		}
 		return mav;
 	}
