@@ -94,16 +94,13 @@
 				<li class="sidebar-item"><a href="insertSpace.ho" class='sidebar-link'>
 						<i class="bi bi-journal-text"></i> <span>공간 등록하기</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
-						<i class="bi bi-book-half"></i> <span>공간 등록 메뉴얼</span>
-				</a></li>
 				<li class="sidebar-item"><a href="spaceList.ho" class='sidebar-link'>
 						<i class="bi bi-gear"></i> <span>내 공간 관리하기</span>
 				</a></li>
 				<li class="sidebar-item"><a href="noticeBoardList.nb" class='sidebar-link'>
 						<i class="bi bi-exclamation-diamond-fill"></i> <span>공지사항</span>
 				</a></li>
-				<li class="sidebar-item"><a href="#" class='sidebar-link'>
+				<li class="sidebar-item"><a href="helpBoardList.hb" class='sidebar-link'>
 						<i class="bi bi-question-circle-fill"></i> <span>도움말</span>
 				</a></li>
 				<li class="sidebar-item"><a href="list.qnaBoard" class='sidebar-link'>

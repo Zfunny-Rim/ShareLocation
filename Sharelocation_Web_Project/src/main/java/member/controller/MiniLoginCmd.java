@@ -22,7 +22,7 @@ public class MiniLoginCmd {
 	private final String command = "miniLogin.member";
 	private final String hostPage = "redirect:/main.ho";
 	private final String guestPage = "redirect:/list.sp";
-	private final String adminPage = "redirect:/list.admin";
+	private final String adminPage = "redirect:/main.admin";
 	private final String getPage = "miniLoginForm";
 	
 	@Autowired
@@ -39,7 +39,7 @@ public class MiniLoginCmd {
 			HttpServletResponse response,
 			HttpSession session
 			) throws IOException {
-		
+		System.out.println("로그인 시도.");
 		Map<String, String> map = new HashMap<String, String>();
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
@@ -58,6 +58,11 @@ public class MiniLoginCmd {
 			 return mav;
 		 }
 		 else {
+			 String destination = (String)session.getAttribute("destination");
+			 if(destination != null) {
+				 mav.setViewName(destination);
+				 return mav;
+			 }
 			 if(dbMember.getType().equals("admin")) {//adminLogin
 				 mav.setViewName(adminPage);
 				 return mav;

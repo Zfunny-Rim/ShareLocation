@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="helpBoard.model.HelpBoardBean">
+
+	<select id="getHelpBoardList" resultType="MyHelp">
+		select * from helpboard
+
+		where title like #{keyword}
+		<if test="whatColumn!=null">
+			and category like #{whatColumn}
+		</if>
+		order by num desc
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from helpboard
+		where title like #{keyword}
+		<if test="whatColumn!=null">
+			and category like #{whatColumn}
+		</if>
+		order by num desc
+	</select>
+
+	<select id="getHelpBoardListbyNum" resultType="MyHelp">
+		select * from
+		helpboard
+		where num = #{num}
+	</select>
+
+	<insert id="insertData">
+
+		insert into helpboard(num, membernum, category,
+		writer, regdate, title, content)
+		values(help_board_seq.nextval,#{membernum},#{category},#{writer},sysdate,#{title},#{content})
+
+	</insert>
+
+	<delete id="deleteBoardData">
+		delete from helpboard
+		where num = #{num}
+	</delete>
+
+	<update id="updateHelpBoard">
+		update helpboard
+		set category = #{category}, content =
+		#{content}
+		where num = #{num}
+	</update>
+
+
+</mapper>

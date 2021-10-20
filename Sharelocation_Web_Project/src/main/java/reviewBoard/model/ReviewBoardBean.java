@@ -1,6 +1,6 @@
 package reviewBoard.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import space.model.SpaceBean;
 
 public class ReviewBoardBean {
 	private int num;
@@ -8,7 +8,6 @@ public class ReviewBoardBean {
 	private int membernum;
 	private String writer;
 	private String regdate;
-	@NotEmpty(message = "이용 후기 작성은 필수입니다.")
 	private String content;
 	private int ref;
 	private int restep;
@@ -19,7 +18,14 @@ public class ReviewBoardBean {
 	private int totalrating;
 	
 	private ReviewBoardBean reviewReply;
+	private SpaceBean spaceBean;
 	
+	public SpaceBean getSpaceBean() {
+		return spaceBean;
+	}
+	public void setSpaceBean(SpaceBean spaceBean) {
+		this.spaceBean = spaceBean;
+	}
 	public ReviewBoardBean getReviewReply() {
 		return reviewReply;
 	}

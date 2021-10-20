@@ -6,6 +6,9 @@
 	text-decoration: underline;
 	cursor: pointer;
 }
+.clickable:hover{
+	cursor: pointer;
+}
 </style>
 <h3>${spaceBean.name }</h3>
 <div class="card-text mb-2">
@@ -43,15 +46,16 @@ ${spaceBean.contentssim }
 		</div>
 		<div class="col-5 py-2 border rounded-3 border-secondary">
 			<div class="row mb-3">
+				<div class="divider my-2"><div class="divider-text">공간 정보</div></div>
 				<div class="col-6">
 					<h5>현재 상태</h5>
 					<p class="card-text">
 						${spaceBean.status }
 						<c:if test="${spaceBean.status eq '등록대기' }">
-							<small class="text-muted link-class" onclick="approval(${spaceBean.num})">검수신청하기</small>
+							<small><span class="badge bg-success clickable" onclick="approval(${spaceBean.num})">검수신청</span></small>
 						</c:if>
 						<c:if test="${spaceBean.status eq '검수반려' }">
-							<small class="text-muted link-class" onclick="approval(${spaceBean.num})">검수 재신청하기</small>
+							<span class="badge bg-success clickable" onclick="approval(${spaceBean.num})">검수신청</span>
 						</c:if>
 					</p>
 					<h5>영업 시간</h5>

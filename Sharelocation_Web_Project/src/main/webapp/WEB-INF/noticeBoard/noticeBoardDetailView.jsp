@@ -14,6 +14,10 @@
 	text-decoration: underline;
 	cursor: pointer;
 }
+th{
+	background-color:lightgray !important;
+	text-align:center;  
+}
 </style>
 
 <%-- ******* CUSTOM CSS Link END ******* --%>
@@ -29,35 +33,53 @@
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
-
-
-						<div class="row justify-content-md-center">
-							<div class="col-9">
-								<div class="card">
-									<div class="card-content">
-										<div class="card-body">
-											<div class="col-12 py-2 border rounded-3 border-secondary">
-												<h3>${nbBean.subject}</h3>
-												<hr>
-												${nbBean.content}
-								
+						<section id="basic-vertical-layouts">
+							<div class="row justify-content-md-center">
+								<div class="col-md-8 col-12">
+									<div class="card">
+										<div class="card-content">
+											<div class="card-body">
+											<h4 class="card-title">상세보기</h4>
+											<table class="table table-bordered">
+												<tr>
+													<th style="width:15%;">글번호</th>
+													<td style="width:30%">${nbBean.num }</td>
+													<th>작성일</th>
+													<td>
+														<fmt:parseDate var="parseRegDate" value="${nbBean.regdate }" pattern="yyyy-MM-dd"/>
+														<fmt:formatDate value="${parseRegDate }" pattern="yyyy/MM/dd"/>
+													</td>
+												</tr>
+												<tr>
+													<th style="width:15%;">작성자</th>
+													<td colspan="3">${nbBean.writer }</td>
+												</tr>
+												<tr>
+													<th>제목</th>
+													<td colspan="3">${nbBean.subject }</td>
+												</tr>
+												<tr>
+													<th>내용</th>
+													<td colspan="3">
+														${nbBean.content }
+													</td>
+												</tr>
+											</table>
+											<div class="col-12 d-flex justify-content-start">
+												<c:if test="${nbBean.writer eq loginInfo.nickname }">
+													<input class="btn btn-primary me-1 mb-1" type="button" value="글수정" onClick="updateNotice(${nbBean.num})">
+												</c:if>
+												<c:if test="${(nbBean.writer eq loginInfo.nickname) or (loginInfo.type eq 'admin') }">
+													<input class="btn btn-primary me-1 mb-1" type="button" value="글삭제" onclick="deleteNotice(${nbBean.num})">
+												</c:if>
+													<input class="btn btn-primary me-1 mb-1" type="button" value="글목록"  onclick="listNotice()">								
 											</div>
-											<div class="d-flex justify-content-end">
-											<c:if test="${id eq 'admin'}"> 
-												<button class="btn btn-sm btn-outline-success" onclick="updateNotice(${nbBean.num})">수  정</button>
-												<button class="btn btn-sm btn-outline-success" onclick="deleteNotice(${nbBean.num})">삭  제</button>
-											</c:if>
-												<button class="btn btn-sm btn-outline-success" onclick="listNotice()">목  록</button>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-
-
-
-
+						</section>
 						<%-- ******* Main Code END ******* --%>
 					</section>
 				</div>

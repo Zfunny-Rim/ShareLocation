@@ -3,28 +3,32 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- The definition of the Root Spring Container shared by all Servlets 
+		and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
-	
+
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
 	</listener>
 
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml
+			</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>   
+		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -48,30 +52,34 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-<!--  reservation -->
- 	<servlet>
+
+	<!-- reservation -->
+	<servlet>
 		<servlet-name>reservation</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/reservation-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/reservation-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>reservation</servlet-name>
 		<url-pattern>*.rv</url-pattern>
 	</servlet-mapping>
 
-<!-- HOST -->   
-	<servlet>   
+	<!-- HOST -->
+	<servlet>
 		<servlet-name>host</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/host-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/host-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -79,14 +87,16 @@
 		<servlet-name>host</servlet-name>
 		<url-pattern>*.ho</url-pattern>
 	</servlet-mapping>
-	
-<!-- 	space -->
+
+	<!-- space -->
 	<servlet>
 		<servlet-name>space</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/space-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/space-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -95,83 +105,111 @@
 		<url-pattern>*.sp</url-pattern>
 	</servlet-mapping>
 
-<!-- memeber -->	
+	<!-- memeber -->
 	<servlet>
 		<servlet-name>member</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/member-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/member-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.member</url-pattern>
 	</servlet-mapping>
-	
-	<!-- memeber -->	
+
+	<!-- memeber -->
 	<servlet>
 		<servlet-name>balance</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/balance-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/balance-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>balance</servlet-name>
 		<url-pattern>*.balance</url-pattern>
 	</servlet-mapping>
-	
-	<!--  admin -->
+
+	<!-- admin -->
 	<servlet>
 		<servlet-name>admin</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/admin-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/admin-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>admin</servlet-name>
 		<url-pattern>*.admin</url-pattern>
 	</servlet-mapping>
-	
-		<!-- noticeBoard -->
+
+	<!-- noticeBoard -->
 	<servlet>
 		<servlet-name>notice</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/notice-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/notice-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>notice</servlet-name>
 		<url-pattern>*.nb</url-pattern>
 	</servlet-mapping>
-	
-	<!--  QnaBoard -->
+	<!-- helpBoard -->
 	<servlet>
-		<servlet-name>qnaBoard</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-name>help</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/qnaBoard-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/help-servlet.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
+	<servlet-mapping>
+		<servlet-name>help</servlet-name>
+		<url-pattern>*.hb</url-pattern>
+	</servlet-mapping>
+
+	<!-- QnaBoard -->
+	<servlet>
+		<servlet-name>qnaBoard</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/qnaBoard-servlet.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>qnaBoard</servlet-name>
 		<url-pattern>*.qnaBoard</url-pattern>
 	</servlet-mapping>
+
 </web-app>

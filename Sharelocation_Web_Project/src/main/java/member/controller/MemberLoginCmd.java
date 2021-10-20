@@ -46,12 +46,19 @@ public class MemberLoginCmd {
 	     response.setContentType("text/html;charset=UTF-8");
 		 mav.addObject("loginInfo",dbMember);
 		 
+		 String destination = (String)session.getAttribute("destination");
+		 if(destination != null) {
+			 mav.setViewName(destination);
+			 session.setAttribute("destination", null);
+			 return mav;
+		 }
 		 if(dbMember == null) {
 			 mav.setViewName(getPage);
 			 pw.println("<script>alert('아이디 비밀번호를 확인하세요.');</script>");
 	         pw.flush();
 			 return mav;
 		 }
+		 
 		 else {
 			 if(dbMember.getType().equals("admin")) {//adminLogin
 				 mav.setViewName(adminPage);

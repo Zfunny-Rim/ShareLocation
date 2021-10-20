@@ -152,6 +152,14 @@
 								onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
 								예약취소</button>
 						</c:if>
+						<c:if test="${reservationBean.status eq '예약확정' }">
+							<button class="btn btn-outline-primary" type="button"
+								onClick="completeReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								이용완료</button> 
+							<button class="btn btn-outline-danger" type="button" 
+								onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								예약취소</button>
+						</c:if>
 					</td>
 				</tr>
 			</tbody>
@@ -198,6 +206,17 @@
 			}else{
 				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
 				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=예약확정";
+			}
+		}
+	}
+	function completeReservation(spaceNum, pageNum, whatColumn, keyword, num){
+		result = confirm("이용완료 처리를 하시겠습니까?");
+		if(result){
+			if(keyword == ""){
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+"&status=이용완료";
+			}else{
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
+				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=이용완료";
 			}
 		}
 	}

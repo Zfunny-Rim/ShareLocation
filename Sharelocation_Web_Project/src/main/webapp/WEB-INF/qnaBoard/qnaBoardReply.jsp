@@ -12,6 +12,9 @@
 .required {
 	color: red;
 }
+.ck-editor__editable{
+	min-height: 250px;
+}
 </style>
     <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -34,7 +37,7 @@
 								<div class="col-md-8 col-12">
 									<div class="card">
 										<div class="card-header">
-											<h4 class="card-title">답변하기</h4>
+											<h4 class="card-title">답글쓰기</h4>
 										</div>
 										<div class="card-content">
 											<div class="card-body">
@@ -49,28 +52,28 @@
 													<input type="hidden" name="type" value="${loginInfo.type }">
 													<div class="form-body">
 														<div class="row">
-															<label>작성자<span class="required">*</span>&nbsp;&nbsp;${loginInfo.nickname }</label>
+															<label><b>작성자&nbsp;&nbsp;</b>${loginInfo.nickname }</label>
 															<br><br>
-															<div class="col-12">
-																<label>제목<span class="required">*</span></label>
+															<div class="col-12 mb-2">
+																<label><b>제목</b></label>
 															</div>
 															<div class="col-md-12 form-group">
 																<input type="text" id="subject"
 																	class="form-control" name="subject">
 															</div>
-															<div class="col-12">
-																<label>내용<span class="required">*</span></label>
+															<div class="col-12 mb-2">
+																<label><b>내용</b></label>
 															</div>
 															<br><br>
 															<div class="col-md-12 form-group">
-																<textarea class="form-control" id="content" name="content" rows="5"></textarea>
+																<textarea class="form-control" id="editor" name="content"></textarea>
 															</div>
 															<br><br>
 															<div class="col-12 d-flex justify-content-end">
 																<input type="submit" class="btn btn-primary me-1 mb-1"
 																	onClick="return processing()" value="확인"> <input
 																	type="button" class="btn btn-light-secondary me-1 mb-1"
-																	onClick="location.href='list.qnaBoard?pageNumber=${pageNumber}'" value="취소">
+																	onClick="javascript:history.back()" value="취소">
 															</div>
 														</div>
 													</div>
@@ -89,16 +92,27 @@
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+		<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 		<script>
+		var myEditor;
+		ClassicEditor
+          .create( document.querySelector( '#editor' ) )
+          .then(editor => {
+          console.log('Editor was initialized', editor);
+          myEditor = editor;
+          })
+          .catch( error => {
+              console.error( error );
+          } );
 		function processing(){
 			if($("#subject").val()==""){
 				alert("제목을 입력하세요");
 				$("#subject").focus();
 				return false;
 			}
-			if($("#content").val()==""){
+			if(myEditor.getData()==""){
 				alert("내용을 입력하세요");
-				$("#content").focus();
+				$("#editor").focus();
 				return false;
 			}
 			return true;
