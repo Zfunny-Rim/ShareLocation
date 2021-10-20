@@ -16,8 +16,8 @@
 String[] locationtype = new String[]{"파티룸", "스터디룸", "게임룸", "카페", "공유주방", "회의실", "연습실", "보컬연습실", "악기연습실", "녹음실", "운동시설",
 		"촬영스튜디오", "라이브방송", "공연장", "공유오피스", "독립오피스", "강의실", "컨퍼런스"};
 request.setAttribute("locationtype", locationtype);
-String[] area = new String[]{"서울", "인천", "부산", "광주", "대구", "대전", "울산", "제주", "강원도", "경남", "경북", "전남", "전북"};
-request.setAttribute("area", area);
+String[] areaStr = new String[]{"서울", "인천", "부산", "광주", "대구", "대전", "울산", "제주", "강원도", "경남", "경북", "전남", "전북"};
+request.setAttribute("areaStr", areaStr);
 %>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
 <style type="text/css">
@@ -83,14 +83,14 @@ request.setAttribute("area", area);
 												<form class="m-0 p-0" action="list.sp" method="get">
 													<div class="input-group ms-auto">
 														<select name="whatColumn" class="input-group-text">
-															<option value="%%">전체종류</option>
+															<option value="">전체종류</option>
 															<c:forEach var="locationtype" items="${locationtype}">
 																<option value="${locationtype}">${locationtype}</option>
 															</c:forEach>
 														</select> <select name="area" class="input-group-text">
-															<option value="%%">전체지역</option>
-															<c:forEach var="area" items="${area}">
-																<option value="${area}">${area}</option>
+															<option value="">전체지역</option>
+															<c:forEach var="areafor" items="${areaStr}">
+																<option value="${areafor}">${areafor}</option>
 															</c:forEach>
 														</select> <input type="text" class="form-control"
 															placeholder="공간을 검색하세요." name="keyword"> <input
@@ -198,14 +198,14 @@ request.setAttribute("area", area);
 												</c:if>
 												<c:if test="${pageInfo.beginPage ne 1 }">
 													<c:set var="url"
-														value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }" />
+														value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&whatColumn=${param.whatColumn }&area=${param.area }&keyword=${param.keyword }" />
 													<li class="page-item"><a class="page-link"
 														href="${url }">이전</a></li>
 												</c:if>
 												<c:forEach var="i" begin="${pageInfo.beginPage }"
 													end="${pageInfo.endPage }">
 													<c:set var="url"
-														value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }" />
+														value="${pageInfo.url }?pagenumber=${i }&whatColumn=${param.whatColumn }&area=${param.area }&keyword=${param.keyword }" />
 													<c:if test="${i eq pagenumber }">
 														<li class="page-item active"><a class="page-link">${i }</a></li>
 													</c:if>
@@ -219,7 +219,7 @@ request.setAttribute("area", area);
 												</c:if>
 												<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
 													<c:set var="url"
-														value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}" />
+														value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&whatColumn=${param.whatColumn }&area=${param.area }&keyword=${param.keyword }" />
 													<li class="page-item"><a class="page-link"
 														href="${url }">다음</a></li>
 												</c:if>
