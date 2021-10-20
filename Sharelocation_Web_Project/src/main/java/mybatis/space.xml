@@ -15,6 +15,7 @@
 		values(favorite_seq.nextval,
 		#{spacenum},#{membernum})
 	</insert>
+
 	<select id="getSpaceList" resultType="MySpace">
 		select * from space
 		where status = '운영중'
@@ -31,7 +32,7 @@
 	</select>
 
 	<select id="getTotalCount" resultType="int">
-		select * from space
+		select count(*) from space
 		where status = '운영중'
 		<if test="status!=null">
 			or name like upper(#{keyword}) or tag like upper(#{keyword})
@@ -59,6 +60,8 @@
 		<if test="area!=null">
 			and address like #{area}
 		</if>
+
+
 	</select>
 
 
@@ -161,11 +164,9 @@
 	</select>
 
 	<insert id="addAdvertise">
-		insert into advertise(num, spacenum, applicationdate,
-		expiredate, price)
-		values(advertise_seq.nextval, #{spacenum},
-		sysdate,
-		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'), #{price})
+		insert into advertise(num, spacenum, applicationdate, expiredate, price)
+		values(advertise_seq.nextval, #{spacenum}, 
+		sysdate, to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi'), #{price})
 	</insert>
 	<update id="updateGrade">
 		update space set grade=#{grade} where num=#{num}
@@ -176,8 +177,7 @@
 	</select>
 	<update id="updateAdvertise">
 		update advertise set price = #{price},
-		expiredate =
-		to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi')
+		expiredate = to_date(#{expiredate}, 'yyyy-mm-dd hh24:mi') 
 		where num=#{num}
 	</update>
 	<select id="getSpaceApprovalWaitingList" resultType="MySpace">
@@ -197,24 +197,9 @@
 		where num = #{num}
 	</select>
 	<select id="getAllSpaceList" resultType="MySpace">
-		select * from space
-		order by regdate desc
+		select * from space order by regdate desc
 	</select>
 	<select id="getExpiredAdvertiseList" resultType="MyAdvertise">
-		select * from advertise where <![CDATA[ expiredate < sysdate ]]>
-	</select>
-	<select id="getFavoriteBySpaceNumAndMemberNum"
-		resultType="MyFavorite">
-		select * from favorite
-		where spacenum=#{spacenum} and
-		membernum=#{membernum}
-	</select>
-	<select id="getFavoriteListCount" resultType="int">
-		select count(*)
-		from favorite where membernum=#{membernum}
-	</select>
-	<select id="getRecentSpaceList" resultType="MySpace">
-		select * from space
-		order by regdate desc
+		select * from advertise where <![CDATA[ expiredate < sysdate ]]> 
 	</select>
 </mapper>
