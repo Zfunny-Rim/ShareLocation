@@ -108,14 +108,14 @@
 											</c:if>
 											<c:if test="${pageInfo.beginPage ne 1 }">
 												<c:set var="url"
-													value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }" />
+													value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&whatColumn=${pageInfo.whatColumn }&keyword=${pageInfo.keyword }"/>
 												<li class="page-item"><a class="page-link"
 													href="${url }">이전</a></li>
 											</c:if>
 											<c:forEach var="i" begin="${pageInfo.beginPage }"
 												end="${pageInfo.endPage }">
 												<c:set var="url"
-													value="${pageInfo.url }?pagenumber=${i }" />
+													value="${pageInfo.url }?pagenumber=${i }&whatColumn=${pageInfo.whatColumn }&keyword=${pageInfo.keyword }" />
 												<c:if test="${i eq pageInfo.pageNumber }">
 													<li class="page-item active"><a class="page-link">${i }</a></li>
 												</c:if>
@@ -129,7 +129,7 @@
 											</c:if>
 											<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
 												<c:set var="url"
-													value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }" />
+													value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&whatColumn=${pageInfo.whatColumn }&keyword=${pageInfo.keyword }" />
 												<li class="page-item"><a class="page-link"
 													href="${url }">다음</a></li>
 											</c:if>
