@@ -108,6 +108,11 @@ request.setAttribute("area", area);
 								<h4>PowerLink</h4>
 								<section id="content-types">
 									<div class="row">
+										<c:if test="${empty powerLink }">
+										<div style="text-align:center">
+										 검색 결과가 없습니다.
+										</div>
+										</c:if>
 										<c:forEach var="power" items="${powerLink}" begin="0" end="2">
 											<div class="col-xl-4 col-md-6 col-sm-12">
 												<div class="card bg-light clickable" onClick="viewDetail(${power.num})">
@@ -146,6 +151,11 @@ request.setAttribute("area", area);
 								<h4>Link</h4>
 								<section id="content-types">
 									<div class="row">
+										<c:if test="${empty spaceLists }">
+										<div style="text-align:center">
+										 검색 결과가 없습니다.
+										</div>
+										</c:if>
 										<c:forEach var="space" items="${spaceLists}">
 											<div class="col-xl-4 col-md-6 col-sm-12">
 												<div class="card bg-light clickable" onClick="viewDetail(${space.num})">

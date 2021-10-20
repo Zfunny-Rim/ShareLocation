@@ -30,6 +30,7 @@ public class QnaBoardReplyCmd {
 		int restep = list.getRestep();
 		int relevel = list.getRelevel();
 		mav.setViewName(getPage);
+		mav.addObject("originArticle", list);
 		mav.addObject("ref", ref);
 		mav.addObject("restep", restep);
 		mav.addObject("relevel", relevel);

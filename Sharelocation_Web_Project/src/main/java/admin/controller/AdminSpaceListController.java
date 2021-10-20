@@ -32,7 +32,7 @@ public class AdminSpaceListController {
 			pageNumber = "1";
 		String url = request.getContextPath()+"/"+command;
 		int totalCount = spaceDao.getAllSpaceCount();
-		Paging pageInfo = new Paging(pageNumber,"1", totalCount, url, null, null, null);
+		Paging pageInfo = new Paging(pageNumber,"5", totalCount, url, null, null, null);
 		List<SpaceBean> spaceList = spaceDao.getAllSpaceList(pageInfo);
 		for(SpaceBean sBean:spaceList) {
 			String mNick = memberDao.getMemberNickNameByNum(sBean.getMembernum());

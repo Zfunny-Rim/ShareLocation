@@ -15,6 +15,10 @@
 .ck-editor__editable{
 	min-height: 250px;
 }
+th{
+	text-align:center;
+	background-color: lightgray !important;
+}
 </style>
     <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
@@ -41,6 +45,34 @@
 										</div>
 										<div class="card-content">
 											<div class="card-body">
+												<h4 class="card-title">원글</h4>
+												<table class="table table-bordered">
+													<tr>
+														<th style="width:15%;">글번호</th>
+														<td style="width:30%">${originArticle.num }</td>
+														<th style="width:15%;">작성자</th>
+														<td style="width:30%">${originArticle.writer }</td>
+													</tr>
+													<tr>
+														<th>작성일</th>
+														<td>
+															<fmt:parseDate var="parseRegDate" value="${originArticle.regdate }" pattern="yyyy-MM-dd"/>
+															<fmt:formatDate value="${parseRegDate }" pattern="yyyy/MM/dd"/>
+														</td>
+														<th>조회수</th>
+														<td>${originArticle.readcount }</td>
+													</tr>
+													<tr>
+														<th>제목</th>
+														<td colspan="3">${originArticle.subject }</td>
+													</tr>
+													<tr>
+														<th>내용</th>
+														<td colspan="3">
+															${originArticle.content }
+														</td>
+													</tr>
+												</table>
 												<form class="form form-vertical" action="reply.qnaBoard"
 													method="post">
 													<input type="hidden" name="ref" value="${ref }">

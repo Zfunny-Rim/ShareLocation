@@ -34,8 +34,13 @@
 											<div class="card">
 												<div class="card-body">
 													<h4>찜한공간</h4>
-													<section id="content-types">
+													<section id="content-types" class="mb-3">
 														<div class="row">
+															<c:if test="${empty favoriteResult }">
+																<div style="text-align:center">
+																 찜한 공간이 없습니다.
+																</div>
+															</c:if>
 															<c:forEach var="fBean" items="${favoriteResult}">
 																<div class="col-xl-4 col-md-6 col-sm-12">
 																	<div class="card bg-light clickable"
@@ -74,38 +79,40 @@
 															</c:forEach>
 														</div>
 													</section>
+													<c:if test="${not empty favoriteResult }">
+													<div class="page-nav d-flex justify-content-center">
+														<nav>
+														    <ul class="pagination pagination-primary">
+														    	<c:if test="${pageInfo.beginPage eq 1 }">
+															        <li class="page-item disabled"><a class="page-link">이전</a></li>
+														    	</c:if>
+														    	<c:if test="${pageInfo.beginPage ne 1 }">
+														    		<c:set var="url" value="${pageInfo.url }?pageNumber=${pageInfo.beginPage -1 }"/>
+															        <li class="page-item"><a class="page-link" href="${url }">이전</a></li>
+														    	</c:if>
+														    	<c:forEach var="i" begin="${pageInfo.beginPage }" end="${pageInfo.endPage }">
+														    	<c:set var="url" value="${pageInfo.url }?pageNumber=${i }"/>
+														    		<c:if test="${i eq pageInfo.pageNumber }">
+															    		<li class="page-item active"><a class="page-link">${i }</a></li>
+														    		</c:if>
+														    		<c:if test="${i ne pageInfo.pageNumber }">
+															    		<li class="page-item"><a class="page-link" href="${url }">${i }</a></li>
+														    		</c:if>
+														    	</c:forEach>
+														    	<c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
+															        <li class="page-item disabled"><a class="page-link">다음</a></li>
+														    	</c:if>
+														    	<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
+														    	<c:set var="url" value="${pageInfo.url }?pageNumber=${pageInfo.endPage +1 }"/>
+															        <li class="page-item"><a class="page-link" href="${url }">다음</a></li>
+														    	</c:if>
+														    </ul>
+														</nav>
+													</div>
+													</c:if>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="page-nav d-flex justify-content-center">
-										<nav>
-										    <ul class="pagination pagination-primary">
-										    	<c:if test="${pageInfo.beginPage eq 1 }">
-											        <li class="page-item disabled"><a class="page-link">이전</a></li>
-										    	</c:if>
-										    	<c:if test="${pageInfo.beginPage ne 1 }">
-										    		<c:set var="url" value="${pageInfo.url }?pageNumber=${pageInfo.beginPage -1 }"/>
-											        <li class="page-item"><a class="page-link" href="${url }">이전</a></li>
-										    	</c:if>
-										    	<c:forEach var="i" begin="${pageInfo.beginPage }" end="${pageInfo.endPage }">
-										    	<c:set var="url" value="${pageInfo.url }?pageNumber=${i }"/>
-										    		<c:if test="${i eq pageInfo.pageNumber }">
-											    		<li class="page-item active"><a class="page-link">${i }</a></li>
-										    		</c:if>
-										    		<c:if test="${i ne pageInfo.pageNumber }">
-											    		<li class="page-item"><a class="page-link" href="${url }">${i }</a></li>
-										    		</c:if>
-										    	</c:forEach>
-										    	<c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
-											        <li class="page-item disabled"><a class="page-link">다음</a></li>
-										    	</c:if>
-										    	<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
-										    	<c:set var="url" value="${pageInfo.url }?pageNumber=${pageInfo.endPage +1 }"/>
-											        <li class="page-item"><a class="page-link" href="${url }">다음</a></li>
-										    	</c:if>
-										    </ul>
-										</nav>
 									</div>
 								</section>
 							</div>

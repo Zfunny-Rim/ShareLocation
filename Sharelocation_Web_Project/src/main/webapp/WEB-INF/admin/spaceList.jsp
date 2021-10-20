@@ -23,7 +23,7 @@
 <section class="section">
 <%-- ******* Main Code HERE ******* --%>
 	<div class="row justify-content-center">
-	<div class="col-9">
+	<div class="col-8">
 	<div class="card">
 	<div class="card-content">
 	<div class="card-body">
@@ -54,10 +54,35 @@
 					<td>${spaceBean.mnickname }</td>
 					<td>${spaceBean.type }</td>
 					<td>${spaceBean.name }</td>
-					<td>${spaceBean.operatingtime }~${spaceBean.operatingendtime }</td>
+					<td>
+						<c:if test="${(spaceBean.operatingtime eq 0)and(spaceBean.operatingendtime eq 24) }">
+							24시간 영업
+						</c:if>
+						<c:if test="${(spaceBean.operatingtime ne 0)or(spaceBean.operatingendtime ne 24) }">
+							${spaceBean.operatingtime }시~${spaceBean.operatingendtime }시
+						</c:if>
+						
+					</td>
 					<td>${spaceBean.hp }</td>
-					<td>${spaceBean.regdate }</td>
-					<td>${spaceBean.status }</td>
+					<td>
+						<fmt:parseDate var="regDate" value="${spaceBean.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+						<fmt:formatDate value="${regDate }" pattern="yyyy년 MM월 dd일 HH:mm"/>
+					</td>
+					<td>
+						<c:if test="${spaceBean.status eq '검수대기' }">
+							<span class="badge bg-warning">${spaceBean.status }</span>
+						</c:if>
+						<c:if test="${spaceBean.status eq '등록대기' }">
+							<span class="badge bg-info">${spaceBean.status }</span>
+						</c:if>
+						<c:if test="${spaceBean.status eq '운영중' }">
+							<span class="badge bg-success">${spaceBean.status }</span>
+						</c:if>
+						<c:if test="${spaceBean.status eq '검수반려' }">
+							<span class="badge bg-danger">${spaceBean.status }</span>
+						</c:if>
+						
+					</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -74,10 +99,10 @@
 					    	</c:if>
 					    	<c:forEach var="i" begin="${pageInfo.beginPage }" end="${pageInfo.endPage }">
 					    	<c:set var="url" value="${pageInfo.url }?pageNumber=${i }"/>
-					    		<c:if test="${i eq param.pageNumber }">
+					    		<c:if test="${i eq pageInfo.pageNumber }">
 						    		<li class="page-item active"><a class="page-link">${i }</a></li>
 					    		</c:if>
-					    		<c:if test="${i ne param.pageNumber }">
+					    		<c:if test="${i ne pageInfo.pageNumber }">
 						    		<li class="page-item"><a class="page-link" href="${url }">${i }</a></li>
 					    		</c:if>
 					    	</c:forEach>
