@@ -46,12 +46,13 @@ public class spaceListCmd {
 		if(tag==null) {
 			tag = "";
 		}
+	
 		if(pagenumber == null) {
 			pagenumber = "1";
 		}
 	
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("whatColumn", whatColumn); // whatColumn=area,null
+		map.put("whatColumn", "%"+whatColumn+"%"); // whatColumn=area,null
 		map.put("area", area+"%");
 		map.put("keyword",("%"+keyword+"%") );
 		map.put("tag", "%"+tag+"%");
