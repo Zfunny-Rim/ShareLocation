@@ -88,7 +88,7 @@ public class SpaceReviewManageController {
 		cnt = reviewBoardDao.deleteReviewByNum(reviewNum);
 		if(cnt != -1) {
 			pw.println("<script>");
-			pw.println("alert('리뷰가 삭제되었습니다..');");
+			pw.println("alert('후기가 삭제되었습니다..');");
 			pw.println("location.href='reviewManage.sp';");
 			pw.println("</script>");
 			return null;

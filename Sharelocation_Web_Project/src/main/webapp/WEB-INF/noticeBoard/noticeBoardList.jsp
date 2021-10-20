@@ -62,7 +62,7 @@ tr th {
 											<div class="d-flex justify-content-end">
 												<c:if test="${id eq 'admin'}">
 													<button class="btn btn-outline-secondary" type="button"
-														onClick="location.href='insertNoticeBoard.nb'">삽입하기</button>
+														onClick="location.href='insertNoticeBoard.nb'">글쓰기</button>
 												</c:if>
 											</div>
 											<c:if test="${not empty noticeBoard }">

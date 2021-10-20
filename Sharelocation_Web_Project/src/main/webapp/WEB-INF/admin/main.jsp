@@ -130,14 +130,11 @@
 									<div class="card-header">
 										<h4>최근 검수 신청</h4>
 										<div class="card-body">
-											<c:if test="${empty approvalList }">
-												검수 신청한 공간이 없습니다.
-											</c:if>
 											<c:if test="${not empty approvalList }">
 												<b>최근 ${approvalList.size() }건의 검수신청 입니다.</b>
 											</c:if>
 											<div class="row justify-content-center my-3">
-											<div class="col-10">
+											<div class="col-12">
 											<div class="table-responsive">
 												<table class="table table-hover mb-3">
 													<tr>
@@ -150,6 +147,11 @@
 														<th>등록일</th>	
 														<th>현재 상태</th>	
 													</tr>
+													<c:if test="${empty approvalList }">
+													<tr>
+														<td colspan="8" style="text-align:center">검수 신청한 공간이 없습니다.</td>
+													</tr>
+													</c:if>
 													<c:forEach var="appBean" items="${approvalList }">
 													<tr onClick="goViewPage('${appBean.num}')">
 														<td>${appBean.num }</td>
@@ -165,7 +167,8 @@
 												</table>
 											</div>
 											<div class="d-flex justify-content-end">
-												<button class="btn btn-outline-success">검수신청 전체보기</button>
+												<button class="btn btn-outline-success" 
+												onClick="location.href='approvalList.admin'">검수신청 보기</button>
 											</div>
 											</div>
 											</div>
@@ -283,6 +286,9 @@
                 type: 'pie',
               },
               labels: ["월","화","수","목","금","토","일"],
+              legend:{
+               	  show: false
+               	 },
               };
         
         var PieOptions = {
@@ -293,6 +299,9 @@
                 type: 'pie',
               },
               labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+              legend:{
+               	  show: false
+               	 },
               };
 
             var chart = new ApexCharts(document.querySelector("#piechart"), PieOptions);

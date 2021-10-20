@@ -8,7 +8,11 @@
 	<title>IPS partagé</title>
 	<%@ include file="/WEB-INF/views/include/head_css.jsp" %>
 	<%-- ******* CUSTOM CSS Link HERE ******* --%>
-	
+	<style type="text/css">
+	.clickable:hover{
+		cursor:pointer;
+	}
+	</style>
 	<%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 
@@ -28,9 +32,6 @@
 	<div class="card-content">
 	<div class="card-body">
 		<h4 class="card-title">등록된 공간</h4>
-		<c:if test="${empty spaceList }">
-			등록된 공간이 없습니다.
-		</c:if>
 		<c:if test="${not empty spaceList }">
 			등록된 공간이 총 ${pageInfo.totalCount }개 있습니다.
 		</c:if>
@@ -48,8 +49,15 @@
 					<th>등록일</th>	
 					<th>현재 상태</th>	
 				</tr>
+				<c:if test="${empty spaceList }">
+					<tr>
+						<td colspan="8" style="text-align:center;">
+							등록된 공간이 없습니다.
+						</td>
+					</tr>
+				</c:if>
 				<c:forEach var="spaceBean" items="${spaceList }">
-				<tr onClick="goViewPage('${spaceBean.num}')">
+				<tr class="clickable" onClick="goViewPage('${spaceBean.num}')">
 					<td>${spaceBean.num }</td>
 					<td>${spaceBean.mnickname }</td>
 					<td>${spaceBean.type }</td>

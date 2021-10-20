@@ -218,7 +218,9 @@
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td style="text-align:right;">${detailSpacebean.price }원 / ${detailSpacebean.priceunit }</td>									
+										<td style="text-align:right;">
+										<fmt:formatNumber value="${detailSpacebean.price }" pattern="#,###"/>	
+										원 / ${detailSpacebean.priceunit }</td>									
 									</tr>
 									<tr>
 										<th></th>
@@ -279,16 +281,18 @@
 			
 			var opStime = ${spacebean.operatingtime};
 			var opEtime = ${spacebean.operatingendtime};
-			if(opStime == 0 && opEtime == 24){
-				//24시간 운영
-				return true;
-			}
 			if(parseInt(start_time) > parseInt(end_time)){
 				alert("시작시간은 종료시간보다 빨라야 합니다.");
 				return false;
 			}
 			else if(start_time == end_time){
 				alert("시작시간과 종료시간이 같을 수 없습니다.");
+				return false;
+			}
+			var timeCount = parseInt(end_time) - parseInt(start_time);
+			var minTime = '${detailSpacebean.mintime}';
+			if(parseInt(minTime) > timeCount){
+				alert("최소 예약시간은 "+minTime+"시간 입니다.");
 				return false;
 			}
 			var inputDate = $('#textdate').val();
@@ -346,18 +350,21 @@
 				var price = '${detailSpacebean.price}';
 				var timeCount = selTimeCount;
 				var person = $('#selectPerson').val();
+				var priceText = parseInt(price).toLocaleString('ko-KR');
 				if(priceunit == '시간'){
-					var priceFor = selTimeCount+"시간 * "+person+"명 * "+price+"원";
+					var priceFor = selTimeCount+"시간 * "+person+"명 * "+priceText+"원";
 					$('#priceFormula').empty();
 					$('#priceFormula').text(priceFor);
 					var amount = parseInt(price) * selTimeCount * parseInt(person);
+					amount = amount.toLocaleString('ko-KR');
 					$('#priceText').empty();
 					$('#priceText').text(amount);
 				}else{
-					var priceFor = selTimeCount+"시간 * "+price+"원";
+					var priceFor = selTimeCount+"시간 * "+priceText+"원";
 					$('#priceFormula').empty();
 					$('#priceFormula').text(priceFor);
 					var amount = parseInt(price) * selTimeCount;
+					amount = amount.toLocaleString('ko-KR');
 					$('#priceText').empty();
 					$('#priceText').text(amount);
 				}
@@ -377,8 +384,11 @@
 					var selTime1 = $('#selectTextTime1').val();
 					var selTime2 = $('#selectTextTime2').val();
 					if(parseInt(selTime1) >= parseInt(selTime2)){
-						alert("시작시간은 종료시간보다 빨라야합니다.");
-						$(this).val(opStartTime)
+						if(parseInt(selTime1)+1 > opEndTime){
+							$('#selectTextTime2').val(selTime1);
+						}else{
+							$('#selectTextTime2').val(parseInt(selTime1)+1);
+						}
 					}
 					//
 					changeTimeText();
@@ -391,8 +401,12 @@
 					var selTime1 = $('#selectTextTime1').val();
 					var selTime2 = $('#selectTextTime2').val();
 					if(parseInt(selTime1) >= parseInt(selTime2)){
-						alert("종료시간은 시작시간보다 늦어야합니다.");
-						$(this).val(opEndTime)
+						if(parseInt(selTime2)-1 < opStartTime){
+							$('#selectTextTime1').val(selTime2);
+						}else{
+							$('#selectTextTime1').val(parseInt(selTime2)-1);
+						}
+						
 					}
 					changeTimeText();
 					changePriceText();

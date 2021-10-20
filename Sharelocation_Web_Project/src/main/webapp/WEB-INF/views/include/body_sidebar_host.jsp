@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <div id="sidebar">
 	<div class="sidebar-wrapper">
-		<div class="sidebar-header">
+		<div class="sidebar-header" style="padding: 0 24px;">
 			<div class="d-flex justify-content-between">
 				<div class="logo">
 					<a href="/sharelocation"><img
 						src="./resources/assets/images/logo/ips_logo.png"
-						style="width: 151px; height: 60px;"></a>
+						style="width: 172px; height: 87px;"></a>
 				</div>
 				<div class="toggler">
 					<a href="#" class="sidebar-hide d-block"><i
