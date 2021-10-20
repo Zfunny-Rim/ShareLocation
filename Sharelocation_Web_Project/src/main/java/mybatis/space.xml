@@ -46,7 +46,6 @@
 		where grade = '광고' and status = '운영중'
 			and (name like upper(#{keyword}) or tag like
 			upper(#{keyword}))
-
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
@@ -99,7 +98,7 @@
 
 	<select id="getSpaceListByMemberNum" resultType="MySpace">
 		select * from
-		space where membernum = #{memberNum} order by rownum
+		space where membernum = #{memberNum} order by regdate desc
 	</select>
 
 	<select id="getSpaceImageListBySpaceNum"
