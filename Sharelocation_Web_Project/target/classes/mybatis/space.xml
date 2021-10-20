@@ -98,7 +98,7 @@
 
 	<select id="getSpaceListByMemberNum" resultType="MySpace">
 		select * from
-		space where membernum = #{memberNum} order by rownum
+		space where membernum = #{memberNum} order by regdate desc
 	</select>
 
 	<select id="getSpaceImageListBySpaceNum"
