@@ -55,7 +55,6 @@ public class spaceListCmd {
 		map.put("area", area+"%");
 		map.put("keyword",("%"+keyword+"%") );
 		map.put("tag", "%"+tag+"%");
-
 		
 
 		int totalCount = spaceDao.getTotalCount(map);

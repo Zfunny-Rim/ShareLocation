@@ -15,12 +15,10 @@
 		values(favorite_seq.nextval,
 		#{spacenum},#{membernum})
 	</insert>
-
 	<select id="getSpaceList" resultType="MySpace">
 		select * from space
-		where status = '운영중' and name like
-		upper(#{keyword}) or tag like upper(#{keyword})
-
+		where status = '운영중'
+			and( name like upper(#{keyword}) or tag like upper(#{keyword}) )
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
