@@ -43,6 +43,9 @@ public class spaceListCmd {
 		if(area==null) {
 			area = "";
 		}
+		if(whatColumn==null) {
+			whatColumn = "";
+		}
 		if(tag==null) {
 			tag = "";
 		}
