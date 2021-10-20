@@ -47,7 +47,8 @@ public class MemberLoginCmd {
 		 mav.addObject("loginInfo",dbMember);
 		 
 		 if(dbMember == null) {
-			 mav.setViewName(getPage);
+			 //mav.setViewName(getPage);
+			 mav.setViewName("/");
 			 pw.println("<script>alert('아이디 비밀번호를 확인하세요.');</script>");
 	         pw.flush();
 			 return mav;
