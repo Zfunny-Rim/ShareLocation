@@ -34,7 +34,6 @@ public class MemberLoginCmd {
 			  HttpServletResponse response,
 			  HttpSession session
 			  ) throws IOException {
-		 
 		 Map<String, String> map = new HashMap<String, String>();
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
@@ -48,12 +47,13 @@ public class MemberLoginCmd {
 		 
 		 if(dbMember == null) {
 			 //mav.setViewName(getPage);
-			 mav.setViewName("/");
-			 pw.println("<script>alert('아이디 비밀번호를 확인하세요.');</script>");
+			 pw.println("<script>");
+			 pw.println("alert('아이디 비밀번호를 확인하세요.');");
+			 pw.println("location.href='miniLogin.member';");
+			 pw.println("</script>");
 	         pw.flush();
-			 return mav;
+	         return null;
 		 }
-		 
 		 else {
 			 String destination = (String)session.getAttribute("destination");
 			 String gotoPage = null;
