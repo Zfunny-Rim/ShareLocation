@@ -83,9 +83,12 @@ public class MemberLoginCmd {
 	 @RequestMapping(value = command,method = RequestMethod.GET)
 	 public ModelAndView doAction(
 			 MemberBean member,
+			 HttpServletResponse response,
 			 HttpSession session,
 			 ModelAndView mav
-			 ) {
+			 ) throws IOException {
+		 PrintWriter pw = response.getWriter();   
+	     response.setContentType("text/html;charset=UTF-8");
 		 Map<String, String> map = new HashMap<String, String>();
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
@@ -95,19 +98,24 @@ public class MemberLoginCmd {
 		 
 		 mav = new ModelAndView();
 		 mav.addObject("loginInfo",dbMember);
-		 
+		 String gotoPage = null;
+		 String userNName = dbMember.getNickname();
 		 if(dbMember.getType().equals("admin")) {//adminLogin
-			 mav.setViewName(adminPage);
-			 return mav;
+			 gotoPage = adminPage;
 		 }
 		 else if(dbMember.getType().equals("host")) {//hostLogin
-			 mav.setViewName(hostPage);
-			 return mav;
+			 gotoPage = hostPage;
 		 }
 		 else {//guestLogin
-			 mav.setViewName(guestPage);
-			 return mav;
+			 gotoPage = guestPage;
 		 }
+		 
+		 pw.println("<script>");
+		 pw.println("alert('"+userNName+"님 가입을 환영합니다.');");
+		 pw.println("location.href='"+gotoPage+"';");
+		 pw.println("</script>");
+		 pw.flush();
+		 return null;
 	 }
 	 
 }

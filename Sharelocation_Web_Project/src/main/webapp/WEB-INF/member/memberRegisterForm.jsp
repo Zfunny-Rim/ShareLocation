@@ -46,7 +46,7 @@
 															<label>아이디<span class="required">*</span></label>
 															<div class="col-md-10 form-group">
 																<input type="text" class="form-control" id="problem_id"
-																	name="id" placeholder="ID">
+																	name="id" value="park">
 															</div>
 															<div class="col-md-2 form-group">
 																<input type="button" class="form-control" id="id_button"
@@ -59,14 +59,14 @@
 																	<label>비밀번호<span class="required">*</span></label> <input
 																		type="password" id="inputpassword"
 																		class="form-control" name="password"
-																		placeholder="Password">
+																		value="1234">
 																</div>
 															</div>
 															<div class="col-12">
 																<div class="form-group">
 																	<label>비밀번호확인<span class="required">*</span></label> <input
 																		type="password" id="repassword" class="form-control"
-																		name="repassword" placeholder="비밀번호확인">
+																		name="repassword" value="1234">
 																</div>
 															</div>
 															<div class="col-12">
@@ -75,7 +75,7 @@
 															<div class="col-md-10 form-group">
 																<input type="text" id="problem_nickname"
 																	class="form-control" name="nickname"
-																	placeholder="Nickname">
+																	value="콩이">
 															</div>
 															<div class="col-md-2 form-group">
 																<input type="button" class="form-control"
@@ -89,13 +89,13 @@
 															</div>
 															<div class="col-md-12 form-group">
 																<input type="text" id="problem_name"
-																	class="form-control" name="name" placeholder="name">
+																	class="form-control" name="name" value="박현수">
 															</div>
 															<div class="col-md-8 form-group">
 		                                                    <div class="input-group mb-3">
-			                                                    <input type="text" class="form-control" id="firstemail" name="email_id" placeholder="example">
+			                                                    <input type="text" class="form-control" id="firstemail" name="email_id" value="hyunsoop">
 			                                                    <span class="input-group-text">@</span>
-			                                                    <input type="text" class="form-control" id="secondemail" name="email_domain" placeholder="empas.com">
+			                                                    <input type="text" class="form-control" id="secondemail" name="email_domain" value="naver.com">
 			                                                    <select class="form-select" name="domain_selector" id="thirdemail">
 			                                                        <option value="">직접입력</option>
 			                                                        <option value="naver.com">naver.com</option>
@@ -111,7 +111,7 @@
 																<div class="form-group">
 																	<label>주소<span class="required">*</span></label> <input
 																		type="text" id="address" class="form-control"
-																		name="address" placeholder="Address">
+																		name="address" value="서울시 서대문구 수색로 100 301동 2904호">
 																</div>
 															</div>
 															<div class="col-md-4">
@@ -120,20 +120,20 @@
 															<div class="col-md-8 form-group">
 																<div class="input-group">
 																	<input type="text" class="form-control" id="hp1"
-																		name="hp1" placeholder="010"> <span
+																		name="hp1" value="010"> <span
 																		class="input-group-text">-</span> <input type="text"
 																		class="form-control" id="hp2" name="hp2"
-																		placeholder="1234"> <span
+																		value="5211"> <span
 																		class="input-group-text">-</span> <input type="text"
 																		class="form-control" id="hp3" name="hp3"
-																		placeholder="5678">
+																		value="5594">
 																</div>
 															</div>
 															<div class="col-12">
 																<div class="form-group">
 																	<label>생일<span class="required">*</span></label> <input
 																		type="date" id="birth" class="form-control"
-																		name="birth">
+																		name="birth" value="1988-09-14">
 																</div>
 															</div>
 																<br><br><br><br>
