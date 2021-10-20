@@ -6,8 +6,7 @@
 
 	<select id="getSpace" resultType="MySpace">
 		select * from space
-		where num =
-		#{num}
+		where num = #{num}
 	</select>
 
 	<insert id="addFavorite">
@@ -19,9 +18,7 @@
 	<select id="getSpaceList" resultType="MySpace">
 		select * from space
 		where status = '운영중'
-		<if test="status!=null">
-			or name like upper(#{keyword}) or tag like upper(#{keyword})
-		</if>
+			and(name like upper(#{keyword}) or tag like upper(#{keyword}))
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
@@ -34,9 +31,7 @@
 	<select id="getTotalCount" resultType="int">
 		select count(*) from space
 		where status = '운영중'
-		<if test="status!=null">
-			or name like upper(#{keyword}) or tag like upper(#{keyword})
-		</if>
+			and  (name like upper(#{keyword}) or tag like upper(#{keyword}))
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
@@ -49,11 +44,8 @@
 	<select id="getPowerSpaceList" resultType="MySpace">
 		select * from space
 		where grade = '광고' and status = '운영중'
-		<if test="grade!=null">
-			or name like upper(#{keyword}) or tag like
-			upper(#{keyword})
-		</if>
-
+			and (name like upper(#{keyword}) or tag like
+			upper(#{keyword}))
 		<if test="whatColumn!=null">
 			and type like #{whatColumn}
 		</if>
@@ -106,7 +98,7 @@
 
 	<select id="getSpaceListByMemberNum" resultType="MySpace">
 		select * from
-		space where membernum = #{memberNum} order by rownum
+		space where membernum = #{memberNum} order by regdate desc
 	</select>
 
 	<select id="getSpaceImageListBySpaceNum"
@@ -201,5 +193,15 @@
 	</select>
 	<select id="getExpiredAdvertiseList" resultType="MyAdvertise">
 		select * from advertise where <![CDATA[ expiredate < sysdate ]]> 
+	</select>
+	<select id="getFavoriteBySpaceNumAndMemberNum" resultType="MyFavorite">
+		select * from favorite 
+		where spacenum=#{spacenum} and membernum=#{membernum}
+	</select>
+	<select id="getFavoriteListCount" resultType="int">
+		select count(*) from favorite where membernum=#{membernum}
+	</select>
+	<select id="getRecentSpaceList" resultType="MySpace">
+		select * from space order by regdate desc
 	</select>
 </mapper>

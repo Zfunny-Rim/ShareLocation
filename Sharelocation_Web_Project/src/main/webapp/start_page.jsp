@@ -2,10 +2,12 @@
 	pageEncoding="UTF-8"%>
 
 
+
 <% 
 	String viewPage = request.getContextPath();
 
 
 	response.sendRedirect(viewPage);
 %>
+
 
