@@ -164,5 +164,9 @@ public class SpaceDao {
 	public int getFavoriteListCount(int memberNum) {
 		return sqlSessionTemplate.selectOne(namespace+".getFavoriteListCount", memberNum);
 	}
+	public List<SpaceBean> getRecentSpaceList(int listCount) {
+		RowBounds rowBounds = new RowBounds(0, listCount);
+		return sqlSessionTemplate.selectList(namespace+".getRecentSpaceList", listCount, rowBounds);
+	}
 }
 

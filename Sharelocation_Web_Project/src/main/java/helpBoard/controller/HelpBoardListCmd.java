@@ -66,7 +66,7 @@ public class HelpBoardListCmd {
 		
 		int totalCount = helpBoardDao.getTotalCount(map);
 		String url = request.getContextPath() + command;
-		Paging pageInfo = new Paging(pagenumber, "3", totalCount, url,  whatColumn, keyword, null);
+		Paging pageInfo = new Paging(pagenumber, "5", totalCount, url,  whatColumn, keyword, null);
 		List<HelpBoardBean> helpBoard = helpBoardDao.getHelpBoardList(pageInfo, map); 
 		
 		mav.addObject("helpBoard",helpBoard);

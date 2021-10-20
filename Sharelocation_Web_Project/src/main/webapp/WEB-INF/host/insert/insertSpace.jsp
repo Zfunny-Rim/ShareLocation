@@ -26,30 +26,11 @@
                 <div class="page-heading">
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
-                    	<div class="row justify-content-md-center mb-2">
-                    		<div class="col-md-9 col-12">
-                    			<div class="row">
-		                    		<div class="col-6 col-md-6 order-md-1 order-last">
-		                                <h3>공간 등록하기</h3>
-		                            </div>
-		                            <div class="col-6 col-md-6 order-md-2 order-first">
-		                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-		                                    <ol class="breadcrumb">
-		                                        <li class="breadcrumb-item active" aria-current="page"><b>공간정보 입력</b></li>
-		                                        <li class="breadcrumb-item ">세부공간정보 입력</li>
-		                                        <li class="breadcrumb-item ">정산정보 입력</li>
-		                                    </ol>
-		                                </nav>
-		                            </div>
-                    			</div>
-                    		</div>
-                        </div>
-                        
                     	<div class="row justify-content-md-center">
-							<div class="col-md-9 col-12">
+							<div class="col-md-8 col-12">
 	                            <div class="card">
 	                                <div class="card-header">
-	                                    <h4 class="card-title">공간정보 입력</h4>
+	                                    <h3>공간 등록하기</h3>
 	                                </div>
 	                                <div class="card-content">
 	                                    <div class="card-body">
@@ -286,7 +267,7 @@
 														<input type="hidden" name="hp">
 														<input type="hidden" name="address">
 	                                                    <div class="col-sm-12 d-flex justify-content-end">
-	                                                        <button type="submit" class="btn btn-primary me-1 mb-1" onClick="return processing()">다음</button>
+	                                                        <button type="submit" class="btn btn-primary me-1 mb-1" onClick="return processing()">등록하기</button>
 	                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">취소</button>
 	                                                    </div>
 	                                                </div>

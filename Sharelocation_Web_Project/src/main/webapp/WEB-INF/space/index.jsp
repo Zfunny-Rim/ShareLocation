@@ -8,7 +8,11 @@
     <title>IPS partagé</title>
     <%@ include file="/WEB-INF/views/include/head_css.jsp" %>
     <%-- ******* CUSTOM CSS Link HERE ******* --%>
-    
+    <style type="text/css">
+    .clickable:hover{
+    	cursor:pointer;
+    }
+    </style>
     <%-- ******* CUSTOM CSS Link END ******* --%>
 </head>
 <%
@@ -68,6 +72,39 @@ request.setAttribute("area", area);
 									</div>
 								</div>
 							</div>
+							<div class="card-body">
+								<h4>최근 등록된 공간</h4>
+								<div class="row">
+									<c:forEach var="space" items="${spaceList}">
+										<div class="col-xl-4 col-md-6 col-sm-12">
+											<div class="card bg-light clickable" onClick="viewDetail(${space.num})">
+				                                <div class="card-content">
+				                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}">
+				                                    <div class="card-body">
+				                                    	<div class="row">
+				                                    		<div class="col-md-8"><h4 class="card-title">${space.name }</h4></div>
+				                                    		<div class="col-md-4" style="text-align:right;">
+				                                    		</div>
+				                                    	</div>
+				                                        <p class="card-text">
+				                                          	<c:set var="tagList" value="${fn:split(space.tag, ',')}"/>
+				                                          	<c:forEach var="tagToken" items="${tagList }">
+				                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tagToken }</span>
+				                                          	</c:forEach>
+				                                        </p>
+				                                        <p class="card-text">
+				                                        	<span style="font-size:15px">${space.contentssim }</span>
+				                                        </p>
+				                                        <p class="card-text">
+				                                        	<small class="text-muted"> ${space.address } </small>
+				                                        </p>
+				                                    </div>
+				                                </div>
+				                            </div>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
                     	</div>
                     	<%-- ******* Main Code END ******* --%>
                    	</div>
@@ -81,6 +118,11 @@ request.setAttribute("area", area);
 		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp" %>
 		<%-- ******* CUSTOM Script HERE ******* --%>
+		<script type="text/javascript">
+			function viewDetail(num){
+				location.href="detailView.sp?num="+num;
+			}
+		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 	</div>
 </body>

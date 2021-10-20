@@ -274,8 +274,10 @@ public class HostSpaceManageController {
 				System.out.println(err.getDefaultMessage()); 
 			}
 			System.out.println("Has Error");
+			getPage = "DetailInsert";
 			mav.setViewName(viewPage);
 			mav.addObject("spaceNum", detailSpaceBean.getSpacenum());
+			mav.addObject("getPage", getPage);
 			return mav;
 		}
 		

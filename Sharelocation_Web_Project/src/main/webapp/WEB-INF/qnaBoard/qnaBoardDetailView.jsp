@@ -67,6 +67,8 @@
 											<div class="col-12 d-flex justify-content-start">
 												<c:if test="${list.writer eq loginInfo.nickname }">
 													<input class="btn btn-primary me-1 mb-1" type="button" value="글수정" onClick="location.href='update.qnaBoard?num=${list.num}&pageNumber=${pageNumber }'">
+												</c:if>
+												<c:if test="${(list.writer eq loginInfo.nickname) or (loginInfo.type eq 'admin') }">
 													<input class="btn btn-primary me-1 mb-1" type="button" value="글삭제" onClick="location.href='delete.qnaBoard?num=${list.num}&pageNumber=${pageNumber }'">
 												</c:if>
 												<c:if test="${loginInfo.type eq 'admin' }">

@@ -110,24 +110,6 @@ request.setAttribute("area", area);
 									<div class="row">
 										<c:forEach var="power" items="${powerLink}" begin="0" end="2">
 											<div class="col-xl-4 col-md-6 col-sm-12">
-<!-- 												<div class="card"> -->
-<!-- 													<div class="card-content"> -->
-<!-- 														<div class="card-body"> -->
-<%-- 															<h4 class="card-title">${power.name}</h4> --%>
-<%-- 															<p class="card-text">${power.contentssim}</p> --%>
-<!-- 														</div> -->
-<!-- 														<img class="img-fluid1" -->
-<%-- 															src="<%=request.getContextPath()%>/resources/spaceimage/${power.mainimage}" --%>
-<!-- 															alt="Card image cap"> -->
-<!-- 													</div> -->
-<!-- 													<div class="card-footer d-flex justify-content-between"> -->
-<!-- 														<p> -->
-<%-- 															<span>${power.address} </span> --%>
-<!-- 														</p> -->
-<%-- 														<button onclick="viewDetail(${power.num})" --%>
-<!-- 															class="btn btn-light-primary">detail</button> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
 												<div class="card bg-light clickable" onClick="viewDetail(${power.num})">
 					                                <div class="card-content">
 					                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${power.mainimage}">
@@ -166,26 +148,6 @@ request.setAttribute("area", area);
 									<div class="row">
 										<c:forEach var="space" items="${spaceLists}">
 											<div class="col-xl-4 col-md-6 col-sm-12">
-<!-- 												<div class="card bg-light"> -->
-<!-- 													<div class="card-content"> -->
-<!-- 														<div class="card-body"> -->
-<%-- 															<h4 class="card-title">${space.name}</h4> --%>
-<%-- 															<p class="card-text">${space.contentssim}</p> --%>
-<!-- 														</div> -->
-<!-- 														<img class="img-fluid1" -->
-<%-- 															src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"> --%>
-<!-- 													</div> -->
-<!-- 													<div class="card-footer bg-light d-flex justify-content-between"> -->
-<!-- 														<p> -->
-<%-- 															<span>${space.address} </span> --%>
-<!-- 														</p> -->
-
-<%-- 														<input type="hidden" name="spacenum" value="${space.num}"> --%>
-
-<%-- 														<button onclick="viewDetail(${space.num})" --%>
-<!-- 															class="btn btn-light-primary">detail</button> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
 												<div class="card bg-light clickable" onClick="viewDetail(${space.num})">
 					                                <div class="card-content">
 					                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}">
@@ -269,11 +231,11 @@ request.setAttribute("area", area);
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
-function viewDetail(num){
-	//alert(1);
-	location.href="detailView.sp?num="+num;
-}
-</script>
+			function viewDetail(num){
+				//alert(1);
+				location.href="detailView.sp?num="+num;
+			}
+		</script>
 
 
 		<%-- ******* CUSTOM Script END ******* --%>
