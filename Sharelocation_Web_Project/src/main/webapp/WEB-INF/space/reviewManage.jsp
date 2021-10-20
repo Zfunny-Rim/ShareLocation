@@ -32,10 +32,12 @@
 <%-- ******* Main Code HERE ******* --%>
 <h4 class="card-title">후기 관리하기</h4>
 <div class="row justify-content-center">
+	<c:if test="${empty reviewList  }">
+		<div style="text-align:center;">
+			작성한 후기가 없습니다. 
+		</div>
+	</c:if>
 	<div class="col-9">
-		<c:if test="${empty reviewList  }">
-			작성한 리뷰가 없습니다. 
-		</c:if>
 		<c:if test="${not empty reviewList }">
 		<c:forEach var="review" items="${reviewList }" varStatus="vs">
 		<div class="row justify-content-center">
@@ -180,7 +182,7 @@
 <%-- ******* CUSTOM Script HERE ******* --%>
 <script type="text/javascript">
 function replyDel(reviewnum){
-	result = confirm('리뷰를 삭제하시겠습니까?');
+	result = confirm('후기를 삭제하시겠습니까?');
 	if(result){
 		location.href='reviewDelete.sp?reviewNum='+reviewnum;
 	}

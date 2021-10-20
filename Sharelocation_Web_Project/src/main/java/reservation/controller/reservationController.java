@@ -56,7 +56,7 @@ public class reservationController {
 		PrintWriter pw = response.getWriter();
 		if(session.getAttribute("loginInfo")==null) { 
 						
-			session.setAttribute("destination", "redirect:/detailView.sp?num="+spacenum+"&detailspacenum="+detailspacenum);     
+			session.setAttribute("destination", "detailView.sp?num="+spacenum+"&detailspacenum="+detailspacenum);     
 			pw.print("<script>");
 			pw.print("alert('로그인이 필요한 서비스입니다.');");
 			pw.println("location.href='miniLogin.member';");

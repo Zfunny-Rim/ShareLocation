@@ -20,9 +20,9 @@ import member.model.MemberDao;
 @Controller
 public class MemberLoginCmd {
 	private final String command = "login.member";
-	private final String hostPage = "redirect:/main.ho";
-	private final String guestPage = "redirect:/list.sp";
-	private final String adminPage = "redirect:/main.admin";
+	private final String hostPage = "main.ho";
+	private final String guestPage = "list.sp";
+	private final String adminPage = "main.admin";
 	private final String getPage = "loginForm";
 	
 	@Autowired
@@ -46,12 +46,6 @@ public class MemberLoginCmd {
 	     response.setContentType("text/html;charset=UTF-8");
 		 mav.addObject("loginInfo",dbMember);
 		 
-		 String destination = (String)session.getAttribute("destination");
-		 if(destination != null) {
-			 mav.setViewName(destination);
-			 session.setAttribute("destination", null);
-			 return mav;
-		 }
 		 if(dbMember == null) {
 			 mav.setViewName(getPage);
 			 pw.println("<script>alert('아이디 비밀번호를 확인하세요.');</script>");
@@ -60,18 +54,28 @@ public class MemberLoginCmd {
 		 }
 		 
 		 else {
-			 if(dbMember.getType().equals("admin")) {//adminLogin
-				 mav.setViewName(adminPage);
-				 return mav;
+			 String destination = (String)session.getAttribute("destination");
+			 String gotoPage = null;
+			 String userNName = dbMember.getNickname();
+			 if(destination != null) {
+				 gotoPage = destination;
+			 }else {
+				 if(dbMember.getType().equals("admin")) {//adminLogin
+					 gotoPage = adminPage;
+				 }
+				 else if(dbMember.getType().equals("host")) {//hostLogin
+					 gotoPage = hostPage;
+				 }
+				 else {//guestLogin
+					 gotoPage = guestPage;
+				 }
 			 }
-			 else if(dbMember.getType().equals("host")) {//hostLogin
-				 mav.setViewName(hostPage);
-				 return mav;
-			 }
-			 else {//guestLogin
-				 mav.setViewName(guestPage);
-				 return mav;
-			 }
+			 pw.println("<script>");
+			 pw.println("alert('"+userNName+"님 환영합니다.');");
+			 pw.println("location.href='"+gotoPage+"';");
+			 pw.println("</script>");
+			 pw.flush();
+			 return null;
 		 }
 	 }
 	 
