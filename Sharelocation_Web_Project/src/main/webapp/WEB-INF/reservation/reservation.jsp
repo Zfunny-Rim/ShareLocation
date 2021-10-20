@@ -256,53 +256,6 @@
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
-<<<<<<< HEAD
-	    var intValprice;
-	      var checkoutTime;
-	      var checkinTime;
-	      var priceVal;
-	      var intAmount;
-	      var cTime;
-	      var intcheckinTime;
-	      var intcheckoutTime;
-	      $(function(){
-	         $('#textdate').change(function(){
-	            //alert(1);
-	            var dateVal = $(this).val();
-	            $('#textbox').val(dateVal);
-	         });
-	         
-	         $('#selectTextTime1').change(function(){
-	            var checkinTime = $(this).val();
-	            $('#selectText1').val(checkinTime);
-	             intcheckinTime = parseInt(checkinTime);
-	            //alert(intcheckinTime);
-	         });
-	         
-	         $('#selectTextTime2').change(function(){
-	            var checkoutTime = $(this).val();
-	            $('#selectText2').val(checkoutTime);
-	             intcheckoutTime = parseInt(checkoutTime);
-	             cTime=(intcheckoutTime-intcheckinTime)*intValprice;
-	            // alert(parseInt(intAmount+cTime));
-	             $('#priceText').text(intAmount+cTime);	
-	         });
-	         
-	         $('#testperson').change(function(){
-		            var personVal = $(this).val();
-		            $('#textboxperson').val(personVal);
-		             intValperson = parseInt(personVal);
-		            
-		             priceVal = "${detailSpacebean.price}";
-		            intValprice = parseInt(priceVal);
-		            
-		             intAmount = intValperson*intValprice;
-		            //alert(intAmount);
-		            // alert(intAmount+cTime);
-		             //$('#priceText').text(intAmount+cTime);
-		      });	 
-	      });
-=======
 			function processing(){
 				var start_time = $('select[name="checkintime"]').val();
 				var end_time = $('select[name="checkouttime"]').val();
@@ -461,8 +414,6 @@
 					changePriceText();
 				});
 			});
-			
->>>>>>> branch 'Zfunny-Branch3' of https://github.com/Zfunny-Rim/ShareLocation.git
 		</script>
 		<%-- ******* CUSTOM Script END ******* --%>
 </body>

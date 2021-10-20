@@ -78,7 +78,7 @@ public class HelpBoardControllerCmd {
 	}
 	@RequestMapping(value= command1, method = RequestMethod.POST)
 	public ModelAndView doActionPost(@Valid HelpBoardBean helpBoardBean,BindingResult result, ModelAndView mav, HttpSession session
-			
+
 			) {
 
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
@@ -133,13 +133,13 @@ public class HelpBoardControllerCmd {
 
 		return mav;
 	}
-	  @RequestMapping(value= cmdUpdate, method = RequestMethod.POST) public
-	  ModelAndView doUpdatePOST(ModelAndView mav, HelpBoardBean bean, HttpSession
-	  session, @RequestParam(value ="num") int num ) {
-	 int cnt = helpBoardDao.updateHelpBoard(bean);
-	  mav.setViewName(getPageList);
-	 
-	 return mav; 
-	 }
+	@RequestMapping(value= cmdUpdate, method = RequestMethod.POST) public
+	ModelAndView doUpdatePOST(ModelAndView mav, HelpBoardBean bean, HttpSession
+			session, @RequestParam(value ="num") int num ) {
+		int cnt = helpBoardDao.updateHelpBoard(bean);
+		mav.setViewName(getPageList);
+
+		return mav; 
+	}
 
 }
