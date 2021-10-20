@@ -31,8 +31,9 @@ request.setAttribute("area", area);
 	align-content: center;
 	align-items: center;
 }
-.clickable:hover{
-	cursor:pointer;
+
+.clickable:hover {
+	cursor: pointer;
 }
 </style>
 <%-- ******* CUSTOM CSS Link END ******* --%>
@@ -55,17 +56,21 @@ request.setAttribute("area", area);
 									<div class="card-body">
 										<div class="row justify-content-center mb-4">
 											<div class="col-6">
-												<h2 class="card-title" style="text-align:center;font-size:30px;">
-													<c:if test="${not empty param.whatColumn && param.whatColumn ne '%%'}">
+												<h2 class="card-title"
+													style="text-align: center; font-size: 30px;">
+													<c:if
+														test="${not empty param.whatColumn && param.whatColumn ne '%%'}">
 														${param.whatColumn } 
 													</c:if>
 													<c:if test="${not empty param.area && param.area ne '%%'}">
-														<c:if test="${not empty param.whatColumn && param.whatColumn ne '%%'}">
+														<c:if
+															test="${not empty param.whatColumn && param.whatColumn ne '%%'}">
 														,
 														</c:if>
 														${param.area }
 													</c:if>
-													<c:if test="${(not empty param.whatColumn && param.whatColumn ne '%%') or (not empty param.area && param.area ne '%%') }">
+													<c:if
+														test="${(not empty param.whatColumn && param.whatColumn ne '%%') or (not empty param.area && param.area ne '%%') }">
 														에 대한 
 													</c:if>
 													<c:if test="${empty param.keyword }">
@@ -104,89 +109,102 @@ request.setAttribute("area", area);
 								</div>
 								<!-- power link 시작 -->
 								<div class="card">
-								<div class="card-body">
-								<h4>PowerLink</h4>
-								<section id="content-types">
-									<div class="row">
-										<c:if test="${empty powerLink }">
-										<div style="text-align:center">
-										 검색 결과가 없습니다.
-										</div>
-										</c:if>
-										<c:forEach var="power" items="${powerLink}" begin="0" end="2">
-											<div class="col-xl-4 col-md-6 col-sm-12">
-												<div class="card bg-light clickable" onClick="viewDetail(${power.num})">
-					                                <div class="card-content">
-					                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${power.mainimage}">
-					                                    <div class="card-body">
-					                                    	<div class="row">
-					                                    		<div class="col-md-8"><h4 class="card-title">${power.name }</h4></div>
-					                                    		<div class="col-md-4" style="text-align:right;">
-					                                    		</div>
-					                                    	</div>
-					                                        <p class="card-text">
-					                                          	<c:set var="tagList" value="${fn:split(power.tag, ',')}"/>
-					                                          	<c:forEach var="tagToken" items="${tagList }">
-					                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tagToken }</span>
-					                                          	</c:forEach>
-					                                        </p>
-					                                        <p class="card-text">
-					                                        	<span style="font-size:15px">${power.contentssim }</span>
-					                                        </p>
-					                                        <p class="card-text">
-					                                        	<small class="text-muted"> ${power.address } </small>
-					                                        </p>
-					                                    </div>
-					                                </div>
-					                            </div>
+									<div class="card-body">
+										<h4>PowerLink</h4>
+										<section id="content-types">
+											<div class="row">
+												<c:if test="${empty powerLink }">
+													<div style="text-align: center">검색 결과가 없습니다.</div>
+												</c:if>
+												<c:forEach var="power" items="${powerLink}" begin="0"
+													end="2">
+													<div class="col-xl-4 col-md-6 col-sm-12">
+														<div class="card bg-light clickable"
+															onClick="viewDetail(${power.num})">
+															<div class="card-content">
+																<img class="img-fluid card-img-top w-100"
+																	style="height: 220px;"
+																	src="<%=request.getContextPath()%>/resources/spaceimage/${power.mainimage}">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-md-8">
+																			<h4 class="card-title">${power.name }</h4>
+																		</div>
+																		<div class="col-md-4" style="text-align: right;">
+																		</div>
+																	</div>
+																	<p class="card-text">
+																		<c:set var="tagList"
+																			value="${fn:split(power.tag, ',')}" />
+																		<c:forEach var="tagToken" items="${tagList }">
+																			<span class="badge bg-light-info"
+																				style="font-weight: normal; font-size: 12px;">#${tagToken
+																				}</span>
+																		</c:forEach>
+																	</p>
+																	<p class="card-text">
+																		<span style="font-size: 15px">${power.contentssim }</span>
+																	</p>
+																	<p class="card-text">
+																		<small class="text-muted"> ${power.address } </small>
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:forEach>
 											</div>
-										</c:forEach>
+										</section>
+										<!-- power link 끝 -->
 									</div>
-								</section>
-								<!-- power link 끝 -->
-								</div>
 								</div>
 								<div class="card">
-								<div class="card-body">
-								<h4>Link</h4>
-								<section id="content-types">
-									<div class="row">
-										<c:if test="${empty spaceLists }">
-										<div style="text-align:center">
-										 검색 결과가 없습니다.
-										</div>
-										</c:if>
-										<c:forEach var="space" items="${spaceLists}">
-											<div class="col-xl-4 col-md-6 col-sm-12">
-												<div class="card bg-light clickable" onClick="viewDetail(${space.num})">
-					                                <div class="card-content">
-					                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}">
-					                                    <div class="card-body">
-					                                    	<div class="row">
-					                                    		<div class="col-md-8"><h4 class="card-title">${space.name }</h4></div>
-					                                    		<div class="col-md-4" style="text-align:right;">
-					                                    		</div>
-					                                    	</div>
-					                                        <p class="card-text">
-					                                          	<c:set var="tagList" value="${fn:split(space.tag, ',')}"/>
-					                                          	<c:forEach var="tagToken" items="${tagList }">
-					                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tagToken }</span>
-					                                          	</c:forEach>
-					                                        </p>
-					                                        <p class="card-text">
-					                                        	<span style="font-size:15px">${space.contentssim }</span>
-					                                        </p>
-					                                        <p class="card-text">
-					                                        	<small class="text-muted"> ${space.address } </small>
-					                                        </p>
-					                                    </div>
-					                                </div>
-					                            </div>
+									<div class="card-body">
+										<h4>Link</h4>
+										<section id="content-types">
+											<div class="row">
+												<c:if test="${empty spaceLists }">
+													<div style="text-align: center">검색 결과가 없습니다.</div>
+												</c:if>
+												<c:forEach var="space" items="${spaceLists}">
+													<div class="col-xl-4 col-md-6 col-sm-12">
+														<div class="card bg-light clickable"
+															onClick="viewDetail(${space.num})">
+															<div class="card-content">
+																<img class="img-fluid card-img-top w-100"
+																	style="height: 220px;"
+																	src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-md-8">
+																			<h4 class="card-title">${space.name }</h4>
+																		</div>
+																		<div class="col-md-4" style="text-align: right;">
+																		</div>
+																	</div>
+																	<p class="card-text">
+																		<c:set var="tagList"
+																			value="${fn:split(space.tag, ',')}" />
+																		<c:forEach var="tagToken" items="${tagList }">
+																			<span class="badge bg-light-info"
+																				style="font-weight: normal; font-size: 12px;">#${tagToken
+																				}</span>
+																		</c:forEach>
+																	</p>
+																	<p class="card-text">
+																		<span style="font-size: 15px">${space.contentssim }</span>
+																	</p>
+																	<p class="card-text">
+																		<small class="text-muted"> ${space.address } </small>
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:forEach>
 											</div>
-										</c:forEach>
+										</section>
 									</div>
-								</section>
-								</div>
 								</div>
 								<!-- page info start -->
 								<c:if test="${not empty spaceLists }">
