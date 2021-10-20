@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import detailspace.model.DetailSpaceBean;
 import member.model.MemberBean;
+import space.model.SpaceBean;
 
 public class ReservationBean {
 	private int num;
@@ -21,6 +22,7 @@ public class ReservationBean {
 	//
 	MemberBean memberBean;
 	DetailSpaceBean detailSpaceBean;
+	SpaceBean spaceBean;
 	
 	public ReservationBean() {
 		super();
@@ -153,6 +155,13 @@ public class ReservationBean {
 
 	public void setDetailSpaceBean(DetailSpaceBean detailSpaceBean) {
 		this.detailSpaceBean = detailSpaceBean;
+	}
+	public SpaceBean getSpaceBean() {
+		return spaceBean;
+	}
+
+	public void setSpaceBean(SpaceBean spaceBean) {
+		this.spaceBean = spaceBean;
 	}
 
 	@Override

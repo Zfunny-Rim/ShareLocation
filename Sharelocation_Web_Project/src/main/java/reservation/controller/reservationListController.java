@@ -72,8 +72,8 @@ public class reservationListController {
 		for(ReservationBean rBean : reservationLists) {
 			SpaceBean spacebean = spaceDao.getSpace(rBean.getSpacenum());
 			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(rBean.getDetailspacenum());
-			mav.addObject("spacebean",spacebean);
-			mav.addObject("detailSpacebean",detailSpacebean);
+			rBean.setSpaceBean(spacebean);
+			rBean.setDetailSpaceBean(detailSpacebean);
 		}
 		
 		mav.setViewName(getPage);
