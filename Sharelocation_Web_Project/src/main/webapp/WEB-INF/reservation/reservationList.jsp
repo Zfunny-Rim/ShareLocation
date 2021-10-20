@@ -105,7 +105,7 @@ dl, ol, ul {
 															<div class="row g-0">
 																<div class="col-md-4">
 																	<img
-																		src="<%=request.getContextPath()%>/resources/spaceimage/${spacebean.mainimage}"
+																		src="<%=request.getContextPath()%>/resources/spaceimage/${reservation.spaceBean.mainimage}"
 																		class="img-fluid h-100 rounded-start">
 																</div>
 																<div class="col-md-8">
@@ -127,7 +127,7 @@ dl, ol, ul {
 																		</c:if>
 																		<p></p>
 																		<h5>
-																		${spacebean.name},${detailSpacebean.name}
+																		${reservation.spaceBean.name},${reservation.detailSpaceBean.name}
 																		</h5>
 																		<p class="card-text mb-2" style="font-size:12px;">
 																			<fmt:parseDate var="ciDate" value="${reservation.checkin}" pattern="yyyy-MM-dd HH:mm"/>
