@@ -32,7 +32,6 @@ tr th {
 								<div class="card">
 										<div class="card-body">
 											<h4>공지 사항</h4>
-											<c:if test="${empty noticeBoard }"> 등록된 공지사항이 없습니다.</c:if>
 											<div class="table-responsive">
 												<table class="table">
 													<thead>
@@ -44,6 +43,7 @@ tr th {
 														</tr>
 													</thead>
 													<tbody>
+														<c:if test="${empty noticeBoard }"><tr><td colspan="4" style="text-align:center;">등록된 공지사항이 없습니다.</td></tr></c:if>
 														<c:forEach var="notice" items="${noticeBoard}"  varStatus="vs">
 															<tr>
 																<td class="text-bold-500" width="200px">${pageInfo.totalCount - ((pageInfo.pageNumber-1) * pageInfo.pageSize) - vs.count + 1}</td>

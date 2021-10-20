@@ -32,10 +32,12 @@
 <%-- ******* Main Code HERE ******* --%>
 <h4 class="card-title">후기 관리하기</h4>
 <div class="row justify-content-center">
-	<div class="col-9">
-		<c:if test="${empty reviewList  }">
+	<c:if test="${empty reviewList  }">
+		<div style="text-align:center;">
 			작성한 리뷰가 없습니다. 
-		</c:if>
+		</div>
+	</c:if>
+	<div class="col-9">
 		<c:if test="${not empty reviewList }">
 		<c:forEach var="review" items="${reviewList }" varStatus="vs">
 		<div class="row justify-content-center">

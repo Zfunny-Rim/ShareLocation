@@ -12,6 +12,9 @@
 tr th {
 	align-items: center;
 }
+.ck-editor__editable{
+	min-height: 250px;
+}
 </style>
 
 <%-- ******* CUSTOM CSS Link END ******* --%>
