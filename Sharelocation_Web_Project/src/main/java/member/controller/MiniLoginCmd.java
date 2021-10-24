@@ -20,9 +20,9 @@ import member.model.MemberDao;
 @Controller
 public class MiniLoginCmd {
 	private final String command = "miniLogin.member";
-	private final String hostPage = "redirect:/main.ho";
-	private final String guestPage = "redirect:/list.sp";
-	private final String adminPage = "redirect:/list.admin";
+	private final String hostPage = "main.ho";
+	private final String guestPage = "list.sp";
+	private final String adminPage = "main.admin";
 	private final String getPage = "miniLoginForm";
 	
 	@Autowired
@@ -39,7 +39,7 @@ public class MiniLoginCmd {
 			HttpServletResponse response,
 			HttpSession session
 			) throws IOException {
-		
+		System.out.println("로그인 시도.");
 		Map<String, String> map = new HashMap<String, String>();
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
@@ -51,11 +51,6 @@ public class MiniLoginCmd {
 	     response.setContentType("text/html;charset=UTF-8");
 		 mav.addObject("loginInfo",dbMember);
 		 
-		 String destination = (String)session.getAttribute("destination");
-		 if(destination != null) {
-			 mav.setViewName(destination);
-			 return mav;
-		 }
 		 if(dbMember == null) {
 			 mav.setViewName(getPage);
 			 pw.println("<script>alert('아이디 비밀번호를 확인하세요.');</script>");
@@ -63,18 +58,28 @@ public class MiniLoginCmd {
 			 return mav;
 		 }
 		 else {
-			 if(dbMember.getType().equals("admin")) {//adminLogin
-				 mav.setViewName(adminPage);
-				 return mav;
+			 String destination = (String)session.getAttribute("destination");
+			 String gotoPage = null;
+			 String userNName = dbMember.getNickname();
+			 if(destination != null) {
+				 gotoPage = destination;
+			 }else {
+				 if(dbMember.getType().equals("admin")) {//adminLogin
+					 gotoPage = adminPage;
+				 }
+				 else if(dbMember.getType().equals("host")) {//hostLogin
+					 gotoPage = hostPage;
+				 }
+				 else {//guestLogin
+					 gotoPage = guestPage;
+				 }
 			 }
-			 else if(dbMember.getType().equals("host")) {//hostLogin
-				 mav.setViewName(hostPage);
-				 return mav;
-			 }
-			 else {//guestLogin
-				 mav.setViewName(guestPage);
-				 return mav;
-			 }
+			 pw.println("<script>");
+			 pw.println("alert('"+userNName+"님 환영합니다.');");
+			 pw.println("location.href='"+gotoPage+"';");
+			 pw.println("</script>");
+			 pw.flush();
+			 return null;
 		 }
 	}
 }

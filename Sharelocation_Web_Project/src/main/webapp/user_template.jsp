@@ -21,9 +21,17 @@
             <div id="main-content">   
                 <div class="page-heading">
                     <section class="section">
+                    <div class="row justify-content-center">
+					<div class="col-8">
+					<div class="card">
+					<div class="card-body">
                     	<%-- ******* Main Code HERE ******* --%>
 						
                     	<%-- ******* Main Code END ******* --%>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                     </section>
                 </div>
             </div>

@@ -104,363 +104,468 @@ element.style {
 				<div class="page-heading">
 					<section class="section">
 						<%-- ******* Main Code HERE ******* --%>
-						<form action="reserv.rv" method="post">           
-								<input type="hidden" name="spacenum" value="${space.num }">
-								<input type="hidden" name="detailspacenum" value="${detailSpaceBean.num }">	
-						<div class="page-heading">
-							<div class="page-title">
-								<div class="row">
-									<div class="col-12 col-md-6 order-md-1 order-last">
-										<h3>${space.name }
-											<a href="#" class="btn btn-danger"
-												onclick="favorite(${space.num},${space.membernum})">찜하기</a>
-											<!-- tag 넣기  시작-->
-											<br>
-											<c:forEach var="tag" items="${space.tag }">
-												<span class="badge bg-light-info"
-													style="font-weight: normal; font-size: 12px;">#${tag}
-												</span>
-											</c:forEach>
-
-											<!-- tag 넣기  끝-->
-
-
-										</h3>
+						<div class="row justify-content-center">
+						<div class="col-8">
+						<div class="card">
+						<div class="card-body">
+							<h3>${space.name }
+							<c:if test="${not empty favoriteBean }">
+								<button class="btn btn-danger"
+								onclick="favorite(${space.num})">찜해제하기</button>
+							</c:if>
+							<c:if test="${empty favoriteBean }">
+							<button class="btn btn-success"
+								onclick="favorite(${space.num})">찜하기</button>
+							</c:if>
+							</h3>
+							<div class="card-text mb-2">
+							${space.contentssim }
+							</div>
+							<p class="card-text">
+								<c:set var="tagList" value="${fn:split(space.tag, ',')}" />
+								<c:forEach var="tagToken" items="${tagList }">
+									<span class="badge bg-light-info"
+										style="font-weight: normal; font-size: 14px;">#${tagToken }</span>
+								</c:forEach>
+							</p>
+						<div class="row">
+							<div class="col-7">
+								<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+									<div class="carousel-inner">
+						               <div class="carousel-item active">
+						                   <img src="<%=request.getContextPath() %>/resources/spaceimage/${space.mainimage}" class="d-block w-100" style="height:588px;">
+						              </div>
+						              <c:forEach var="spaceImageBean" items="${spImgList }">
+						               <div class="carousel-item">
+						                   <img src="<%=request.getContextPath() %>/resources/spaceimage/${spaceImageBean.image}" class="d-block w-100" style="height:588px;">
+						               </div>
+						              </c:forEach>
 									</div>
-									<div class="col-12 col-md-6 order-md-2 order-first">
-										<nav aria-label="breadcrumb"
-											class="breadcrumb-header float-start float-lg-end"></nav>
-									</div>
+						           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+						               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						               <span class="visually-hidden">Previous</span>
+						           </a>
+						           <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+						               <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						               <span class="visually-hidden">Next</span>
+						           </a>
 								</div>
 							</div>
-							<section class="section">
-								<div class="card">
-									<div class="card-body">
-										<!-- 기본 틀 -->
-
-										<!-- 	사진 test 1 -->
-
-										<div class="card">
-											<div class="col-12 col-md-4, parent">
-												<img
-													src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"
-													class="img-fluid1, first" alt="singleminded">
-
-												<c:forEach items="${detailspace}" var="detail" begin="0"
-													end="1">
-													<a onclick="detailView(${detail.spacenum})"> <img
-														src="<%=request.getContextPath()%>/resources/spaceimage/${detail.mainimage}"
-														class="img-fluid1, second" alt="singleminded"></a>
-
-												</c:forEach>
-
-												<div class="card-body"></div>
+							<!-- 우측사이드 시작 -->
+							<div class="col-5 py-2 border rounded-3 border-secondary">
+								<div class="row mb-3">
+									<div class="col-6">
+										<h5>현재 상태</h5>
+										<p class="card-text">
+											${space.status }
+											<c:if test="${space.status eq '등록대기' }">
+												<small class="text-muted link-class" onclick="approval(${space.num})">검수신청하기</small>
+											</c:if>
+											<c:if test="${space.status eq '검수반려' }">
+												<small class="text-muted link-class" onclick="approval(${space.num})">검수 재신청하기</small>
+											</c:if>
+										</p>
+										<h5>영업 시간</h5>
+										<p class="card-text">
+										<c:set var="isAllTime" value="${false }"/>
+										<c:if test="${(space.operatingtime eq 0) and (space.operatingendtime eq 24) }">
+											<c:set var="isAllTime" value="${true }"/>
+											24시간 영업
+										</c:if>
+										<c:if test="${not isAllTime }">
+											${space.operatingtime }시 ~ ${space.operatingendtime }시
+										</c:if>
+										</p>
+										<h5>휴무일</h5>
+										<p class="card-text">
+											<c:if test="${empty space.holiday}">
+												휴무일 없음
+											</c:if>
+											<c:if test="${not empty space.holiday }">
+											 	매주 ${space.holiday }
+											</c:if>
+										</p>
+									</div>
+									<div class="col-6">
+										<h5>분류</h5>
+										<p class="card-text">${space.type }</p>
+										<h5>연락처</h5>
+										<p class="card-text">${space.hp }</p>
+										<h5>등록일</h5>
+										<p class="card-text">
+										<fmt:parseDate var="parseRegDate" value="${space.regdate }" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate value="${parseRegDate }" pattern="yyyy/MM/dd"/>
+										</p>
+									</div>
+								</div>
+								<div class="divider my-2"><div class="divider-text">호스트 정보</div></div>
+								<div class="row mb-3">
+								<div class="col-6">
+									<h5>상호명</h5>
+									<p class="card-text">${balanceBean.company }</p>
+									<h5>이메일</h5>
+									<p class="card-text">${balanceBean.email }</p>
+								</div>
+								<div class="col-6">
+									<h5>대표자명</h5>
+									<p class="card-text">${balanceBean.name }</p>
+									<h5>연락처</h5>
+									<p class="card-text">${balanceBean.call }</p>
+								</div>
+								<h5 style="margin-top:16px;">사업장 주소</h5>
+								<p class="card-text">${balanceBean.address }</p>
+								</div>
+							</div>
+							<!-- 우측사이드 끝 -->
+							<!-- 상세설명 시작 -->
+							<div class="col-7 my-2 py-2">
+								<h4>상세 설명</h4>
+								<p class="card-text">${space.contentscom }</p>
+								<h4>시설 안내</h4>
+								<c:forEach var="facBean" items="${spFacList }">
+									<p class="card-text">${facBean.facility }</p>
+								</c:forEach>
+								<h4>사용 시 주의사항</h4>
+								<p class="card-text">${space.warning }</p>
+								<h4>주소</h4>
+								<p class="card-text">
+									<c:set var="addrArr" value="${fn:split(space.address, ',') }"/>
+									<c:set var="addr" value="${addrArr[0] }"/>
+									<c:set var="addrDetail" value="${addrArr[1] }"/>
+									${addr } ${addrDetail }
+								</p>
+								<div id="map" class="p-2 mb-4" style="width:100%; height: 400px;"></div>
+								<!-- 후기	시작 -->
+								<h4>후기</h4>
+								<c:if test="${empty reviewList }">등록된 후기가 없습니다.</c:if>
+								<c:if test="${not empty reviewList }">등록된 후기가 총 ${allCount }개 있습니다.</c:if>
+								<c:forEach var="review" items="${reviewList }" varStatus="vs">
+								<div class="row justify-content-center">
+								<div class="col-12">
+								<div class="card bg-light">
+									<div class="d-flex justify-content-between p-2">
+										<div class="d-flex Writer-Info">
+											<div class="img px-2">
+												<div class="avatar avatar-xl me-3">
+													<img src="./resources/assets/images/faces/none.jpg">
+												</div>
 											</div>
-											<ul class="list-group list-group-flush">
-
-											</ul>
+											<div class="title py-2">
+												<b>${review.writer }</b><br> <small
+													class="text-muted"> <fmt:parseDate
+														var="rDate" value="${review.regdate }"
+														pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
+														value="${rDate }" pattern="yyyy-MM-dd HH:mm" />
+												</small><br>
+											</div>
 										</div>
-
-										<!-- 	사진 test 1 -->
-
-										<!-- 설명 시작1 -->
-
-										<div class="container">
-											<div class="row row-cols-2">
-
-												<div class="col">
-													<h4 class="card-title">한줄소개</h4>
-													${space.contentssim}
-													<h4 class="card-title">공간소개</h4>
-													${space.contentscom}
-													<h4 class="card-title">주의 사항</h4>
-													${space.warning}
-													<h4 class="card-title">지도</h4>
-
-
-													<h4 class="card-title">사용자 후기</h4>
-													<!-- 후기	시작 -->
-													<c:if test="${empty reviewList }">
-	등록된 후기가 없습니다.
-</c:if>
-													<c:if test="${not empty reviewList }">
-	등록된 후기가 총 ${allCount }개 있습니다.
-</c:if>
-													<c:forEach var="review" items="${reviewList }"
-														varStatus="vs">
-														<div class="row justify-content-center">
-															<div class="col-12">
-																<div class="card bg-light">
-																	<div class="d-flex justify-content-between p-2">
-																		<div class="d-flex Writer-Info">
-																			<div class="img px-2">
-																				<div class="avatar avatar-xl me-3">
-																					<img src="./resources/assets/images/faces/none.jpg">
-																				</div>
-																			</div>
-																			<div class="title py-2">
-																				<b>${review.writer }</b><br> <small
-																					class="text-muted"> <fmt:parseDate
-																						var="rDate" value="${review.regdate }"
-																						pattern="yyyy-MM-dd HH:mm" /> <fmt:formatDate
-																						value="${rDate }" pattern="yyyy-MM-dd HH:mm" />
-																				</small><br>
-																			</div>
-																		</div>
-																		<div class="d-flex Rating">
-																			<div class="totalRating p-3 my-auto">
-																				<span class="badge bg-success"
-																					style="width: 75px; font-size: 20px;"> <fmt:formatNumber
-																						value="${review.totalrating / 3}" pattern=".0" />
-																					<i class="bi bi-star align-middle"></i></span>
-																			</div>
-																			<div class="detailRating">
-																				<div class="d-flex justify-content-start">
-																					<div class="">
-																						<small class="text-muted">서비스 </small>
-																					</div>
-																					<c:set var="service_score"
-																						value="${(review.servicerating / 5)*100 }" />
-																					<div
-																						class="progress progress-warning progress-sm mx-1 my-auto d-flex"
-																						style="width: 100px;">
-																						<div class="progress-bar" role="progressbar"
-																							style="width: ${service_score}%"></div>
-																					</div>
-																					<div class="">
-																						<small class="text-muted">
-																							${review.servicerating } </small>
-																					</div>
-																				</div>
-																				<div class="d-flex justify-content-start">
-																					<div class="">
-																						<small class="text-muted">가성비 </small>
-																					</div>
-																					<c:set var="pricevalue_score"
-																						value="${(review.pricevalueration / 5)*100 }" />
-																					<div
-																						class="progress progress-warning progress-sm mx-1 my-auto d-flex"
-																						style="width: 100px;">
-																						<div class="progress-bar" role="progressbar"
-																							style="width: ${pricevalue_score}%"></div>
-																					</div>
-																					<div class="">
-																						<small class="text-muted">
-																							${review.pricevalueration } </small>
-																					</div>
-																				</div>
-																				<div class="d-flex justify-content-start">
-																					<div class="">
-																						<small class="text-muted">청결도 </small>
-																					</div>
-																					<c:set var="clean_score"
-																						value="${(review.cleanrating / 5)*100 }" />
-																					<div
-																						class="progress progress-warning progress-sm mx-1 my-auto d-flex"
-																						style="width: 100px;">
-																						<div class="progress-bar" role="progressbar"
-																							style="width: ${clean_score}%"></div>
-																					</div>
-																					<div class="">
-																						<small class="text-muted">
-																							${review.cleanrating } </small>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-				<div class="card-body p-3">
-					${review.content }<br>
-				</div>
-				<c:set var="replyBean" value="${review.reviewReply }"/>
-				
-				<c:if test="${not empty replyBean }">
-					<div class="card-body">
-						<div class="card-title" style="font-weight: bold; color:#6d3afb;">
-							<div class="d-flex justify-content-between">
-								<div class="title my-auto">
-									호스트님의 답글
+										<div class="d-flex Rating">
+											<div class="totalRating p-3 my-auto">
+												<span class="badge bg-success"
+													style="width: 75px; font-size: 20px;"> <fmt:formatNumber
+														value="${review.totalrating / 3}" pattern=".0" />
+													<i class="bi bi-star align-middle"></i></span>
+											</div>
+											<div class="detailRating">
+												<div class="d-flex justify-content-start">
+													<div class="">
+														<small class="text-muted">서비스 </small>
+													</div>
+													<c:set var="service_score" value="${(review.servicerating / 5)*100 }" />
+													<div class="progress progress-warning progress-sm mx-1 my-auto d-flex" style="width: 100px;">
+														<div class="progress-bar" role="progressbar" style="width: ${service_score}%"></div>
+													</div>
+													<div class="">
+														<small class="text-muted">
+															${review.servicerating } </small>
+													</div>
+												</div>
+												<div class="d-flex justify-content-start">
+													<div class="">
+														<small class="text-muted">가성비 </small>
+													</div>
+													<c:set var="pricevalue_score"
+														value="${(review.pricevalueration / 5)*100 }" />
+													<div
+														class="progress progress-warning progress-sm mx-1 my-auto d-flex"
+														style="width: 100px;">
+														<div class="progress-bar" role="progressbar"
+															style="width: ${pricevalue_score}%"></div>
+													</div>
+													<div class="">
+														<small class="text-muted">
+															${review.pricevalueration } </small>
+													</div>
+												</div>
+												<div class="d-flex justify-content-start">
+													<div class="">
+														<small class="text-muted">청결도 </small>
+													</div>
+													<c:set var="clean_score"
+														value="${(review.cleanrating / 5)*100 }" />
+													<div
+														class="progress progress-warning progress-sm mx-1 my-auto d-flex"
+														style="width: 100px;">
+														<div class="progress-bar" role="progressbar"
+															style="width: ${clean_score}%"></div>
+													</div>
+													<div class="">
+														<small class="text-muted">
+															${review.cleanrating } </small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card-body p-3">
+										${review.content }<br>
+									</div>
+									<c:set var="replyBean" value="${review.reviewReply }"/>
+									<c:if test="${not empty replyBean }">
+										<div class="card-body">
+											<div class="card-title" style="font-weight: bold; color:#6d3afb;">
+												<div class="d-flex justify-content-between">
+													<div class="title my-auto">
+														호스트님의 답글
+													</div>
+													<div class="del-btn">
+													</div>
+												</div>
+											</div>
+											<div class="card-text">
+												${replyBean.content }<br>
+											</div>
+											<span class="text-muted" style="font-size: 12px;">
+												<fmt:parseDate var="replyDate" value="${replyBean.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+												<fmt:formatDate value="${replyDate }" pattern="yyyy-MM-dd HH:mm"/>
+											</span>
+										</div>
+									</c:if>
 								</div>
-								<div class="del-btn">
-									<button class="btn btn-sm btn-outline-danger" 
-										onClick="replyDel('${spaceNum}', '${replyBean.num }')">삭제</button>
 								</div>
+								</div>
+								</c:forEach>
+								<!-- 페이징 시작 -->
+								<c:if test="${not empty reviewList }">
+									<div class="page-nav d-flex justify-content-center">
+										<nav>
+											<ul class="pagination pagination-primary">
+												<c:if test="${pageInfo.beginPage eq 1 }">
+													<li class="page-item disabled"><a
+														class="page-link">이전</a></li>
+												</c:if>
+												<c:if test="${pageInfo.beginPage ne 1 }">
+													<c:set var="url"
+														value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }&num=${spacenum }" />
+													<li class="page-item"><a class="page-link"
+														href="${url }">이전</a></li>
+												</c:if>
+												<c:forEach var="i" begin="${pageInfo.beginPage }"
+													end="${pageInfo.endPage }">
+													<c:set var="url"
+														value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }&num=${spacenum }" />
+													<c:if test="${i eq pagenumber }">
+														<li class="page-item active"><a
+															class="page-link">${i }</a></li>
+													</c:if>
+													<c:if test="${i ne pagenumber }">
+														<li class="page-item"><a class="page-link"
+															href="${url }">${i }</a></li>
+													</c:if>
+												</c:forEach>
+												<c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
+													<li class="page-item disabled"><a
+														class="page-link">다음</a></li>
+												</c:if>
+												<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
+													<c:set var="url"
+														value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}&num=${spacenum }" />
+													<li class="page-item"><a class="page-link"
+														href="${url }">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+								</c:if>
+								<!--페이징 끝 -->
+								<!-- 후기	끝 -->
 							</div>
-						</div>
-						<div class="card-text">
-							${replyBean.content }<br>
-						</div>
-						<span class="text-muted" style="font-size: 12px;">
-							<fmt:parseDate var="replyDate" value="${replyBean.regdate }" pattern="yyyy-MM-dd HH:mm"/>
-							<fmt:formatDate value="${replyDate }" pattern="yyyy-MM-dd HH:mm"/>
-						</span>
-					</div>
-				</c:if>
-																</div>
+							<!-- 상세설명 끝 -->
+							<!-- 세부공간리스트 시작 -->
+							<div class="col-5 my-2 py-2 border rounded-3 border-secondary">
+								<h5>세부공간 리스트 (${dspList.size()}개)</h5>
+								<c:if test="${empty dspList }">
+									<p class="card-text text-center"><small class="text-muted">등록된 세부공간이 없습니다.</small> </p> 
+								</c:if>
+								<c:if test="${not empty dspList }">
+									<div class="accordion" id="accordionDSP">
+									<c:forEach var="dspBean" items="${dspList }" varStatus="vs">
+										<div class="accordion-item">
+											<div class="list-title list-group-item list-group-item-success" data-bs-toggle="collapse" data-bs-target="#collapse${vs.count }">${dspBean.name }</div>
+											<div id="collapse${vs.count }" class="accordion-collapse collapse" data-bs-parent="accordionDSP"
+											 style="text-decoration: none; background-color:#fff; border: 1px solid rgba(0,0,0,0.125);">
+												<div class="accordion-body p-3">
+													<div class="dsp-title p-1">
+														<img src="<%=request.getContextPath() %>/resources/spaceimage/${dspBean.mainimage}" class="d-block h-100 mx-auto" style="width:300px;">
+													</div>
+													<div class="dsp-body p-1">
+														<div class="list-group">
+															<div class="list-group-item" style="border:none; border-bottom: 1px solid #eee;">
+																<b>예약시간</b>&nbsp;&nbsp;&nbsp;&nbsp;최소 ${dspBean.mintime } 시간부터
+															</div>
+															<div class="list-group-item" style="border:none; border-bottom: 1px solid #eee;">
+																<b>수용인원</b>&nbsp;&nbsp;&nbsp;&nbsp;최소 ${dspBean.minperson } 명 ~ 최대 ${dspBean.maxperson } 명
+															</div>
+															<div class="list-group-item" style="border:none; border-bottom: 1px solid #eee;">
+																<b>가격</b>&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value="${dspBean.price }" pattern="#,###"/>원 / ${dspBean.priceunit }
+															</div>
+															<div class="list-group-item" style="border:none; border-bottom: 1px solid #eee; text-align:center;">
+																<form action="reserv.rv" method="post">           
+																	<input type="hidden" name="spacenum" value="${space.num }">
+																	<input type="hidden" name="detailspacenum" value="${dspBean.num }">	
+																	<button class="btn btn-outline-success" type="submit">예약하기</button>
+																</form>
 															</div>
 														</div>
-													</c:forEach>
-													<!-- 페이징 시작 -->
-													<c:if test="${not empty reviewList }">
-														<div class="page-nav d-flex justify-content-center">
-															<nav>
-																<ul class="pagination pagination-primary">
-																	<c:if test="${pageInfo.beginPage eq 1 }">
-																		<li class="page-item disabled"><a
-																			class="page-link">이전</a></li>
-																	</c:if>
-																	<c:if test="${pageInfo.beginPage ne 1 }">
-																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }&num=${spacenum }" />
-																		<li class="page-item"><a class="page-link"
-																			href="${url }">이전</a></li>
-																	</c:if>
-																	<c:forEach var="i" begin="${pageInfo.beginPage }"
-																		end="${pageInfo.endPage }">
-																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }&num=${spacenum }" />
-																		<c:if test="${i eq pagenumber }">
-																			<li class="page-item active"><a
-																				class="page-link">${i }</a></li>
-																		</c:if>
-																		<c:if test="${i ne pagenumber }">
-																			<li class="page-item"><a class="page-link"
-																				href="${url }">${i }</a></li>
-																		</c:if>
-																	</c:forEach>
-																	<c:if test="${pageInfo.endPage eq pageInfo.totalPage }">
-																		<li class="page-item disabled"><a
-																			class="page-link">다음</a></li>
-																	</c:if>
-																	<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
-																		<c:set var="url"
-																			value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}&num=${spacenum }" />
-																		<li class="page-item"><a class="page-link"
-																			href="${url }">다음</a></li>
-																	</c:if>
-																</ul>
-															</nav>
-														</div>
-													</c:if>
-													<!--페이징 끝 -->
-
-
-													<!-- 후기	끝 -->
-												</div>
-												<!-- 설명 끝1 -->
-
-
-												<!-- 	  접히는거 시작 -->
-
-												<div class="col1" style="align-content: center;">
-													<!-- reservation 넘어가기 -->
-													<h4 class="text-bold-500">예약하기</h4>
-													<h4 class="card-title">장소 선택</h4>
-													<h4 class="card-title">
-														<c:forEach var="spacename" items="${detailspace}">
-															<input type="radio" value="${spacename.name}" name="name"
-																onclick="selectunit(${spacename.spacenum} ,${spacename.num})"<%-- <c:if test="${eq spacename.num}">selected</c:if> --%>
-																>${spacename.name}
-														</c:forEach>
-													</h4>
-
-													<form action="reserv.rv" method="post">
-														<input type="hidden" name="spacenum" value="${space.num }">
-														<input type="hidden" name="detailspacenum"
-															value="${detailSpaceBean.num }">
-														<c:if test="${not empty detailSpaceBean.num}">
-															<table class="table table-lg"
-																style="border: thick; border-radius: 8px;">
-																<tbody>
-																	<tr>
-																		<td class="text-bold-500">이름</td>
-																		<td>${detailSpaceBean.name}</td>
-																	</tr>
-																	<tr>
-																		<td align="center" colspan="2"><img
-																			src="<%=request.getContextPath()%>/resources/spaceimage/${detailSpaceBean.mainimage}"
-																			alt="숙박이미지" width="200px" height="200px"></td>
-																	</tr>
-																	<tr>
-																		<td class="text-bold-500">가격</td>
-
-																		<td>&#8361;<fmt:formatNumber
-																				value="${detailSpaceBean.price}" pattern="#,###" />원/${detailSpaceBean.priceunit}
-																		</td>
-																	</tr>
-																	<tr>
-																		<td class="text-bold-500">인원</td>
-																		<td>최소${detailSpaceBean.minperson}명~최대${detailSpaceBean.maxperson}명</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2">${detailSpaceBean.contents}</td>
-																	</tr>
-																	<!--  
-
-																	<tr>
-																		<td class="text-bold-500">날짜 선택</td>
-																		<td><input type="date" name="date"></td>
-																	</tr>
-																	-->
-																	<!--
-																	<tr>
-																		<td class="text-bold-500">시간선택</td>
-																		<td>
-
-																			<div class="col-md-8 form-group">
-																				<div class="input-group">
-																					<select class="form-control" name="checkintime">
-																						<c:forEach var="i" begin="${space.operatingtime }"
-																							end="${space.operatingendtime }">
-																							<fmt:formatNumber var="hourStr" value="${i }"
-																								pattern="00" />
-																							<c:set var="timeStr" value="${hourStr }:00" />
-																							<option value="${i }"
-																								<c:if test="${i eq packagePriceBean.checkintime }">selected</c:if>>${timeStr }</option>
-																						</c:forEach>
-																					</select> <span class="input-group-text"> ~ </span> <select
-																						class="form-control" name="checkouttime">
-																						<c:forEach var="i" begin="${space.operatingtime}"
-																							end="${space.operatingendtime }">
-																							<fmt:formatNumber var="hourStr" value="${i }"
-																								pattern="00" />
-																							<c:set var="timeStr" value="${hourStr }:00" />
-																							<option value="${i }"
-																								<c:if test="${i eq packagePriceBean.checkouttime }">selected</c:if>>${timeStr }</option>
-																						</c:forEach>
-																					</select>
-																				</div>
-																				<p>
-																					<small class="text-muted"> <form:errors
-																							cssClass="err" path="checkintime" /> <form:errors
-																							cssClass="err" path="checkouttime" />
-																					</small>
-																				</p>
-
-																			</div> 
-																		</td>
-																	</tr>
-																	  -->
-
-																	<tr>
-																		<td colspan="2" class="text-bold-500" align="center"><input
-																			type="submit" class="btn btn-secondary" value="예약하기"></td>
-																	</tr>
-
-																</tbody>
-															</table>
-														</c:if>
+													</div>
 												</div>
 											</div>
-										</div>
-										<!-- 	  접히는거 끝 -->
-
-										<!-- 기본 틀 -->
+											</div>
+									</c:forEach>
+									</div>
+								</c:if>
+							</div>
+							<!-- 세부공간리스트 끝 -->
+							<!-- 댓글 시작 -->
+							<div class="col-12">
+								<div class="card border border-dark">
+									<div class="card-body">
+										<h4>댓글</h4>
+										<c:if test="${not empty commentList }">
+											<span class="text-muted">댓글이 ${commentTotalCount }개 있습니다.</span>
+										</c:if>
+										<c:if test="${empty commentList }">
+											<div class="card-body border-bottom p-3 mb-3">
+												<div class="d-flex justify-content-center mb-2">
+													<div class="card-text">
+														등록된 댓글이 없습니다.
+													</div>
+												</div>
+											</div>
+										</c:if>
+										<c:forEach var="comment" items="${commentList }">
+											<div class="card-body border-bottom p-3 mb-3">
+												<div class="d-flex justify-content-between mb-2">
+													<div class="left-side">
+														<b>${comment.writer }</b><br>
+														<small class="text-muted">
+															<fmt:parseDate var="regDate" value="${comment.regdate }" pattern="yyyy-MM-dd HH:mm" />
+															<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd HH:mm" />
+														</small>
+													</div>
+													<div class="right-side">
+																<c:if test="${not empty loginInfo }">
+																	<c:if test="${loginInfo.num eq comment.membernum }">
+																		<button class="btn btn-sm btn-outline-danger"
+																		onClick="deleteComment(${comment.num}, ${spacenum })">삭제</button>
+																	</c:if>
+																</c:if>
+															</div>
+												</div>
+												
+												<p class="card-text">
+													${comment.content }
+												</p>
+												<c:if test="${not empty comment.replyComment }">
+													<div class="reply-section bg-light" style="padding:5px 5px 5px 20px;">
+														<div class="d-flex justify-content-between mb-2">
+															<div class="left-side">
+																<span style="font-weight: bold; color: #6d3afb; font-size:19px;">
+																	호스트님의 답글
+																</span>
+															</div>
+															<div class="right-side">
+																<c:if test="${not empty loginInfo }">
+																	<c:if test="${loginInfo.num eq comment.replyComment.membernum }">
+																		<button class="btn btn-sm btn-outline-danger"
+																		onClick="deleteComment(${comment.replyComment.num}, ${spacenum })">삭제</button>
+																	</c:if>
+																</c:if>
+															</div>
+														</div>
+														<p class="card-text">
+															${comment.replyComment.content }
+														</p>
+														<small class="text-muted">
+															<fmt:parseDate var="regDate" value="${comment.replyComment.regdate }" pattern="yyyy-MM-dd HH:mm" />
+															<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd HH:mm" />
+														</small>
+													</div>
+												</c:if>
+											</div>
+										</c:forEach>
+										<!--  페이징 들어갈거임. -->
+										<div class="page-nav d-flex justify-content-center">
+										<nav>
+											<ul class="pagination pagination-primary">
+												<c:if test="${commentPageInfo.beginPage eq 1 }">
+													<li class="page-item disabled"><a
+														class="page-link">이전</a></li>
+												</c:if>
+												<c:if test="${commentPageInfo.beginPage ne 1 }">
+													<c:set var="url"
+														value="${commentPageInfo.url }?commentPageNumber=${commentPageInfo.beginPage -1 }&num=${spacenum }" />
+													<li class="page-item"><a class="page-link"
+														href="${url }">이전</a></li>
+												</c:if>
+												<c:forEach var="i" begin="${commentPageInfo.beginPage }"
+													end="${commentPageInfo.endPage }">
+													<c:set var="url"
+														value="${commentPageInfo.url }?commentPageNumber=${i }&num=${spacenum }" />
+													<c:if test="${i eq commentPageInfo.pageNumber }">
+														<li class="page-item active"><a
+															class="page-link">${i }</a></li>
+													</c:if>
+													<c:if test="${i ne commentPageInfo.pageNumber }">
+														<li class="page-item"><a class="page-link"
+															href="${url }">${i }</a></li>
+													</c:if>
+												</c:forEach>
+												<c:if test="${commentPageInfo.endPage eq commentPageInfo.totalPage }">
+													<li class="page-item disabled"><a
+														class="page-link">다음</a></li>
+												</c:if>
+												<c:if test="${commentPageInfo.endPage ne commentPageInfo.totalPage }">
+													<c:set var="url"
+														value="${commentPageInfo.url }?commentPageNumber=${commentPageInfo.endPage +1 }&num=${spacenum }" />
+													<li class="page-item"><a class="page-link"
+														href="${url }">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+									<!-- 페이징 끝 -->
+										<hr>
+										<h5>댓글 입력하기</h5>
+										<form method="post" action="insertComment.sp">
+											<input type="hidden" name="spacenum" value="${space.num}">
+											<div class="form-floating mb-2">
+											  <textarea class="form-control" id="floatingTextarea2" name="content" style="height: 100px; resize: none;"></textarea>
+											  <label for="floatingTextarea2">댓글(최대 100자)</label>
+											</div>
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-sm btn-outline-success" type="submit" onClick="checkInput()">등록</button>
+											</div>
+										</form>
 									</div>
 								</div>
-							</section>
+							</div>
+							<!-- 댓글 종료 -->
 						</div>
-						</form>
+						</div>
+						</div>
+						</div>
+						</div>
 						<%-- ******* Main Code END ******* --%>
 					</section>
 				</div>
@@ -469,11 +574,34 @@ element.style {
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
-
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6a5567b90a1de962f1fcd120b45bd86&libraries=services"></script>
+		<script type="text/javascript">
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		var geocoder = new kakao.maps.services.Geocoder();
+		geocoder.addressSearch('${addr}',
+			function(result, status) {
+				if (status === kakao.maps.services.Status.OK) {
+					var coords = new kakao.maps.LatLng(result[0].y,
+							result[0].x);
+					var marker = new kakao.maps.Marker({
+						map : map,
+						position : coords
+					});
+					map.setCenter(coords);
+				}
+			}
+		);
+		
+		</script>
 		<script type="text/javascript">
 	
-	function favorite(spacenum,membernum){
-		location.href="favorite.sp?spacenum="+spacenum+"&membernum="+membernum;
+	function favorite(spacenum){
+		location.href="favorite.sp?spacenum="+spacenum;
 	}
 	
 	function detailView(spacenum){
@@ -487,11 +615,11 @@ element.style {
 		
 	}
 	
-
-	function replyDel(spaceNum, num){
-		result = confirm('답글을 삭제하시겠습니까?');
+	
+	function deleteComment(num, spaceNum){
+		result = confirm('댓글을 삭제하시겠습니까?');
 		if(result){
-			location.href='spaceManagerReviewReplyDelete.ho?spaceNum='+spaceNum+'&num='+num;
+			location.href='deleteComment.sp?num='+num+'&spaceNum='+spaceNum;
 		}
 	}
 

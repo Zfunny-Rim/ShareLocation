@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import detailspace.model.DetailSpaceBean;
 import detailspace.model.DetailSpaceDao;
+import member.model.MemberBean;
+import reservation.model.BalanceBean;
+import reservation.model.BalanceDao;
 import reviewBoard.model.ReviewBoardBean;
 import reviewBoard.model.ReviewBoardDao;
+import space.model.FavoriteBean;
 import space.model.SpaceBean;
+import space.model.SpaceCommentBean;
 import space.model.SpaceDao;
+import space.model.SpaceFacilityBean;
 import space.model.SpaceImageBean;
 import utility.Paging;
 
@@ -43,14 +50,17 @@ public class SpaceDetailView {
 	@Autowired
 	ReviewBoardDao reviewBoardDao;
 	
+	@Autowired
+	BalanceDao balanceDao;
+	
 	@RequestMapping(value= command)
 	public ModelAndView doAction(@RequestParam(value = "num") int num,
 				@RequestParam(value ="detailspacenum", required = false) String detailspacenum ,
 				@RequestParam(value="whatColumn", required =false) String whatColumn,
 				@RequestParam(value="keyword", required =false) String keyword,
 				@RequestParam(value ="pagenumber",required = false) String pagenumber,
-			
-				HttpServletRequest request,
+				@RequestParam(value="commentPageNumber",required=false) String commentPageNumber,
+				HttpServletRequest request, HttpSession session,
 				ReviewBoardBean boardBean,
 			   ModelAndView mav) {
 		System.out.println("spaceDetailView");
@@ -60,13 +70,17 @@ public class SpaceDetailView {
 		if(pagenumber == null) {
 			pagenumber = "1";
 		}
+		if(commentPageNumber == null) {
+			commentPageNumber = "1";
+		}
 		if(whatColumn == null) {
 			whatColumn = "";
 		}
 		if(keyword == null) {
 			keyword = "";
 		}
- 
+		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		
 		SpaceBean space = spaceDao.getSpace(num);
 		System.out.println("space"+space);
 		mav.addObject("space",space);
@@ -80,10 +94,6 @@ public class SpaceDetailView {
 		List<DetailSpaceBean> detailspace = detailSpaceDao.getListDetailSpace(num);
 		System.out.println("detailspace"+detailspace);
 		mav.addObject("detailspace",detailspace);
-		
-		
-		
-		
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("spacenum", Integer.toString(num));
@@ -103,16 +113,24 @@ public class SpaceDetailView {
 			System.out.println(replyBean);
 			rbBean.setReviewReply(replyBean);
 		}
+		//리플
+		int commentTotalCount = spaceDao.getAllCommentListCountBySpaceNum(num);
+		Paging commentPageInfo = new Paging(commentPageNumber, "3", commentTotalCount, url, null, null, null);
+		List<SpaceCommentBean> commentList = spaceDao.getCommentListBySpaceNum(num, commentPageInfo);
+		for(SpaceCommentBean scBean:commentList) {
+			SpaceCommentBean replyBean = spaceDao.getReplyCommentByReplyNum(scBean.getNum());
+			scBean.setReplyComment(replyBean);
+		}
 		mav.addObject("getPage", getPage);
 		mav.addObject("spacenum", num);
-		mav.addObject("pagenumber", pagenumber);
 		mav.addObject("pagenumber", pagenumber);
 		mav.addObject("reviewList",reviewList);
 		mav.addObject("allCount",allCount);
 		mav.addObject("pageInfo",pageInfo);
-		
-		
-		
+		mav.addObject("commentList",commentList);
+		mav.addObject("commentTotalCount",commentTotalCount);
+		mav.addObject("commentPageInfo",commentPageInfo);
+		mav.addObject("loginInfo", loginInfo);
 		
 		if(detailspacenum != null)
 		{
@@ -124,7 +142,29 @@ public class SpaceDetailView {
 		
 		}
 				
-		mav.setViewName(getPage);	
+		//spaceImageBean
+		List<SpaceImageBean> spImgList = spaceDao.getSpaceImageListBySpaceNum(num);
+		mav.addObject("spImgList",spImgList);
+		//balanceInfo
+		BalanceBean balanceBean = balanceDao.getBalance(space.getMembernum());
+		mav.addObject("balanceBean",balanceBean);
+		//facility
+		List<SpaceFacilityBean> spFacList = spaceDao.getFacility(num);
+		mav.addObject("spFacList",spFacList);
+		//dspList
+		List<DetailSpaceBean> dspList = detailSpaceDao.getDetailSpaceListBySpaceNum(num);
+		mav.addObject("dspList",dspList);
+		mav.setViewName(getPage);
+		//favorite
+		FavoriteBean favoriteBean = null;
+		
+		if(loginInfo != null) {
+			FavoriteBean fBean = new FavoriteBean();
+			fBean.setSpacenum(num);
+			fBean.setMembernum(loginInfo.getNum());
+			favoriteBean = spaceDao.getFavoriteBySpaceNumAndMemberNum(fBean);
+		}
+		mav.addObject("favoriteBean", favoriteBean);
 		return mav;
 	}
 

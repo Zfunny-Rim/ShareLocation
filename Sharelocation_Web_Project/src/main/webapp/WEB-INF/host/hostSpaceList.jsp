@@ -22,17 +22,8 @@
                 <div class="page-heading">
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
-                    	<div class="row justify-content-md-center mb-2">
-                    		<div class="col-md-9 col-12">
-                    			<div class="row">
-		                    		<div class="col-6 col-md-6 order-md-1 order-last">
-		                                <h3>공간 관리하기</h3>
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
                     	<div class="row justify-content-md-center">
-							<div class="col-md-9 col-12">
+							<div class="col-md-8 col-12">
 	                            <div class="card">
 	                                <div class="card-header">
 	                                    <h4 class="card-title">공간 관리하기</h4>
@@ -76,9 +67,22 @@
 								                                          		<span class="badge bg-light-info" style="font-weight: normal; font-size:12px;">#${tagToken }</span>
 								                                          	</c:forEach>
 								                                        </p>
-								                                        <p class="card-text">
-								                                        	<small class="text-muted">등록일 : ${space.regdate } </small>
-								                                        </p>
+								                                        <div class="d-flex justify-content-between">
+								                                        	<div class="left-side">
+									                                        	<p class="card-text">
+									                                        	분류 : ${space.type }<br>
+									                                        	<small class="text-muted">
+									                                        	<span style="font-weight: bold; margin-bottom:15px;"></span>등록일 : 
+									                                        	<fmt:parseDate var="regDate" value="${space.regdate }" pattern="yyyy-MM-dd"/>
+									                                        	<fmt:formatDate value="${regDate }" pattern="yyyy년 MM월 dd일"/>
+									                                        	</small>
+									                                        	</p>
+								                                        	</div>
+								                                        	<div class="right-side">
+<%-- 								                                        		<span class="badge bg-primary">${space.type }</span> --%>
+								                                        	</div>
+								                                        </div>
+								                                        
 								                                    </div>
 								                                </div>
 								                                <div class="card-footer d-flex justify-content-between bg-light">

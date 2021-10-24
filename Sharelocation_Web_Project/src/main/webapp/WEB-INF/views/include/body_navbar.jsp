@@ -100,6 +100,15 @@
 						<li>
 							<hr class="dropdown-divider">
 						</li>
+						<c:if test="${loginInfo.type eq 'guest' }">
+						<li><a class="dropdown-item" href="/sharelocation">사용자 메인</a></li>
+						</c:if>
+						<c:if test="${loginInfo.type eq 'host' }">
+						<li><a class="dropdown-item" href="main.ho">호스트 메인</a></li>
+						</c:if>
+						<c:if test="${loginInfo.type eq 'admin' }">
+						<li><a class="dropdown-item" href="main.admin">운영자 메인</a></li>
+						</c:if>
 						<li><a class="dropdown-item" href="logout.jsp">Logout</a></li>
 					</ul>
 				</div>

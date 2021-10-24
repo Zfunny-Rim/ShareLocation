@@ -16,8 +16,8 @@
 String[] locationtype = new String[]{"파티룸", "스터디룸", "게임룸", "카페", "공유주방", "회의실", "연습실", "보컬연습실", "악기연습실", "녹음실", "운동시설",
 		"촬영스튜디오", "라이브방송", "공연장", "공유오피스", "독립오피스", "강의실", "컨퍼런스"};
 request.setAttribute("locationtype", locationtype);
-String[] area = new String[]{"서울", "인천", "부산", "광주", "대구", "대전", "울산", "제주", "강원도", "경남", "경북", "전남", "전북"};
-request.setAttribute("area", area);
+String[] areaStr = new String[]{"서울", "인천", "부산", "광주", "대구", "대전", "울산", "제주", "강원도", "경남", "경북", "전남", "전북"};
+request.setAttribute("areaStr", areaStr);
 %>
 <%-- ******* CUSTOM CSS Link HERE ******* --%>
 <style type="text/css">
@@ -83,14 +83,14 @@ request.setAttribute("area", area);
 												<form class="m-0 p-0" action="list.sp" method="get">
 													<div class="input-group ms-auto">
 														<select name="whatColumn" class="input-group-text">
-															<option value="%%">전체종류</option>
+															<option value="">전체종류</option>
 															<c:forEach var="locationtype" items="${locationtype}">
 																<option value="${locationtype}">${locationtype}</option>
 															</c:forEach>
 														</select> <select name="area" class="input-group-text">
-															<option value="%%">전체지역</option>
-															<c:forEach var="area" items="${area}">
-																<option value="${area}">${area}</option>
+															<option value="">전체지역</option>
+															<c:forEach var="areafor" items="${areaStr}">
+																<option value="${areafor}">${areafor}</option>
 															</c:forEach>
 														</select> <input type="text" class="form-control"
 															placeholder="공간을 검색하세요." name="keyword"> <input
@@ -108,26 +108,13 @@ request.setAttribute("area", area);
 								<h4>PowerLink</h4>
 								<section id="content-types">
 									<div class="row">
+										<c:if test="${empty powerLink }">
+										<div style="text-align:center">
+										 검색 결과가 없습니다.
+										</div>
+										</c:if>
 										<c:forEach var="power" items="${powerLink}" begin="0" end="2">
 											<div class="col-xl-4 col-md-6 col-sm-12">
-<!-- 												<div class="card"> -->
-<!-- 													<div class="card-content"> -->
-<!-- 														<div class="card-body"> -->
-<%-- 															<h4 class="card-title">${power.name}</h4> --%>
-<%-- 															<p class="card-text">${power.contentssim}</p> --%>
-<!-- 														</div> -->
-<!-- 														<img class="img-fluid1" -->
-<%-- 															src="<%=request.getContextPath()%>/resources/spaceimage/${power.mainimage}" --%>
-<!-- 															alt="Card image cap"> -->
-<!-- 													</div> -->
-<!-- 													<div class="card-footer d-flex justify-content-between"> -->
-<!-- 														<p> -->
-<%-- 															<span>${power.address} </span> --%>
-<!-- 														</p> -->
-<%-- 														<button onclick="viewDetail(${power.num})" --%>
-<!-- 															class="btn btn-light-primary">detail</button> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
 												<div class="card bg-light clickable" onClick="viewDetail(${power.num})">
 					                                <div class="card-content">
 					                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${power.mainimage}">
@@ -164,28 +151,13 @@ request.setAttribute("area", area);
 								<h4>Link</h4>
 								<section id="content-types">
 									<div class="row">
+										<c:if test="${empty spaceLists }">
+										<div style="text-align:center">
+										 검색 결과가 없습니다.
+										</div>
+										</c:if>
 										<c:forEach var="space" items="${spaceLists}">
 											<div class="col-xl-4 col-md-6 col-sm-12">
-<!-- 												<div class="card bg-light"> -->
-<!-- 													<div class="card-content"> -->
-<!-- 														<div class="card-body"> -->
-<%-- 															<h4 class="card-title">${space.name}</h4> --%>
-<%-- 															<p class="card-text">${space.contentssim}</p> --%>
-<!-- 														</div> -->
-<!-- 														<img class="img-fluid1" -->
-<%-- 															src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}"> --%>
-<!-- 													</div> -->
-<!-- 													<div class="card-footer bg-light d-flex justify-content-between"> -->
-<!-- 														<p> -->
-<%-- 															<span>${space.address} </span> --%>
-<!-- 														</p> -->
-
-<%-- 														<input type="hidden" name="spacenum" value="${space.num}"> --%>
-
-<%-- 														<button onclick="viewDetail(${space.num})" --%>
-<!-- 															class="btn btn-light-primary">detail</button> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
 												<div class="card bg-light clickable" onClick="viewDetail(${space.num})">
 					                                <div class="card-content">
 					                                    <img class="img-fluid card-img-top w-100" style="height:220px;" src="<%=request.getContextPath()%>/resources/spaceimage/${space.mainimage}">
@@ -226,14 +198,14 @@ request.setAttribute("area", area);
 												</c:if>
 												<c:if test="${pageInfo.beginPage ne 1 }">
 													<c:set var="url"
-														value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&spacenum=${spacenum }" />
+														value="${pageInfo.url }?pagenumber=${pageInfo.beginPage -1 }&whatColumn=${param.whatColumn }&area=${param.area }&keyword=${param.keyword }" />
 													<li class="page-item"><a class="page-link"
 														href="${url }">이전</a></li>
 												</c:if>
 												<c:forEach var="i" begin="${pageInfo.beginPage }"
 													end="${pageInfo.endPage }">
 													<c:set var="url"
-														value="${pageInfo.url }?pagenumber=${i }&spacenum=${spacenum }" />
+														value="${pageInfo.url }?pagenumber=${i }&whatColumn=${param.whatColumn }&area=${param.area }&keyword=${param.keyword }" />
 													<c:if test="${i eq pagenumber }">
 														<li class="page-item active"><a class="page-link">${i }</a></li>
 													</c:if>
@@ -247,7 +219,7 @@ request.setAttribute("area", area);
 												</c:if>
 												<c:if test="${pageInfo.endPage ne pageInfo.totalPage }">
 													<c:set var="url"
-														value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&spacenum=${spacenum}" />
+														value="${pageInfo.url }?pagenumber=${pageInfo.endPage +1 }&whatColumn=${param.whatColumn }&area=${param.area }&keyword=${param.keyword }" />
 													<li class="page-item"><a class="page-link"
 														href="${url }">다음</a></li>
 												</c:if>
@@ -269,11 +241,11 @@ request.setAttribute("area", area);
 		<%@ include file="/WEB-INF/views/include/footer_script.jsp"%>
 		<%-- ******* CUSTOM Script HERE ******* --%>
 		<script type="text/javascript">
-function viewDetail(num){
-	//alert(1);
-	location.href="detailView.sp?num="+num;
-}
-</script>
+			function viewDetail(num){
+				//alert(1);
+				location.href="detailView.sp?num="+num;
+			}
+		</script>
 
 
 		<%-- ******* CUSTOM Script END ******* --%>

@@ -1,11 +1,15 @@
 package reservation.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,18 +46,27 @@ public class reservationInsertController {
 	
 	@RequestMapping(value=command)
 	public ModelAndView reservationInsert(
-			@RequestParam(value = "spacenum",required=false) int spacenum,
-			@RequestParam(value = "detailspacenum",required=false) int detailspacenum,
-			ReservationBean reservationbean,BindingResult result, HttpServletRequest request,
-			ModelAndView mav, HttpSession session
-			) throws ParseException{
-		
+			ReservationBean reservationBean, BindingResult result,  HttpServletRequest request,
+			ModelAndView mav, HttpSession session, HttpServletResponse response
+			) throws ParseException, IOException{
+		System.out.println(reservationBean);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		int spacenum = reservationBean.getSpacenum();
+		int detailspacenum = reservationBean.getDetailspacenum();
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='miniLogin.member';");
+			pw.println("</script>");
+			return null;
+		}
 		//set member session요청
-		reservationbean.setMembernum(loginInfo.getNum()); 
-		reservationbean.setSpacenum(spacenum);
-		reservationbean.setDetailspacenum(detailspacenum);
-		reservationbean.setStatus("예약대기");//임시
+		reservationBean.setMembernum(loginInfo.getNum()); 
+		reservationBean.setSpacenum(spacenum);
+		reservationBean.setDetailspacenum(detailspacenum);
+		reservationBean.setStatus("예약대기");//임시
 		
 		String reservationdate = request.getParameter("reservationdate");
 		String checkintime = request.getParameter("checkintime");
@@ -69,8 +82,8 @@ public class reservationInsertController {
 		System.out.println("checkin:"+checkin);
 		System.out.println("checkin:"+checkout);
 		
-		reservationbean.setCheckin(checkin);
-		reservationbean.setCheckout(checkout);
+		reservationBean.setCheckin(checkin);
+		reservationBean.setCheckout(checkout);
 		
 		SpaceBean spacebean = spaceDao.getSpace(spacenum);
 		
@@ -80,19 +93,19 @@ public class reservationInsertController {
 		int Intoperatingtime = Integer.parseInt(checkintime);
 		int Intoperatingendtime = Integer.parseInt(checkouttime);
 		int time = (Intoperatingendtime-Intoperatingtime);
-		int person = reservationbean.getPerson();
-		int totalamount = (price*time)+(price*person);
-		
-		reservationbean.setAmounts(totalamount);
-		
-		System.out.println("resevationbean InsertController:"+reservationbean);
-		if(result.hasErrors()) {
-			System.out.println("유효성 검사 오류입니다.");
-			mav.setViewName(gotoPage);
-			return mav;
+		int person = reservationBean.getPerson();
+		int totalamount = 0;
+		String priceUnit = detailSpacebean.getPriceunit();
+		if(priceUnit.equals("시간")) {
+			totalamount = price * time * person;
+		}else {
+			totalamount = price * time;
 		}
+		reservationBean.setAmounts(totalamount);
+		
+		System.out.println("resevationbean InsertController:"+reservationBean);
 			int cnt=-1;
-			cnt = reservationDao.reservInsert(reservationbean);
+			cnt = reservationDao.reservInsert(reservationBean);
 			if(cnt != -1) {
 				System.out.println("저장 성공");
 			}
@@ -102,9 +115,10 @@ public class reservationInsertController {
 			
 			mav.addObject("spacenum",spacenum);
 			mav.addObject("spacebean",spacebean);
+			mav.addObject("memberbean", loginInfo);
 			mav.addObject("reservationdate",reservationdate);
 			mav.addObject("detailSpacebean",detailSpacebean);
-			mav.addObject("reservationbean",reservationbean);
+			mav.addObject("reservationbean",reservationBean);
 			
 			mav.setViewName(getPage);
 			return mav;

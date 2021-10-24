@@ -2,8 +2,10 @@ package reservation.controller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,17 +48,20 @@ public class reservationController {
 	public ModelAndView reservation(HttpServletRequest request,ModelAndView mav,
 			@RequestParam("spacenum") int spacenum,
 			@RequestParam("detailspacenum") int detailspacenum,		
-			Model model,
+			Model model,HttpServletResponse response,
 			HttpSession session ) throws IOException {
-			 
+		response.setContentType("text/html; charset=UTF-8");	 
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		//로그인 안했다면
+		PrintWriter pw = response.getWriter();
 		if(session.getAttribute("loginInfo")==null) { 
 						
-			model.addAttribute("msg", "로그인 해주세요~!");
-			model.addAttribute("url", "/sharelocation/#");
-			mav.setViewName("redirect");
-			return mav;
+			session.setAttribute("destination", "detailView.sp?num="+spacenum+"&detailspacenum="+detailspacenum);     
+			pw.print("<script>");
+			pw.print("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='miniLogin.member';");
+			pw.print("</script>");
+			return null;
 		}
 		//로그인 했으면
 		else {
@@ -64,14 +69,13 @@ public class reservationController {
 			//호스트정보가져오려면 호스트memberNum값 bean으로 묶기
 			
 			SpaceBean spacebean = spaceDao.getSpace(spacenum);
-			
 			DetailSpaceBean detailSpacebean = detailSpaceDao.getDetailSpaceByNum(detailspacenum);
-			
 			BalanceBean balance = balanceDao.getBalance(spacebean.getMembernum());
 			
 			mav.addObject("balance",balance);
 			mav.addObject("spacebean",spacebean);
 			mav.addObject("detailSpacebean",detailSpacebean);
+			mav.addObject("loginInfo",loginInfo);
 			mav.setViewName(getPage);
 			return mav;
 		}

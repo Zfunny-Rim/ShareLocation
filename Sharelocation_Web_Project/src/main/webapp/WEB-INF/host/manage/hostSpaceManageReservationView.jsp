@@ -49,7 +49,7 @@
 					<tr>
 						<td>요청사항</td>
 						<c:if test = "${empty reservationBean.cusrequest}">
-							<td>없음.</td>
+							<td>없음</td>
    						</c:if>
    						<c:if test = "${not empty reservationBean.cusrequest}">
 							<td>${reservationBean.cusrequest}</td>
@@ -126,7 +126,7 @@
 				</tr>
 				<tr>
 					<td>예약 타입</td>
-					<td>무통장입금</td>
+					<td>${reservationBean.paymenttype }</td>
 				</tr>
 				<tr>
 					<td>예약 금액</td>
@@ -148,6 +148,14 @@
 							<button class="btn btn-outline-primary" type="button"
 								onClick="confirmReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
 								예약확정</button> 
+							<button class="btn btn-outline-danger" type="button" 
+								onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								예약취소</button>
+						</c:if>
+						<c:if test="${reservationBean.status eq '예약확정' }">
+							<button class="btn btn-outline-primary" type="button"
+								onClick="completeReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
+								이용완료</button> 
 							<button class="btn btn-outline-danger" type="button" 
 								onClick="cancelReservation('${spaceNum}','${pageNumber }','${whatColumn}','${keyword }','${reservationBean.num }')">
 								예약취소</button>
@@ -180,13 +188,26 @@
 		}
 	}
 	function checkReservation(spaceNum, pageNum, whatColumn, keyword, num){
-		result = confirm("예약을 확인하시겠습니까? 예약자에게 입금요청을 하게 됩니다.");
-		if(result){
-			if(keyword == ""){
-				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+"&status=입금대기";
-			}else{
-				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
-				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=입금대기";
+		var paymenttype = '${reservationBean.paymenttype}';
+		if(paymenttype == '현장결제'){
+			result = confirm("현장결제는 입금대기 없이 바로 예약이 확정됩니다. 예약을 확정하시겠습니까? ");
+			if(result){
+				if(keyword == ""){
+					location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+"&status=예약확정";
+				}else{
+					location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
+					"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=예약확정";
+				}
+			}
+		}else{
+			result = confirm("예약을 확인하시겠습니까? 예약자에게 입금요청을 하게 됩니다.");
+			if(result){
+				if(keyword == ""){
+					location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+"&status=입금대기";
+				}else{
+					location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
+					"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=입금대기";
+				}
 			}
 		}
 	}
@@ -198,6 +219,17 @@
 			}else{
 				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
 				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=예약확정";
+			}
+		}
+	}
+	function completeReservation(spaceNum, pageNum, whatColumn, keyword, num){
+		result = confirm("이용완료 처리를 하시겠습니까?");
+		if(result){
+			if(keyword == ""){
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+"&status=이용완료";
+			}else{
+				location.href="spaceManageReservationStatusUpdate.ho?spaceNum="+spaceNum+"&pageNumber="+pageNum+"&num="+num+
+				"&whatColumn="+whatColumn+"&keyword="+keyword+"&status=이용완료";
 			}
 		}
 	}

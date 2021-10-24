@@ -20,9 +20,9 @@ import member.model.MemberDao;
 @Controller
 public class MemberLoginCmd {
 	private final String command = "login.member";
-	private final String hostPage = "redirect:/main.ho";
-	private final String guestPage = "redirect:/list.sp";
-	private final String adminPage = "redirect:/main.admin";
+	private final String hostPage = "main.ho";
+	private final String guestPage = "list.sp";
+	private final String adminPage = "main.admin";
 	private final String getPage = "loginForm";
 	
 	@Autowired
@@ -34,7 +34,6 @@ public class MemberLoginCmd {
 			  HttpServletResponse response,
 			  HttpSession session
 			  ) throws IOException {
-		 
 		 Map<String, String> map = new HashMap<String, String>();
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
@@ -46,40 +45,50 @@ public class MemberLoginCmd {
 	     response.setContentType("text/html;charset=UTF-8");
 		 mav.addObject("loginInfo",dbMember);
 		 
-		 String destination = (String)session.getAttribute("destination");
-		 if(destination != null) {
-			 mav.setViewName(destination);
-			 return mav;
-		 }
 		 if(dbMember == null) {
-			 mav.setViewName(getPage);
-			 pw.println("<script>alert('아이디 비밀번호를 확인하세요.');</script>");
+			 //mav.setViewName(getPage);
+			 pw.println("<script>");
+			 pw.println("alert('아이디 비밀번호를 확인하세요.');");
+			 pw.println("location.href='miniLogin.member';");
+			 pw.println("</script>");
 	         pw.flush();
-			 return mav;
+	         return null;
 		 }
-		 
 		 else {
-			 if(dbMember.getType().equals("admin")) {//adminLogin
-				 mav.setViewName(adminPage);
-				 return mav;
+			 String destination = (String)session.getAttribute("destination");
+			 String gotoPage = null;
+			 String userNName = dbMember.getNickname();
+			 if(destination != null) {
+				 gotoPage = destination;
+			 }else {
+				 if(dbMember.getType().equals("admin")) {//adminLogin
+					 gotoPage = adminPage;
+				 }
+				 else if(dbMember.getType().equals("host")) {//hostLogin
+					 gotoPage = hostPage;
+				 }
+				 else {//guestLogin
+					 gotoPage = guestPage;
+				 }
 			 }
-			 else if(dbMember.getType().equals("host")) {//hostLogin
-				 mav.setViewName(hostPage);
-				 return mav;
-			 }
-			 else {//guestLogin
-				 mav.setViewName(guestPage);
-				 return mav;
-			 }
+			 pw.println("<script>");
+			 pw.println("alert('"+userNName+"님 환영합니다.');");
+			 pw.println("location.href='"+gotoPage+"';");
+			 pw.println("</script>");
+			 pw.flush();
+			 return null;
 		 }
 	 }
 	 
 	 @RequestMapping(value = command,method = RequestMethod.GET)
 	 public ModelAndView doAction(
 			 MemberBean member,
+			 HttpServletResponse response,
 			 HttpSession session,
 			 ModelAndView mav
-			 ) {
+			 ) throws IOException {
+		 PrintWriter pw = response.getWriter();   
+	     response.setContentType("text/html;charset=UTF-8");
 		 Map<String, String> map = new HashMap<String, String>();
 		 map.put("id", member.getId());
 		 map.put("password", member.getPassword());
@@ -89,19 +98,24 @@ public class MemberLoginCmd {
 		 
 		 mav = new ModelAndView();
 		 mav.addObject("loginInfo",dbMember);
-		 
+		 String gotoPage = null;
+		 String userNName = dbMember.getNickname();
 		 if(dbMember.getType().equals("admin")) {//adminLogin
-			 mav.setViewName(adminPage);
-			 return mav;
+			 gotoPage = adminPage;
 		 }
 		 else if(dbMember.getType().equals("host")) {//hostLogin
-			 mav.setViewName(hostPage);
-			 return mav;
+			 gotoPage = hostPage;
 		 }
 		 else {//guestLogin
-			 mav.setViewName(guestPage);
-			 return mav;
+			 gotoPage = guestPage;
 		 }
+		 
+		 pw.println("<script>");
+		 pw.println("alert('"+userNName+"님 가입을 환영합니다.');");
+		 pw.println("location.href='"+gotoPage+"';");
+		 pw.println("</script>");
+		 pw.flush();
+		 return null;
 	 }
 	 
 }

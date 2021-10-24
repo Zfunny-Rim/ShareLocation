@@ -26,30 +26,11 @@
                 <div class="page-heading">
                     <section class="section">
                     	<%-- ******* Main Code HERE ******* --%>
-                    	<div class="row justify-content-md-center mb-2">
-                    		<div class="col-md-9 col-12">
-                    			<div class="row">
-		                    		<div class="col-6 col-md-6 order-md-1 order-last">
-		                                <h3>공간 등록하기</h3>
-		                            </div>
-		                            <div class="col-6 col-md-6 order-md-2 order-first">
-		                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-		                                    <ol class="breadcrumb">
-		                                        <li class="breadcrumb-item active" aria-current="page"><b>공간정보 입력</b></li>
-		                                        <li class="breadcrumb-item ">세부공간정보 입력</li>
-		                                        <li class="breadcrumb-item ">정산정보 입력</li>
-		                                    </ol>
-		                                </nav>
-		                            </div>
-                    			</div>
-                    		</div>
-                        </div>
-                        
                     	<div class="row justify-content-md-center">
-							<div class="col-md-9 col-12">
+							<div class="col-md-8 col-12">
 	                            <div class="card">
 	                                <div class="card-header">
-	                                    <h4 class="card-title">공간정보 입력</h4>
+	                                    <h3>공간 등록하기</h3>
 	                                </div>
 	                                <div class="card-content">
 	                                    <div class="card-body">
@@ -63,7 +44,7 @@
 	                                                        <label>공간 이름 <span class="required">*</span> </label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-	                                                        <input type="text" class="form-control" name="name" value="IPS파티룸">
+	                                                        <input type="text" class="form-control" name="name" value="다르다 스튜디오">
 	                                                        <p><small class="text-muted">
 	                                                        	<form:errors cssClass="err" path="name"/>
 	                                                        </small></p>
@@ -83,7 +64,9 @@
 	                                                   		<div class="col-md-8 form-group">
 		                                                   		<c:forEach var="spaceTypeStr" items="${spaceTypeArr1 }">
 		                                                   			<input type="radio" class="btn-check" name="type" 
-		                                                   					id="${spaceTypeStr }" autocomplete="off" value="${spaceTypeStr }">
+		                                                   					id="${spaceTypeStr }" autocomplete="off" value="${spaceTypeStr }" 
+		                                                   			<c:if test="${spaceTypeStr eq '공유주방' }"> checked</c:if>
+		                                                   					>
 	                                                    			<label class="btn btn-outline-primary" for="${spaceTypeStr }">${spaceTypeStr }</label>
 		                                                   		</c:forEach>
 		                                                   		<c:if test="${vs.last }">
@@ -98,7 +81,7 @@
 	                                                        <label>공간 한줄소개 <span class="required">*</span></label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-	                                                        <input type="text" class="form-control" name="contentssim" value="공간한줄소개">
+	                                                        <input type="text" class="form-control" name="contentssim" value="공유주방, 모임, 쿠킹스튜디오">
 	                                                        <p><small class="text-muted">
 	                                                        	<form:errors cssClass="err" path="contentssim"/>
 	                                                        </small></p>
@@ -108,7 +91,7 @@
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
 	                                                        <textarea class="form-control" rows="3" name="contentscom"
-	                                                        	style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">공간소개</textarea>
+	                                                        	style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">다르다 스튜디오는 2021년 1월에 오픈한 영상촬영용 공유주방입니다. 요리에 관련된 콘텐츠 촬영 및 제작하는 공간입니다.</textarea>
 	                                                        <p><small class="text-muted">
 	                                                        	<form:errors cssClass="err" path="contentscom"/>
 	                                                        </small></p>
@@ -117,7 +100,7 @@
 	                                                        <label>공간 태그</label>
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
-															<input class="form-control"	id="choices-text-remove-button" type="text"	name="tag" value="태그1,태그2"/>
+															<input class="form-control"	id="choices-text-remove-button" type="text"	name="tag" value="공유주방,촬영,데이트,모임"/>
 														</div>
 														<div class="col-md-4">
 															<label>시설 안내 <span class="required">*</span></label>
@@ -129,8 +112,10 @@
 			                                                </div>
 															<fieldset class="form-group">
 																<select class="form-select" name="facility" multiple >
-																	<option value="시설안내1">시설안내1</option>
-																	<option value="시설안내2">시설안내2</option>
+																	<option value="시설안내1">영상촬영용 기본조명이 설치되어있습니다.</option>
+																	<option value="시설안내2">하이라이트 2구, 전기오븐 30L 있음</option>
+																	<option value="시설안내2">소형 냉장, 냉동고. 취사시설, 전기밥솥, 전자레인지</option>
+																	<option value="시설안내2">감성넘치는 레트로 키친과 소품들이 있습니다.</option>
 																</select>
 															</fieldset>
 		                                                    <div class="col-sm-12 d-flex justify-content-between">
@@ -145,7 +130,7 @@
 	                                                    </div>
 	                                                    <div class="col-md-8 form-group">
 	                                                        <textarea class="form-control" rows="3" name="warning"
-	                                                        	style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">사용시 주의사항</textarea>
+	                                                        	style="margin-top: 0px; margin-bottom: 0px; height: 170px; resize: none;">퇴실시에 설거지 및 쓰레기 분리수거, 가스, 전기 등 확인을 부탁드립니다.</textarea>
 	                                                        	<p><small class="text-muted">
 		                                                        	<form:errors cssClass="err" path="warning"/>
 		                                                        </small></p>
@@ -189,7 +174,7 @@
 															<label>웹사이트</label>
 														</div>
 														<div class="col-md-8 form-group">
-		                                                    <input type="text" class="form-control" name="site" value="Site URL">
+		                                                    <input type="text" class="form-control" name="site" value="www.naver.com">
 														</div>
 														<div class="divider">
 															<div class="divider-text">연락처 정보</div>
@@ -199,7 +184,7 @@
 														</div>
 														<div class="col-md-8 form-group">
 		                                                    <div class="input-group mb-3">
-			                                                    <input type="text" class="form-control" name="email_id" value="example">
+			                                                    <input type="text" class="form-control" name="email_id" value="darrda">
 			                                                    <span class="input-group-text">@</span>
 			                                                    <input type="text" class="form-control" name="email_domain" value="empas.com">
 			                                                    <select class="form-select" name="domain_selector">
@@ -246,7 +231,9 @@
 			                                                    <span class="input-group-text">시 부터</span>
 			                                                    <select class="form-select" name="operatingendtime">
 			                                                        <c:forEach var="i" begin="0" end="24">
-			                                                    		<option value="${i}">
+			                                                    		<option value="${i}" 
+			                                                    			<c:if test="${i eq 24 }">selected</c:if>
+			                                                    		>
 			                                                    			<fmt:formatNumber value="${i }" pattern="00"/>
 			                                                    		</option>
 			                                                    	</c:forEach>
@@ -286,7 +273,7 @@
 														<input type="hidden" name="hp">
 														<input type="hidden" name="address">
 	                                                    <div class="col-sm-12 d-flex justify-content-end">
-	                                                        <button type="submit" class="btn btn-primary me-1 mb-1" onClick="return processing()">다음</button>
+	                                                        <button type="submit" class="btn btn-primary me-1 mb-1" onClick="return processing()">등록하기</button>
 	                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">취소</button>
 	                                                    </div>
 	                                                </div>
