@@ -24,6 +24,8 @@
 		<typeAlias alias="MyHelp" type="helpBoard.model.HelpBoardBean"/>
 
 		<typeAlias alias="MyQnaBoard" type="qnaBoard.model.QnaBoardBean"/>
+		
+		<typeAlias alias="MyComment" type="space.model.SpaceCommentBean"/>
 
 	</typeAliases>
 	

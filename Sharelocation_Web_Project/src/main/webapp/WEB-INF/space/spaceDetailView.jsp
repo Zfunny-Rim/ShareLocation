@@ -436,6 +436,131 @@ element.style {
 								</c:if>
 							</div>
 							<!-- 세부공간리스트 끝 -->
+							<!-- 댓글 시작 -->
+							<div class="col-12">
+								<div class="card border border-dark">
+									<div class="card-body">
+										<h4>댓글</h4>
+										<c:if test="${not empty commentList }">
+											<span class="text-muted">댓글이 ${commentTotalCount }개 있습니다.</span>
+										</c:if>
+										<c:if test="${empty commentList }">
+											<div class="card-body border-bottom p-3 mb-3">
+												<div class="d-flex justify-content-center mb-2">
+													<div class="card-text">
+														등록된 댓글이 없습니다.
+													</div>
+												</div>
+											</div>
+										</c:if>
+										<c:forEach var="comment" items="${commentList }">
+											<div class="card-body border-bottom p-3 mb-3">
+												<div class="d-flex justify-content-between mb-2">
+													<div class="left-side">
+														<b>${comment.writer }</b><br>
+														<small class="text-muted">
+															<fmt:parseDate var="regDate" value="${comment.regdate }" pattern="yyyy-MM-dd HH:mm" />
+															<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd HH:mm" />
+														</small>
+													</div>
+													<div class="right-side">
+																<c:if test="${not empty loginInfo }">
+																	<c:if test="${loginInfo.num eq comment.membernum }">
+																		<button class="btn btn-sm btn-outline-danger"
+																		onClick="deleteComment(${comment.num}, ${spacenum })">삭제</button>
+																	</c:if>
+																</c:if>
+															</div>
+												</div>
+												
+												<p class="card-text">
+													${comment.content }
+												</p>
+												<c:if test="${not empty comment.replyComment }">
+													<div class="reply-section bg-light" style="padding:5px 5px 5px 20px;">
+														<div class="d-flex justify-content-between mb-2">
+															<div class="left-side">
+																<span style="font-weight: bold; color: #6d3afb; font-size:19px;">
+																	호스트님의 답글
+																</span>
+															</div>
+															<div class="right-side">
+																<c:if test="${not empty loginInfo }">
+																	<c:if test="${loginInfo.num eq comment.replyComment.membernum }">
+																		<button class="btn btn-sm btn-outline-danger"
+																		onClick="deleteComment(${comment.replyComment.num}, ${spacenum })">삭제</button>
+																	</c:if>
+																</c:if>
+															</div>
+														</div>
+														<p class="card-text">
+															${comment.replyComment.content }
+														</p>
+														<small class="text-muted">
+															<fmt:parseDate var="regDate" value="${comment.replyComment.regdate }" pattern="yyyy-MM-dd HH:mm" />
+															<fmt:formatDate value="${regDate }" pattern="yyyy-MM-dd HH:mm" />
+														</small>
+													</div>
+												</c:if>
+											</div>
+										</c:forEach>
+										<!--  페이징 들어갈거임. -->
+										<div class="page-nav d-flex justify-content-center">
+										<nav>
+											<ul class="pagination pagination-primary">
+												<c:if test="${commentPageInfo.beginPage eq 1 }">
+													<li class="page-item disabled"><a
+														class="page-link">이전</a></li>
+												</c:if>
+												<c:if test="${commentPageInfo.beginPage ne 1 }">
+													<c:set var="url"
+														value="${commentPageInfo.url }?commentPageNumber=${commentPageInfo.beginPage -1 }&num=${spacenum }" />
+													<li class="page-item"><a class="page-link"
+														href="${url }">이전</a></li>
+												</c:if>
+												<c:forEach var="i" begin="${commentPageInfo.beginPage }"
+													end="${commentPageInfo.endPage }">
+													<c:set var="url"
+														value="${commentPageInfo.url }?commentPageNumber=${i }&num=${spacenum }" />
+													<c:if test="${i eq commentPageInfo.pageNumber }">
+														<li class="page-item active"><a
+															class="page-link">${i }</a></li>
+													</c:if>
+													<c:if test="${i ne commentPageInfo.pageNumber }">
+														<li class="page-item"><a class="page-link"
+															href="${url }">${i }</a></li>
+													</c:if>
+												</c:forEach>
+												<c:if test="${commentPageInfo.endPage eq commentPageInfo.totalPage }">
+													<li class="page-item disabled"><a
+														class="page-link">다음</a></li>
+												</c:if>
+												<c:if test="${commentPageInfo.endPage ne commentPageInfo.totalPage }">
+													<c:set var="url"
+														value="${commentPageInfo.url }?commentPageNumber=${commentPageInfo.endPage +1 }&num=${spacenum }" />
+													<li class="page-item"><a class="page-link"
+														href="${url }">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+									<!-- 페이징 끝 -->
+										<hr>
+										<h5>댓글 입력하기</h5>
+										<form method="post" action="insertComment.sp">
+											<input type="hidden" name="spacenum" value="${space.num}">
+											<div class="form-floating mb-2">
+											  <textarea class="form-control" id="floatingTextarea2" name="content" style="height: 100px; resize: none;"></textarea>
+											  <label for="floatingTextarea2">댓글(최대 100자)</label>
+											</div>
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-sm btn-outline-success" type="submit" onClick="checkInput()">등록</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- 댓글 종료 -->
 						</div>
 						</div>
 						</div>
@@ -490,11 +615,11 @@ element.style {
 		
 	}
 	
-
-	function replyDel(spaceNum, num){
-		result = confirm('답글을 삭제하시겠습니까?');
+	
+	function deleteComment(num, spaceNum){
+		result = confirm('댓글을 삭제하시겠습니까?');
 		if(result){
-			location.href='spaceManagerReviewReplyDelete.ho?spaceNum='+spaceNum+'&num='+num;
+			location.href='deleteComment.sp?num='+num+'&spaceNum='+spaceNum;
 		}
 	}
 

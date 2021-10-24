@@ -204,4 +204,22 @@
 	<select id="getRecentSpaceList" resultType="MySpace">
 		select * from space order by regdate desc
 	</select>
+	<insert id="insertSpaceComment">
+		insert into spacecomment(num, membernum, spacenum, writer, content, regdate, replynum)
+		values(spacecomment_seq.nextval, #{membernum}, #{spacenum},
+		 #{writer}, #{content},	sysdate, #{replynum})
+	</insert>
+	<select id="getAllCommentListCountBySpaceNum" resultType="int">
+		select count(*) from spacecomment where spacenum=#{spaceNum} and replynum=0
+	</select>
+	<select id="getCommentListBySpaceNum" resultType="MyComment">
+		select * from spacecomment where spacenum=#{spaceNum} and replynum=0 
+		order by regdate desc
+	</select>
+	<select id="getReplyCommentByReplyNum" resultType="MyComment">
+		select * from spacecomment where replynum=#{num}
+	</select>
+	<delete id="deleteComment">
+		delete spacecomment where num = #{num}
+	</delete>
 </mapper>

@@ -50,6 +50,7 @@ import reviewBoard.model.ReviewBoardBean;
 import reviewBoard.model.ReviewBoardDao;
 import space.model.AdvertiseBean;
 import space.model.SpaceBean;
+import space.model.SpaceCommentBean;
 import space.model.SpaceDao;
 import space.model.SpaceFacilityBean;
 import space.model.SpaceImageBean;
@@ -81,6 +82,8 @@ public class HostSpaceManageController {
 	private final String advertisePurchaseCommand = "spaceManagerAdvertisePurchase.ho";
 	private final String statisticCommand = "spaceManageStatistic.ho";
 	private final String statisticDetailCommand = "spaceManageStatisticDetail.ho";
+	private final String commentCommand = "spaceManageCommentList.ho";
+	private final String commentReplyCommand = "spaceManageCommentReply.ho";
 	
 	private final String viewPage = "manage/hostSpaceManage";
 	private String getPage;
@@ -1264,5 +1267,55 @@ public class HostSpaceManageController {
 		return mav;
 		
 		
+	}
+
+	@RequestMapping(value=commentCommand)
+	public ModelAndView commentList(@RequestParam(value="spaceNum")int spaceNum,
+			@RequestParam(value="pageNumber", required = false)String pageNumber) {
+		ModelAndView mav = new ModelAndView(viewPage);
+		getPage = "CommentList";
+		mav.addObject("getPage", getPage);
+		if(pageNumber == null) {
+			pageNumber = "1";
+		}
+		int commentTotalCount = spaceDao.getAllCommentListCountBySpaceNum(spaceNum);
+		String url = servletContext.getContextPath() + "/" + commentCommand;
+		Paging commentPageInfo = new Paging(pageNumber, "3", commentTotalCount, url, null, null, null);
+		List<SpaceCommentBean> commentList = spaceDao.getCommentListBySpaceNum(spaceNum, commentPageInfo);
+		for(SpaceCommentBean scBean:commentList) {
+			SpaceCommentBean replyBean = spaceDao.getReplyCommentByReplyNum(scBean.getNum());
+			scBean.setReplyComment(replyBean);
+		}
+		mav.addObject("commentTotalCount", commentTotalCount);
+		mav.addObject("commentList", commentList);
+		mav.addObject("commentPageInfo", commentPageInfo);
+		mav.addObject("spaceNum", spaceNum);
+		return mav;
+	}
+	
+	@RequestMapping(value=commentReplyCommand)
+	public ModelAndView commentReply(SpaceCommentBean spaceCommentBean,
+		HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException{
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		ModelAndView mav = new ModelAndView(viewPage);
+		MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			pw.println("<script>");
+			pw.println("alert('로그인이 필요한 서비스입니다.');");
+			pw.println("location.href='miniLogin.member';");
+			pw.println("</script>");
+			pw.flush();
+			return null;
+		}
+		spaceCommentBean.setMembernum(loginInfo.getNum());
+		spaceCommentBean.setWriter(loginInfo.getNickname());
+		System.out.println(spaceCommentBean);
+		int cnt = -1;
+		cnt = spaceDao.insertSpaceComment(spaceCommentBean);
+		mav.setViewName("redirect:/"+commentCommand);
+		mav.addObject("spaceNum", spaceCommentBean.getSpacenum());
+		mav.addObject("pageNumber", request.getParameter("pageNumber"));
+		return mav;
 	}
 }

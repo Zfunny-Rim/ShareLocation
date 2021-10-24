@@ -38,6 +38,8 @@
 											   href="spaceManageBalance.ho?spaceNum=${spaceNum }">정산정보 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Review"
 											   href="spaceManageReview.ho?spaceNum=${spaceNum }">후기 관리</a>
+											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Comment"
+											   href="spaceManageCommentList.ho?spaceNum=${spaceNum }">댓글 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Reservation"
 											   href="spaceManageReservation.ho?spaceNum=${spaceNum }">예약 관리</a>
 											  <a class="flex-sm-fill text-sm-center nav-link bg-light border border-white" id="Advertise"
@@ -82,6 +84,9 @@
 			}
 			else if(pageName.startsWith('Statistic')){
 				nav = document.getElementById('Statistic');
+			}
+			else if(pageName.startsWith('Comment')){
+				nav = document.getElementById('Comment');
 			}
 			else{
 				nav = document.getElementById(pageName);

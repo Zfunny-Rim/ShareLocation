@@ -168,5 +168,21 @@ public class SpaceDao {
 		RowBounds rowBounds = new RowBounds(0, listCount);
 		return sqlSessionTemplate.selectList(namespace+".getRecentSpaceList", listCount, rowBounds);
 	}
+	public int insertSpaceComment(SpaceCommentBean spaceCommentBean) {
+		return sqlSessionTemplate.insert(namespace+".insertSpaceComment", spaceCommentBean);
+	}
+	public int getAllCommentListCountBySpaceNum(int spaceNum) {
+		return sqlSessionTemplate.selectOne(namespace+".getAllCommentListCountBySpaceNum", spaceNum);
+	}
+	public List<SpaceCommentBean> getCommentListBySpaceNum(int spaceNum, Paging commentPageInfo) {
+		RowBounds rowBounds = new RowBounds(commentPageInfo.getOffset(), commentPageInfo.getLimit());
+		return sqlSessionTemplate.selectList(namespace+".getCommentListBySpaceNum", spaceNum, rowBounds);
+	}
+	public SpaceCommentBean getReplyCommentByReplyNum(int num) {
+		return sqlSessionTemplate.selectOne(namespace+".getReplyCommentByReplyNum", num);
+	}
+	public int deleteComment(int num) {
+		return sqlSessionTemplate.delete(namespace+".deleteComment", num);
+	}
 }
 
