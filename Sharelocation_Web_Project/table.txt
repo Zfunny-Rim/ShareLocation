@@ -1,0 +1,401 @@
+-- members --
+---SEQ
+drop sequence members_seq;
+create sequence members_seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 10000
+  nocache;
+---TABLE
+drop table members cascade constraints;
+create table members( 
+	num number primary key,
+	id varchar2(30) not null,
+	password varchar2(20) not null,
+  name varchar2(30) not null,
+  nickname varchar2(20) not null,
+  email varchar2(50) not null,
+  address varchar2(100) not null,
+  hp varchar2(20) not null,
+	birth date not null,
+  gender varchar2(10) not null,
+  type varchar2(30) not null,
+  joindate date default sysdate not null
+);
+
+-- SPACE --
+--- SEQ
+drop sequence space_seq;
+create sequence space_seq 
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+--- TABLE
+drop table space cascade constraints;
+create table space(
+num number not null primary key,
+membernum number not null,
+name varchar2(200),
+type varchar2(20),
+contentssim varchar2(100),
+contentscom varchar2(200),
+tag varchar2(200),
+warning varchar2(1000),
+site varchar2(200),
+address varchar2(200),
+mainimage varchar2(200),
+email varchar2(60),
+hp varchar2(30),
+operatingtime varchar2(10),
+operatingendtime varchar2(10),
+holiday varchar2(60),
+grade varchar2(20),
+status varchar2(20),
+regdate date default sysdate,
+constraint fk_space foreign key(membernum) references members(num) on delete cascade
+);
+
+-- SPACE FACILITY --
+---SEQ
+drop sequence spacefacility_seq;
+create sequence spacefacility_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+---TABLE
+drop table spacefacility cascade constraints;
+create table spacefacility(
+num number not null primary key,
+spacenum number,
+facility varchar2(200),
+constraint fk_spacefacility foreign key(spacenum) references space(num) on delete cascade
+);
+
+-- SPACE Image --
+---SEQ
+drop sequence spaceimage_seq;
+create sequence spaceimage_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+---TABLE
+drop table spaceimage cascade constraints;
+create table spaceimage(
+num number not null primary key,
+spacenum number,
+image varchar2(200),
+constraint fk_spaceimage foreign key(spacenum) references space(num) on delete cascade
+);
+
+-- DETAILSPACE --
+---SEQ
+drop sequence detailspace_seq;
+create sequence detailspace_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+---TABLE
+drop table detailspace cascade constraints;
+create table detailspace(
+  num number primary key,
+  spacenum number,
+  name varchar2(60),
+  contents varchar2(300),
+  type varchar2(30),
+  mainimage varchar2(200),
+  mintime number,
+  minperson number,
+  maxperson number,
+  priceunit varchar2(30),
+  price number,
+  constraint fk_detailspace foreign key(spacenum) 
+  references space(num) on delete cascade
+);
+
+---------------reservation_seq---------------
+drop sequence reservation_seq;
+create sequence  reservation_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+---------------table reservation ---------------
+drop table reservation  cascade constraints;
+create table reservation(
+num number not null primary key,
+membernum number,
+spacenum number,
+detailspacenum number,
+checkin date,
+checkout date,
+person number,
+amounts number,
+cusrequest varchar2(300),
+paymenttype varchar2(30),
+applicationdate date,
+status varchar2(30),
+constraint fk_reservation_mbnum foreign key(membernum)
+references members(num) on delete cascade,
+constraint fk_reservation_spnum foreign key(spacenum)
+references space(num) on delete cascade,
+constraint fk_reservation_dspnum foreign key(detailspacenum)
+references detailspace(num) on delete cascade
+);
+
+---------- table balance ----------
+drop sequence balance_seq;
+create sequence balance_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table balance cascade constraints;
+create table balance(
+  num number primary key,
+  membernum number,
+  company varchar2(100),
+  name varchar2(30),
+  address varchar2(300),
+  email varchar2(300),
+  call varchar2(100),
+  bank varchar2(30),
+  account varchar2(50),
+  constraint fk_balance foreign key(membernum) 
+  references members(num) on delete cascade
+);
+---------- packageprice package ----------
+drop sequence packageprice_seq;
+create sequence packageprice_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table packageprice cascade constraints;
+create table packageprice(
+  num number primary key,
+  title varchar2(60),
+  detailspacenum number,
+  checkintime number,
+  checkouttime number,
+  price number,
+  constraint fk_package_price foreign key(detailspacenum)
+  references detailspace(num) on delete cascade
+);
+
+--------------- table reviewBoard ---------------
+drop sequence review_board_seq;
+create sequence review_board_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table reviewboard cascade constraints;
+create table reviewboard(
+num number not null primary key,
+spacenum number,
+membernum number,
+writer varchar2(30),
+regdate date,
+content varchar2(500),
+ref number,
+restep number,
+relevel number,
+servicerating number,
+pricevalueration number,
+cleanrating number,
+totalrating number,
+constraint fk_reviewboard foreign key(spacenum)
+references space(num) on delete cascade,
+constraint fk_reviewboard_mnum foreign key(membernum)
+references members(num) on delete cascade
+);
+
+drop sequence advertise_seq;
+create sequence advertise_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table advertise cascade constraints;
+create table advertise(
+  num number primary key,
+  spacenum number,
+  applicationdate date,
+  expiredate date,
+  price number,
+  constraint fk_advertise_snum foreign key(spacenum)
+  references space(num) on delete cascade
+);
+
+drop sequence income_seq;
+create sequence income_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table income cascade constraints;
+create table income(
+  num number primary key,
+  membernum number,
+  spacenum number,
+  type varchar2(20),
+  category varchar2(30),
+  price number,
+  incomedate date,
+  note varchar2(100),
+  reservationnum number,
+  advertisenum number,
+  constraint fk_income_mnum foreign key(membernum)
+  references members(num) on delete cascade,
+  constraint fk_income_snum foreign key(spacenum)
+  references space(num) on delete cascade
+);
+
+drop sequence favorite_seq;
+create sequence favorite_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table favorite cascade constraints;
+create table favorite(
+num number primary key,
+spacenum number,
+membernum number,
+constraint fk_favorite_snum foreign key(spacenum)
+references space(num) on delete cascade,
+constraint fk_favorite_mnum foreign key(membernum)
+references members(num) on delete cascade
+);
+--------------- table notice Board ---------------
+drop sequence notice_board_seq;
+create sequence notice_board_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table noticeboard cascade constraints;
+create table noticeboard (
+num number not null primary key,
+membernum number,
+subject varchar2(30),
+writer varchar2(30),
+regdate date,
+content varchar2(500),
+constraint fk_noticeboard_nnum foreign key(membernum)
+references members(num) on delete cascade
+);
+
+drop sequence qnaboard_seq;
+create sequence qnaboard_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table qnaboard ;
+create table qnaboard(
+num number not null primary key,
+membernum number not null,
+subject varchar2(200) not null,
+writer varchar2(20) not null,
+type varchar2(10) not null,
+content varchar2(500) not null,
+regdate date default sysdate,
+ref number,
+restep number,
+relevel number,
+readcount number,
+foreign key(membernum ) references members(num)  on delete cascade
+);
+drop sequence notice_board_seq;
+create sequence notice_board_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table noticeboard cascade constraints;
+create table noticeboard (
+num number not null primary key,
+membernum number,
+subject varchar2(30),
+writer varchar2(30),
+regdate date,
+content varchar2(500),
+constraint fk_reviewboard_membernum foreign key(membernum)
+references members(num) on delete cascade
+);
+drop sequence help_board_seq;
+create sequence help_board_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table helpboard cascade constraints;
+create table helpboard (
+num number not null primary key,
+title varchar2(300),
+membernum number,
+category varchar2(30),
+writer varchar2(30),
+regdate date,
+content varchar2(500),
+readcount number,
+constraint fk_helpboard_membernum foreign key(membernum)
+references members(num) on delete cascade
+);
+
+drop sequence spacecomment_seq;
+create sequence spacecomment_seq
+increment by 1
+start with 1
+minvalue 0
+maxvalue 10000
+nocache;
+
+drop table spacecomment cascade constraints;
+create table spacecomment(
+num number primary key,
+membernum number,
+spacenum number,
+writer varchar2(30),
+content varchar2(300),
+regdate date,
+replynum number,
+constraint fk_comment_mnum foreign key(membernum)
+references members(num) on delete cascade,
+constraint ky_comment_snum foreign key(spacenum)
+references space(num) on delete cascade
+);
+
+insert into members values(members_seq.nextval, 'admin', '1234', '김운영', '운영자', 'admin@admin.com', '서울시 서대문구', '010-1234-1234', '1988-09-14', '남', 'admin', sysdate);
